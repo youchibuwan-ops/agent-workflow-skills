@@ -25,10 +25,13 @@ class IsolationTests(unittest.TestCase):
             (root / 'v2').mkdir()
             (root / 'v3').mkdir()
             (root / 'v4').mkdir()
-            for prefix, version in [('', 1), ('v2/', 2), ('v3/', 3), ('v4/', 4)]:
+            (root / 'v5').mkdir()
+            for prefix, version in [('', 1), ('v2/', 2), ('v3/', 3), ('v4/', 4), ('v5/', 5)]:
                 (root / (prefix + 'protocol.json')).write_text(json.dumps({'version': version}), encoding='utf8')
                 (root / (prefix + 'payloads.json')).write_text(json.dumps({'target': {'SKILL.md': str(version)}}), encoding='utf8')
             with patch.object(experiment, 'PACKAGE', root):
+                experiment.configure_study(5)
+                self.assertEqual(experiment.expected_payload('target'), {'SKILL.md': '5'})
                 experiment.configure_study(4)
                 self.assertEqual(experiment.expected_payload('target'), {'SKILL.md': '4'})
                 experiment.configure_study(3)
