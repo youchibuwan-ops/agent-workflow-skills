@@ -39,11 +39,13 @@ delete process.env.DSH_BUNDLED_SKILL_DIR;
 const ctx = new Context();
 const report = { kind: 'official-components-no-model', runtimeVersion: '0.2.1-rc.2', node: process.version, skills: [], desktop: 'unverified', automaticSelection: 'unverified', realTasks: 'unverified' };
 try {
-  // A Node child inherits Codex's bundled PowerShell Core module path. Let Windows
-  // PowerShell rebuild its native module path, as it does when started by Explorer.
-  const shellEnv = { ...process.env };
-  for (const key of Object.keys(shellEnv)) if (key.toLowerCase() === 'psmodulepath') delete shellEnv[key];
-  execFileSync('powershell.exe', ['-NoProfile', '-ExecutionPolicy', 'Bypass', '-File', join(repo, 'windows/Manage-DshSkills.ps1'), '-Action', 'Install', '-DshHome', home, '-Yes', '-NonInteractive'], { encoding: 'utf8', env: shellEnv });
+  // Exercise the real entry point. The test no longer sanitizes PSModulePath:
+  // isolation of Windows PowerShell's native module path belongs to the launcher.
+  const launcher = join(repo, 'Install-DSH.cmd');
+  execFileSync(process.env.ComSpec || 'cmd.exe', ['/d', '/s', '/c', `""${launcher}" -Yes -NonInteractive"`], {
+    encoding: 'utf8', env: { ...process.env, AWS_DSH_NO_PAUSE: '1' }, windowsVerbatimArguments: true,
+  });
+  report.installationEntry = 'real CMD launcher; no harness PSModulePath sanitization';
   assert.equal(resolveDshHome(), home);
   // The official plugin consumes the workingDirectory service; no user cwd/profile is read.
   ctx.provide('workingDirectory', { ensure: async () => cwd });

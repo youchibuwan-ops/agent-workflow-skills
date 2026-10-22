@@ -12,6 +12,14 @@
                   },
                   {
                       "result":  "pass",
+                      "name":  "receipt separates distribution identity from Skill content baseline"
+                  },
+                  {
+                      "result":  "pass",
+                      "name":  "legacy preview.1 receipts update to current provenance without payload changes"
+                  },
+                  {
+                      "result":  "pass",
                       "name":  "check inventories without loading a model"
                   },
                   {

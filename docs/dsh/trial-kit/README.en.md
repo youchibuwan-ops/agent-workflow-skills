@@ -2,7 +2,8 @@
 
 [中文完整步骤和原始提示词](README.zh-CN.md) · [Install](../install.en.md) · [Blank record](feedback-template.md)
 
-No classmate testing has occurred. This kit is a protocol, not evidence of a pass.
+A written trial report was received without the referenced raw logs/artifacts.
+Complete classmate acceptance remains unverified. This kit is a protocol, not evidence of a pass.
 
 Use a separate Windows test account with official Desktop. Do not import personal
 DSH settings, skills, credentials or QQ Bridge. Create task folders outside this
@@ -35,8 +36,9 @@ renders/viewing, never the model's self-reported pass.
 
 Exercise install, identical reinstall, Check, same-version Update, uninstall and repeat
 uninstall. A real cross-version update needs two distinct packages; if only one exists,
-record unverified. Local developer update evidence uses a labeled synthetic next-version
-fixture and cannot replace that student test. Do not simulate crashes or corrupt receipts
+record unverified. Local developer update evidence uses a labeled synthetic fixture and,
+for preview.2, an actual old preview.1 ZIP in an isolated home. Neither replaces that
+student test. Do not simulate crashes or corrupt receipts
 on the classmate's computer.
 
 Record each layer independently in the feedback form. Share only redacted trial inputs,

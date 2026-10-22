@@ -1,6 +1,6 @@
 ﻿{
     "pathCase":  "Unicode and spaces",
-    "zipSha256":  "ff08bc4eb6419aee464c5e60d7346ec5c950bf3fc0c94b24e3396d9f429d8058",
+    "zipSha256":  "396df38e6fd8bb2970720f61e627ef0a6a1ad58b1822103b6c13f7c5b59f14d1",
     "actions":  [
                     "Install",
                     "Install",
@@ -9,6 +9,7 @@
                     "Uninstall",
                     "Uninstall"
                 ],
+    "archiveLayout":  "flat preview archive",
     "result":  "pass",
     "kind":  "extracted-zip-cmd-lifecycle",
     "desktop":  "unverified"

@@ -1,12 +1,14 @@
 # DSH preview validation and decision
 
 Date: 2026-10-23. Skill source: `c1434f04704938774eb359053aaafdf38ee90868`.
-Adapter: `0.1.0-dsh-preview.1`. Original skill payload unchanged.
+Adapter: `0.1.0-dsh-preview.2`. Original skill payload unchanged.
 
 **NO-GO for general distribution as accepted/reliable Desktop skills. GO only for a
 clearly labeled, supervised classmate preview.** The user confirmed no Desktop is
-installed locally and asked for the classmate to test it. No third-party acceptance
-or model-task success is claimed. No formal Release, merge or submission is authorized.
+installed locally and asked for the classmate to test it. A written trial report was
+subsequently supplied without the referenced raw logs, scripts, SVGs or renders.
+It is recorded as reported observations, not independently verified acceptance or
+model-task success. No formal Release, merge or submission is authorized.
 
 ## Actual local results
 
@@ -14,7 +16,10 @@ or model-task success is claimed. No formal Release, merge or submission is auth
 | --- | --- | --- | --- |
 | Install, exact payload, references/license copied | PASS | PASS | Windows PowerShell 5.1 actual filesystem operations, including Unicode/spaces. |
 | Repeat install, same-version update, synthetic next-version update | PASS | PASS | Next-version fixture is generated only inside the test. It is not a shipped second release. |
-| Refuse unknown install, edits, extra files/directories, bad receipt paths, locks, junctions; rollback and cleanup failures | PASS | PASS | [23-case lifecycle report](evidence/windows-lifecycle.json); assertions are not host tests. |
+| Refuse unknown install, edits, extra files/directories, bad receipt paths, locks, junctions; rollback and cleanup failures; provenance and legacy receipts | PASS | PASS | [25-case lifecycle report](evidence/windows-lifecycle.json); assertions are not host tests. |
+| Actual PS7 parent → CMD → Windows PowerShell launch | PASS | PASS | [Old failure](evidence/ps7-regression-red.json), [repaired six-action run](evidence/ps7-regression.json); no module-path sanitization by test for new launchers. |
+| PS7 chain after actual preview.2 ZIP extraction | PASS | PASS | [ZIP regression](evidence/ps7-zip-regression.json), real launchers in a path with Unicode/spaces. |
+| Real previous preview.1 archive → new Update under PS7 | PASS | PASS | [Developer test](evidence/ps7-real-preview1-update.json); old package setup uses its supported clean environment, then new launchers receive the PS7-first path. Not a novice acceptance result. |
 | Uninstall, repeat uninstall, unrelated config sentinel preserved | PASS | PASS | Tests never use personal DSH home. |
 | Official Provider discovers `user-dsh`; model catalog lists name | PASS | PASS | [official-components.json](evidence/official-components.json), published0.2.1-rc.2 components. No Desktop UI. |
 | Registry and skill tool return entire original body | PASS | PASS | Exact body comparison and terminal content included; references read via real resource base. |
@@ -29,7 +34,7 @@ or model-task success is claimed. No formal Release, merge or submission is auth
 later rebuilt archives have different hashes and must be tested again. CI attaches
 the archive, its checksum and that run's external test report together. This avoids
 pretending a report embedded in an archive can hash its own containing archive.
-The real [GitHub commit Download ZIP test](evidence/github-source-zip-test.json) also
+The historical preview.1 [GitHub commit Download ZIP test](evidence/github-source-zip-test.json) also
 passed all six launcher actions after entering GitHub's extra top-level folder, using
 the published code commit `eae58ea187af0c7f1965b5f2bf569232014983fa`. This was downloaded
 from GitHub, not reconstructed locally. Neither ZIP exercise launches Desktop.
@@ -52,6 +57,7 @@ Developer commands (not student requirements):
 npm.cmd ci --ignore-scripts
 npm.cmd run lint
 powershell.exe -NoProfile -ExecutionPolicy Bypass -File tests/dsh-lifecycle.ps1 -ReportPath docs/dsh/evidence/windows-lifecycle.json
+pwsh.exe -NoProfile -File tests/dsh-ps7.ps1 -ReportPath docs/dsh/evidence/ps7-regression.json
 npm.cmd ci --prefix tests/dsh-runtime --ignore-scripts
 node scripts/verify-dsh-runtime.mjs tests/dsh-runtime docs/dsh/evidence/official-components.json
 ```
@@ -61,8 +67,10 @@ fixture, plus the **real** official registry, provider, catalog/slash handlers, 
 tool and pruner. It is not a complete booted official host or live LLM. File watchers
 are disabled. DSH_HOME, DSH_AGENTS_HOME and bundled roots are isolated/restored only
 inside the test process; no personal configs, keys, profiles or service are used.
-The Node→PowerShell child drops an inherited Codex PowerShell Core module path so
-Windows PowerShell resolves its own built-in modules; this does not change user settings.
+The component probe now uses the real CMD installer with its inherited module path
+unchanged by the test harness. Preview.1 sanitized the child environment in the probe,
+which masked the actual CMD launch defect; preview.2 repairs all four production CMD
+entry points and adds an independent real-PS7 regression before and after ZIP extraction.
 
 ## Test-driven failures retained in history
 
@@ -99,3 +107,18 @@ ACLs only on a disposable test fixture, never a real installation.
 
 Trial inputs, exact prompts, isolation instructions, scoring boundaries and a blank
 record are in the [classmate kit](trial-kit/README.zh-CN.md). Pending fields remain blank.
+
+## Written classmate report received; raw evidence pending
+
+The user's supplied report describes successful installation/loading and task outputs,
+but its referenced logs, verification scripts, source SVG and rendered images were not
+provided here. No corresponding acceptance row is upgraded to PASS. Its uninstall,
+residual-directory and SVG auto-invocation sections remain incomplete. Automatic discovery
+was prompted with explicit Skill-loading language and a unique reference filename;
+the negative result relies on an agent's account of its tool use, not a supplied raw trace.
+Fresh Desktop chats, unprompted positives/negatives, clean-account A/B and long-context
+recovery remain unverified. The original report is not edited or republished.
+
+The reported PS7 installer defect was independently reproduced and fixed in this repo;
+those new developer results are separate from the classmate's missing evidence.
+See [preview.2 repair scope](preview2-repair.md) and [provenance](provenance.md).

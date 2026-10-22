@@ -1,0 +1,14 @@
+{
+  "kind": "real-powershell7-cmd-windows-powershell-regression",
+  "parentVersion": "7.6.5",
+  "modulePath": "PowerShell 7 modules deliberately first; never sanitized by test",
+  "result": "fail",
+  "actions": [],
+  "desktop": "unverified",
+  "model": "not used",
+  "error": "Install via PS7 -> CMD -> Windows PowerShell exited 1: Action: Install; selected: proactive-skill-discovery, crafting-reference-based-svg-assets\nDSH home: <temporary-test-root>\\中文 DSH home\nSkill directory: <temporary-test-root>\\中文 DSH home\\skills\nOnly owned skill bundles are managed. No DSH configuration or plugins are changed.\nERROR: The term 'Get-FileHash' is not recognized as the name of a cmdlet, function, script file, or operable program. Check the spelling of the name, or if a path was included, verify that the path is correct and try again.",
+  "phase": "before production launcher repair",
+  "testedDistributionVersion": "0.1.0-dsh-preview.1",
+  "testedProductionRevision": "08ba3852e43838e7ec9e5355aa2a10290e0457bd",
+  "evidenceScope": "actual local developer reproduction; not the classmate log"
+}

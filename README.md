@@ -4,13 +4,16 @@
 
 **Start here: [Download ZIP → install → use → uninstall](docs/dsh/install.en.md)**
 ([零基础中文](docs/dsh/install.zh-CN.md)). Requires official Desktop and Windows PowerShell,
-not Codex, Git, Node.js or Python. Preview `0.1.0-dsh-preview.1`: **NO-GO for general
-rollout** until actual classmate/Desktop trials. [Trial kit and A/B protocol](docs/dsh/trial-kit/README.en.md)
+not Codex, Git, Node.js or Python. Preview `0.1.0-dsh-preview.2` repairs launch from
+PowerShell 7. A written trial report was received; its underlying artifacts were not
+provided, so **NO-GO for general rollout** remains. [Trial kit and A/B protocol](docs/dsh/trial-kit/README.en.md)
 · [Evidence and unverified items](docs/dsh/validation.md) · [Official source audit](docs/dsh/compatibility.md).
 
 Based on `c1434f0`; skill bodies and references stay unchanged. No official DSH,
 personal configuration or QQ Bridge changes. **Codex installation is separate:**
 [English](docs/installation.md) · [中文](docs/codex-install.zh-CN.md).
+Already installed preview.1? Use the new ZIP's `Update-DSH.cmd`.
+[Content baseline versus distribution/ZIP identity](docs/dsh/provenance.md).
 
 [中文说明](README.zh-CN.md) · [Examples](#real-examples) · [Install guide](docs/installation.md)
 

@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+- DSH distribution preview.2: isolate inherited PS7 module paths in the four CMD
+  launchers; add actual PS7/CMD and extracted-ZIP regressions, retain the real old
+  failure, and support unchanged preview.1 receipts during update.
+- Label distribution version and original Skill content baseline separately; record
+  the exact manifest digest in new receipts, with separate ZIP provenance guidance.
+- Record receipt of a written classmate report without treating its missing raw
+  artifacts or untested cases as acceptance passes. Original Skill content unchanged.
+
 - Proactive output checks, mechanism-based Skill matching, actual-use verification,
   conditional lesson promotion, counterexamples and revalidation/withdrawal guidance.
 - Current binder r08: complete six-curl/two-wire construction, eleven reviewed local

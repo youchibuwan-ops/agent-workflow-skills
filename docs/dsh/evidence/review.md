@@ -20,7 +20,9 @@ independent agent that received the requirements and files, not the author's his
 Final independent rerun: **22/22 lifecycle cases passed**, including both findings.
 The author subsequently added and passed a 23rd test: a real open file on the second
 bundle forces a commit failure and verifies the first bundle is restored unchanged.
-The final [machine-readable report](windows-lifecycle.json) records the full 23 cases.
+The preview.1 run had 23 cases. The current [machine-readable report](windows-lifecycle.json)
+adds two preview.2 provenance/legacy-receipt cases (25 total); those additions are not
+retroactively attributed to this original review.
 
 The reviewer also independently exercised the earlier ZIP's six CMD actions and both
 official component probes, checked payload licenses/absence of dependency and credential

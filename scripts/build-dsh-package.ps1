@@ -4,6 +4,8 @@ $repo = Split-Path $PSScriptRoot -Parent
 if (-not $OutputDirectory) { $OutputDirectory = Join-Path $repo 'dist' }
 $names = @('proactive-skill-discovery','crafting-reference-based-svg-assets')
 if ($RefreshManifest) {
+    # Preserve explicitly reviewed distribution/content versions when refreshing hashes.
+    $previous = [IO.File]::ReadAllText((Join-Path $repo 'dsh-manifest.json')) | ConvertFrom-Json
     $skills = foreach ($name in $names) {
         $directory = Join-Path $repo "skills/$name"
         $files = foreach ($file in Get-ChildItem -LiteralPath $directory -File -Recurse) {
@@ -12,13 +14,13 @@ if ($RefreshManifest) {
         }
         [ordered]@{ name = $name; files = @($files | Sort-Object path) }
     }
-    $manifest = [ordered]@{ schema = 1; owner = 'youchibuwan-ops/agent-workflow-skills'; version = '0.1.0-dsh-preview.1'; sourceCommit = 'c1434f04704938774eb359053aaafdf38ee90868'; skills = @($skills) }
+    $manifest = [ordered]@{ schema = 1; owner = 'youchibuwan-ops/agent-workflow-skills'; version = $previous.version; versionRole = 'DSH-distribution'; sourceCommit = $previous.sourceCommit; sourceCommitRole = 'skill-content-baseline'; skills = @($skills) }
     [IO.File]::WriteAllText((Join-Path $repo 'dsh-manifest.json'), (($manifest | ConvertTo-Json -Depth 10) + "`n"), (New-Object Text.UTF8Encoding($false)))
 }
 [IO.Directory]::CreateDirectory($OutputDirectory) | Out-Null
 $zip = Join-Path $OutputDirectory 'agent-workflow-skills-dsh-preview.zip'
 if (Test-Path -LiteralPath $zip) { throw "Output already exists; choose a fresh output directory: $zip" }
-$include = @('README.md','README.zh-CN.md','LICENSE','CHANGELOG.md','skills','windows','docs','scripts','tests/dsh-lifecycle.ps1','tests/dsh-zip.ps1','tests/dsh-runtime/package.json','tests/dsh-runtime/package-lock.json','examples','package.json','package-lock.json','.markdownlint.json','Install-DSH.cmd','Update-DSH.cmd','Uninstall-DSH.cmd','Check-DSH.cmd','dsh-manifest.json')
+$include = @('README.md','README.zh-CN.md','LICENSE','CHANGELOG.md','skills','windows','docs','scripts','tests/dsh-lifecycle.ps1','tests/dsh-zip.ps1','tests/dsh-ps7.ps1','tests/dsh-runtime/package.json','tests/dsh-runtime/package-lock.json','examples','package.json','package-lock.json','.markdownlint.json','Install-DSH.cmd','Update-DSH.cmd','Uninstall-DSH.cmd','Check-DSH.cmd','dsh-manifest.json')
 Add-Type -AssemblyName System.IO.Compression
 Add-Type -AssemblyName System.IO.Compression.FileSystem
 $archive = [IO.Compression.ZipFile]::Open($zip, [IO.Compression.ZipArchiveMode]::Create)

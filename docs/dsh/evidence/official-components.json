@@ -40,5 +40,6 @@
   "desktop": "unverified",
   "automaticSelection": "unverified",
   "realTasks": "unverified",
+  "installationEntry": "real CMD launcher; no harness PSModulePath sanitization",
   "negativeExplicitInjection": "pass; does not test model selection"
 }

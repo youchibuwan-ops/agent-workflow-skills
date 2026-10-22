@@ -1,7 +1,9 @@
 {
     "schema":  1,
     "owner":  "youchibuwan-ops/agent-workflow-skills",
-    "version":  "0.1.0-dsh-preview.1",
+    "version":  "0.1.0-dsh-preview.2",
+    "versionRole": "DSH-distribution",
+    "sourceCommitRole": "skill-content-baseline",
     "sourceCommit":  "c1434f04704938774eb359053aaafdf38ee90868",
     "skills":  [
                    {

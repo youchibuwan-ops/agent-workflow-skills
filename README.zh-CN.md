@@ -6,10 +6,13 @@
 
 **Windows 同学从这里开始：[下载 ZIP → 安装 → 使用 → 卸载](docs/dsh/install.zh-CN.md)。**
 仅需官方 DSH Desktop 和 Windows 自带 PowerShell，无需 Codex、Git、Node.js 或 Python。
-当前为 `0.1.0-dsh-preview.1`，未做同学/Desktop 实测验收，正式推广结论 **NO-GO**。
+当前为 `0.1.0-dsh-preview.2`，已修复从 PowerShell 7 启动的安装器兼容性问题。
+已收到试用文字报告，原始产物尚未提供，完整验收仍未通过，正式推广结论 **NO-GO**。
 [同学测试包与 A/B 步骤](docs/dsh/trial-kit/README.zh-CN.md) ·
 [真实验证与未验证项](docs/dsh/validation.md) · [官方兼容性核查](docs/dsh/compatibility.md)。
 本分支基于 `c1434f0`；两份 Skill 正文和引用保持原样，不修改官方 DSH 或个人配置。
+已装 preview.1 的同学请用新包的 `Update-DSH.cmd`。
+[内容基准、分发版本与 ZIP 溯源说明](docs/dsh/provenance.md)。
 
 **Codex 用户：[中文安装/卸载](docs/codex-install.zh-CN.md) ·
 [English install/remove](docs/installation.md)。** 下文 CLI 命令面向 Codex，不适用于 DSH 同学。

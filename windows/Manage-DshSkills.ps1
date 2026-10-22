@@ -88,6 +88,8 @@ function Read-Receipt([string]$Directory, [string]$Name) {
     Assert-PlainPath $path
     $r = [IO.File]::ReadAllText($path) | ConvertFrom-Json
     if ($r.owner -ne $owner -or $r.schema -ne 1 -or $r.skill -cne $Name -or [string]::IsNullOrWhiteSpace($r.version) -or $r.sourceCommit -notmatch '^[a-f0-9]{40}$') { throw "Invalid ownership receipt: $Directory" }
+    $digestProperty = $r.PSObject.Properties['manifestSha256']
+    if ($digestProperty -and $digestProperty.Value -notmatch '^[a-f0-9]{64}$') { throw "Invalid manifest digest in receipt: $Directory" }
     Assert-Inventory $Directory $r.files $true
     return $r
 }
@@ -143,19 +145,23 @@ try {
     Write-Output 'Only owned skill bundles are managed. No DSH configuration or plugins are changed.'
 
     $manifest = $null
+    $manifestDigest = $null
     if ($Action -eq 'Install' -or $Action -eq 'Update') {
         $PackageRoot = [IO.Path]::GetFullPath($PackageRoot).TrimEnd('\','/')
         Assert-PlainPath $PackageRoot
         $manifestPath = Join-Path $PackageRoot 'dsh-manifest.json'
         Assert-PlainPath $manifestPath
         $manifest = [IO.File]::ReadAllText($manifestPath) | ConvertFrom-Json
+        $manifestDigest = (Get-FileHash -LiteralPath $manifestPath -Algorithm SHA256).Hash.ToLowerInvariant()
         if ($manifest.owner -ne $owner -or $manifest.schema -ne 1 -or [string]::IsNullOrWhiteSpace($manifest.version) -or $manifest.sourceCommit -notmatch '^[a-f0-9]{40}$') { throw 'Invalid package manifest/version/source commit' }
         if (@($manifest.skills).Count -ne 2 -or @($manifest.skills | Select-Object -ExpandProperty name -Unique).Count -ne 2) { throw 'Unexpected manifest skills' }
         foreach ($payload in $manifest.skills) {
             if ($knownNames -cnotcontains $payload.name) { throw 'Unknown manifest skill' }
             Assert-Inventory (Join-Path $PackageRoot "skills/$($payload.name)") $payload.files
         }
-        Write-Output "Package version: $($manifest.version); source: $($manifest.sourceCommit)"
+        Write-Output "DSH distribution version: $($manifest.version)"
+        Write-Output "Skill content baseline commit: $($manifest.sourceCommit) (not the downloaded ZIP commit)"
+        Write-Output "Distribution manifest SHA256: $manifestDigest (not the ZIP checksum)"
     }
     $plans = @()
     foreach ($name in $selected) {
@@ -169,9 +175,14 @@ try {
         if ($Action -eq 'Check') {
             if (-not $exists) { throw "Not installed: $name" }
             Write-Output "Inventory OK: $name; installed version $($receipt.version). Host discovery and model behavior are not checked."
+            $recordedDigest = $receipt.PSObject.Properties['manifestSha256']
+            if ($recordedDigest) { Write-Output "Installed manifest SHA256: $($recordedDigest.Value); Skill content baseline: $($receipt.sourceCommit)" }
+            else { Write-Output 'Legacy receipt: manifest digest was not recorded. Update using the new distribution to record it.' }
         } elseif ($Action -eq 'Uninstall') { $change = $exists }
         elseif ($exists) {
             $same = $receipt.version -ceq $manifest.version
+            $recordedDigest = $receipt.PSObject.Properties['manifestSha256']
+            if (-not $recordedDigest -or $recordedDigest.Value -cne $manifestDigest) { $same = $false }
             if ($same) {
                 try { Assert-Inventory $destination $payload.files $true } catch { $same = $false }
             }
@@ -211,7 +222,7 @@ try {
                 [IO.File]::Copy((Join-Path $source $f.path), $dest, $false)
             }
             Assert-Inventory $staged $p.payload.files
-            $receipt = [ordered]@{ schema = 1; owner = $owner; skill = $p.name; version = $manifest.version; sourceCommit = $manifest.sourceCommit; files = $p.payload.files }
+            $receipt = [ordered]@{ schema = 1; owner = $owner; skill = $p.name; version = $manifest.version; versionRole = 'DSH-distribution'; sourceCommit = $manifest.sourceCommit; sourceCommitRole = 'skill-content-baseline'; manifestSha256 = $manifestDigest; files = $p.payload.files }
             [IO.File]::WriteAllText((Join-Path $staged $receiptName), ($receipt | ConvertTo-Json -Depth 10), (New-Object Text.UTF8Encoding($false)))
         }
     }
