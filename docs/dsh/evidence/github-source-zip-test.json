@@ -1,0 +1,16 @@
+﻿{
+    "pathCase":  "Unicode and spaces",
+    "zipSha256":  "2e3d3e41489d6f8f3cb7762363fdef3ddd88bdf26a82b1b22ab800066a07d40a",
+    "actions":  [
+                    "Install",
+                    "Install",
+                    "Check",
+                    "Update",
+                    "Uninstall",
+                    "Uninstall"
+                ],
+    "archiveLayout":  "GitHub Download ZIP containing one repository folder",
+    "result":  "pass",
+    "kind":  "extracted-zip-cmd-lifecycle",
+    "desktop":  "unverified"
+}

@@ -29,6 +29,10 @@ or model-task success is claimed. No formal Release, merge or submission is auth
 later rebuilt archives have different hashes and must be tested again. CI attaches
 the archive, its checksum and that run's external test report together. This avoids
 pretending a report embedded in an archive can hash its own containing archive.
+The real [GitHub commit Download ZIP test](evidence/github-source-zip-test.json) also
+passed all six launcher actions after entering GitHub's extra top-level folder, using
+the published code commit `eae58ea187af0c7f1965b5f2bf569232014983fa`. This was downloaded
+from GitHub, not reconstructed locally. Neither ZIP exercise launches Desktop.
 [Independent review](evidence/review.md) found two issues, both repaired and retested.
 The original Codex package-install regression, unchanged source assembly/rendering,
 Markdown lint and root npm audit also passed; these are package regressions, not
@@ -69,6 +73,9 @@ before `$PSScriptRoot` was available; defaults are now resolved in the script bo
 Build-time ZIP creation initially missed the Compression assembly; both required
 assemblies are now loaded explicitly. Component harness integration failures were
 fixed against the real Cordis service lifecycle before any pass report was written.
+The first Windows CI completed all23 assertions but failed its wrapper because a
+deliberately failed subprocess left `LASTEXITCODE=1`. The test runners now exit0
+explicitly only after successful assertions and cleanup; real failures still throw.
 Independent review also reproduced a hidden-prefix alias bypass and a destructive
 rollback after partially failed backup cleanup. New regression cases cover both.
 An NTFS ACL fixture allows preflight/rename but denies removal of one old file;

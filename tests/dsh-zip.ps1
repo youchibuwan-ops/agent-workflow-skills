@@ -10,6 +10,13 @@ $oldHome = $env:DSH_HOME
 $oldPause = $env:AWS_DSH_NO_PAUSE
 try {
     [IO.Compression.ZipFile]::ExtractToDirectory([IO.Path]::GetFullPath($ZipPath), $unpacked)
+    $layout = 'flat preview archive'
+    if (-not (Test-Path -LiteralPath (Join-Path $unpacked 'Install-DSH.cmd'))) {
+        $children = @(Get-ChildItem -LiteralPath $unpacked -Directory)
+        if ($children.Count -ne 1 -or -not (Test-Path -LiteralPath (Join-Path $children[0].FullName 'Install-DSH.cmd'))) { throw 'Archive does not contain one recognizable DSH package root' }
+        $unpacked = $children[0].FullName
+        $layout = 'GitHub Download ZIP containing one repository folder'
+    }
     $env:DSH_HOME = $target
     $env:AWS_DSH_NO_PAUSE = '1'
     foreach ($action in @('Install','Install','Check','Update','Uninstall','Uninstall')) {
@@ -31,7 +38,7 @@ try {
         if (Test-Path -LiteralPath (Join-Path $target "skills/$name")) { throw 'Uninstall left installed bundle' }
     }
     if ($ReportPath) {
-        @{ kind = 'extracted-zip-cmd-lifecycle'; result = 'pass'; zipSha256 = (Get-FileHash -LiteralPath $ZipPath -Algorithm SHA256).Hash.ToLowerInvariant(); actions = @('Install','Install','Check','Update','Uninstall','Uninstall'); pathCase = 'Unicode and spaces'; desktop = 'unverified' } | ConvertTo-Json -Depth 6 | Set-Content -LiteralPath $ReportPath -Encoding UTF8
+        @{ kind = 'extracted-zip-cmd-lifecycle'; result = 'pass'; archiveLayout = $layout; zipSha256 = (Get-FileHash -LiteralPath $ZipPath -Algorithm SHA256).Hash.ToLowerInvariant(); actions = @('Install','Install','Check','Update','Uninstall','Uninstall'); pathCase = 'Unicode and spaces'; desktop = 'unverified' } | ConvertTo-Json -Depth 6 | Set-Content -LiteralPath $ReportPath -Encoding UTF8
     }
 } finally {
     $env:DSH_HOME = $oldHome
@@ -42,3 +49,4 @@ try {
     if ($linked.Count -ne 0) { throw 'ZIP test cleanup refused linked contents' }
     Remove-Item -LiteralPath $absolute -Recurse -Force
 }
+exit 0

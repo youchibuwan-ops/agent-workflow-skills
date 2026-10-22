@@ -31,8 +31,13 @@ ownership guarantees. Maintaining rewritten DSH skill bodies would create drift.
 - [x] Produce Chinese/English Codex and DSH instructions, manual fallback, troubleshooting,
   isolated A/B fixtures, prompt pairs, blank feedback form and test matrix.
 - [x] Package ZIP from the same source, extract and test it, record hashes and limits.
-- [ ] Run repository checks, independent review, commit, push the new branch and
+- [x] Run repository checks, independent review, commit, push the new branch and
   create/attach a Draft PR. No merge, Release, submission or personal-home writes.
+
+Draft PR created and verified: [#2](https://github.com/youchibuwan-ops/agent-workflow-skills/pull/2),
+stacked on the unchanged PR#1 branch. Code commit: `eae58ea187af0c7f1965b5f2bf569232014983fa`.
+Subsequent delivery evidence may add documentation/test-harness commits. Desktop/model
+acceptance remains pending the classmate, by the user's explicit clarification.
 
 ## Review focus
 

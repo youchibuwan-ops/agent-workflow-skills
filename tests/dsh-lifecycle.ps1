@@ -254,3 +254,6 @@ try {
         Remove-Item -LiteralPath $resolved -Recurse -Force
     }
 }
+# Expected-failure subprocess cases leave LASTEXITCODE=1. GitHub's PowerShell
+# wrapper propagates it unless the successfully completed test runner exits explicitly.
+exit 0
