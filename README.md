@@ -4,7 +4,7 @@ Two reusable agent skills for deliberate skill selection and reference-based SVG
 
 | Skill | Purpose |
 |---|---|
-| [proactive-skill-discovery](skills/proactive-skill-discovery/SKILL.md) | Match installed skills, discover and inspect external candidates, adapt or combine workflows, and validate actual task results. |
+| [proactive-skill-discovery](skills/proactive-skill-discovery/SKILL.md) | Match installed skills, discover and inspect external candidates, adapt or combine workflows, validate actual task results, and capture verified lessons by updating or creating skills. |
 | [crafting-reference-based-svg-assets](skills/crafting-reference-based-svg-assets/SKILL.md) | Refine real-object SVG props, finish difficult details independently, assemble them, and visually review the entire object against references. |
 
 ## 使用
@@ -18,7 +18,7 @@ npx skills add youchibuwan-ops/agent-workflow-skills --skill crafting-reference-
 
 也可以将单个 Skill 目录复制到宿主支持的个人技能目录。保持 SKILL.md 和配套 references/agents 文件在同一目录；不需要安装整个仓库或游戏项目。
 
-- `$proactive-skill-discovery`：主动匹配、发现、筛选、适配和使用技能。
+- `$proactive-skill-discovery`：主动匹配、发现、筛选、适配和使用技能，并从实际任务中总结、维护可复用技能。
 - `$crafting-reference-based-svg-assets`：按实物精修并复审可编辑SVG素材。
 
 自动匹配依赖宿主支持和Skill描述。使用Skill不扩大权限；已授权范围内直接执行，用户/项目的禁用项与停止要求始终有效。发现技能不意味着自动恢复暂停任务。
@@ -30,6 +30,10 @@ npx skills add youchibuwan-ops/agent-workflow-skills --skill crafting-reference-
 Vercel [find-skills](https://github.com/vercel-labs/skills/tree/main/skills/find-skills) 可作为可选发现工具；其代码和CLI不包含在本包中。
 
 本包不包含游戏素材、实物照片、私人项目规则、机器配置、审核日志或凭据。美术Skill中的项目配置仅为通用示例。
+
+## 主动沉淀经验
+
+出现反复纠错、有效新方法或技能缺漏时，主动从实际证据提炼经验，优先更新已有 Skill，必要时才新建；同时验证目标情景与相邻反例。个人/项目偏好与私人资料不扩散到通用技能。参见[经验沉淀方法](skills/proactive-skill-discovery/references/learning-from-work.md)。
 
 ## License
 

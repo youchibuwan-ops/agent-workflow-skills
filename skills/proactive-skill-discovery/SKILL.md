@@ -1,15 +1,15 @@
 ---
 name: proactive-skill-discovery
-description: Use when a substantial task enters an unfamiliar domain, lacks a suitable installed workflow, repeatedly fails, or needs external agent skills adapted or combined without waiting for a user reminder.
+description: Use when a substantial task enters an unfamiliar domain, lacks a suitable installed workflow, repeatedly fails, needs external agent skills adapted or combined, or yields verified reusable lessons worth capturing in skills without waiting for a user reminder.
 ---
 
-# 主动发现、筛选、适配与使用 Skill
+# 主动发现、使用与沉淀 Skill
 
 目标是完成当前任务。主动寻找可复用能力只是手段，不能把检索、安装或加载成功冒充任务完成。此 Skill 是总控流程；现成搜索 Skill、网页/GitHub工具和安装器都可作为执行工具，不是硬依赖。
 
 ## 触发与范围
 
-开始实质任务时先匹配已安装技能；本地流程足够就直接使用。新领域、明确能力缺口、专业工作难以把握或同类失误反复出现时，主动搜索外部 Skill，不等用户提醒。普通答复和已有成熟流程不机械地反复联网。
+开始实质任务时先匹配已安装技能；本地流程足够就直接使用。新领域、明确能力缺口、专业工作难以把握或同类失误反复出现时，主动搜索外部 Skill，不等用户提醒。普通答复和已有成熟流程不机械地反复联网。任务中出现反复纠错、非显然的有效方法、可复用工具或现有技能缺漏时，也主动评估经验沉淀，不等用户提醒。
 
 读取当前用户/项目约束、任务授权及停止点。发现技能不恢复暂停任务，也不改变禁止生图、禁止批量、只读、不得实装等要求。用户已委托自主搜索、筛选、必要的个人目录安装和调用时，在该范围内直接执行，不逐次询问是否要搜/装。Skill本身不授予额外权限；外部发布、发消息等仍按当前任务的实际授权执行。
 
@@ -23,6 +23,8 @@ description: Use when a substantial task enters an unfamiliar domain, lacks a su
 6. **读本地并执行。** 确认安装内容与所审版本对应，读取选定流程与必要资源；保留当前用户指令优先级。只执行任务真正需要的部分，避免多个技能互相套娃、重复审批或重复生成同类产物。
 7. **验证产物。** 用实际任务结果判断是否有效：脚本看真实输出，图审实际看图，代码做相应检查。安装成功、字段齐全或代理同意都不等于任务通过。失败时区分环境问题、流程不适配与实现错误，针对原因调整，不继续盲装技能。
 8. **保留可复用记录。** 新采用/重要拒绝或适配时，简记来源仓库/路径/版本、许可、实际读过的内容、选择理由和验证结果。保存在项目指定位置或个人技能记录中；不要把机器路径、临时任务状态、密钥或私人素材塞进可分享的 Skill。后续复用已核查方案，更新前比较上游变化并验证本地适配。
+
+9. **主动总结并维护。** 出现上述经验信号时，读[经验沉淀方法](references/learning-from-work.md)，从实际证据提炼可复用决策；优先修订已有 Skill，确无合适归属才新建。在已授权的个人技能维护范围内直接执行并验证，不只提出建议。单次偶发事件或未经验证的猜想留作任务记录。
 
 ## 输出与结束
 
