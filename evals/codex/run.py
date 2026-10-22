@@ -17,6 +17,7 @@ import subprocess
 import sys
 import threading
 import time
+from urllib.parse import urlsplit
 
 PACKAGE = Path(__file__).resolve().parent
 PROTOCOL = json.loads((PACKAGE / 'protocol.json').read_text(encoding='utf8'))
@@ -108,6 +109,7 @@ def isolated_env(root, original=None):
                TEMP=str(root / 'temp'), TMP=str(root / 'temp'), TMPDIR=str(root / 'temp'),
                npm_config_cache=str(root / 'cache/npm'), PIP_CACHE_DIR=str(root / 'cache/pip'),
                GIT_CONFIG_GLOBAL=str(root / 'home/.gitconfig'), GIT_CONFIG_NOSYSTEM='1',
+               GIT_CONFIG_COUNT='1', GIT_CONFIG_KEY_0='http.version', GIT_CONFIG_VALUE_0='HTTP/1.1',
                PYTHONUTF8='1', DISABLE_TELEMETRY='1', DO_NOT_TRACK='1', NO_COLOR='1')
     return env
 
@@ -122,8 +124,8 @@ def executable(name):
     return [str(path)]
 
 
-def catalog(command, root, env):
-    process = subprocess.Popen(command + ['app-server'], cwd=root / 'workspace', env=env,
+def catalog(command, root, env, audit=False):
+    process = subprocess.Popen(command + ['app-server'] + runtime_flags(), cwd=root / 'workspace', env=env,
                                stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL,
                                text=True, encoding='utf8')
     messages = queue.Queue()
@@ -149,6 +151,19 @@ def catalog(command, root, env):
         if len(result['data']) != 1 or result['data'][0]['errors']:
             raise ValueError('Unexpected cwd or Skill parse errors')
         write_json(root / 'catalog.json', result)
+        if audit:
+            results = []
+            for identifier, method, params in [(2, 'config/read', {'includeLayers': False}),
+                    (3, 'mcpServerStatus/list', {'detail': 'full'}), (4, 'app/installed', {})]:
+                send({'id': identifier, 'method': method, 'params': params})
+                results.append(receive(identifier))
+            config, mcp, apps = results
+            surface = {'apps_enabled': config['config'].get('features', {}).get('apps'),
+                       'remote_plugin_enabled': config['config'].get('features', {}).get('remote_plugin'),
+                       'mcp_servers': len(mcp['data']), 'apps': len(apps['apps'])}
+            write_json(root / 'tool-surface.json', surface)
+            if surface != {'apps_enabled': False, 'remote_plugin_enabled': False, 'mcp_servers': 0, 'apps': 0}:
+                raise ValueError('Authenticated tool surface is contaminated')
         return result['data'][0]['skills']
     finally:
         process.terminate()
@@ -181,9 +196,38 @@ def runtime_status(status, stderr, mcp_seen):
     return status
 
 
+def runtime_flags():
+    # These surfaces are distinct. Disabling only the plugin catalog leaves Apps.
+    flags = ['--disable', 'apps', '--disable', 'remote_plugin']
+    if os.name == 'nt':
+        # An unspecified Windows backend can downgrade workspace-write to read-only.
+        flags += ['-c', 'windows.sandbox="unelevated"']
+    return flags
+
+
+def verify_permissions(prompt_input, sandbox):
+    permissions = '\n'.join(part.get('text', '') for message in prompt_input
+                            for part in message.get('content', [])
+                            if '<permissions instructions>' in part.get('text', ''))
+    if f'`sandbox_mode` is `{sandbox}`' not in permissions:
+        raise ValueError('Effective model-visible sandbox does not match the requested mode')
+    if sandbox == 'workspace-write' and 'Network access is enabled' not in permissions:
+        raise ValueError('Required task network is not enabled in effective permissions')
+
+
+def network_env(env, proxy):
+    if proxy:
+        parsed = urlsplit(proxy)
+        if (parsed.scheme not in {'http', 'https'} or not parsed.hostname or parsed.username is not None
+                or parsed.password is not None or parsed.path not in {'', '/'} or parsed.query or parsed.fragment):
+            raise ValueError('Use a credential-free HTTP(S) proxy origin, not personal proxy configuration')
+        env.update({key: proxy for key in ['HTTP_PROXY', 'HTTPS_PROXY', 'http_proxy', 'https_proxy']})
+    return env
+
+
 def prepare(args):
     root = fresh_root(Path(args.out))
-    env = isolated_env(root)
+    env = network_env(isolated_env(root), args.network_proxy)
     shutil.copytree(PACKAGE / 'tasks' / args.task, root / 'workspace')
     (root / 'workspace/prompt.txt').unlink()
     command = [args.codex] if args.codex else executable('codex')
@@ -207,6 +251,8 @@ def prepare(args):
                'input_sha256': before, 'target': target, 'protocol_sha256': hashlib.sha256((PACKAGE / 'protocol.json').read_bytes()).hexdigest(),
                'package_sha256': package_hashes(),
                'system_sha256': {s['name']: hashes(Path(s['path']).parent) for s in observed if s.get('scope') == 'system'},
+               'runtime_flags': runtime_flags(),
+               'network_proxy_sha256': hashlib.sha256(args.network_proxy.encode()).hexdigest() if args.network_proxy else None,
                'catalog_valid': True, 'target_installed': args.arm == 'B'})
     print('Prepared fresh ' + args.arm + ' / ' + args.task + '; host catalog verified: ' + str(root))
 
@@ -231,7 +277,10 @@ def run(args):
     if preparation['protocol_sha256'] != hashlib.sha256((PACKAGE / 'protocol.json').read_bytes()).hexdigest():
         raise ValueError('Protocol changed after preparation')
     check_frozen(root, preparation)
-    env = isolated_env(root)
+    env = network_env(isolated_env(root), args.network_proxy)
+    proxy_hash = hashlib.sha256(args.network_proxy.encode()).hexdigest() if args.network_proxy else None
+    if proxy_hash != preparation.get('network_proxy_sha256'):
+        raise ValueError('Use the same declared network transport as preparation')
     version = subprocess.check_output(preparation['command'] + ['--version'], env=env, encoding='utf8').strip()
     if version != 'codex-cli ' + PROTOCOL['cli_version']:
         raise ValueError('Actual Codex version changed after preparation')
@@ -247,7 +296,7 @@ def run(args):
     prompt = prompt_file.read_text(encoding='utf8')
     (root / 'prompt.txt').write_text(prompt, encoding='utf8')
     auth = root / 'state/auth.json'
-    flags = ['exec', '--ignore-user-config', '--ignore-rules', '--skip-git-repo-check', '--ephemeral', '--json',
+    flags = ['exec'] + runtime_flags() + ['--ignore-user-config', '--ignore-rules', '--skip-git-repo-check', '--ephemeral', '--json',
              '-m', PROTOCOL['model'], '-c', 'model_reasoning_effort="' + PROTOCOL['reasoning_effort'] + '"',
              '-c', 'approval_policy="never"', '-c', 'web_search="live"',
              '-c', 'sandbox_workspace_write.network_access=true', '--sandbox', args.sandbox,
@@ -258,6 +307,15 @@ def run(args):
     process = None
     with temporary_auth(args.auth_file, auth):
         try:
+            diagnostic = subprocess.check_output(preparation['command'] + ['-C', str(root / 'workspace'),
+                 'debug', 'prompt-input'] + runtime_flags() + ['-c', 'approval_policy="never"',
+                 '-c', 'sandbox_workspace_write.network_access=true', '-c', 'sandbox_mode="' + args.sandbox + '"'],
+                env=env, cwd=root / 'workspace', encoding='utf8', timeout=45)
+            (root / 'effective-prompt.json').write_text(diagnostic, encoding='utf8')
+            verify_permissions(json.loads(diagnostic), args.sandbox)
+            authenticated = catalog(preparation['command'], root, env, audit=True)
+            check_catalog(authenticated, preparation['arm'], preparation['target'])
+            check_payloads(root, preparation, authenticated)
             with (root / 'events.jsonl').open('w', encoding='utf8') as log, (root / 'stderr.log').open('w', encoding='utf8') as error:
                 process = subprocess.Popen(preparation['command'] + flags, stdin=subprocess.PIPE, stdout=subprocess.PIPE,
                                            stderr=error, env=env, text=True, encoding='utf8', cwd=root / 'workspace',
@@ -309,6 +367,7 @@ def run(args):
                 status = 'invalid_contamination'
             write_json(root / 'execution.json', {'mode': 'explicit_smoke' if args.explicit else 'implicit_task',
                        **boundary,
+                       'runtime_flags': runtime_flags(), 'network_proxy_sha256': proxy_hash,
                        'model': PROTOCOL['model'], 'effort': PROTOCOL['reasoning_effort'], 'sandbox': args.sandbox,
                        'elapsed_seconds': round(time.monotonic() - started, 2), 'tool_calls': tools,
                        'usage': usage, 'status': status, 'instruction_read_candidates': reads,
@@ -328,10 +387,12 @@ if __name__ == '__main__':
     setup.add_argument('--task', choices=sorted(PROTOCOL['target_skills']), required=True)
     setup.add_argument('--arm', choices=['A', 'B'], required=True)
     setup.add_argument('--codex')
+    setup.add_argument('--network-proxy', help='Optional credential-free HTTP(S) proxy origin; fixed for both arms')
     execute = commands.add_parser('run')
     execute.add_argument('--out', required=True)
     execute.add_argument('--auth-file', help='PRIVATE account file; copied transiently, never logged or bundled')
     execute.add_argument('--explicit', action='store_true')
+    execute.add_argument('--network-proxy', help='Must match the transport declared during preparation')
     execute.add_argument('--isolation-boundary', choices=['native-pilot', 'container', 'disposable-vm'], default='native-pilot')
     execute.add_argument('--boundary-id', help='Coordinator-assigned fresh VM ID or immutable container image ID')
     execute.add_argument('--sandbox', choices=['workspace-write', 'danger-full-access'], default='workspace-write')

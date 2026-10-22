@@ -4,8 +4,9 @@ Checked 2026-10-23. Drafts only: no form submitted, account connected, paid plac
 formal Release or mass outreach authorized. Recheck destination rules before submission.
 
 **Current decision: NO-GO for a behaviorally accepted launch.** The following copy
-is a review/testing invitation draft. [Actual Codex pilots](codex-acceptance.md) did
-not pass resource loading/full implicit reuse; the friend experiment has no results.
+is a review/testing invitation draft. [Actual follow-up](codex-acceptance.md) passes
+both resource loads, with qualified discovery evidence and retained task failures;
+overall acceptance is incomplete and the friend experiment has no results.
 Do not post these drafts as a validated autonomous-performance announcement.
 
 ## Directory requirements
@@ -63,10 +64,14 @@ failed reviews and corrections rather than presenting every iteration as success
 The current binder example was accepted by its user after a new whole review.
 A separate paired CSV execution probe tied; no performance improvement is inferred.
 
-Native Codex pilots confirmed standalone installation/local discovery, but shell
-reads were policy-blocked; one exposed account MCP contamination. They establish no
-complete automatic-activation or task-success result. The repo now includes a frozen
-isolated A/B pack for independent testers, with explicit and implicit tests separated.
+Repaired Codex runs now verify both standalone instruction/resource loads. A Windows
+RPC pilot meets the frozen five discovery conditions and produces an independently
+checked PDF; its external candidate Skill was rejected, not adopted. An isolated
+Linux run produces a valid PDF but misses complete inspection evidence. A separate
+SVG preparation run misread four holes as three; that failure remains visible.
+Acceptance is incomplete, including an underspecified explicit-edit fixture. The
+frozen isolated friend pack keeps explicit/implicit outcomes separate; no friend
+results or measured reliability/performance gains are claimed.
 
 Try the reviewed PR payload for testing (not yet merged) with:
 
@@ -95,18 +100,20 @@ Codex experiment is prepared, with its outcome fields empty.
 
 源码、安装命令和案例在[GitHub 仓库](https://github.com/youchibuwan-ops/agent-workflow-skills)。
 欢迎反馈真实失败例，尤其是误触发、筛选不当、安装后仍不能完成任务的情况。
-本轮 Codex 原生试跑只证实安装和本地发现；读取被策略拒绝，另出现账号 MCP 污染，
-完整自动触发链未通过。已准备冻结任务、评分和空白记录的隔离 A/B 测试包，邀请独立
+后续已修复环境并实际验证两份 Skill 的主体/资源读取；Windows RPC 试跑满足原五条条件，
+PDF 独立通过，但外部候选 Skill 未采用。隔离 Linux 试跑仍缺完整审阅证据，另保留 SVG
+孔数误判和显式编辑测试欠指定问题，整体未验收。已准备冻结任务、评分和空白记录的隔离 A/B 测试包，邀请独立
 复现；尚无朋友结果，不宣称成功率或效率提升。当前只是待审测试邀请稿，未对外投稿。
 
 ## Short social drafts and follow-up
 
 EN: Find a skill, inspect it, use it, verify the task, retain the lesson. Agent Workflow
 Skills includes a real audit trace, editable SVG case and a frozen Codex study pack.
-Full implicit activation is not yet accepted; independent tests are pending: [repository](https://github.com/youchibuwan-ops/agent-workflow-skills).
+Actual loading and bounded discovery evidence are published, with failures; overall
+acceptance and independent tests remain pending: [repository](https://github.com/youchibuwan-ops/agent-workflow-skills).
 
 中文：找 Skill 只是开始，还要筛选、实际使用、验证与沉淀。两份开源工作流附真实安装
-和 SVG 案例及隔离 A/B 测试包。完整隐式触发尚未验收，欢迎独立复现：[仓库](https://github.com/youchibuwan-ops/agent-workflow-skills)。
+和 SVG 案例及隔离 A/B 测试包。已公开实际加载/发现证据及失败，整体仍待验收，欢迎独立复现：[仓库](https://github.com/youchibuwan-ops/agent-workflow-skills)。
 
 Choose one relevant developer community first; adapt language to its rules and disclose
 maintainership. Do not post identical copy everywhere or solicit votes. After any approved

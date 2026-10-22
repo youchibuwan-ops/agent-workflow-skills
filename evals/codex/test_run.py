@@ -125,6 +125,36 @@ class IsolationTests(unittest.TestCase):
         self.assertFalse(experiment.check_boundary('native-pilot', None, 'workspace-write')['study_eligible_boundary'])
         self.assertTrue(experiment.check_boundary('disposable-vm', 'fresh-vm-001', 'workspace-write')['study_eligible_boundary'])
 
+    def test_effective_read_only_cannot_pass_requested_workspace_health(self):
+        denied = [{'content': [{'text': '<permissions instructions>\n`sandbox_mode` is `read-only`</permissions instructions>'}]}]
+        allowed = [{'content': [{'text': '<permissions instructions>\n`sandbox_mode` is `workspace-write`. Network access is enabled.\n</permissions instructions>'}]}]
+        with self.assertRaises(ValueError):
+            experiment.verify_permissions(denied, 'workspace-write')
+        experiment.verify_permissions(allowed, 'workspace-write')
+
+    def test_declared_proxy_rejects_credentials_and_non_origin_configuration(self):
+        for value in ['http://user:password@localhost:7892', 'file:///private', 'http://localhost/path', 'https://localhost/?token=fake']:
+            with self.assertRaises(ValueError):
+                experiment.network_env({}, value)
+        self.assertEqual(experiment.network_env({}, None), {})
+        env = experiment.network_env({}, 'http://127.0.0.1:7892')
+        self.assertEqual(env['HTTPS_PROXY'], 'http://127.0.0.1:7892')
+
+    def test_rpc_payload_mutation_is_retained_as_invalid_evidence(self):
+        import sys
+        with patch.dict(sys.modules, {'run': experiment}):
+            spec = importlib.util.spec_from_file_location('rpc_record', Path(__file__).with_name('record_rpc.py'))
+            recorder = importlib.util.module_from_spec(spec)
+            spec.loader.exec_module(recorder)
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            record = {'status': 'completed_needs_review', 'automatic_pass': None}
+            with patch.object(experiment, 'check_payloads', side_effect=ValueError('synthetic treatment mutation')):
+                self.assertEqual(recorder.save_result(root, {}, [], record), 'invalid_contamination')
+            saved = json.loads((root / 'execution.json').read_text(encoding='utf8'))
+            self.assertFalse(saved['payload_integrity'])
+            self.assertIsNone(saved['automatic_pass'])
+
 
 if __name__ == '__main__':
     unittest.main()

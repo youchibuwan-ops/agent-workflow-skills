@@ -1,0 +1,3729 @@
+{
+  "date": "2026-10-23",
+  "frozen_skill_commit": "c1434f04704938774eb359053aaafdf38ee90868",
+  "frozen_protocol_commit": "2dfd37c",
+  "friend_results": null,
+  "cases": [
+    {
+      "mode": "explicit_smoke",
+      "isolation_boundary": "native-pilot",
+      "boundary_id": null,
+      "study_eligible_boundary": false,
+      "boundary_attested_by": "coordinator declaration; not hardware attestation",
+      "model": "gpt-6-astra",
+      "effort": "medium",
+      "sandbox": "workspace-write",
+      "elapsed_seconds": 16.93,
+      "tool_calls": 0,
+      "usage": {
+        "input_tokens": 43524,
+        "cached_input_tokens": 28544,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 245,
+        "reasoning_output_tokens": 42
+      },
+      "status": "environment_blocked",
+      "instruction_read_candidates": [],
+      "unexpected_mcp_observed": false,
+      "prompt_sha256": "32ff407103c76becfc4f9be18d0ef724b7c9c5eb5c35cc7847fecb43bb85b046",
+      "review_required": true,
+      "case": "explicit-discovery-01",
+      "manual_review": {
+        "instruction_load": false,
+        "task_success": false,
+        "classification": "environment_blocked",
+        "note": "Flags before exec; actual requested workspace permission not effective. Retained failure."
+      },
+      "original_artifacts": {
+        ".agents/skills/proactive-skill-discovery/agents/openai.yaml": "7c25c200a0d5ed5eb59ba98910dd5471d1a3956a83570ada6d1b5797ca5fc067",
+        ".agents/skills/proactive-skill-discovery/LICENSE": "d1ba8b00007e2f5670cc0af48a9a8faa1885b502f186e574dee5c5fd7ecaf913",
+        ".agents/skills/proactive-skill-discovery/references/adapting-upstream-skills.md": "5fbfa1f490490903da028a424903a66e3ad783425cc15d21705d9e3274505fa0",
+        ".agents/skills/proactive-skill-discovery/references/learning-from-work.md": "094f67f3eaf2176fff0c5c7fdbdfbfbab7b170c3bd7b2147126987e273ae71f0",
+        ".agents/skills/proactive-skill-discovery/SKILL.md": "9765792d0f9452cb0b592be1ba609910d9fa7cd6c43114ab5c34073b5a1f907c",
+        "message.txt": "d45415e6b6a5da22eed81e69b5c73bf525524466fea34a27271e29d6a5b8f6d0",
+        "skills-lock.json": "5cdef5e83e3aea2740ef36dc910bfbcc38eacb0c56eb4c4b32879cf8617a978c"
+      },
+      "input_sha256": {
+        "message.txt": "d45415e6b6a5da22eed81e69b5c73bf525524466fea34a27271e29d6a5b8f6d0"
+      },
+      "system_sha256": {
+        "imagegen": [
+          {
+            "path": "agents/openai.yaml",
+            "sha256": "1797be4076717806df54aa9331c07ac8eebe32c69f32132d5858712b05406146"
+          },
+          {
+            "path": "assets/imagegen-small.svg",
+            "sha256": "087c1632a3b8a2ed4d6218952e7ba7ae2221a979f84233667ed2c587998784da"
+          },
+          {
+            "path": "assets/imagegen.png",
+            "sha256": "95952f644064eb9e890f98d8db07216347186526e4c41ad66d3420629eb86e20"
+          },
+          {
+            "path": "LICENSE.txt",
+            "sha256": "44e03f7e263eb3ad256440c1eeab5e49168baff5a78ecef9a5447261cf3a91bc"
+          },
+          {
+            "path": "references/cli.md",
+            "sha256": "29dc8c1e3e5d9a20aee587fedb46a464552b6ec118d93bbd90c8d86e30502c8c"
+          },
+          {
+            "path": "references/codex-network.md",
+            "sha256": "cba3b4d24d30f38adf8021b6e9b49ec5261a9e45e7df31047ec451c916c99b0a"
+          },
+          {
+            "path": "references/image-api.md",
+            "sha256": "695909437b792aff171477dba127476a11235c220beb06533cce7c1495a042c8"
+          },
+          {
+            "path": "references/prompting.md",
+            "sha256": "d957a45cb24fe2cf1a85858674fc533f15a5f4621355f559a13a93168999c2dd"
+          },
+          {
+            "path": "references/sample-prompts.md",
+            "sha256": "76cc8a2988efb6e844a99ff9908b2b11cc07467510fc909002abcc0ee3f0701b"
+          },
+          {
+            "path": "scripts/image_gen.py",
+            "sha256": "3666b807de3f0a1d0a4a767b886d612c0b8f71025c500bba6693d1c6995a0873"
+          },
+          {
+            "path": "scripts/remove_chroma_key.py",
+            "sha256": "fa2989807052b857bed08f7fee0caa2502b54c46afc0a6f28cd706c25f636630"
+          },
+          {
+            "path": "SKILL.md",
+            "sha256": "706d4d96e1d5c9e6023fe3ccabba1bb34b364024d344fd25b8515ec7d28fe3c4"
+          }
+        ],
+        "openai-docs": [
+          {
+            "path": "agents/openai.yaml",
+            "sha256": "0dd6c5ffa81a09782fd24cfa9fe1ec5c9633c90500b166ae18a462e613e876be"
+          },
+          {
+            "path": "assets/openai-small.svg",
+            "sha256": "85ef0a2cde497872edec1525f1d538ccc42b33ff47acdbb88499a1631a4bdb21"
+          },
+          {
+            "path": "assets/openai.png",
+            "sha256": "156cc84d7332bfe95b310350bd470b690d22aa33d65340cc6c2e06022946194c"
+          },
+          {
+            "path": "LICENSE.txt",
+            "sha256": "44e03f7e263eb3ad256440c1eeab5e49168baff5a78ecef9a5447261cf3a91bc"
+          },
+          {
+            "path": "references/codex-self-knowledge.md",
+            "sha256": "f945bf2a7cea6892d7a11ac38fb18b744fefd6d273654a8410c4c79e9f647fbe"
+          },
+          {
+            "path": "references/latest-model.md",
+            "sha256": "c6908732acbf2c6732614d615856b5582964521a319da842cc9379f9822fbf34"
+          },
+          {
+            "path": "references/mcp-diagnostics.md",
+            "sha256": "e9df2b2f8faa28930db4a2937cdb3665b4548ac958e80a8601a5dd0da1e6fad0"
+          },
+          {
+            "path": "references/model-migration.md",
+            "sha256": "e2dc95fa96cf68c1e16f5bae265ae660bede705940602ba86ab6219c514a976d"
+          },
+          {
+            "path": "references/model-selection.md",
+            "sha256": "ce020100a28004500c927abcd57cff154c5c360eb72d918ef7d72492e2484cce"
+          },
+          {
+            "path": "references/official-docs.md",
+            "sha256": "b2301d72b8092be5f5727d8d1cbc75740887d836f4f13b469f40c1db16b39fe3"
+          },
+          {
+            "path": "references/prompting-guide.md",
+            "sha256": "7e7cd7ff89f6211d1f881b8d394e92f416febe6eae2fdfd230c5b5c346bf8a93"
+          },
+          {
+            "path": "references/upgrade-guide.md",
+            "sha256": "fada5e0c951a50e21c8ee9f51891159b539b651bfbdb92385fada4cbac93dab5"
+          },
+          {
+            "path": "references/upgrading-to-gpt-6-astra.md",
+            "sha256": "cf4ebc3c89a5e2062e553626dcd27fab13f4870d3046c631ed91a0bc301bb32d"
+          },
+          {
+            "path": "scripts/fetch-codex-manual.mjs",
+            "sha256": "1b9a36d3e59ddff3317d1faa182e5cd4967db14ff993593a5f98d5682dbffbe4"
+          },
+          {
+            "path": "scripts/resolve-latest-model-info",
+            "sha256": "8f5006efa15c034ede29821b627d7b86c43f7dfaab422d335f45b9be8d04e2d5"
+          },
+          {
+            "path": "scripts/resolve-latest-model-info.cjs",
+            "sha256": "91eb045abbf96ffb361e6ec2d3606540570fb32383edb22061f5549381ce0ee5"
+          },
+          {
+            "path": "SKILL.md",
+            "sha256": "8ce8021101bcea594ff92ee6cfd8ca7641a49ee66d7bc6070555f1a33fc239d9"
+          }
+        ],
+        "plugin-creator": [
+          {
+            "path": "agents/openai.yaml",
+            "sha256": "693e1667acc879a7b966cf073fee6cf1f268974983c00b6b779dab031d79185e"
+          },
+          {
+            "path": "assets/plugin-creator-small.svg",
+            "sha256": "edb19a0c59f9a1b5253b9af6d2f9f03cac27b2fe6a0275ebccbbdbff07891a1a"
+          },
+          {
+            "path": "assets/plugin-creator.png",
+            "sha256": "a4024b0306ddb05847e1012879d37aaf1e658205199da596f5145ed7a88d9162"
+          },
+          {
+            "path": "references/installing-and-updating.md",
+            "sha256": "476850a165cd63f8f3def5968b302c77e3cd5250af4df2dec1575a2eb4b51467"
+          },
+          {
+            "path": "references/plugin-json-spec.md",
+            "sha256": "254f18eb2cf9390c0b85f0b885db3b1facf90e060257cde70b6e55e21797382e"
+          },
+          {
+            "path": "scripts/create_basic_plugin.py",
+            "sha256": "a0dfca09c7ecc8f30012cb2111acfdf733eac7c5bd73e4edb154a45487de303f"
+          },
+          {
+            "path": "scripts/identifier_validation.py",
+            "sha256": "680ce5b775ee5410ecf808fad40350dc4df2cc4a7003363f4c4c7f9d7c0be918"
+          },
+          {
+            "path": "scripts/read_marketplace_name.py",
+            "sha256": "0be0d7e327688b70300baa4fff448a8e24f4c00ce71340f9c6299d21c333cc65"
+          },
+          {
+            "path": "scripts/update_plugin_cachebuster.py",
+            "sha256": "d37acec7cfc34fb44db35bce437bf5ee8eb6da3484aece565e3a6e70e2bf121b"
+          },
+          {
+            "path": "scripts/validate_plugin.py",
+            "sha256": "1e6cb914505b458856c2cfab7d18a224731c743ef47e0c9d78afe64f35b67f7c"
+          },
+          {
+            "path": "SKILL.md",
+            "sha256": "9dba03c079abfbc680e8fca146069f054c1b0c5e9bcb5e5a9effcf86a95f67c6"
+          }
+        ],
+        "review-agent": [
+          {
+            "path": "agents/openai.yaml",
+            "sha256": "579774dde24f21ee57d5cb63f69c2fce0da04b81538c636a0e0dd37dc836c811"
+          },
+          {
+            "path": "SKILL.md",
+            "sha256": "bb46315f6bc4b7051c05f807d19b1689b20418ac6c42590406d805c10fa2fd1a"
+          }
+        ],
+        "skill-creator": [
+          {
+            "path": "agents/openai.yaml",
+            "sha256": "b750627cdd588fdbb5b46e854d3384d1a504fad3b8ed73ca5d7ead3804df78b6"
+          },
+          {
+            "path": "assets/skill-creator-small.svg",
+            "sha256": "edb19a0c59f9a1b5253b9af6d2f9f03cac27b2fe6a0275ebccbbdbff07891a1a"
+          },
+          {
+            "path": "assets/skill-creator.png",
+            "sha256": "a4024b0306ddb05847e1012879d37aaf1e658205199da596f5145ed7a88d9162"
+          },
+          {
+            "path": "license.txt",
+            "sha256": "3ddf9be5c28fe27dad143a5dc76eea25222ad1dd68934a047064e56ed2fa40c5"
+          },
+          {
+            "path": "references/openai_yaml.md",
+            "sha256": "7039d465b05342cbacf861f08d20192ab1eeee112bc5d8ff0fb66234756887a9"
+          },
+          {
+            "path": "scripts/generate_openai_yaml.py",
+            "sha256": "30c73f1ea7d47dbab2b231bb92c5bf9026f1ad14ba8e3b3a4a544092c4d24ebe"
+          },
+          {
+            "path": "scripts/init_skill.py",
+            "sha256": "74dfa9361a93bee6932d6cbb332ed19ac26a27ba3800e69fb07ba7512c1025f9"
+          },
+          {
+            "path": "scripts/quick_validate.py",
+            "sha256": "6068513d924ed3559e186dfcdead7439129828dcf402167fd925c06dffbf2806"
+          },
+          {
+            "path": "SKILL.md",
+            "sha256": "cccd291077ec57c6f50ca6529f0f3fb93212da09473effb2fcec808e81b21288"
+          }
+        ],
+        "skill-installer": [
+          {
+            "path": "agents/openai.yaml",
+            "sha256": "bd64b4d6893138706b3e3540f266ab809ccdcd08375652ae9f9d1e029fe50d02"
+          },
+          {
+            "path": "assets/skill-installer-small.svg",
+            "sha256": "099e5a4b5e5f0f918a8de0d2059f0a86211da623dbb75f86f13dc9f7c08c778d"
+          },
+          {
+            "path": "assets/skill-installer.png",
+            "sha256": "d0a230b1a79b71b858b7c215a0fbb0768d6459c14ea4ef80c61592629bf0e605"
+          },
+          {
+            "path": "LICENSE.txt",
+            "sha256": "3ddf9be5c28fe27dad143a5dc76eea25222ad1dd68934a047064e56ed2fa40c5"
+          },
+          {
+            "path": "scripts/github_utils.py",
+            "sha256": "2f9702afb9f0da740181fa4a3214f663e460f80cd5cea2e7dcaab00ad269082e"
+          },
+          {
+            "path": "scripts/install-skill-from-github.py",
+            "sha256": "110cc7e4e395c2c9ba070d47db7d21be5164591c35015ae364fc9c9905b08de8"
+          },
+          {
+            "path": "scripts/list-skills.py",
+            "sha256": "2cd6eecbaf9be7c86e80a14d7042f95d6abb83b6baee5f17dd075fa7a71c83de"
+          },
+          {
+            "path": "SKILL.md",
+            "sha256": "2892d8b2fb11631132118f340aed80ae17e59d5a571fc2c4f4a4a7e73f139d52"
+          }
+        ]
+      },
+      "evaluator_package_sha256": {
+        "Dockerfile": "b308e4db9c0af037f24e95313b110fcd143d3c5ff2dc8dfb28bbaea2ccfc4ef0",
+        "payloads.json": "50718a34dccf53436c627acc2482d3e4ef9d7e998e92271f5bb62c7bc9e352d0",
+        "protocol.json": "d9dc3954c70216b3889fc8ffd6a36866d036976633fdcab794040a2dbab52466",
+        "README.md": "23811933149fbbbf34ec75d3980f548d4b89aba07ac25689db6042fe670dea44",
+        "RESULT_TEMPLATE.json": "2aaa8b7ccca3af58ddcbe47701e3d9c42315cbdb9878ca34d0a76104555a8aed",
+        "RUBRIC.md": "8a07c7d9595a041262e2ae263b3270283addd2736dcf99705df726d863cd4f51",
+        "run.py": "722a72ace672f9d7e0a6242376f9b525ecaaba5b302d52cfa1efeab6385f4604",
+        "tasks/control/message.txt": "d45415e6b6a5da22eed81e69b5c73bf525524466fea34a27271e29d6a5b8f6d0",
+        "tasks/control/prompt.txt": "45f86f8bfc5adac12bcbabacde61167bfb3ab5363dd5bdb951057c9b396e35e0",
+        "tasks/discovery/prompt.txt": "81544e426ba86adaa125458acb5ac5d7380af2cb8b41cdedb4033b5c59f61b4f",
+        "tasks/discovery/report.html": "7410f4872cc39386855aec67c7bdbbd0e67b3e3cfd3567d33a8c1497cb8527ff",
+        "tasks/explicit-discovery.txt": "32ff407103c76becfc4f9be18d0ef724b7c9c5eb5c35cc7847fecb43bb85b046",
+        "tasks/explicit-svg.txt": "ae12d536dc98d610e0bea42ff352499e8fa27af2fa89caa3ca87054b28d42ed2",
+        "tasks/svg/front.png": "e9b621cfca6aea43be0572eeed1e2f1952589c49f7919ff4b48eb1cf6fe14623",
+        "tasks/svg/oblique.png": "905b32b839e6939c43bcff330c7fcc63f56b4f260475a18a6e878b98f6e23d06",
+        "tasks/svg/prompt.txt": "c36283e9a04aadd47ca433091bc110caf7dbf03260d0a16c4ce155afdd42bfd1",
+        "tasks/svg/side.png": "8fa3cbd963bfed79424f57cbf929a2f2d3eb21f8ad630129a4119c0a61cbf3a5",
+        "test_run.py": "3ac9e6ba896a53473a16b25c3c70a558331db52ec1130646e3c760345cfa865a"
+      },
+      "raw_sha256": {
+        "events.jsonl": "b4b63d9f5de0b075d619fbdc2d865d75c90c4479d56c3be0bc11a4d73bd7d80e",
+        "execution.json": "909c37fd7adc5020ffac022bfd12a5ebf4efdabe77a8b26247f978a80aed1b0a",
+        "install.log": "818e5004534f54c33e80295b162d89552ca5ffb390d6903884c6a268fad04ed4",
+        "stderr.log": "84ced6d23a636c4094688b2c8eae2c8187a438825855232c156e598c063246e6"
+      }
+    },
+    {
+      "mode": "explicit_smoke",
+      "isolation_boundary": "native-pilot",
+      "boundary_id": null,
+      "study_eligible_boundary": false,
+      "boundary_attested_by": "coordinator declaration; not hardware attestation",
+      "model": "gpt-6-astra",
+      "effort": "medium",
+      "sandbox": "workspace-write",
+      "elapsed_seconds": 23.86,
+      "tool_calls": 5,
+      "usage": {
+        "input_tokens": 68506,
+        "cached_input_tokens": 49536,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 479,
+        "reasoning_output_tokens": 84
+      },
+      "status": "completed_needs_review",
+      "instruction_read_candidates": [
+        "item_2"
+      ],
+      "unexpected_mcp_observed": false,
+      "prompt_sha256": "32ff407103c76becfc4f9be18d0ef724b7c9c5eb5c35cc7847fecb43bb85b046",
+      "review_required": true,
+      "case": "explicit-discovery-03",
+      "manual_review": {
+        "instruction_load": true,
+        "task_success": false,
+        "classification": "fail",
+        "note": "Frozen explicit prompt does not provide replacement text; correctly asks for missing information. Not an automatic-trigger trial."
+      },
+      "original_artifacts": {
+        ".agents/skills/proactive-skill-discovery/agents/openai.yaml": "7c25c200a0d5ed5eb59ba98910dd5471d1a3956a83570ada6d1b5797ca5fc067",
+        ".agents/skills/proactive-skill-discovery/LICENSE": "d1ba8b00007e2f5670cc0af48a9a8faa1885b502f186e574dee5c5fd7ecaf913",
+        ".agents/skills/proactive-skill-discovery/references/adapting-upstream-skills.md": "5fbfa1f490490903da028a424903a66e3ad783425cc15d21705d9e3274505fa0",
+        ".agents/skills/proactive-skill-discovery/references/learning-from-work.md": "094f67f3eaf2176fff0c5c7fdbdfbfbab7b170c3bd7b2147126987e273ae71f0",
+        ".agents/skills/proactive-skill-discovery/SKILL.md": "9765792d0f9452cb0b592be1ba609910d9fa7cd6c43114ab5c34073b5a1f907c",
+        "message.txt": "d45415e6b6a5da22eed81e69b5c73bf525524466fea34a27271e29d6a5b8f6d0",
+        "skills-lock.json": "5cdef5e83e3aea2740ef36dc910bfbcc38eacb0c56eb4c4b32879cf8617a978c"
+      },
+      "input_sha256": {
+        "message.txt": "d45415e6b6a5da22eed81e69b5c73bf525524466fea34a27271e29d6a5b8f6d0"
+      },
+      "system_sha256": {
+        "imagegen": [
+          {
+            "path": "agents/openai.yaml",
+            "sha256": "1797be4076717806df54aa9331c07ac8eebe32c69f32132d5858712b05406146"
+          },
+          {
+            "path": "assets/imagegen-small.svg",
+            "sha256": "087c1632a3b8a2ed4d6218952e7ba7ae2221a979f84233667ed2c587998784da"
+          },
+          {
+            "path": "assets/imagegen.png",
+            "sha256": "95952f644064eb9e890f98d8db07216347186526e4c41ad66d3420629eb86e20"
+          },
+          {
+            "path": "LICENSE.txt",
+            "sha256": "44e03f7e263eb3ad256440c1eeab5e49168baff5a78ecef9a5447261cf3a91bc"
+          },
+          {
+            "path": "references/cli.md",
+            "sha256": "29dc8c1e3e5d9a20aee587fedb46a464552b6ec118d93bbd90c8d86e30502c8c"
+          },
+          {
+            "path": "references/codex-network.md",
+            "sha256": "cba3b4d24d30f38adf8021b6e9b49ec5261a9e45e7df31047ec451c916c99b0a"
+          },
+          {
+            "path": "references/image-api.md",
+            "sha256": "695909437b792aff171477dba127476a11235c220beb06533cce7c1495a042c8"
+          },
+          {
+            "path": "references/prompting.md",
+            "sha256": "d957a45cb24fe2cf1a85858674fc533f15a5f4621355f559a13a93168999c2dd"
+          },
+          {
+            "path": "references/sample-prompts.md",
+            "sha256": "76cc8a2988efb6e844a99ff9908b2b11cc07467510fc909002abcc0ee3f0701b"
+          },
+          {
+            "path": "scripts/image_gen.py",
+            "sha256": "3666b807de3f0a1d0a4a767b886d612c0b8f71025c500bba6693d1c6995a0873"
+          },
+          {
+            "path": "scripts/remove_chroma_key.py",
+            "sha256": "fa2989807052b857bed08f7fee0caa2502b54c46afc0a6f28cd706c25f636630"
+          },
+          {
+            "path": "SKILL.md",
+            "sha256": "706d4d96e1d5c9e6023fe3ccabba1bb34b364024d344fd25b8515ec7d28fe3c4"
+          }
+        ],
+        "openai-docs": [
+          {
+            "path": "agents/openai.yaml",
+            "sha256": "0dd6c5ffa81a09782fd24cfa9fe1ec5c9633c90500b166ae18a462e613e876be"
+          },
+          {
+            "path": "assets/openai-small.svg",
+            "sha256": "85ef0a2cde497872edec1525f1d538ccc42b33ff47acdbb88499a1631a4bdb21"
+          },
+          {
+            "path": "assets/openai.png",
+            "sha256": "156cc84d7332bfe95b310350bd470b690d22aa33d65340cc6c2e06022946194c"
+          },
+          {
+            "path": "LICENSE.txt",
+            "sha256": "44e03f7e263eb3ad256440c1eeab5e49168baff5a78ecef9a5447261cf3a91bc"
+          },
+          {
+            "path": "references/codex-self-knowledge.md",
+            "sha256": "f945bf2a7cea6892d7a11ac38fb18b744fefd6d273654a8410c4c79e9f647fbe"
+          },
+          {
+            "path": "references/latest-model.md",
+            "sha256": "c6908732acbf2c6732614d615856b5582964521a319da842cc9379f9822fbf34"
+          },
+          {
+            "path": "references/mcp-diagnostics.md",
+            "sha256": "e9df2b2f8faa28930db4a2937cdb3665b4548ac958e80a8601a5dd0da1e6fad0"
+          },
+          {
+            "path": "references/model-migration.md",
+            "sha256": "e2dc95fa96cf68c1e16f5bae265ae660bede705940602ba86ab6219c514a976d"
+          },
+          {
+            "path": "references/model-selection.md",
+            "sha256": "ce020100a28004500c927abcd57cff154c5c360eb72d918ef7d72492e2484cce"
+          },
+          {
+            "path": "references/official-docs.md",
+            "sha256": "b2301d72b8092be5f5727d8d1cbc75740887d836f4f13b469f40c1db16b39fe3"
+          },
+          {
+            "path": "references/prompting-guide.md",
+            "sha256": "7e7cd7ff89f6211d1f881b8d394e92f416febe6eae2fdfd230c5b5c346bf8a93"
+          },
+          {
+            "path": "references/upgrade-guide.md",
+            "sha256": "fada5e0c951a50e21c8ee9f51891159b539b651bfbdb92385fada4cbac93dab5"
+          },
+          {
+            "path": "references/upgrading-to-gpt-6-astra.md",
+            "sha256": "cf4ebc3c89a5e2062e553626dcd27fab13f4870d3046c631ed91a0bc301bb32d"
+          },
+          {
+            "path": "scripts/fetch-codex-manual.mjs",
+            "sha256": "1b9a36d3e59ddff3317d1faa182e5cd4967db14ff993593a5f98d5682dbffbe4"
+          },
+          {
+            "path": "scripts/resolve-latest-model-info",
+            "sha256": "8f5006efa15c034ede29821b627d7b86c43f7dfaab422d335f45b9be8d04e2d5"
+          },
+          {
+            "path": "scripts/resolve-latest-model-info.cjs",
+            "sha256": "91eb045abbf96ffb361e6ec2d3606540570fb32383edb22061f5549381ce0ee5"
+          },
+          {
+            "path": "SKILL.md",
+            "sha256": "8ce8021101bcea594ff92ee6cfd8ca7641a49ee66d7bc6070555f1a33fc239d9"
+          }
+        ],
+        "plugin-creator": [
+          {
+            "path": "agents/openai.yaml",
+            "sha256": "693e1667acc879a7b966cf073fee6cf1f268974983c00b6b779dab031d79185e"
+          },
+          {
+            "path": "assets/plugin-creator-small.svg",
+            "sha256": "edb19a0c59f9a1b5253b9af6d2f9f03cac27b2fe6a0275ebccbbdbff07891a1a"
+          },
+          {
+            "path": "assets/plugin-creator.png",
+            "sha256": "a4024b0306ddb05847e1012879d37aaf1e658205199da596f5145ed7a88d9162"
+          },
+          {
+            "path": "references/installing-and-updating.md",
+            "sha256": "476850a165cd63f8f3def5968b302c77e3cd5250af4df2dec1575a2eb4b51467"
+          },
+          {
+            "path": "references/plugin-json-spec.md",
+            "sha256": "254f18eb2cf9390c0b85f0b885db3b1facf90e060257cde70b6e55e21797382e"
+          },
+          {
+            "path": "scripts/create_basic_plugin.py",
+            "sha256": "a0dfca09c7ecc8f30012cb2111acfdf733eac7c5bd73e4edb154a45487de303f"
+          },
+          {
+            "path": "scripts/identifier_validation.py",
+            "sha256": "680ce5b775ee5410ecf808fad40350dc4df2cc4a7003363f4c4c7f9d7c0be918"
+          },
+          {
+            "path": "scripts/read_marketplace_name.py",
+            "sha256": "0be0d7e327688b70300baa4fff448a8e24f4c00ce71340f9c6299d21c333cc65"
+          },
+          {
+            "path": "scripts/update_plugin_cachebuster.py",
+            "sha256": "d37acec7cfc34fb44db35bce437bf5ee8eb6da3484aece565e3a6e70e2bf121b"
+          },
+          {
+            "path": "scripts/validate_plugin.py",
+            "sha256": "1e6cb914505b458856c2cfab7d18a224731c743ef47e0c9d78afe64f35b67f7c"
+          },
+          {
+            "path": "SKILL.md",
+            "sha256": "9dba03c079abfbc680e8fca146069f054c1b0c5e9bcb5e5a9effcf86a95f67c6"
+          }
+        ],
+        "review-agent": [
+          {
+            "path": "agents/openai.yaml",
+            "sha256": "579774dde24f21ee57d5cb63f69c2fce0da04b81538c636a0e0dd37dc836c811"
+          },
+          {
+            "path": "SKILL.md",
+            "sha256": "bb46315f6bc4b7051c05f807d19b1689b20418ac6c42590406d805c10fa2fd1a"
+          }
+        ],
+        "skill-creator": [
+          {
+            "path": "agents/openai.yaml",
+            "sha256": "b750627cdd588fdbb5b46e854d3384d1a504fad3b8ed73ca5d7ead3804df78b6"
+          },
+          {
+            "path": "assets/skill-creator-small.svg",
+            "sha256": "edb19a0c59f9a1b5253b9af6d2f9f03cac27b2fe6a0275ebccbbdbff07891a1a"
+          },
+          {
+            "path": "assets/skill-creator.png",
+            "sha256": "a4024b0306ddb05847e1012879d37aaf1e658205199da596f5145ed7a88d9162"
+          },
+          {
+            "path": "license.txt",
+            "sha256": "3ddf9be5c28fe27dad143a5dc76eea25222ad1dd68934a047064e56ed2fa40c5"
+          },
+          {
+            "path": "references/openai_yaml.md",
+            "sha256": "7039d465b05342cbacf861f08d20192ab1eeee112bc5d8ff0fb66234756887a9"
+          },
+          {
+            "path": "scripts/generate_openai_yaml.py",
+            "sha256": "30c73f1ea7d47dbab2b231bb92c5bf9026f1ad14ba8e3b3a4a544092c4d24ebe"
+          },
+          {
+            "path": "scripts/init_skill.py",
+            "sha256": "74dfa9361a93bee6932d6cbb332ed19ac26a27ba3800e69fb07ba7512c1025f9"
+          },
+          {
+            "path": "scripts/quick_validate.py",
+            "sha256": "6068513d924ed3559e186dfcdead7439129828dcf402167fd925c06dffbf2806"
+          },
+          {
+            "path": "SKILL.md",
+            "sha256": "cccd291077ec57c6f50ca6529f0f3fb93212da09473effb2fcec808e81b21288"
+          }
+        ],
+        "skill-installer": [
+          {
+            "path": "agents/openai.yaml",
+            "sha256": "bd64b4d6893138706b3e3540f266ab809ccdcd08375652ae9f9d1e029fe50d02"
+          },
+          {
+            "path": "assets/skill-installer-small.svg",
+            "sha256": "099e5a4b5e5f0f918a8de0d2059f0a86211da623dbb75f86f13dc9f7c08c778d"
+          },
+          {
+            "path": "assets/skill-installer.png",
+            "sha256": "d0a230b1a79b71b858b7c215a0fbb0768d6459c14ea4ef80c61592629bf0e605"
+          },
+          {
+            "path": "LICENSE.txt",
+            "sha256": "3ddf9be5c28fe27dad143a5dc76eea25222ad1dd68934a047064e56ed2fa40c5"
+          },
+          {
+            "path": "scripts/github_utils.py",
+            "sha256": "2f9702afb9f0da740181fa4a3214f663e460f80cd5cea2e7dcaab00ad269082e"
+          },
+          {
+            "path": "scripts/install-skill-from-github.py",
+            "sha256": "110cc7e4e395c2c9ba070d47db7d21be5164591c35015ae364fc9c9905b08de8"
+          },
+          {
+            "path": "scripts/list-skills.py",
+            "sha256": "2cd6eecbaf9be7c86e80a14d7042f95d6abb83b6baee5f17dd075fa7a71c83de"
+          },
+          {
+            "path": "SKILL.md",
+            "sha256": "2892d8b2fb11631132118f340aed80ae17e59d5a571fc2c4f4a4a7e73f139d52"
+          }
+        ]
+      },
+      "evaluator_package_sha256": {
+        "Dockerfile": "b308e4db9c0af037f24e95313b110fcd143d3c5ff2dc8dfb28bbaea2ccfc4ef0",
+        "payloads.json": "50718a34dccf53436c627acc2482d3e4ef9d7e998e92271f5bb62c7bc9e352d0",
+        "protocol.json": "d9dc3954c70216b3889fc8ffd6a36866d036976633fdcab794040a2dbab52466",
+        "README.md": "23811933149fbbbf34ec75d3980f548d4b89aba07ac25689db6042fe670dea44",
+        "RESULT_TEMPLATE.json": "2aaa8b7ccca3af58ddcbe47701e3d9c42315cbdb9878ca34d0a76104555a8aed",
+        "RUBRIC.md": "8a07c7d9595a041262e2ae263b3270283addd2736dcf99705df726d863cd4f51",
+        "run.py": "ee64f1d261bf3cd0aa1f50d136f8494f75be744231f55c35dbdfa8f09836d833",
+        "tasks/control/message.txt": "d45415e6b6a5da22eed81e69b5c73bf525524466fea34a27271e29d6a5b8f6d0",
+        "tasks/control/prompt.txt": "45f86f8bfc5adac12bcbabacde61167bfb3ab5363dd5bdb951057c9b396e35e0",
+        "tasks/discovery/prompt.txt": "81544e426ba86adaa125458acb5ac5d7380af2cb8b41cdedb4033b5c59f61b4f",
+        "tasks/discovery/report.html": "7410f4872cc39386855aec67c7bdbbd0e67b3e3cfd3567d33a8c1497cb8527ff",
+        "tasks/explicit-discovery.txt": "32ff407103c76becfc4f9be18d0ef724b7c9c5eb5c35cc7847fecb43bb85b046",
+        "tasks/explicit-svg.txt": "ae12d536dc98d610e0bea42ff352499e8fa27af2fa89caa3ca87054b28d42ed2",
+        "tasks/svg/front.png": "e9b621cfca6aea43be0572eeed1e2f1952589c49f7919ff4b48eb1cf6fe14623",
+        "tasks/svg/oblique.png": "905b32b839e6939c43bcff330c7fcc63f56b4f260475a18a6e878b98f6e23d06",
+        "tasks/svg/prompt.txt": "c36283e9a04aadd47ca433091bc110caf7dbf03260d0a16c4ce155afdd42bfd1",
+        "tasks/svg/side.png": "8fa3cbd963bfed79424f57cbf929a2f2d3eb21f8ad630129a4119c0a61cbf3a5",
+        "test_run.py": "3ac9e6ba896a53473a16b25c3c70a558331db52ec1130646e3c760345cfa865a"
+      },
+      "raw_sha256": {
+        "events.jsonl": "71b1939cf5476e2263668029555331603e71a8bad76f1a622df7deb654a150d1",
+        "execution.json": "8adfb95e35a9142f56aa97011c68914d2e0c11e6dcdacdb0b5f2632932432acf",
+        "install.log": "7914e31806284bf16028ed4c4a7e62a9a29ea7121e6c4f971e8fc03b2b247529",
+        "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "mode": "explicit_smoke",
+      "isolation_boundary": "native-pilot",
+      "boundary_id": null,
+      "study_eligible_boundary": false,
+      "boundary_attested_by": "coordinator declaration; not hardware attestation",
+      "model": "gpt-6-astra",
+      "effort": "medium",
+      "sandbox": "workspace-write",
+      "elapsed_seconds": 39.26,
+      "tool_calls": 4,
+      "usage": {
+        "input_tokens": 106431,
+        "cached_input_tokens": 72320,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1059,
+        "reasoning_output_tokens": 0
+      },
+      "status": "completed_needs_review",
+      "instruction_read_candidates": [
+        "item_2"
+      ],
+      "unexpected_mcp_observed": false,
+      "prompt_sha256": "ae12d536dc98d610e0bea42ff352499e8fa27af2fa89caa3ca87054b28d42ed2",
+      "review_required": true,
+      "case": "explicit-svg-01",
+      "manual_review": {
+        "instruction_load": true,
+        "image_inspection": "unobservable",
+        "task_success": null,
+        "classification": "unobservable",
+        "note": "Four-hole explanation; CLI JSONL does not expose actual image viewing. Do not backfill another run."
+      },
+      "original_artifacts": {
+        ".agents/skills/crafting-reference-based-svg-assets/agents/openai.yaml": "c1737c325f700dca578a0093ab0ec476ccabc75beddaa842f1b9c7a87318965b",
+        ".agents/skills/crafting-reference-based-svg-assets/LICENSE": "d1ba8b00007e2f5670cc0af48a9a8faa1885b502f186e574dee5c5fd7ecaf913",
+        ".agents/skills/crafting-reference-based-svg-assets/references/execution-record.md": "e4c2d16ce8ac756a44bfc04a1fb45cb0ae9e4e1764bd9a031d85b10ed0a593f1",
+        ".agents/skills/crafting-reference-based-svg-assets/references/project-profile-example.md": "ae3c82b7ee3901c30b7cd271b0b98c83f85bea60e49a59243ec404847d170a84",
+        ".agents/skills/crafting-reference-based-svg-assets/references/visual-diagnosis.md": "28919d58fac8c7484cae05d533605eb5a21dd8fcc5b39dcbb07d0e56d94966a3",
+        ".agents/skills/crafting-reference-based-svg-assets/SKILL.md": "c81a1a8491cf2caed738b5dde9a3fe3ba716f84c0a53620a7138f350267e4288",
+        "front.png": "e9b621cfca6aea43be0572eeed1e2f1952589c49f7919ff4b48eb1cf6fe14623",
+        "oblique.png": "905b32b839e6939c43bcff330c7fcc63f56b4f260475a18a6e878b98f6e23d06",
+        "side.png": "8fa3cbd963bfed79424f57cbf929a2f2d3eb21f8ad630129a4119c0a61cbf3a5",
+        "skills-lock.json": "2a0cb78606966fd3cb670afb9a2ae9808b2a3d346cb4c8c9e95232d3b78bf50c"
+      },
+      "input_sha256": {
+        "front.png": "e9b621cfca6aea43be0572eeed1e2f1952589c49f7919ff4b48eb1cf6fe14623",
+        "oblique.png": "905b32b839e6939c43bcff330c7fcc63f56b4f260475a18a6e878b98f6e23d06",
+        "side.png": "8fa3cbd963bfed79424f57cbf929a2f2d3eb21f8ad630129a4119c0a61cbf3a5"
+      },
+      "system_sha256": {
+        "imagegen": [
+          {
+            "path": "agents/openai.yaml",
+            "sha256": "1797be4076717806df54aa9331c07ac8eebe32c69f32132d5858712b05406146"
+          },
+          {
+            "path": "assets/imagegen-small.svg",
+            "sha256": "087c1632a3b8a2ed4d6218952e7ba7ae2221a979f84233667ed2c587998784da"
+          },
+          {
+            "path": "assets/imagegen.png",
+            "sha256": "95952f644064eb9e890f98d8db07216347186526e4c41ad66d3420629eb86e20"
+          },
+          {
+            "path": "LICENSE.txt",
+            "sha256": "44e03f7e263eb3ad256440c1eeab5e49168baff5a78ecef9a5447261cf3a91bc"
+          },
+          {
+            "path": "references/cli.md",
+            "sha256": "29dc8c1e3e5d9a20aee587fedb46a464552b6ec118d93bbd90c8d86e30502c8c"
+          },
+          {
+            "path": "references/codex-network.md",
+            "sha256": "cba3b4d24d30f38adf8021b6e9b49ec5261a9e45e7df31047ec451c916c99b0a"
+          },
+          {
+            "path": "references/image-api.md",
+            "sha256": "695909437b792aff171477dba127476a11235c220beb06533cce7c1495a042c8"
+          },
+          {
+            "path": "references/prompting.md",
+            "sha256": "d957a45cb24fe2cf1a85858674fc533f15a5f4621355f559a13a93168999c2dd"
+          },
+          {
+            "path": "references/sample-prompts.md",
+            "sha256": "76cc8a2988efb6e844a99ff9908b2b11cc07467510fc909002abcc0ee3f0701b"
+          },
+          {
+            "path": "scripts/image_gen.py",
+            "sha256": "3666b807de3f0a1d0a4a767b886d612c0b8f71025c500bba6693d1c6995a0873"
+          },
+          {
+            "path": "scripts/remove_chroma_key.py",
+            "sha256": "fa2989807052b857bed08f7fee0caa2502b54c46afc0a6f28cd706c25f636630"
+          },
+          {
+            "path": "SKILL.md",
+            "sha256": "706d4d96e1d5c9e6023fe3ccabba1bb34b364024d344fd25b8515ec7d28fe3c4"
+          }
+        ],
+        "openai-docs": [
+          {
+            "path": "agents/openai.yaml",
+            "sha256": "0dd6c5ffa81a09782fd24cfa9fe1ec5c9633c90500b166ae18a462e613e876be"
+          },
+          {
+            "path": "assets/openai-small.svg",
+            "sha256": "85ef0a2cde497872edec1525f1d538ccc42b33ff47acdbb88499a1631a4bdb21"
+          },
+          {
+            "path": "assets/openai.png",
+            "sha256": "156cc84d7332bfe95b310350bd470b690d22aa33d65340cc6c2e06022946194c"
+          },
+          {
+            "path": "LICENSE.txt",
+            "sha256": "44e03f7e263eb3ad256440c1eeab5e49168baff5a78ecef9a5447261cf3a91bc"
+          },
+          {
+            "path": "references/codex-self-knowledge.md",
+            "sha256": "f945bf2a7cea6892d7a11ac38fb18b744fefd6d273654a8410c4c79e9f647fbe"
+          },
+          {
+            "path": "references/latest-model.md",
+            "sha256": "c6908732acbf2c6732614d615856b5582964521a319da842cc9379f9822fbf34"
+          },
+          {
+            "path": "references/mcp-diagnostics.md",
+            "sha256": "e9df2b2f8faa28930db4a2937cdb3665b4548ac958e80a8601a5dd0da1e6fad0"
+          },
+          {
+            "path": "references/model-migration.md",
+            "sha256": "e2dc95fa96cf68c1e16f5bae265ae660bede705940602ba86ab6219c514a976d"
+          },
+          {
+            "path": "references/model-selection.md",
+            "sha256": "ce020100a28004500c927abcd57cff154c5c360eb72d918ef7d72492e2484cce"
+          },
+          {
+            "path": "references/official-docs.md",
+            "sha256": "b2301d72b8092be5f5727d8d1cbc75740887d836f4f13b469f40c1db16b39fe3"
+          },
+          {
+            "path": "references/prompting-guide.md",
+            "sha256": "7e7cd7ff89f6211d1f881b8d394e92f416febe6eae2fdfd230c5b5c346bf8a93"
+          },
+          {
+            "path": "references/upgrade-guide.md",
+            "sha256": "fada5e0c951a50e21c8ee9f51891159b539b651bfbdb92385fada4cbac93dab5"
+          },
+          {
+            "path": "references/upgrading-to-gpt-6-astra.md",
+            "sha256": "cf4ebc3c89a5e2062e553626dcd27fab13f4870d3046c631ed91a0bc301bb32d"
+          },
+          {
+            "path": "scripts/fetch-codex-manual.mjs",
+            "sha256": "1b9a36d3e59ddff3317d1faa182e5cd4967db14ff993593a5f98d5682dbffbe4"
+          },
+          {
+            "path": "scripts/resolve-latest-model-info",
+            "sha256": "8f5006efa15c034ede29821b627d7b86c43f7dfaab422d335f45b9be8d04e2d5"
+          },
+          {
+            "path": "scripts/resolve-latest-model-info.cjs",
+            "sha256": "91eb045abbf96ffb361e6ec2d3606540570fb32383edb22061f5549381ce0ee5"
+          },
+          {
+            "path": "SKILL.md",
+            "sha256": "8ce8021101bcea594ff92ee6cfd8ca7641a49ee66d7bc6070555f1a33fc239d9"
+          }
+        ],
+        "plugin-creator": [
+          {
+            "path": "agents/openai.yaml",
+            "sha256": "693e1667acc879a7b966cf073fee6cf1f268974983c00b6b779dab031d79185e"
+          },
+          {
+            "path": "assets/plugin-creator-small.svg",
+            "sha256": "edb19a0c59f9a1b5253b9af6d2f9f03cac27b2fe6a0275ebccbbdbff07891a1a"
+          },
+          {
+            "path": "assets/plugin-creator.png",
+            "sha256": "a4024b0306ddb05847e1012879d37aaf1e658205199da596f5145ed7a88d9162"
+          },
+          {
+            "path": "references/installing-and-updating.md",
+            "sha256": "476850a165cd63f8f3def5968b302c77e3cd5250af4df2dec1575a2eb4b51467"
+          },
+          {
+            "path": "references/plugin-json-spec.md",
+            "sha256": "254f18eb2cf9390c0b85f0b885db3b1facf90e060257cde70b6e55e21797382e"
+          },
+          {
+            "path": "scripts/create_basic_plugin.py",
+            "sha256": "a0dfca09c7ecc8f30012cb2111acfdf733eac7c5bd73e4edb154a45487de303f"
+          },
+          {
+            "path": "scripts/identifier_validation.py",
+            "sha256": "680ce5b775ee5410ecf808fad40350dc4df2cc4a7003363f4c4c7f9d7c0be918"
+          },
+          {
+            "path": "scripts/read_marketplace_name.py",
+            "sha256": "0be0d7e327688b70300baa4fff448a8e24f4c00ce71340f9c6299d21c333cc65"
+          },
+          {
+            "path": "scripts/update_plugin_cachebuster.py",
+            "sha256": "d37acec7cfc34fb44db35bce437bf5ee8eb6da3484aece565e3a6e70e2bf121b"
+          },
+          {
+            "path": "scripts/validate_plugin.py",
+            "sha256": "1e6cb914505b458856c2cfab7d18a224731c743ef47e0c9d78afe64f35b67f7c"
+          },
+          {
+            "path": "SKILL.md",
+            "sha256": "9dba03c079abfbc680e8fca146069f054c1b0c5e9bcb5e5a9effcf86a95f67c6"
+          }
+        ],
+        "review-agent": [
+          {
+            "path": "agents/openai.yaml",
+            "sha256": "579774dde24f21ee57d5cb63f69c2fce0da04b81538c636a0e0dd37dc836c811"
+          },
+          {
+            "path": "SKILL.md",
+            "sha256": "bb46315f6bc4b7051c05f807d19b1689b20418ac6c42590406d805c10fa2fd1a"
+          }
+        ],
+        "skill-creator": [
+          {
+            "path": "agents/openai.yaml",
+            "sha256": "b750627cdd588fdbb5b46e854d3384d1a504fad3b8ed73ca5d7ead3804df78b6"
+          },
+          {
+            "path": "assets/skill-creator-small.svg",
+            "sha256": "edb19a0c59f9a1b5253b9af6d2f9f03cac27b2fe6a0275ebccbbdbff07891a1a"
+          },
+          {
+            "path": "assets/skill-creator.png",
+            "sha256": "a4024b0306ddb05847e1012879d37aaf1e658205199da596f5145ed7a88d9162"
+          },
+          {
+            "path": "license.txt",
+            "sha256": "3ddf9be5c28fe27dad143a5dc76eea25222ad1dd68934a047064e56ed2fa40c5"
+          },
+          {
+            "path": "references/openai_yaml.md",
+            "sha256": "7039d465b05342cbacf861f08d20192ab1eeee112bc5d8ff0fb66234756887a9"
+          },
+          {
+            "path": "scripts/generate_openai_yaml.py",
+            "sha256": "30c73f1ea7d47dbab2b231bb92c5bf9026f1ad14ba8e3b3a4a544092c4d24ebe"
+          },
+          {
+            "path": "scripts/init_skill.py",
+            "sha256": "74dfa9361a93bee6932d6cbb332ed19ac26a27ba3800e69fb07ba7512c1025f9"
+          },
+          {
+            "path": "scripts/quick_validate.py",
+            "sha256": "6068513d924ed3559e186dfcdead7439129828dcf402167fd925c06dffbf2806"
+          },
+          {
+            "path": "SKILL.md",
+            "sha256": "cccd291077ec57c6f50ca6529f0f3fb93212da09473effb2fcec808e81b21288"
+          }
+        ],
+        "skill-installer": [
+          {
+            "path": "agents/openai.yaml",
+            "sha256": "bd64b4d6893138706b3e3540f266ab809ccdcd08375652ae9f9d1e029fe50d02"
+          },
+          {
+            "path": "assets/skill-installer-small.svg",
+            "sha256": "099e5a4b5e5f0f918a8de0d2059f0a86211da623dbb75f86f13dc9f7c08c778d"
+          },
+          {
+            "path": "assets/skill-installer.png",
+            "sha256": "d0a230b1a79b71b858b7c215a0fbb0768d6459c14ea4ef80c61592629bf0e605"
+          },
+          {
+            "path": "LICENSE.txt",
+            "sha256": "3ddf9be5c28fe27dad143a5dc76eea25222ad1dd68934a047064e56ed2fa40c5"
+          },
+          {
+            "path": "scripts/github_utils.py",
+            "sha256": "2f9702afb9f0da740181fa4a3214f663e460f80cd5cea2e7dcaab00ad269082e"
+          },
+          {
+            "path": "scripts/install-skill-from-github.py",
+            "sha256": "110cc7e4e395c2c9ba070d47db7d21be5164591c35015ae364fc9c9905b08de8"
+          },
+          {
+            "path": "scripts/list-skills.py",
+            "sha256": "2cd6eecbaf9be7c86e80a14d7042f95d6abb83b6baee5f17dd075fa7a71c83de"
+          },
+          {
+            "path": "SKILL.md",
+            "sha256": "2892d8b2fb11631132118f340aed80ae17e59d5a571fc2c4f4a4a7e73f139d52"
+          }
+        ]
+      },
+      "evaluator_package_sha256": {
+        "Dockerfile": "b308e4db9c0af037f24e95313b110fcd143d3c5ff2dc8dfb28bbaea2ccfc4ef0",
+        "payloads.json": "50718a34dccf53436c627acc2482d3e4ef9d7e998e92271f5bb62c7bc9e352d0",
+        "protocol.json": "d9dc3954c70216b3889fc8ffd6a36866d036976633fdcab794040a2dbab52466",
+        "README.md": "23811933149fbbbf34ec75d3980f548d4b89aba07ac25689db6042fe670dea44",
+        "RESULT_TEMPLATE.json": "2aaa8b7ccca3af58ddcbe47701e3d9c42315cbdb9878ca34d0a76104555a8aed",
+        "RUBRIC.md": "8a07c7d9595a041262e2ae263b3270283addd2736dcf99705df726d863cd4f51",
+        "run.py": "ee64f1d261bf3cd0aa1f50d136f8494f75be744231f55c35dbdfa8f09836d833",
+        "tasks/control/message.txt": "d45415e6b6a5da22eed81e69b5c73bf525524466fea34a27271e29d6a5b8f6d0",
+        "tasks/control/prompt.txt": "45f86f8bfc5adac12bcbabacde61167bfb3ab5363dd5bdb951057c9b396e35e0",
+        "tasks/discovery/prompt.txt": "81544e426ba86adaa125458acb5ac5d7380af2cb8b41cdedb4033b5c59f61b4f",
+        "tasks/discovery/report.html": "7410f4872cc39386855aec67c7bdbbd0e67b3e3cfd3567d33a8c1497cb8527ff",
+        "tasks/explicit-discovery.txt": "32ff407103c76becfc4f9be18d0ef724b7c9c5eb5c35cc7847fecb43bb85b046",
+        "tasks/explicit-svg.txt": "ae12d536dc98d610e0bea42ff352499e8fa27af2fa89caa3ca87054b28d42ed2",
+        "tasks/svg/front.png": "e9b621cfca6aea43be0572eeed1e2f1952589c49f7919ff4b48eb1cf6fe14623",
+        "tasks/svg/oblique.png": "905b32b839e6939c43bcff330c7fcc63f56b4f260475a18a6e878b98f6e23d06",
+        "tasks/svg/prompt.txt": "c36283e9a04aadd47ca433091bc110caf7dbf03260d0a16c4ce155afdd42bfd1",
+        "tasks/svg/side.png": "8fa3cbd963bfed79424f57cbf929a2f2d3eb21f8ad630129a4119c0a61cbf3a5",
+        "test_run.py": "3ac9e6ba896a53473a16b25c3c70a558331db52ec1130646e3c760345cfa865a"
+      },
+      "raw_sha256": {
+        "events.jsonl": "a685833c949c21baa8a6e084bee494b3588b9578febb995297128987655053b3",
+        "execution.json": "e82b26806bf28bbdce6697a14a4de44c284a1b7eed3bc9203b2778ce1c8e964f",
+        "install.log": "85a39bddd2bf4dc848c710fa757dde0c883ad2079ec8d5d00fdfa36f1724dadb",
+        "stderr.log": "e7c739c2650f6444558574dfb50d93881f2af6b0b7c340a88b5c9c0d9370e820"
+      }
+    },
+    {
+      "mode": "implicit_task",
+      "isolation_boundary": "native-pilot",
+      "boundary_id": null,
+      "study_eligible_boundary": false,
+      "boundary_attested_by": "coordinator declaration; not hardware attestation",
+      "model": "gpt-6-astra",
+      "effort": "medium",
+      "sandbox": "workspace-write",
+      "elapsed_seconds": 227.67,
+      "tool_calls": 18,
+      "usage": {
+        "input_tokens": 555926,
+        "cached_input_tokens": 505728,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 5574,
+        "reasoning_output_tokens": 386
+      },
+      "status": "completed_needs_review",
+      "instruction_read_candidates": [
+        "item_1"
+      ],
+      "unexpected_mcp_observed": false,
+      "prompt_sha256": "81544e426ba86adaa125458acb5ac5d7380af2cb8b41cdedb4033b5c59f61b4f",
+      "review_required": true,
+      "case": "implicit-discovery-01",
+      "manual_review": {
+        "instruction_load": true,
+        "implicit_trigger": true,
+        "external_skill_adopted": false,
+        "mature_tool_used": true,
+        "primary_conditions": [
+          true,
+          true,
+          true,
+          null,
+          true
+        ],
+        "task_success": true,
+        "classification": "unobservable",
+        "note": "Actual PyMuPDF output independently passes; CLI does not expose full license-inspection call. Unused non-BMP cmap warning retained."
+      },
+      "original_artifacts": {
+        ".agents/skills/proactive-skill-discovery/agents/openai.yaml": "7c25c200a0d5ed5eb59ba98910dd5471d1a3956a83570ada6d1b5797ca5fc067",
+        ".agents/skills/proactive-skill-discovery/LICENSE": "d1ba8b00007e2f5670cc0af48a9a8faa1885b502f186e574dee5c5fd7ecaf913",
+        ".agents/skills/proactive-skill-discovery/references/adapting-upstream-skills.md": "5fbfa1f490490903da028a424903a66e3ad783425cc15d21705d9e3274505fa0",
+        ".agents/skills/proactive-skill-discovery/references/learning-from-work.md": "094f67f3eaf2176fff0c5c7fdbdfbfbab7b170c3bd7b2147126987e273ae71f0",
+        ".agents/skills/proactive-skill-discovery/SKILL.md": "9765792d0f9452cb0b592be1ba609910d9fa7cd6c43114ab5c34073b5a1f907c",
+        "build_report.py": "86dbc0b771eabaac097a3e0106f01855ecc672f55e7ad378e0351a4d804f551c",
+        "install_tools.py": "268d4200fc26621f4a442c7823a010736db8213819cef529026827ee8909a224",
+        "report.html": "7410f4872cc39386855aec67c7bdbbd0e67b3e3cfd3567d33a8c1497cb8527ff",
+        "report.pdf": "f73a589cfc501e992bd5dfd93b28368a045f93d814f9e0b6bbf1a49c38c47b4b",
+        "skills-lock.json": "5cdef5e83e3aea2740ef36dc910bfbcc38eacb0c56eb4c4b32879cf8617a978c",
+        "verification/checks.json": "9b2a13ba152c25e5de95abbd1a4bda18f0b7856448a3176e37edae85825bbd5b",
+        "verification/method.md": "a4fff21ac39f6c0a04e35bd4f426e223ff23ed5258018ab32ae3424d94f4932e",
+        "verification/page-1.png": "fbbd801bd1e214970c77c82ab3923d00d1d56ab265e7316d1b3af3a286f6a602",
+        "verification/page-1.txt": "2b9e437d03d61fe85fda58a91bc40f23cbf48d75b37f6e914fff590cf2ddfb71",
+        "verification/page-2.png": "ab599ba4f8488dee5b3bcdb961394d7cd51e84f56c7a6d9ca267247b2936c346",
+        "verification/page-2.txt": "d644b7e801320d174d1d1630e23afdf97d500f70c06ef8aafcd1fab7e464a115",
+        "verification/page-3.png": "5bcc948f7f9010412f03c866090172f515000927b376898fc486e2ef81e13cc5",
+        "verification/page-3.txt": "fd5d347b236e6fd7ee14552657da1950e42e72b088fb4a272ccdc5c23c926efc",
+        "verification.md": "1031ee64ff37aa50b35ae42909f55b013305455c7c3eae14b7b85b480e798649",
+        "verify_report.py": "3d63f79218911ff2d72afac234768848b9825d445118c754e720ec4c46c8aeab"
+      },
+      "input_sha256": {
+        "report.html": "7410f4872cc39386855aec67c7bdbbd0e67b3e3cfd3567d33a8c1497cb8527ff"
+      },
+      "system_sha256": {
+        "imagegen": [
+          {
+            "path": "agents/openai.yaml",
+            "sha256": "1797be4076717806df54aa9331c07ac8eebe32c69f32132d5858712b05406146"
+          },
+          {
+            "path": "assets/imagegen-small.svg",
+            "sha256": "087c1632a3b8a2ed4d6218952e7ba7ae2221a979f84233667ed2c587998784da"
+          },
+          {
+            "path": "assets/imagegen.png",
+            "sha256": "95952f644064eb9e890f98d8db07216347186526e4c41ad66d3420629eb86e20"
+          },
+          {
+            "path": "LICENSE.txt",
+            "sha256": "44e03f7e263eb3ad256440c1eeab5e49168baff5a78ecef9a5447261cf3a91bc"
+          },
+          {
+            "path": "references/cli.md",
+            "sha256": "29dc8c1e3e5d9a20aee587fedb46a464552b6ec118d93bbd90c8d86e30502c8c"
+          },
+          {
+            "path": "references/codex-network.md",
+            "sha256": "cba3b4d24d30f38adf8021b6e9b49ec5261a9e45e7df31047ec451c916c99b0a"
+          },
+          {
+            "path": "references/image-api.md",
+            "sha256": "695909437b792aff171477dba127476a11235c220beb06533cce7c1495a042c8"
+          },
+          {
+            "path": "references/prompting.md",
+            "sha256": "d957a45cb24fe2cf1a85858674fc533f15a5f4621355f559a13a93168999c2dd"
+          },
+          {
+            "path": "references/sample-prompts.md",
+            "sha256": "76cc8a2988efb6e844a99ff9908b2b11cc07467510fc909002abcc0ee3f0701b"
+          },
+          {
+            "path": "scripts/image_gen.py",
+            "sha256": "3666b807de3f0a1d0a4a767b886d612c0b8f71025c500bba6693d1c6995a0873"
+          },
+          {
+            "path": "scripts/remove_chroma_key.py",
+            "sha256": "fa2989807052b857bed08f7fee0caa2502b54c46afc0a6f28cd706c25f636630"
+          },
+          {
+            "path": "SKILL.md",
+            "sha256": "706d4d96e1d5c9e6023fe3ccabba1bb34b364024d344fd25b8515ec7d28fe3c4"
+          }
+        ],
+        "openai-docs": [
+          {
+            "path": "agents/openai.yaml",
+            "sha256": "0dd6c5ffa81a09782fd24cfa9fe1ec5c9633c90500b166ae18a462e613e876be"
+          },
+          {
+            "path": "assets/openai-small.svg",
+            "sha256": "85ef0a2cde497872edec1525f1d538ccc42b33ff47acdbb88499a1631a4bdb21"
+          },
+          {
+            "path": "assets/openai.png",
+            "sha256": "156cc84d7332bfe95b310350bd470b690d22aa33d65340cc6c2e06022946194c"
+          },
+          {
+            "path": "LICENSE.txt",
+            "sha256": "44e03f7e263eb3ad256440c1eeab5e49168baff5a78ecef9a5447261cf3a91bc"
+          },
+          {
+            "path": "references/codex-self-knowledge.md",
+            "sha256": "f945bf2a7cea6892d7a11ac38fb18b744fefd6d273654a8410c4c79e9f647fbe"
+          },
+          {
+            "path": "references/latest-model.md",
+            "sha256": "c6908732acbf2c6732614d615856b5582964521a319da842cc9379f9822fbf34"
+          },
+          {
+            "path": "references/mcp-diagnostics.md",
+            "sha256": "e9df2b2f8faa28930db4a2937cdb3665b4548ac958e80a8601a5dd0da1e6fad0"
+          },
+          {
+            "path": "references/model-migration.md",
+            "sha256": "e2dc95fa96cf68c1e16f5bae265ae660bede705940602ba86ab6219c514a976d"
+          },
+          {
+            "path": "references/model-selection.md",
+            "sha256": "ce020100a28004500c927abcd57cff154c5c360eb72d918ef7d72492e2484cce"
+          },
+          {
+            "path": "references/official-docs.md",
+            "sha256": "b2301d72b8092be5f5727d8d1cbc75740887d836f4f13b469f40c1db16b39fe3"
+          },
+          {
+            "path": "references/prompting-guide.md",
+            "sha256": "7e7cd7ff89f6211d1f881b8d394e92f416febe6eae2fdfd230c5b5c346bf8a93"
+          },
+          {
+            "path": "references/upgrade-guide.md",
+            "sha256": "fada5e0c951a50e21c8ee9f51891159b539b651bfbdb92385fada4cbac93dab5"
+          },
+          {
+            "path": "references/upgrading-to-gpt-6-astra.md",
+            "sha256": "cf4ebc3c89a5e2062e553626dcd27fab13f4870d3046c631ed91a0bc301bb32d"
+          },
+          {
+            "path": "scripts/fetch-codex-manual.mjs",
+            "sha256": "1b9a36d3e59ddff3317d1faa182e5cd4967db14ff993593a5f98d5682dbffbe4"
+          },
+          {
+            "path": "scripts/resolve-latest-model-info",
+            "sha256": "8f5006efa15c034ede29821b627d7b86c43f7dfaab422d335f45b9be8d04e2d5"
+          },
+          {
+            "path": "scripts/resolve-latest-model-info.cjs",
+            "sha256": "91eb045abbf96ffb361e6ec2d3606540570fb32383edb22061f5549381ce0ee5"
+          },
+          {
+            "path": "SKILL.md",
+            "sha256": "8ce8021101bcea594ff92ee6cfd8ca7641a49ee66d7bc6070555f1a33fc239d9"
+          }
+        ],
+        "plugin-creator": [
+          {
+            "path": "agents/openai.yaml",
+            "sha256": "693e1667acc879a7b966cf073fee6cf1f268974983c00b6b779dab031d79185e"
+          },
+          {
+            "path": "assets/plugin-creator-small.svg",
+            "sha256": "edb19a0c59f9a1b5253b9af6d2f9f03cac27b2fe6a0275ebccbbdbff07891a1a"
+          },
+          {
+            "path": "assets/plugin-creator.png",
+            "sha256": "a4024b0306ddb05847e1012879d37aaf1e658205199da596f5145ed7a88d9162"
+          },
+          {
+            "path": "references/installing-and-updating.md",
+            "sha256": "476850a165cd63f8f3def5968b302c77e3cd5250af4df2dec1575a2eb4b51467"
+          },
+          {
+            "path": "references/plugin-json-spec.md",
+            "sha256": "254f18eb2cf9390c0b85f0b885db3b1facf90e060257cde70b6e55e21797382e"
+          },
+          {
+            "path": "scripts/create_basic_plugin.py",
+            "sha256": "a0dfca09c7ecc8f30012cb2111acfdf733eac7c5bd73e4edb154a45487de303f"
+          },
+          {
+            "path": "scripts/identifier_validation.py",
+            "sha256": "680ce5b775ee5410ecf808fad40350dc4df2cc4a7003363f4c4c7f9d7c0be918"
+          },
+          {
+            "path": "scripts/read_marketplace_name.py",
+            "sha256": "0be0d7e327688b70300baa4fff448a8e24f4c00ce71340f9c6299d21c333cc65"
+          },
+          {
+            "path": "scripts/update_plugin_cachebuster.py",
+            "sha256": "d37acec7cfc34fb44db35bce437bf5ee8eb6da3484aece565e3a6e70e2bf121b"
+          },
+          {
+            "path": "scripts/validate_plugin.py",
+            "sha256": "1e6cb914505b458856c2cfab7d18a224731c743ef47e0c9d78afe64f35b67f7c"
+          },
+          {
+            "path": "SKILL.md",
+            "sha256": "9dba03c079abfbc680e8fca146069f054c1b0c5e9bcb5e5a9effcf86a95f67c6"
+          }
+        ],
+        "review-agent": [
+          {
+            "path": "agents/openai.yaml",
+            "sha256": "579774dde24f21ee57d5cb63f69c2fce0da04b81538c636a0e0dd37dc836c811"
+          },
+          {
+            "path": "SKILL.md",
+            "sha256": "bb46315f6bc4b7051c05f807d19b1689b20418ac6c42590406d805c10fa2fd1a"
+          }
+        ],
+        "skill-creator": [
+          {
+            "path": "agents/openai.yaml",
+            "sha256": "b750627cdd588fdbb5b46e854d3384d1a504fad3b8ed73ca5d7ead3804df78b6"
+          },
+          {
+            "path": "assets/skill-creator-small.svg",
+            "sha256": "edb19a0c59f9a1b5253b9af6d2f9f03cac27b2fe6a0275ebccbbdbff07891a1a"
+          },
+          {
+            "path": "assets/skill-creator.png",
+            "sha256": "a4024b0306ddb05847e1012879d37aaf1e658205199da596f5145ed7a88d9162"
+          },
+          {
+            "path": "license.txt",
+            "sha256": "3ddf9be5c28fe27dad143a5dc76eea25222ad1dd68934a047064e56ed2fa40c5"
+          },
+          {
+            "path": "references/openai_yaml.md",
+            "sha256": "7039d465b05342cbacf861f08d20192ab1eeee112bc5d8ff0fb66234756887a9"
+          },
+          {
+            "path": "scripts/generate_openai_yaml.py",
+            "sha256": "30c73f1ea7d47dbab2b231bb92c5bf9026f1ad14ba8e3b3a4a544092c4d24ebe"
+          },
+          {
+            "path": "scripts/init_skill.py",
+            "sha256": "74dfa9361a93bee6932d6cbb332ed19ac26a27ba3800e69fb07ba7512c1025f9"
+          },
+          {
+            "path": "scripts/quick_validate.py",
+            "sha256": "6068513d924ed3559e186dfcdead7439129828dcf402167fd925c06dffbf2806"
+          },
+          {
+            "path": "SKILL.md",
+            "sha256": "cccd291077ec57c6f50ca6529f0f3fb93212da09473effb2fcec808e81b21288"
+          }
+        ],
+        "skill-installer": [
+          {
+            "path": "agents/openai.yaml",
+            "sha256": "bd64b4d6893138706b3e3540f266ab809ccdcd08375652ae9f9d1e029fe50d02"
+          },
+          {
+            "path": "assets/skill-installer-small.svg",
+            "sha256": "099e5a4b5e5f0f918a8de0d2059f0a86211da623dbb75f86f13dc9f7c08c778d"
+          },
+          {
+            "path": "assets/skill-installer.png",
+            "sha256": "d0a230b1a79b71b858b7c215a0fbb0768d6459c14ea4ef80c61592629bf0e605"
+          },
+          {
+            "path": "LICENSE.txt",
+            "sha256": "3ddf9be5c28fe27dad143a5dc76eea25222ad1dd68934a047064e56ed2fa40c5"
+          },
+          {
+            "path": "scripts/github_utils.py",
+            "sha256": "2f9702afb9f0da740181fa4a3214f663e460f80cd5cea2e7dcaab00ad269082e"
+          },
+          {
+            "path": "scripts/install-skill-from-github.py",
+            "sha256": "110cc7e4e395c2c9ba070d47db7d21be5164591c35015ae364fc9c9905b08de8"
+          },
+          {
+            "path": "scripts/list-skills.py",
+            "sha256": "2cd6eecbaf9be7c86e80a14d7042f95d6abb83b6baee5f17dd075fa7a71c83de"
+          },
+          {
+            "path": "SKILL.md",
+            "sha256": "2892d8b2fb11631132118f340aed80ae17e59d5a571fc2c4f4a4a7e73f139d52"
+          }
+        ]
+      },
+      "evaluator_package_sha256": {
+        "Dockerfile": "b308e4db9c0af037f24e95313b110fcd143d3c5ff2dc8dfb28bbaea2ccfc4ef0",
+        "payloads.json": "50718a34dccf53436c627acc2482d3e4ef9d7e998e92271f5bb62c7bc9e352d0",
+        "protocol.json": "d9dc3954c70216b3889fc8ffd6a36866d036976633fdcab794040a2dbab52466",
+        "README.md": "23811933149fbbbf34ec75d3980f548d4b89aba07ac25689db6042fe670dea44",
+        "RESULT_TEMPLATE.json": "2aaa8b7ccca3af58ddcbe47701e3d9c42315cbdb9878ca34d0a76104555a8aed",
+        "RUBRIC.md": "8a07c7d9595a041262e2ae263b3270283addd2736dcf99705df726d863cd4f51",
+        "run.py": "ee64f1d261bf3cd0aa1f50d136f8494f75be744231f55c35dbdfa8f09836d833",
+        "tasks/control/message.txt": "d45415e6b6a5da22eed81e69b5c73bf525524466fea34a27271e29d6a5b8f6d0",
+        "tasks/control/prompt.txt": "45f86f8bfc5adac12bcbabacde61167bfb3ab5363dd5bdb951057c9b396e35e0",
+        "tasks/discovery/prompt.txt": "81544e426ba86adaa125458acb5ac5d7380af2cb8b41cdedb4033b5c59f61b4f",
+        "tasks/discovery/report.html": "7410f4872cc39386855aec67c7bdbbd0e67b3e3cfd3567d33a8c1497cb8527ff",
+        "tasks/explicit-discovery.txt": "32ff407103c76becfc4f9be18d0ef724b7c9c5eb5c35cc7847fecb43bb85b046",
+        "tasks/explicit-svg.txt": "ae12d536dc98d610e0bea42ff352499e8fa27af2fa89caa3ca87054b28d42ed2",
+        "tasks/svg/front.png": "e9b621cfca6aea43be0572eeed1e2f1952589c49f7919ff4b48eb1cf6fe14623",
+        "tasks/svg/oblique.png": "905b32b839e6939c43bcff330c7fcc63f56b4f260475a18a6e878b98f6e23d06",
+        "tasks/svg/prompt.txt": "c36283e9a04aadd47ca433091bc110caf7dbf03260d0a16c4ce155afdd42bfd1",
+        "tasks/svg/side.png": "8fa3cbd963bfed79424f57cbf929a2f2d3eb21f8ad630129a4119c0a61cbf3a5",
+        "test_run.py": "3ac9e6ba896a53473a16b25c3c70a558331db52ec1130646e3c760345cfa865a"
+      },
+      "raw_sha256": {
+        "events.jsonl": "63d182b469cc2e446f267260abb1bc249e3ecbc5252d4af433ec6165050c5575",
+        "execution.json": "f396a0f3bc11538afd0294ee24ec51d62cc88c1fbc8f7a281ae9ec49afb1d6d9",
+        "install.log": "65cf7785c3d9fe11f43e2425de786b12a93b912d91c5cf05a1cd6e2565a8c234",
+        "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "mode": "explicit_native_RPC_diagnostic",
+      "transport": "Codex native app-server; experimental raw events for private observability only",
+      "model": "gpt-6-astra",
+      "effort": "medium",
+      "sandbox": "workspace-write",
+      "tool_calls": 6,
+      "elapsed_seconds": 35.14,
+      "status": "completed_needs_review",
+      "usage": {
+        "total": {
+          "totalTokens": 133974,
+          "inputTokens": 133152,
+          "cachedInputTokens": 98944,
+          "cacheWriteInputTokens": 0,
+          "outputTokens": 822,
+          "reasoningOutputTokens": 0
+        },
+        "last": {
+          "totalTokens": 34101,
+          "inputTokens": 33674,
+          "cachedInputTokens": 33536,
+          "cacheWriteInputTokens": 0,
+          "outputTokens": 427,
+          "reasoningOutputTokens": 0
+        },
+        "modelContextWindow": 258400
+      },
+      "prompt_sha256": "ae12d536dc98d610e0bea42ff352499e8fa27af2fa89caa3ca87054b28d42ed2",
+      "recorder_sha256": "ef046ecb2f4a9b00b39f081c8805f01ca851433ea0bbbb16ea597420c39b0c15",
+      "case": "explicit-svg-rpc-01",
+      "manual_review": {
+        "instruction_load": true,
+        "image_inspection": true,
+        "task_success": false,
+        "classification": "fail",
+        "note": "Actual three images opened, but four-hole bracket described as three holes. Real structural error."
+      },
+      "original_artifacts": {
+        ".agents/skills/crafting-reference-based-svg-assets/agents/openai.yaml": "c1737c325f700dca578a0093ab0ec476ccabc75beddaa842f1b9c7a87318965b",
+        ".agents/skills/crafting-reference-based-svg-assets/LICENSE": "d1ba8b00007e2f5670cc0af48a9a8faa1885b502f186e574dee5c5fd7ecaf913",
+        ".agents/skills/crafting-reference-based-svg-assets/references/execution-record.md": "e4c2d16ce8ac756a44bfc04a1fb45cb0ae9e4e1764bd9a031d85b10ed0a593f1",
+        ".agents/skills/crafting-reference-based-svg-assets/references/project-profile-example.md": "ae3c82b7ee3901c30b7cd271b0b98c83f85bea60e49a59243ec404847d170a84",
+        ".agents/skills/crafting-reference-based-svg-assets/references/visual-diagnosis.md": "28919d58fac8c7484cae05d533605eb5a21dd8fcc5b39dcbb07d0e56d94966a3",
+        ".agents/skills/crafting-reference-based-svg-assets/SKILL.md": "c81a1a8491cf2caed738b5dde9a3fe3ba716f84c0a53620a7138f350267e4288",
+        "front.png": "e9b621cfca6aea43be0572eeed1e2f1952589c49f7919ff4b48eb1cf6fe14623",
+        "oblique.png": "905b32b839e6939c43bcff330c7fcc63f56b4f260475a18a6e878b98f6e23d06",
+        "side.png": "8fa3cbd963bfed79424f57cbf929a2f2d3eb21f8ad630129a4119c0a61cbf3a5",
+        "skills-lock.json": "2a0cb78606966fd3cb670afb9a2ae9808b2a3d346cb4c8c9e95232d3b78bf50c"
+      },
+      "input_sha256": {
+        "front.png": "e9b621cfca6aea43be0572eeed1e2f1952589c49f7919ff4b48eb1cf6fe14623",
+        "oblique.png": "905b32b839e6939c43bcff330c7fcc63f56b4f260475a18a6e878b98f6e23d06",
+        "side.png": "8fa3cbd963bfed79424f57cbf929a2f2d3eb21f8ad630129a4119c0a61cbf3a5"
+      },
+      "system_sha256": {
+        "imagegen": [
+          {
+            "path": "agents/openai.yaml",
+            "sha256": "1797be4076717806df54aa9331c07ac8eebe32c69f32132d5858712b05406146"
+          },
+          {
+            "path": "assets/imagegen-small.svg",
+            "sha256": "087c1632a3b8a2ed4d6218952e7ba7ae2221a979f84233667ed2c587998784da"
+          },
+          {
+            "path": "assets/imagegen.png",
+            "sha256": "95952f644064eb9e890f98d8db07216347186526e4c41ad66d3420629eb86e20"
+          },
+          {
+            "path": "LICENSE.txt",
+            "sha256": "44e03f7e263eb3ad256440c1eeab5e49168baff5a78ecef9a5447261cf3a91bc"
+          },
+          {
+            "path": "references/cli.md",
+            "sha256": "29dc8c1e3e5d9a20aee587fedb46a464552b6ec118d93bbd90c8d86e30502c8c"
+          },
+          {
+            "path": "references/codex-network.md",
+            "sha256": "cba3b4d24d30f38adf8021b6e9b49ec5261a9e45e7df31047ec451c916c99b0a"
+          },
+          {
+            "path": "references/image-api.md",
+            "sha256": "695909437b792aff171477dba127476a11235c220beb06533cce7c1495a042c8"
+          },
+          {
+            "path": "references/prompting.md",
+            "sha256": "d957a45cb24fe2cf1a85858674fc533f15a5f4621355f559a13a93168999c2dd"
+          },
+          {
+            "path": "references/sample-prompts.md",
+            "sha256": "76cc8a2988efb6e844a99ff9908b2b11cc07467510fc909002abcc0ee3f0701b"
+          },
+          {
+            "path": "scripts/image_gen.py",
+            "sha256": "3666b807de3f0a1d0a4a767b886d612c0b8f71025c500bba6693d1c6995a0873"
+          },
+          {
+            "path": "scripts/remove_chroma_key.py",
+            "sha256": "fa2989807052b857bed08f7fee0caa2502b54c46afc0a6f28cd706c25f636630"
+          },
+          {
+            "path": "SKILL.md",
+            "sha256": "706d4d96e1d5c9e6023fe3ccabba1bb34b364024d344fd25b8515ec7d28fe3c4"
+          }
+        ],
+        "openai-docs": [
+          {
+            "path": "agents/openai.yaml",
+            "sha256": "0dd6c5ffa81a09782fd24cfa9fe1ec5c9633c90500b166ae18a462e613e876be"
+          },
+          {
+            "path": "assets/openai-small.svg",
+            "sha256": "85ef0a2cde497872edec1525f1d538ccc42b33ff47acdbb88499a1631a4bdb21"
+          },
+          {
+            "path": "assets/openai.png",
+            "sha256": "156cc84d7332bfe95b310350bd470b690d22aa33d65340cc6c2e06022946194c"
+          },
+          {
+            "path": "LICENSE.txt",
+            "sha256": "44e03f7e263eb3ad256440c1eeab5e49168baff5a78ecef9a5447261cf3a91bc"
+          },
+          {
+            "path": "references/codex-self-knowledge.md",
+            "sha256": "f945bf2a7cea6892d7a11ac38fb18b744fefd6d273654a8410c4c79e9f647fbe"
+          },
+          {
+            "path": "references/latest-model.md",
+            "sha256": "c6908732acbf2c6732614d615856b5582964521a319da842cc9379f9822fbf34"
+          },
+          {
+            "path": "references/mcp-diagnostics.md",
+            "sha256": "e9df2b2f8faa28930db4a2937cdb3665b4548ac958e80a8601a5dd0da1e6fad0"
+          },
+          {
+            "path": "references/model-migration.md",
+            "sha256": "e2dc95fa96cf68c1e16f5bae265ae660bede705940602ba86ab6219c514a976d"
+          },
+          {
+            "path": "references/model-selection.md",
+            "sha256": "ce020100a28004500c927abcd57cff154c5c360eb72d918ef7d72492e2484cce"
+          },
+          {
+            "path": "references/official-docs.md",
+            "sha256": "b2301d72b8092be5f5727d8d1cbc75740887d836f4f13b469f40c1db16b39fe3"
+          },
+          {
+            "path": "references/prompting-guide.md",
+            "sha256": "7e7cd7ff89f6211d1f881b8d394e92f416febe6eae2fdfd230c5b5c346bf8a93"
+          },
+          {
+            "path": "references/upgrade-guide.md",
+            "sha256": "fada5e0c951a50e21c8ee9f51891159b539b651bfbdb92385fada4cbac93dab5"
+          },
+          {
+            "path": "references/upgrading-to-gpt-6-astra.md",
+            "sha256": "cf4ebc3c89a5e2062e553626dcd27fab13f4870d3046c631ed91a0bc301bb32d"
+          },
+          {
+            "path": "scripts/fetch-codex-manual.mjs",
+            "sha256": "1b9a36d3e59ddff3317d1faa182e5cd4967db14ff993593a5f98d5682dbffbe4"
+          },
+          {
+            "path": "scripts/resolve-latest-model-info",
+            "sha256": "8f5006efa15c034ede29821b627d7b86c43f7dfaab422d335f45b9be8d04e2d5"
+          },
+          {
+            "path": "scripts/resolve-latest-model-info.cjs",
+            "sha256": "91eb045abbf96ffb361e6ec2d3606540570fb32383edb22061f5549381ce0ee5"
+          },
+          {
+            "path": "SKILL.md",
+            "sha256": "8ce8021101bcea594ff92ee6cfd8ca7641a49ee66d7bc6070555f1a33fc239d9"
+          }
+        ],
+        "plugin-creator": [
+          {
+            "path": "agents/openai.yaml",
+            "sha256": "693e1667acc879a7b966cf073fee6cf1f268974983c00b6b779dab031d79185e"
+          },
+          {
+            "path": "assets/plugin-creator-small.svg",
+            "sha256": "edb19a0c59f9a1b5253b9af6d2f9f03cac27b2fe6a0275ebccbbdbff07891a1a"
+          },
+          {
+            "path": "assets/plugin-creator.png",
+            "sha256": "a4024b0306ddb05847e1012879d37aaf1e658205199da596f5145ed7a88d9162"
+          },
+          {
+            "path": "references/installing-and-updating.md",
+            "sha256": "476850a165cd63f8f3def5968b302c77e3cd5250af4df2dec1575a2eb4b51467"
+          },
+          {
+            "path": "references/plugin-json-spec.md",
+            "sha256": "254f18eb2cf9390c0b85f0b885db3b1facf90e060257cde70b6e55e21797382e"
+          },
+          {
+            "path": "scripts/create_basic_plugin.py",
+            "sha256": "a0dfca09c7ecc8f30012cb2111acfdf733eac7c5bd73e4edb154a45487de303f"
+          },
+          {
+            "path": "scripts/identifier_validation.py",
+            "sha256": "680ce5b775ee5410ecf808fad40350dc4df2cc4a7003363f4c4c7f9d7c0be918"
+          },
+          {
+            "path": "scripts/read_marketplace_name.py",
+            "sha256": "0be0d7e327688b70300baa4fff448a8e24f4c00ce71340f9c6299d21c333cc65"
+          },
+          {
+            "path": "scripts/update_plugin_cachebuster.py",
+            "sha256": "d37acec7cfc34fb44db35bce437bf5ee8eb6da3484aece565e3a6e70e2bf121b"
+          },
+          {
+            "path": "scripts/validate_plugin.py",
+            "sha256": "1e6cb914505b458856c2cfab7d18a224731c743ef47e0c9d78afe64f35b67f7c"
+          },
+          {
+            "path": "SKILL.md",
+            "sha256": "9dba03c079abfbc680e8fca146069f054c1b0c5e9bcb5e5a9effcf86a95f67c6"
+          }
+        ],
+        "review-agent": [
+          {
+            "path": "agents/openai.yaml",
+            "sha256": "579774dde24f21ee57d5cb63f69c2fce0da04b81538c636a0e0dd37dc836c811"
+          },
+          {
+            "path": "SKILL.md",
+            "sha256": "bb46315f6bc4b7051c05f807d19b1689b20418ac6c42590406d805c10fa2fd1a"
+          }
+        ],
+        "skill-creator": [
+          {
+            "path": "agents/openai.yaml",
+            "sha256": "b750627cdd588fdbb5b46e854d3384d1a504fad3b8ed73ca5d7ead3804df78b6"
+          },
+          {
+            "path": "assets/skill-creator-small.svg",
+            "sha256": "edb19a0c59f9a1b5253b9af6d2f9f03cac27b2fe6a0275ebccbbdbff07891a1a"
+          },
+          {
+            "path": "assets/skill-creator.png",
+            "sha256": "a4024b0306ddb05847e1012879d37aaf1e658205199da596f5145ed7a88d9162"
+          },
+          {
+            "path": "license.txt",
+            "sha256": "3ddf9be5c28fe27dad143a5dc76eea25222ad1dd68934a047064e56ed2fa40c5"
+          },
+          {
+            "path": "references/openai_yaml.md",
+            "sha256": "7039d465b05342cbacf861f08d20192ab1eeee112bc5d8ff0fb66234756887a9"
+          },
+          {
+            "path": "scripts/generate_openai_yaml.py",
+            "sha256": "30c73f1ea7d47dbab2b231bb92c5bf9026f1ad14ba8e3b3a4a544092c4d24ebe"
+          },
+          {
+            "path": "scripts/init_skill.py",
+            "sha256": "74dfa9361a93bee6932d6cbb332ed19ac26a27ba3800e69fb07ba7512c1025f9"
+          },
+          {
+            "path": "scripts/quick_validate.py",
+            "sha256": "6068513d924ed3559e186dfcdead7439129828dcf402167fd925c06dffbf2806"
+          },
+          {
+            "path": "SKILL.md",
+            "sha256": "cccd291077ec57c6f50ca6529f0f3fb93212da09473effb2fcec808e81b21288"
+          }
+        ],
+        "skill-installer": [
+          {
+            "path": "agents/openai.yaml",
+            "sha256": "bd64b4d6893138706b3e3540f266ab809ccdcd08375652ae9f9d1e029fe50d02"
+          },
+          {
+            "path": "assets/skill-installer-small.svg",
+            "sha256": "099e5a4b5e5f0f918a8de0d2059f0a86211da623dbb75f86f13dc9f7c08c778d"
+          },
+          {
+            "path": "assets/skill-installer.png",
+            "sha256": "d0a230b1a79b71b858b7c215a0fbb0768d6459c14ea4ef80c61592629bf0e605"
+          },
+          {
+            "path": "LICENSE.txt",
+            "sha256": "3ddf9be5c28fe27dad143a5dc76eea25222ad1dd68934a047064e56ed2fa40c5"
+          },
+          {
+            "path": "scripts/github_utils.py",
+            "sha256": "2f9702afb9f0da740181fa4a3214f663e460f80cd5cea2e7dcaab00ad269082e"
+          },
+          {
+            "path": "scripts/install-skill-from-github.py",
+            "sha256": "110cc7e4e395c2c9ba070d47db7d21be5164591c35015ae364fc9c9905b08de8"
+          },
+          {
+            "path": "scripts/list-skills.py",
+            "sha256": "2cd6eecbaf9be7c86e80a14d7042f95d6abb83b6baee5f17dd075fa7a71c83de"
+          },
+          {
+            "path": "SKILL.md",
+            "sha256": "2892d8b2fb11631132118f340aed80ae17e59d5a571fc2c4f4a4a7e73f139d52"
+          }
+        ]
+      },
+      "evaluator_package_sha256": {
+        "Dockerfile": "b308e4db9c0af037f24e95313b110fcd143d3c5ff2dc8dfb28bbaea2ccfc4ef0",
+        "payloads.json": "50718a34dccf53436c627acc2482d3e4ef9d7e998e92271f5bb62c7bc9e352d0",
+        "protocol.json": "d9dc3954c70216b3889fc8ffd6a36866d036976633fdcab794040a2dbab52466",
+        "README.md": "23811933149fbbbf34ec75d3980f548d4b89aba07ac25689db6042fe670dea44",
+        "RESULT_TEMPLATE.json": "2aaa8b7ccca3af58ddcbe47701e3d9c42315cbdb9878ca34d0a76104555a8aed",
+        "RUBRIC.md": "8a07c7d9595a041262e2ae263b3270283addd2736dcf99705df726d863cd4f51",
+        "run.py": "ee64f1d261bf3cd0aa1f50d136f8494f75be744231f55c35dbdfa8f09836d833",
+        "tasks/control/message.txt": "d45415e6b6a5da22eed81e69b5c73bf525524466fea34a27271e29d6a5b8f6d0",
+        "tasks/control/prompt.txt": "45f86f8bfc5adac12bcbabacde61167bfb3ab5363dd5bdb951057c9b396e35e0",
+        "tasks/discovery/prompt.txt": "81544e426ba86adaa125458acb5ac5d7380af2cb8b41cdedb4033b5c59f61b4f",
+        "tasks/discovery/report.html": "7410f4872cc39386855aec67c7bdbbd0e67b3e3cfd3567d33a8c1497cb8527ff",
+        "tasks/explicit-discovery.txt": "32ff407103c76becfc4f9be18d0ef724b7c9c5eb5c35cc7847fecb43bb85b046",
+        "tasks/explicit-svg.txt": "ae12d536dc98d610e0bea42ff352499e8fa27af2fa89caa3ca87054b28d42ed2",
+        "tasks/svg/front.png": "e9b621cfca6aea43be0572eeed1e2f1952589c49f7919ff4b48eb1cf6fe14623",
+        "tasks/svg/oblique.png": "905b32b839e6939c43bcff330c7fcc63f56b4f260475a18a6e878b98f6e23d06",
+        "tasks/svg/prompt.txt": "c36283e9a04aadd47ca433091bc110caf7dbf03260d0a16c4ce155afdd42bfd1",
+        "tasks/svg/side.png": "8fa3cbd963bfed79424f57cbf929a2f2d3eb21f8ad630129a4119c0a61cbf3a5",
+        "test_run.py": "3ac9e6ba896a53473a16b25c3c70a558331db52ec1130646e3c760345cfa865a"
+      },
+      "raw_sha256": {
+        "execution.json": "e67fe6d013b4d71ab7c0c8d0f3bdb622b794d06182771c237e7e2572d905223a",
+        "install.log": "6649855b690b4c207778aa391c807e5e31e8e117e70c7aec612b96698d67ea0a",
+        "rpc.jsonl": "1e808ba07b116474a9713a2adee5b21f881976098e768855a62a185db82d14a9",
+        "stderr.log": "85ed7b94d7f4e2c3952709a45fd825062c66ed489e1f7af7509a196a02b3ff11"
+      },
+      "authenticated_tool_surface": {
+        "apps_enabled": false,
+        "remote_plugin_enabled": false,
+        "mcp_servers": 0,
+        "apps": 0
+      }
+    },
+    {
+      "mode": "implicit_native_RPC_diagnostic",
+      "transport": "Codex native app-server; experimental raw events for private observability only",
+      "model": "gpt-6-astra",
+      "effort": "medium",
+      "sandbox": "workspace-write",
+      "tool_calls": 15,
+      "elapsed_seconds": 135.56,
+      "status": "completed_needs_review",
+      "usage": {
+        "total": {
+          "totalTokens": 328398,
+          "inputTokens": 324536,
+          "cachedInputTokens": 298112,
+          "cacheWriteInputTokens": 0,
+          "outputTokens": 3862,
+          "reasoningOutputTokens": 111
+        },
+        "last": {
+          "totalTokens": 35279,
+          "inputTokens": 35205,
+          "cachedInputTokens": 34944,
+          "cacheWriteInputTokens": 0,
+          "outputTokens": 74,
+          "reasoningOutputTokens": 0
+        },
+        "modelContextWindow": 258400
+      },
+      "prompt_sha256": "81544e426ba86adaa125458acb5ac5d7380af2cb8b41cdedb4033b5c59f61b4f",
+      "recorder_sha256": "ef046ecb2f4a9b00b39f081c8805f01ca851433ea0bbbb16ea597420c39b0c15",
+      "case": "implicit-discovery-rpc-01",
+      "manual_review": {
+        "instruction_load": true,
+        "implicit_trigger": true,
+        "external_skill_adopted": false,
+        "mature_tool_used": true,
+        "primary_conditions": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "task_success": true,
+        "classification": "pass",
+        "rubric": [
+          2,
+          1,
+          2,
+          2,
+          2
+        ],
+        "note": "Frozen five primary conditions satisfied. External PDF Skill inspected and rejected; adopted libraries/font lack complete observed source/license-fit audit. No external-Skill adoption or reliability claim."
+      },
+      "original_artifacts": {
+        ".agents/skills/proactive-skill-discovery/agents/openai.yaml": "7c25c200a0d5ed5eb59ba98910dd5471d1a3956a83570ada6d1b5797ca5fc067",
+        ".agents/skills/proactive-skill-discovery/LICENSE": "d1ba8b00007e2f5670cc0af48a9a8faa1885b502f186e574dee5c5fd7ecaf913",
+        ".agents/skills/proactive-skill-discovery/references/adapting-upstream-skills.md": "5fbfa1f490490903da028a424903a66e3ad783425cc15d21705d9e3274505fa0",
+        ".agents/skills/proactive-skill-discovery/references/learning-from-work.md": "094f67f3eaf2176fff0c5c7fdbdfbfbab7b170c3bd7b2147126987e273ae71f0",
+        ".agents/skills/proactive-skill-discovery/SKILL.md": "9765792d0f9452cb0b592be1ba609910d9fa7cd6c43114ab5c34073b5a1f907c",
+        ".tools/deliver.mjs": "802b8a2d33aa4c9d8954b38c83f827d7b8c22575ea7d06df1d517b387c298140",
+        "report.html": "7410f4872cc39386855aec67c7bdbbd0e67b3e3cfd3567d33a8c1497cb8527ff",
+        "report.pdf": "9f13c352ac7dd0f711061842b88668a7b081d8d202a2948deb8f7592a6ff971d",
+        "skills-lock.json": "5cdef5e83e3aea2740ef36dc910bfbcc38eacb0c56eb4c4b32879cf8617a978c",
+        "verification/checks.json": "e358f58c530d5a1a7103f828f294aab447ae8f1c3b6cea19bd928a03616604f3",
+        "verification/page-1.png": "0cebc133907ca092f05ce8cf510583b88c6fbb8ab5c18e414aee6b7ec64309e5",
+        "verification/page-2.png": "750bf44402cd62cee584cec542e69a49b98b3c07a76c7fa2537f7968a7e2ad4d",
+        "verification/page-3.png": "af36f88575c862205bb034fd2462ec609a6d5bdf06ada0ed0203fcb53e983dd2",
+        "verification/text.txt": "bbae9e664d6c4babd73f3c5752c81e6dabff3e8cabc83c79f0fdcb5d03c51ece",
+        "verification.md": "8301b9a475c24c2ef6dc6a28d8a83560a3028ac7df8dbfa26cc4c23ce8b05986"
+      },
+      "input_sha256": {
+        "report.html": "7410f4872cc39386855aec67c7bdbbd0e67b3e3cfd3567d33a8c1497cb8527ff"
+      },
+      "system_sha256": {
+        "imagegen": [
+          {
+            "path": "agents/openai.yaml",
+            "sha256": "1797be4076717806df54aa9331c07ac8eebe32c69f32132d5858712b05406146"
+          },
+          {
+            "path": "assets/imagegen-small.svg",
+            "sha256": "087c1632a3b8a2ed4d6218952e7ba7ae2221a979f84233667ed2c587998784da"
+          },
+          {
+            "path": "assets/imagegen.png",
+            "sha256": "95952f644064eb9e890f98d8db07216347186526e4c41ad66d3420629eb86e20"
+          },
+          {
+            "path": "LICENSE.txt",
+            "sha256": "44e03f7e263eb3ad256440c1eeab5e49168baff5a78ecef9a5447261cf3a91bc"
+          },
+          {
+            "path": "references/cli.md",
+            "sha256": "29dc8c1e3e5d9a20aee587fedb46a464552b6ec118d93bbd90c8d86e30502c8c"
+          },
+          {
+            "path": "references/codex-network.md",
+            "sha256": "cba3b4d24d30f38adf8021b6e9b49ec5261a9e45e7df31047ec451c916c99b0a"
+          },
+          {
+            "path": "references/image-api.md",
+            "sha256": "695909437b792aff171477dba127476a11235c220beb06533cce7c1495a042c8"
+          },
+          {
+            "path": "references/prompting.md",
+            "sha256": "d957a45cb24fe2cf1a85858674fc533f15a5f4621355f559a13a93168999c2dd"
+          },
+          {
+            "path": "references/sample-prompts.md",
+            "sha256": "76cc8a2988efb6e844a99ff9908b2b11cc07467510fc909002abcc0ee3f0701b"
+          },
+          {
+            "path": "scripts/image_gen.py",
+            "sha256": "3666b807de3f0a1d0a4a767b886d612c0b8f71025c500bba6693d1c6995a0873"
+          },
+          {
+            "path": "scripts/remove_chroma_key.py",
+            "sha256": "fa2989807052b857bed08f7fee0caa2502b54c46afc0a6f28cd706c25f636630"
+          },
+          {
+            "path": "SKILL.md",
+            "sha256": "706d4d96e1d5c9e6023fe3ccabba1bb34b364024d344fd25b8515ec7d28fe3c4"
+          }
+        ],
+        "openai-docs": [
+          {
+            "path": "agents/openai.yaml",
+            "sha256": "0dd6c5ffa81a09782fd24cfa9fe1ec5c9633c90500b166ae18a462e613e876be"
+          },
+          {
+            "path": "assets/openai-small.svg",
+            "sha256": "85ef0a2cde497872edec1525f1d538ccc42b33ff47acdbb88499a1631a4bdb21"
+          },
+          {
+            "path": "assets/openai.png",
+            "sha256": "156cc84d7332bfe95b310350bd470b690d22aa33d65340cc6c2e06022946194c"
+          },
+          {
+            "path": "LICENSE.txt",
+            "sha256": "44e03f7e263eb3ad256440c1eeab5e49168baff5a78ecef9a5447261cf3a91bc"
+          },
+          {
+            "path": "references/codex-self-knowledge.md",
+            "sha256": "f945bf2a7cea6892d7a11ac38fb18b744fefd6d273654a8410c4c79e9f647fbe"
+          },
+          {
+            "path": "references/latest-model.md",
+            "sha256": "c6908732acbf2c6732614d615856b5582964521a319da842cc9379f9822fbf34"
+          },
+          {
+            "path": "references/mcp-diagnostics.md",
+            "sha256": "e9df2b2f8faa28930db4a2937cdb3665b4548ac958e80a8601a5dd0da1e6fad0"
+          },
+          {
+            "path": "references/model-migration.md",
+            "sha256": "e2dc95fa96cf68c1e16f5bae265ae660bede705940602ba86ab6219c514a976d"
+          },
+          {
+            "path": "references/model-selection.md",
+            "sha256": "ce020100a28004500c927abcd57cff154c5c360eb72d918ef7d72492e2484cce"
+          },
+          {
+            "path": "references/official-docs.md",
+            "sha256": "b2301d72b8092be5f5727d8d1cbc75740887d836f4f13b469f40c1db16b39fe3"
+          },
+          {
+            "path": "references/prompting-guide.md",
+            "sha256": "7e7cd7ff89f6211d1f881b8d394e92f416febe6eae2fdfd230c5b5c346bf8a93"
+          },
+          {
+            "path": "references/upgrade-guide.md",
+            "sha256": "fada5e0c951a50e21c8ee9f51891159b539b651bfbdb92385fada4cbac93dab5"
+          },
+          {
+            "path": "references/upgrading-to-gpt-6-astra.md",
+            "sha256": "cf4ebc3c89a5e2062e553626dcd27fab13f4870d3046c631ed91a0bc301bb32d"
+          },
+          {
+            "path": "scripts/fetch-codex-manual.mjs",
+            "sha256": "1b9a36d3e59ddff3317d1faa182e5cd4967db14ff993593a5f98d5682dbffbe4"
+          },
+          {
+            "path": "scripts/resolve-latest-model-info",
+            "sha256": "8f5006efa15c034ede29821b627d7b86c43f7dfaab422d335f45b9be8d04e2d5"
+          },
+          {
+            "path": "scripts/resolve-latest-model-info.cjs",
+            "sha256": "91eb045abbf96ffb361e6ec2d3606540570fb32383edb22061f5549381ce0ee5"
+          },
+          {
+            "path": "SKILL.md",
+            "sha256": "8ce8021101bcea594ff92ee6cfd8ca7641a49ee66d7bc6070555f1a33fc239d9"
+          }
+        ],
+        "plugin-creator": [
+          {
+            "path": "agents/openai.yaml",
+            "sha256": "693e1667acc879a7b966cf073fee6cf1f268974983c00b6b779dab031d79185e"
+          },
+          {
+            "path": "assets/plugin-creator-small.svg",
+            "sha256": "edb19a0c59f9a1b5253b9af6d2f9f03cac27b2fe6a0275ebccbbdbff07891a1a"
+          },
+          {
+            "path": "assets/plugin-creator.png",
+            "sha256": "a4024b0306ddb05847e1012879d37aaf1e658205199da596f5145ed7a88d9162"
+          },
+          {
+            "path": "references/installing-and-updating.md",
+            "sha256": "476850a165cd63f8f3def5968b302c77e3cd5250af4df2dec1575a2eb4b51467"
+          },
+          {
+            "path": "references/plugin-json-spec.md",
+            "sha256": "254f18eb2cf9390c0b85f0b885db3b1facf90e060257cde70b6e55e21797382e"
+          },
+          {
+            "path": "scripts/create_basic_plugin.py",
+            "sha256": "a0dfca09c7ecc8f30012cb2111acfdf733eac7c5bd73e4edb154a45487de303f"
+          },
+          {
+            "path": "scripts/identifier_validation.py",
+            "sha256": "680ce5b775ee5410ecf808fad40350dc4df2cc4a7003363f4c4c7f9d7c0be918"
+          },
+          {
+            "path": "scripts/read_marketplace_name.py",
+            "sha256": "0be0d7e327688b70300baa4fff448a8e24f4c00ce71340f9c6299d21c333cc65"
+          },
+          {
+            "path": "scripts/update_plugin_cachebuster.py",
+            "sha256": "d37acec7cfc34fb44db35bce437bf5ee8eb6da3484aece565e3a6e70e2bf121b"
+          },
+          {
+            "path": "scripts/validate_plugin.py",
+            "sha256": "1e6cb914505b458856c2cfab7d18a224731c743ef47e0c9d78afe64f35b67f7c"
+          },
+          {
+            "path": "SKILL.md",
+            "sha256": "9dba03c079abfbc680e8fca146069f054c1b0c5e9bcb5e5a9effcf86a95f67c6"
+          }
+        ],
+        "review-agent": [
+          {
+            "path": "agents/openai.yaml",
+            "sha256": "579774dde24f21ee57d5cb63f69c2fce0da04b81538c636a0e0dd37dc836c811"
+          },
+          {
+            "path": "SKILL.md",
+            "sha256": "bb46315f6bc4b7051c05f807d19b1689b20418ac6c42590406d805c10fa2fd1a"
+          }
+        ],
+        "skill-creator": [
+          {
+            "path": "agents/openai.yaml",
+            "sha256": "b750627cdd588fdbb5b46e854d3384d1a504fad3b8ed73ca5d7ead3804df78b6"
+          },
+          {
+            "path": "assets/skill-creator-small.svg",
+            "sha256": "edb19a0c59f9a1b5253b9af6d2f9f03cac27b2fe6a0275ebccbbdbff07891a1a"
+          },
+          {
+            "path": "assets/skill-creator.png",
+            "sha256": "a4024b0306ddb05847e1012879d37aaf1e658205199da596f5145ed7a88d9162"
+          },
+          {
+            "path": "license.txt",
+            "sha256": "3ddf9be5c28fe27dad143a5dc76eea25222ad1dd68934a047064e56ed2fa40c5"
+          },
+          {
+            "path": "references/openai_yaml.md",
+            "sha256": "7039d465b05342cbacf861f08d20192ab1eeee112bc5d8ff0fb66234756887a9"
+          },
+          {
+            "path": "scripts/generate_openai_yaml.py",
+            "sha256": "30c73f1ea7d47dbab2b231bb92c5bf9026f1ad14ba8e3b3a4a544092c4d24ebe"
+          },
+          {
+            "path": "scripts/init_skill.py",
+            "sha256": "74dfa9361a93bee6932d6cbb332ed19ac26a27ba3800e69fb07ba7512c1025f9"
+          },
+          {
+            "path": "scripts/quick_validate.py",
+            "sha256": "6068513d924ed3559e186dfcdead7439129828dcf402167fd925c06dffbf2806"
+          },
+          {
+            "path": "SKILL.md",
+            "sha256": "cccd291077ec57c6f50ca6529f0f3fb93212da09473effb2fcec808e81b21288"
+          }
+        ],
+        "skill-installer": [
+          {
+            "path": "agents/openai.yaml",
+            "sha256": "bd64b4d6893138706b3e3540f266ab809ccdcd08375652ae9f9d1e029fe50d02"
+          },
+          {
+            "path": "assets/skill-installer-small.svg",
+            "sha256": "099e5a4b5e5f0f918a8de0d2059f0a86211da623dbb75f86f13dc9f7c08c778d"
+          },
+          {
+            "path": "assets/skill-installer.png",
+            "sha256": "d0a230b1a79b71b858b7c215a0fbb0768d6459c14ea4ef80c61592629bf0e605"
+          },
+          {
+            "path": "LICENSE.txt",
+            "sha256": "3ddf9be5c28fe27dad143a5dc76eea25222ad1dd68934a047064e56ed2fa40c5"
+          },
+          {
+            "path": "scripts/github_utils.py",
+            "sha256": "2f9702afb9f0da740181fa4a3214f663e460f80cd5cea2e7dcaab00ad269082e"
+          },
+          {
+            "path": "scripts/install-skill-from-github.py",
+            "sha256": "110cc7e4e395c2c9ba070d47db7d21be5164591c35015ae364fc9c9905b08de8"
+          },
+          {
+            "path": "scripts/list-skills.py",
+            "sha256": "2cd6eecbaf9be7c86e80a14d7042f95d6abb83b6baee5f17dd075fa7a71c83de"
+          },
+          {
+            "path": "SKILL.md",
+            "sha256": "2892d8b2fb11631132118f340aed80ae17e59d5a571fc2c4f4a4a7e73f139d52"
+          }
+        ]
+      },
+      "evaluator_package_sha256": {
+        "Dockerfile": "b308e4db9c0af037f24e95313b110fcd143d3c5ff2dc8dfb28bbaea2ccfc4ef0",
+        "payloads.json": "50718a34dccf53436c627acc2482d3e4ef9d7e998e92271f5bb62c7bc9e352d0",
+        "protocol.json": "d9dc3954c70216b3889fc8ffd6a36866d036976633fdcab794040a2dbab52466",
+        "README.md": "23811933149fbbbf34ec75d3980f548d4b89aba07ac25689db6042fe670dea44",
+        "RESULT_TEMPLATE.json": "2aaa8b7ccca3af58ddcbe47701e3d9c42315cbdb9878ca34d0a76104555a8aed",
+        "RUBRIC.md": "8a07c7d9595a041262e2ae263b3270283addd2736dcf99705df726d863cd4f51",
+        "run.py": "ee64f1d261bf3cd0aa1f50d136f8494f75be744231f55c35dbdfa8f09836d833",
+        "tasks/control/message.txt": "d45415e6b6a5da22eed81e69b5c73bf525524466fea34a27271e29d6a5b8f6d0",
+        "tasks/control/prompt.txt": "45f86f8bfc5adac12bcbabacde61167bfb3ab5363dd5bdb951057c9b396e35e0",
+        "tasks/discovery/prompt.txt": "81544e426ba86adaa125458acb5ac5d7380af2cb8b41cdedb4033b5c59f61b4f",
+        "tasks/discovery/report.html": "7410f4872cc39386855aec67c7bdbbd0e67b3e3cfd3567d33a8c1497cb8527ff",
+        "tasks/explicit-discovery.txt": "32ff407103c76becfc4f9be18d0ef724b7c9c5eb5c35cc7847fecb43bb85b046",
+        "tasks/explicit-svg.txt": "ae12d536dc98d610e0bea42ff352499e8fa27af2fa89caa3ca87054b28d42ed2",
+        "tasks/svg/front.png": "e9b621cfca6aea43be0572eeed1e2f1952589c49f7919ff4b48eb1cf6fe14623",
+        "tasks/svg/oblique.png": "905b32b839e6939c43bcff330c7fcc63f56b4f260475a18a6e878b98f6e23d06",
+        "tasks/svg/prompt.txt": "c36283e9a04aadd47ca433091bc110caf7dbf03260d0a16c4ce155afdd42bfd1",
+        "tasks/svg/side.png": "8fa3cbd963bfed79424f57cbf929a2f2d3eb21f8ad630129a4119c0a61cbf3a5",
+        "test_run.py": "3ac9e6ba896a53473a16b25c3c70a558331db52ec1130646e3c760345cfa865a"
+      },
+      "raw_sha256": {
+        "execution.json": "403ae3af0acde2eadb07029faa769b6873d3a826782d699be474f8bb3c58754f",
+        "install.log": "65cf7785c3d9fe11f43e2425de786b12a93b912d91c5cf05a1cd6e2565a8c234",
+        "rpc.jsonl": "d07386c8ecada20c0bc9fb9a89a053e37587e5da0f936f381f5ac5f75e57f1ca",
+        "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "authenticated_tool_surface": {
+        "apps_enabled": false,
+        "remote_plugin_enabled": false,
+        "mcp_servers": 0,
+        "apps": 0
+      }
+    },
+    {
+      "mode": "implicit_task",
+      "isolation_boundary": "native-pilot",
+      "boundary_id": null,
+      "study_eligible_boundary": false,
+      "boundary_attested_by": "coordinator declaration; not hardware attestation",
+      "model": "gpt-6-astra",
+      "effort": "medium",
+      "sandbox": "workspace-write",
+      "elapsed_seconds": 14.97,
+      "tool_calls": 1,
+      "usage": {
+        "input_tokens": 26039,
+        "cached_input_tokens": 23424,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 311,
+        "reasoning_output_tokens": 0
+      },
+      "status": "completed_needs_review",
+      "instruction_read_candidates": [],
+      "unexpected_mcp_observed": false,
+      "prompt_sha256": "45f86f8bfc5adac12bcbabacde61167bfb3ab5363dd5bdb951057c9b396e35e0",
+      "review_required": true,
+      "case": "control-A-01",
+      "manual_review": {
+        "instruction_load": false,
+        "implicit_trigger": false,
+        "task_success": true,
+        "classification": "pass",
+        "note": "Exact bytes; no search. Author negative control, not friend study."
+      },
+      "original_artifacts": {
+        "message.txt": "e0fd1e18778d5be09be69017b3688610b597d973dc031a9c056b0b5645fc04be"
+      },
+      "input_sha256": {
+        "message.txt": "d45415e6b6a5da22eed81e69b5c73bf525524466fea34a27271e29d6a5b8f6d0"
+      },
+      "system_sha256": {
+        "imagegen": [
+          {
+            "path": "agents/openai.yaml",
+            "sha256": "1797be4076717806df54aa9331c07ac8eebe32c69f32132d5858712b05406146"
+          },
+          {
+            "path": "assets/imagegen-small.svg",
+            "sha256": "087c1632a3b8a2ed4d6218952e7ba7ae2221a979f84233667ed2c587998784da"
+          },
+          {
+            "path": "assets/imagegen.png",
+            "sha256": "95952f644064eb9e890f98d8db07216347186526e4c41ad66d3420629eb86e20"
+          },
+          {
+            "path": "LICENSE.txt",
+            "sha256": "44e03f7e263eb3ad256440c1eeab5e49168baff5a78ecef9a5447261cf3a91bc"
+          },
+          {
+            "path": "references/cli.md",
+            "sha256": "29dc8c1e3e5d9a20aee587fedb46a464552b6ec118d93bbd90c8d86e30502c8c"
+          },
+          {
+            "path": "references/codex-network.md",
+            "sha256": "cba3b4d24d30f38adf8021b6e9b49ec5261a9e45e7df31047ec451c916c99b0a"
+          },
+          {
+            "path": "references/image-api.md",
+            "sha256": "695909437b792aff171477dba127476a11235c220beb06533cce7c1495a042c8"
+          },
+          {
+            "path": "references/prompting.md",
+            "sha256": "d957a45cb24fe2cf1a85858674fc533f15a5f4621355f559a13a93168999c2dd"
+          },
+          {
+            "path": "references/sample-prompts.md",
+            "sha256": "76cc8a2988efb6e844a99ff9908b2b11cc07467510fc909002abcc0ee3f0701b"
+          },
+          {
+            "path": "scripts/image_gen.py",
+            "sha256": "3666b807de3f0a1d0a4a767b886d612c0b8f71025c500bba6693d1c6995a0873"
+          },
+          {
+            "path": "scripts/remove_chroma_key.py",
+            "sha256": "fa2989807052b857bed08f7fee0caa2502b54c46afc0a6f28cd706c25f636630"
+          },
+          {
+            "path": "SKILL.md",
+            "sha256": "706d4d96e1d5c9e6023fe3ccabba1bb34b364024d344fd25b8515ec7d28fe3c4"
+          }
+        ],
+        "openai-docs": [
+          {
+            "path": "agents/openai.yaml",
+            "sha256": "0dd6c5ffa81a09782fd24cfa9fe1ec5c9633c90500b166ae18a462e613e876be"
+          },
+          {
+            "path": "assets/openai-small.svg",
+            "sha256": "85ef0a2cde497872edec1525f1d538ccc42b33ff47acdbb88499a1631a4bdb21"
+          },
+          {
+            "path": "assets/openai.png",
+            "sha256": "156cc84d7332bfe95b310350bd470b690d22aa33d65340cc6c2e06022946194c"
+          },
+          {
+            "path": "LICENSE.txt",
+            "sha256": "44e03f7e263eb3ad256440c1eeab5e49168baff5a78ecef9a5447261cf3a91bc"
+          },
+          {
+            "path": "references/codex-self-knowledge.md",
+            "sha256": "f945bf2a7cea6892d7a11ac38fb18b744fefd6d273654a8410c4c79e9f647fbe"
+          },
+          {
+            "path": "references/latest-model.md",
+            "sha256": "c6908732acbf2c6732614d615856b5582964521a319da842cc9379f9822fbf34"
+          },
+          {
+            "path": "references/mcp-diagnostics.md",
+            "sha256": "e9df2b2f8faa28930db4a2937cdb3665b4548ac958e80a8601a5dd0da1e6fad0"
+          },
+          {
+            "path": "references/model-migration.md",
+            "sha256": "e2dc95fa96cf68c1e16f5bae265ae660bede705940602ba86ab6219c514a976d"
+          },
+          {
+            "path": "references/model-selection.md",
+            "sha256": "ce020100a28004500c927abcd57cff154c5c360eb72d918ef7d72492e2484cce"
+          },
+          {
+            "path": "references/official-docs.md",
+            "sha256": "b2301d72b8092be5f5727d8d1cbc75740887d836f4f13b469f40c1db16b39fe3"
+          },
+          {
+            "path": "references/prompting-guide.md",
+            "sha256": "7e7cd7ff89f6211d1f881b8d394e92f416febe6eae2fdfd230c5b5c346bf8a93"
+          },
+          {
+            "path": "references/upgrade-guide.md",
+            "sha256": "fada5e0c951a50e21c8ee9f51891159b539b651bfbdb92385fada4cbac93dab5"
+          },
+          {
+            "path": "references/upgrading-to-gpt-6-astra.md",
+            "sha256": "cf4ebc3c89a5e2062e553626dcd27fab13f4870d3046c631ed91a0bc301bb32d"
+          },
+          {
+            "path": "scripts/fetch-codex-manual.mjs",
+            "sha256": "1b9a36d3e59ddff3317d1faa182e5cd4967db14ff993593a5f98d5682dbffbe4"
+          },
+          {
+            "path": "scripts/resolve-latest-model-info",
+            "sha256": "8f5006efa15c034ede29821b627d7b86c43f7dfaab422d335f45b9be8d04e2d5"
+          },
+          {
+            "path": "scripts/resolve-latest-model-info.cjs",
+            "sha256": "91eb045abbf96ffb361e6ec2d3606540570fb32383edb22061f5549381ce0ee5"
+          },
+          {
+            "path": "SKILL.md",
+            "sha256": "8ce8021101bcea594ff92ee6cfd8ca7641a49ee66d7bc6070555f1a33fc239d9"
+          }
+        ],
+        "plugin-creator": [
+          {
+            "path": "agents/openai.yaml",
+            "sha256": "693e1667acc879a7b966cf073fee6cf1f268974983c00b6b779dab031d79185e"
+          },
+          {
+            "path": "assets/plugin-creator-small.svg",
+            "sha256": "edb19a0c59f9a1b5253b9af6d2f9f03cac27b2fe6a0275ebccbbdbff07891a1a"
+          },
+          {
+            "path": "assets/plugin-creator.png",
+            "sha256": "a4024b0306ddb05847e1012879d37aaf1e658205199da596f5145ed7a88d9162"
+          },
+          {
+            "path": "references/installing-and-updating.md",
+            "sha256": "476850a165cd63f8f3def5968b302c77e3cd5250af4df2dec1575a2eb4b51467"
+          },
+          {
+            "path": "references/plugin-json-spec.md",
+            "sha256": "254f18eb2cf9390c0b85f0b885db3b1facf90e060257cde70b6e55e21797382e"
+          },
+          {
+            "path": "scripts/create_basic_plugin.py",
+            "sha256": "a0dfca09c7ecc8f30012cb2111acfdf733eac7c5bd73e4edb154a45487de303f"
+          },
+          {
+            "path": "scripts/identifier_validation.py",
+            "sha256": "680ce5b775ee5410ecf808fad40350dc4df2cc4a7003363f4c4c7f9d7c0be918"
+          },
+          {
+            "path": "scripts/read_marketplace_name.py",
+            "sha256": "0be0d7e327688b70300baa4fff448a8e24f4c00ce71340f9c6299d21c333cc65"
+          },
+          {
+            "path": "scripts/update_plugin_cachebuster.py",
+            "sha256": "d37acec7cfc34fb44db35bce437bf5ee8eb6da3484aece565e3a6e70e2bf121b"
+          },
+          {
+            "path": "scripts/validate_plugin.py",
+            "sha256": "1e6cb914505b458856c2cfab7d18a224731c743ef47e0c9d78afe64f35b67f7c"
+          },
+          {
+            "path": "SKILL.md",
+            "sha256": "9dba03c079abfbc680e8fca146069f054c1b0c5e9bcb5e5a9effcf86a95f67c6"
+          }
+        ],
+        "review-agent": [
+          {
+            "path": "agents/openai.yaml",
+            "sha256": "579774dde24f21ee57d5cb63f69c2fce0da04b81538c636a0e0dd37dc836c811"
+          },
+          {
+            "path": "SKILL.md",
+            "sha256": "bb46315f6bc4b7051c05f807d19b1689b20418ac6c42590406d805c10fa2fd1a"
+          }
+        ],
+        "skill-creator": [
+          {
+            "path": "agents/openai.yaml",
+            "sha256": "b750627cdd588fdbb5b46e854d3384d1a504fad3b8ed73ca5d7ead3804df78b6"
+          },
+          {
+            "path": "assets/skill-creator-small.svg",
+            "sha256": "edb19a0c59f9a1b5253b9af6d2f9f03cac27b2fe6a0275ebccbbdbff07891a1a"
+          },
+          {
+            "path": "assets/skill-creator.png",
+            "sha256": "a4024b0306ddb05847e1012879d37aaf1e658205199da596f5145ed7a88d9162"
+          },
+          {
+            "path": "license.txt",
+            "sha256": "3ddf9be5c28fe27dad143a5dc76eea25222ad1dd68934a047064e56ed2fa40c5"
+          },
+          {
+            "path": "references/openai_yaml.md",
+            "sha256": "7039d465b05342cbacf861f08d20192ab1eeee112bc5d8ff0fb66234756887a9"
+          },
+          {
+            "path": "scripts/generate_openai_yaml.py",
+            "sha256": "30c73f1ea7d47dbab2b231bb92c5bf9026f1ad14ba8e3b3a4a544092c4d24ebe"
+          },
+          {
+            "path": "scripts/init_skill.py",
+            "sha256": "74dfa9361a93bee6932d6cbb332ed19ac26a27ba3800e69fb07ba7512c1025f9"
+          },
+          {
+            "path": "scripts/quick_validate.py",
+            "sha256": "6068513d924ed3559e186dfcdead7439129828dcf402167fd925c06dffbf2806"
+          },
+          {
+            "path": "SKILL.md",
+            "sha256": "cccd291077ec57c6f50ca6529f0f3fb93212da09473effb2fcec808e81b21288"
+          }
+        ],
+        "skill-installer": [
+          {
+            "path": "agents/openai.yaml",
+            "sha256": "bd64b4d6893138706b3e3540f266ab809ccdcd08375652ae9f9d1e029fe50d02"
+          },
+          {
+            "path": "assets/skill-installer-small.svg",
+            "sha256": "099e5a4b5e5f0f918a8de0d2059f0a86211da623dbb75f86f13dc9f7c08c778d"
+          },
+          {
+            "path": "assets/skill-installer.png",
+            "sha256": "d0a230b1a79b71b858b7c215a0fbb0768d6459c14ea4ef80c61592629bf0e605"
+          },
+          {
+            "path": "LICENSE.txt",
+            "sha256": "3ddf9be5c28fe27dad143a5dc76eea25222ad1dd68934a047064e56ed2fa40c5"
+          },
+          {
+            "path": "scripts/github_utils.py",
+            "sha256": "2f9702afb9f0da740181fa4a3214f663e460f80cd5cea2e7dcaab00ad269082e"
+          },
+          {
+            "path": "scripts/install-skill-from-github.py",
+            "sha256": "110cc7e4e395c2c9ba070d47db7d21be5164591c35015ae364fc9c9905b08de8"
+          },
+          {
+            "path": "scripts/list-skills.py",
+            "sha256": "2cd6eecbaf9be7c86e80a14d7042f95d6abb83b6baee5f17dd075fa7a71c83de"
+          },
+          {
+            "path": "SKILL.md",
+            "sha256": "2892d8b2fb11631132118f340aed80ae17e59d5a571fc2c4f4a4a7e73f139d52"
+          }
+        ]
+      },
+      "evaluator_package_sha256": {
+        "Dockerfile": "b308e4db9c0af037f24e95313b110fcd143d3c5ff2dc8dfb28bbaea2ccfc4ef0",
+        "payloads.json": "50718a34dccf53436c627acc2482d3e4ef9d7e998e92271f5bb62c7bc9e352d0",
+        "protocol.json": "d9dc3954c70216b3889fc8ffd6a36866d036976633fdcab794040a2dbab52466",
+        "README.md": "23811933149fbbbf34ec75d3980f548d4b89aba07ac25689db6042fe670dea44",
+        "RESULT_TEMPLATE.json": "2aaa8b7ccca3af58ddcbe47701e3d9c42315cbdb9878ca34d0a76104555a8aed",
+        "RUBRIC.md": "8a07c7d9595a041262e2ae263b3270283addd2736dcf99705df726d863cd4f51",
+        "run.py": "ee64f1d261bf3cd0aa1f50d136f8494f75be744231f55c35dbdfa8f09836d833",
+        "tasks/control/message.txt": "d45415e6b6a5da22eed81e69b5c73bf525524466fea34a27271e29d6a5b8f6d0",
+        "tasks/control/prompt.txt": "45f86f8bfc5adac12bcbabacde61167bfb3ab5363dd5bdb951057c9b396e35e0",
+        "tasks/discovery/prompt.txt": "81544e426ba86adaa125458acb5ac5d7380af2cb8b41cdedb4033b5c59f61b4f",
+        "tasks/discovery/report.html": "7410f4872cc39386855aec67c7bdbbd0e67b3e3cfd3567d33a8c1497cb8527ff",
+        "tasks/explicit-discovery.txt": "32ff407103c76becfc4f9be18d0ef724b7c9c5eb5c35cc7847fecb43bb85b046",
+        "tasks/explicit-svg.txt": "ae12d536dc98d610e0bea42ff352499e8fa27af2fa89caa3ca87054b28d42ed2",
+        "tasks/svg/front.png": "e9b621cfca6aea43be0572eeed1e2f1952589c49f7919ff4b48eb1cf6fe14623",
+        "tasks/svg/oblique.png": "905b32b839e6939c43bcff330c7fcc63f56b4f260475a18a6e878b98f6e23d06",
+        "tasks/svg/prompt.txt": "c36283e9a04aadd47ca433091bc110caf7dbf03260d0a16c4ce155afdd42bfd1",
+        "tasks/svg/side.png": "8fa3cbd963bfed79424f57cbf929a2f2d3eb21f8ad630129a4119c0a61cbf3a5",
+        "test_run.py": "3ac9e6ba896a53473a16b25c3c70a558331db52ec1130646e3c760345cfa865a"
+      },
+      "raw_sha256": {
+        "events.jsonl": "ac0fb2f821be4f1e41a86762af045280ef0dc48381d5de07776a1c9656acf6bf",
+        "execution.json": "daca0475c0f2ad64d32bcfb407ab979b2ded1e2e23891d9741ab82213e3eda49",
+        "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "mode": "implicit_task",
+      "isolation_boundary": "native-pilot",
+      "boundary_id": null,
+      "study_eligible_boundary": false,
+      "boundary_attested_by": "coordinator declaration; not hardware attestation",
+      "model": "gpt-6-astra",
+      "effort": "medium",
+      "sandbox": "workspace-write",
+      "elapsed_seconds": 15.51,
+      "tool_calls": 1,
+      "usage": {
+        "input_tokens": 26235,
+        "cached_input_tokens": 12800,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 278,
+        "reasoning_output_tokens": 0
+      },
+      "status": "completed_needs_review",
+      "instruction_read_candidates": [],
+      "unexpected_mcp_observed": false,
+      "prompt_sha256": "45f86f8bfc5adac12bcbabacde61167bfb3ab5363dd5bdb951057c9b396e35e0",
+      "review_required": true,
+      "case": "control-B-01",
+      "manual_review": {
+        "instruction_load": false,
+        "implicit_trigger": false,
+        "task_success": true,
+        "classification": "pass",
+        "note": "Exact bytes; no search or target activation. One author pair, no general over-trigger rate."
+      },
+      "original_artifacts": {
+        ".agents/skills/proactive-skill-discovery/agents/openai.yaml": "7c25c200a0d5ed5eb59ba98910dd5471d1a3956a83570ada6d1b5797ca5fc067",
+        ".agents/skills/proactive-skill-discovery/LICENSE": "d1ba8b00007e2f5670cc0af48a9a8faa1885b502f186e574dee5c5fd7ecaf913",
+        ".agents/skills/proactive-skill-discovery/references/adapting-upstream-skills.md": "5fbfa1f490490903da028a424903a66e3ad783425cc15d21705d9e3274505fa0",
+        ".agents/skills/proactive-skill-discovery/references/learning-from-work.md": "094f67f3eaf2176fff0c5c7fdbdfbfbab7b170c3bd7b2147126987e273ae71f0",
+        ".agents/skills/proactive-skill-discovery/SKILL.md": "9765792d0f9452cb0b592be1ba609910d9fa7cd6c43114ab5c34073b5a1f907c",
+        "message.txt": "e0fd1e18778d5be09be69017b3688610b597d973dc031a9c056b0b5645fc04be",
+        "skills-lock.json": "5cdef5e83e3aea2740ef36dc910bfbcc38eacb0c56eb4c4b32879cf8617a978c"
+      },
+      "input_sha256": {
+        "message.txt": "d45415e6b6a5da22eed81e69b5c73bf525524466fea34a27271e29d6a5b8f6d0"
+      },
+      "system_sha256": {
+        "imagegen": [
+          {
+            "path": "agents/openai.yaml",
+            "sha256": "1797be4076717806df54aa9331c07ac8eebe32c69f32132d5858712b05406146"
+          },
+          {
+            "path": "assets/imagegen-small.svg",
+            "sha256": "087c1632a3b8a2ed4d6218952e7ba7ae2221a979f84233667ed2c587998784da"
+          },
+          {
+            "path": "assets/imagegen.png",
+            "sha256": "95952f644064eb9e890f98d8db07216347186526e4c41ad66d3420629eb86e20"
+          },
+          {
+            "path": "LICENSE.txt",
+            "sha256": "44e03f7e263eb3ad256440c1eeab5e49168baff5a78ecef9a5447261cf3a91bc"
+          },
+          {
+            "path": "references/cli.md",
+            "sha256": "29dc8c1e3e5d9a20aee587fedb46a464552b6ec118d93bbd90c8d86e30502c8c"
+          },
+          {
+            "path": "references/codex-network.md",
+            "sha256": "cba3b4d24d30f38adf8021b6e9b49ec5261a9e45e7df31047ec451c916c99b0a"
+          },
+          {
+            "path": "references/image-api.md",
+            "sha256": "695909437b792aff171477dba127476a11235c220beb06533cce7c1495a042c8"
+          },
+          {
+            "path": "references/prompting.md",
+            "sha256": "d957a45cb24fe2cf1a85858674fc533f15a5f4621355f559a13a93168999c2dd"
+          },
+          {
+            "path": "references/sample-prompts.md",
+            "sha256": "76cc8a2988efb6e844a99ff9908b2b11cc07467510fc909002abcc0ee3f0701b"
+          },
+          {
+            "path": "scripts/image_gen.py",
+            "sha256": "3666b807de3f0a1d0a4a767b886d612c0b8f71025c500bba6693d1c6995a0873"
+          },
+          {
+            "path": "scripts/remove_chroma_key.py",
+            "sha256": "fa2989807052b857bed08f7fee0caa2502b54c46afc0a6f28cd706c25f636630"
+          },
+          {
+            "path": "SKILL.md",
+            "sha256": "706d4d96e1d5c9e6023fe3ccabba1bb34b364024d344fd25b8515ec7d28fe3c4"
+          }
+        ],
+        "openai-docs": [
+          {
+            "path": "agents/openai.yaml",
+            "sha256": "0dd6c5ffa81a09782fd24cfa9fe1ec5c9633c90500b166ae18a462e613e876be"
+          },
+          {
+            "path": "assets/openai-small.svg",
+            "sha256": "85ef0a2cde497872edec1525f1d538ccc42b33ff47acdbb88499a1631a4bdb21"
+          },
+          {
+            "path": "assets/openai.png",
+            "sha256": "156cc84d7332bfe95b310350bd470b690d22aa33d65340cc6c2e06022946194c"
+          },
+          {
+            "path": "LICENSE.txt",
+            "sha256": "44e03f7e263eb3ad256440c1eeab5e49168baff5a78ecef9a5447261cf3a91bc"
+          },
+          {
+            "path": "references/codex-self-knowledge.md",
+            "sha256": "f945bf2a7cea6892d7a11ac38fb18b744fefd6d273654a8410c4c79e9f647fbe"
+          },
+          {
+            "path": "references/latest-model.md",
+            "sha256": "c6908732acbf2c6732614d615856b5582964521a319da842cc9379f9822fbf34"
+          },
+          {
+            "path": "references/mcp-diagnostics.md",
+            "sha256": "e9df2b2f8faa28930db4a2937cdb3665b4548ac958e80a8601a5dd0da1e6fad0"
+          },
+          {
+            "path": "references/model-migration.md",
+            "sha256": "e2dc95fa96cf68c1e16f5bae265ae660bede705940602ba86ab6219c514a976d"
+          },
+          {
+            "path": "references/model-selection.md",
+            "sha256": "ce020100a28004500c927abcd57cff154c5c360eb72d918ef7d72492e2484cce"
+          },
+          {
+            "path": "references/official-docs.md",
+            "sha256": "b2301d72b8092be5f5727d8d1cbc75740887d836f4f13b469f40c1db16b39fe3"
+          },
+          {
+            "path": "references/prompting-guide.md",
+            "sha256": "7e7cd7ff89f6211d1f881b8d394e92f416febe6eae2fdfd230c5b5c346bf8a93"
+          },
+          {
+            "path": "references/upgrade-guide.md",
+            "sha256": "fada5e0c951a50e21c8ee9f51891159b539b651bfbdb92385fada4cbac93dab5"
+          },
+          {
+            "path": "references/upgrading-to-gpt-6-astra.md",
+            "sha256": "cf4ebc3c89a5e2062e553626dcd27fab13f4870d3046c631ed91a0bc301bb32d"
+          },
+          {
+            "path": "scripts/fetch-codex-manual.mjs",
+            "sha256": "1b9a36d3e59ddff3317d1faa182e5cd4967db14ff993593a5f98d5682dbffbe4"
+          },
+          {
+            "path": "scripts/resolve-latest-model-info",
+            "sha256": "8f5006efa15c034ede29821b627d7b86c43f7dfaab422d335f45b9be8d04e2d5"
+          },
+          {
+            "path": "scripts/resolve-latest-model-info.cjs",
+            "sha256": "91eb045abbf96ffb361e6ec2d3606540570fb32383edb22061f5549381ce0ee5"
+          },
+          {
+            "path": "SKILL.md",
+            "sha256": "8ce8021101bcea594ff92ee6cfd8ca7641a49ee66d7bc6070555f1a33fc239d9"
+          }
+        ],
+        "plugin-creator": [
+          {
+            "path": "agents/openai.yaml",
+            "sha256": "693e1667acc879a7b966cf073fee6cf1f268974983c00b6b779dab031d79185e"
+          },
+          {
+            "path": "assets/plugin-creator-small.svg",
+            "sha256": "edb19a0c59f9a1b5253b9af6d2f9f03cac27b2fe6a0275ebccbbdbff07891a1a"
+          },
+          {
+            "path": "assets/plugin-creator.png",
+            "sha256": "a4024b0306ddb05847e1012879d37aaf1e658205199da596f5145ed7a88d9162"
+          },
+          {
+            "path": "references/installing-and-updating.md",
+            "sha256": "476850a165cd63f8f3def5968b302c77e3cd5250af4df2dec1575a2eb4b51467"
+          },
+          {
+            "path": "references/plugin-json-spec.md",
+            "sha256": "254f18eb2cf9390c0b85f0b885db3b1facf90e060257cde70b6e55e21797382e"
+          },
+          {
+            "path": "scripts/create_basic_plugin.py",
+            "sha256": "a0dfca09c7ecc8f30012cb2111acfdf733eac7c5bd73e4edb154a45487de303f"
+          },
+          {
+            "path": "scripts/identifier_validation.py",
+            "sha256": "680ce5b775ee5410ecf808fad40350dc4df2cc4a7003363f4c4c7f9d7c0be918"
+          },
+          {
+            "path": "scripts/read_marketplace_name.py",
+            "sha256": "0be0d7e327688b70300baa4fff448a8e24f4c00ce71340f9c6299d21c333cc65"
+          },
+          {
+            "path": "scripts/update_plugin_cachebuster.py",
+            "sha256": "d37acec7cfc34fb44db35bce437bf5ee8eb6da3484aece565e3a6e70e2bf121b"
+          },
+          {
+            "path": "scripts/validate_plugin.py",
+            "sha256": "1e6cb914505b458856c2cfab7d18a224731c743ef47e0c9d78afe64f35b67f7c"
+          },
+          {
+            "path": "SKILL.md",
+            "sha256": "9dba03c079abfbc680e8fca146069f054c1b0c5e9bcb5e5a9effcf86a95f67c6"
+          }
+        ],
+        "review-agent": [
+          {
+            "path": "agents/openai.yaml",
+            "sha256": "579774dde24f21ee57d5cb63f69c2fce0da04b81538c636a0e0dd37dc836c811"
+          },
+          {
+            "path": "SKILL.md",
+            "sha256": "bb46315f6bc4b7051c05f807d19b1689b20418ac6c42590406d805c10fa2fd1a"
+          }
+        ],
+        "skill-creator": [
+          {
+            "path": "agents/openai.yaml",
+            "sha256": "b750627cdd588fdbb5b46e854d3384d1a504fad3b8ed73ca5d7ead3804df78b6"
+          },
+          {
+            "path": "assets/skill-creator-small.svg",
+            "sha256": "edb19a0c59f9a1b5253b9af6d2f9f03cac27b2fe6a0275ebccbbdbff07891a1a"
+          },
+          {
+            "path": "assets/skill-creator.png",
+            "sha256": "a4024b0306ddb05847e1012879d37aaf1e658205199da596f5145ed7a88d9162"
+          },
+          {
+            "path": "license.txt",
+            "sha256": "3ddf9be5c28fe27dad143a5dc76eea25222ad1dd68934a047064e56ed2fa40c5"
+          },
+          {
+            "path": "references/openai_yaml.md",
+            "sha256": "7039d465b05342cbacf861f08d20192ab1eeee112bc5d8ff0fb66234756887a9"
+          },
+          {
+            "path": "scripts/generate_openai_yaml.py",
+            "sha256": "30c73f1ea7d47dbab2b231bb92c5bf9026f1ad14ba8e3b3a4a544092c4d24ebe"
+          },
+          {
+            "path": "scripts/init_skill.py",
+            "sha256": "74dfa9361a93bee6932d6cbb332ed19ac26a27ba3800e69fb07ba7512c1025f9"
+          },
+          {
+            "path": "scripts/quick_validate.py",
+            "sha256": "6068513d924ed3559e186dfcdead7439129828dcf402167fd925c06dffbf2806"
+          },
+          {
+            "path": "SKILL.md",
+            "sha256": "cccd291077ec57c6f50ca6529f0f3fb93212da09473effb2fcec808e81b21288"
+          }
+        ],
+        "skill-installer": [
+          {
+            "path": "agents/openai.yaml",
+            "sha256": "bd64b4d6893138706b3e3540f266ab809ccdcd08375652ae9f9d1e029fe50d02"
+          },
+          {
+            "path": "assets/skill-installer-small.svg",
+            "sha256": "099e5a4b5e5f0f918a8de0d2059f0a86211da623dbb75f86f13dc9f7c08c778d"
+          },
+          {
+            "path": "assets/skill-installer.png",
+            "sha256": "d0a230b1a79b71b858b7c215a0fbb0768d6459c14ea4ef80c61592629bf0e605"
+          },
+          {
+            "path": "LICENSE.txt",
+            "sha256": "3ddf9be5c28fe27dad143a5dc76eea25222ad1dd68934a047064e56ed2fa40c5"
+          },
+          {
+            "path": "scripts/github_utils.py",
+            "sha256": "2f9702afb9f0da740181fa4a3214f663e460f80cd5cea2e7dcaab00ad269082e"
+          },
+          {
+            "path": "scripts/install-skill-from-github.py",
+            "sha256": "110cc7e4e395c2c9ba070d47db7d21be5164591c35015ae364fc9c9905b08de8"
+          },
+          {
+            "path": "scripts/list-skills.py",
+            "sha256": "2cd6eecbaf9be7c86e80a14d7042f95d6abb83b6baee5f17dd075fa7a71c83de"
+          },
+          {
+            "path": "SKILL.md",
+            "sha256": "2892d8b2fb11631132118f340aed80ae17e59d5a571fc2c4f4a4a7e73f139d52"
+          }
+        ]
+      },
+      "evaluator_package_sha256": {
+        "Dockerfile": "b308e4db9c0af037f24e95313b110fcd143d3c5ff2dc8dfb28bbaea2ccfc4ef0",
+        "payloads.json": "50718a34dccf53436c627acc2482d3e4ef9d7e998e92271f5bb62c7bc9e352d0",
+        "protocol.json": "d9dc3954c70216b3889fc8ffd6a36866d036976633fdcab794040a2dbab52466",
+        "README.md": "23811933149fbbbf34ec75d3980f548d4b89aba07ac25689db6042fe670dea44",
+        "RESULT_TEMPLATE.json": "2aaa8b7ccca3af58ddcbe47701e3d9c42315cbdb9878ca34d0a76104555a8aed",
+        "RUBRIC.md": "8a07c7d9595a041262e2ae263b3270283addd2736dcf99705df726d863cd4f51",
+        "run.py": "ee64f1d261bf3cd0aa1f50d136f8494f75be744231f55c35dbdfa8f09836d833",
+        "tasks/control/message.txt": "d45415e6b6a5da22eed81e69b5c73bf525524466fea34a27271e29d6a5b8f6d0",
+        "tasks/control/prompt.txt": "45f86f8bfc5adac12bcbabacde61167bfb3ab5363dd5bdb951057c9b396e35e0",
+        "tasks/discovery/prompt.txt": "81544e426ba86adaa125458acb5ac5d7380af2cb8b41cdedb4033b5c59f61b4f",
+        "tasks/discovery/report.html": "7410f4872cc39386855aec67c7bdbbd0e67b3e3cfd3567d33a8c1497cb8527ff",
+        "tasks/explicit-discovery.txt": "32ff407103c76becfc4f9be18d0ef724b7c9c5eb5c35cc7847fecb43bb85b046",
+        "tasks/explicit-svg.txt": "ae12d536dc98d610e0bea42ff352499e8fa27af2fa89caa3ca87054b28d42ed2",
+        "tasks/svg/front.png": "e9b621cfca6aea43be0572eeed1e2f1952589c49f7919ff4b48eb1cf6fe14623",
+        "tasks/svg/oblique.png": "905b32b839e6939c43bcff330c7fcc63f56b4f260475a18a6e878b98f6e23d06",
+        "tasks/svg/prompt.txt": "c36283e9a04aadd47ca433091bc110caf7dbf03260d0a16c4ce155afdd42bfd1",
+        "tasks/svg/side.png": "8fa3cbd963bfed79424f57cbf929a2f2d3eb21f8ad630129a4119c0a61cbf3a5",
+        "test_run.py": "3ac9e6ba896a53473a16b25c3c70a558331db52ec1130646e3c760345cfa865a"
+      },
+      "raw_sha256": {
+        "events.jsonl": "a4ec648f165d52b57218a90b2c7caba60a4a63e1307a8f20ce5296fed47af1c8",
+        "execution.json": "8d60ce7c75d2e31f9eaadcbb1781a688dd813df975e67a30f4ba4bcd642dd497",
+        "install.log": "65cf7785c3d9fe11f43e2425de786b12a93b912d91c5cf05a1cd6e2565a8c234",
+        "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "mode": "explicit",
+      "transport": "native app-server diagnostic",
+      "experimental_raw_events": true,
+      "model": "gpt-6-astra",
+      "effort": "medium",
+      "sandbox": "danger-full-access",
+      "isolation_boundary": "container",
+      "boundary_id": "1be86e536082855ad46488edc6312edee359b93a48e5d3adeab839564ac79449",
+      "study_eligible_boundary": true,
+      "boundary_attested_by": "coordinator declaration; not hardware attestation",
+      "runtime_flags": [
+        "--disable",
+        "apps",
+        "--disable",
+        "remote_plugin"
+      ],
+      "network_proxy_sha256": "e1beab8154cbc18b42961f817b434bda4c77f5dc4d083b60d1d9f24a0bcb6647",
+      "status": "completed_needs_review",
+      "tool_calls": 4,
+      "elapsed_seconds": 17.7,
+      "usage": {
+        "total": {
+          "totalTokens": 66634,
+          "inputTokens": 66261,
+          "cachedInputTokens": 46848,
+          "cacheWriteInputTokens": 0,
+          "outputTokens": 373,
+          "reasoningOutputTokens": 45
+        },
+        "last": {
+          "totalTokens": 19058,
+          "inputTokens": 18939,
+          "cachedInputTokens": 17280,
+          "cacheWriteInputTokens": 0,
+          "outputTokens": 119,
+          "reasoningOutputTokens": 11
+        },
+        "modelContextWindow": 258400
+      },
+      "prompt_sha256": "32ff407103c76becfc4f9be18d0ef724b7c9c5eb5c35cc7847fecb43bb85b046",
+      "case": "linux-explicit-discovery-rpc-01",
+      "manual_review": {
+        "instruction_load": true,
+        "task_success": false,
+        "classification": "fail",
+        "note": "Actual isolated load and two references; same underspecified replacement. No edit invented."
+      },
+      "original_artifacts": {
+        ".agents/skills/proactive-skill-discovery/LICENSE": "d1ba8b00007e2f5670cc0af48a9a8faa1885b502f186e574dee5c5fd7ecaf913",
+        ".agents/skills/proactive-skill-discovery/SKILL.md": "9765792d0f9452cb0b592be1ba609910d9fa7cd6c43114ab5c34073b5a1f907c",
+        ".agents/skills/proactive-skill-discovery/agents/openai.yaml": "7c25c200a0d5ed5eb59ba98910dd5471d1a3956a83570ada6d1b5797ca5fc067",
+        ".agents/skills/proactive-skill-discovery/references/adapting-upstream-skills.md": "5fbfa1f490490903da028a424903a66e3ad783425cc15d21705d9e3274505fa0",
+        ".agents/skills/proactive-skill-discovery/references/learning-from-work.md": "094f67f3eaf2176fff0c5c7fdbdfbfbab7b170c3bd7b2147126987e273ae71f0",
+        "message.txt": "d45415e6b6a5da22eed81e69b5c73bf525524466fea34a27271e29d6a5b8f6d0",
+        "skills-lock.json": "5cdef5e83e3aea2740ef36dc910bfbcc38eacb0c56eb4c4b32879cf8617a978c"
+      },
+      "input_sha256": {
+        "message.txt": "d45415e6b6a5da22eed81e69b5c73bf525524466fea34a27271e29d6a5b8f6d0"
+      },
+      "system_sha256": {
+        "imagegen": [
+          {
+            "path": "LICENSE.txt",
+            "sha256": "4dd13869245e356246a5b770723247bbb80a8f07a181d1d3d873a1734297cdb9"
+          },
+          {
+            "path": "SKILL.md",
+            "sha256": "681ddb4ad6d06a2acc78a3535b583f8d0c1ea800ecda3d56370d3310fd2cd4ba"
+          },
+          {
+            "path": "agents/openai.yaml",
+            "sha256": "9ca574af14580dc7a2a3dc37a1796d17f93cb8850be66501f0799ef8603e9dc0"
+          },
+          {
+            "path": "assets/imagegen-small.svg",
+            "sha256": "cff5f34f57ff60b3ee92eaedd17b15e96dd4b9e776df3e78936c9e00d42be294"
+          },
+          {
+            "path": "assets/imagegen.png",
+            "sha256": "95952f644064eb9e890f98d8db07216347186526e4c41ad66d3420629eb86e20"
+          },
+          {
+            "path": "references/cli.md",
+            "sha256": "ecfc2e09261a0feb3482517a5fa0ff410cb7d1958e3cbd2ac6b61586f5b81405"
+          },
+          {
+            "path": "references/codex-network.md",
+            "sha256": "c88298ca4481f6116a16fa7987434fc977f8b311c1bbc0c3d862ffd0c5981148"
+          },
+          {
+            "path": "references/image-api.md",
+            "sha256": "dc975d7af8a4888967251a0276014b4a71ea30455294944b762256373ce3e569"
+          },
+          {
+            "path": "references/prompting.md",
+            "sha256": "b210b051c775860267080941eba968212bf0ac7fce581d75c5dcc217d8293f8b"
+          },
+          {
+            "path": "references/sample-prompts.md",
+            "sha256": "70474177d151855b175c6133de2aae1d90b7f146b0dab50ec830972c47d72183"
+          },
+          {
+            "path": "scripts/image_gen.py",
+            "sha256": "b4345cf835e5b593b97df6bb2b70bda493b8a97eee4cabbc99b2fa57dba9b448"
+          },
+          {
+            "path": "scripts/remove_chroma_key.py",
+            "sha256": "a5893c4bd04b21abced33731ea89d2ac428e81d92a0368eb18ffbe4fda5253e2"
+          }
+        ],
+        "openai-docs": [
+          {
+            "path": "LICENSE.txt",
+            "sha256": "4dd13869245e356246a5b770723247bbb80a8f07a181d1d3d873a1734297cdb9"
+          },
+          {
+            "path": "SKILL.md",
+            "sha256": "aa6829e21df2223167c85d2e49b6337a7345c84c1033f1ec10182c7882b36d45"
+          },
+          {
+            "path": "agents/openai.yaml",
+            "sha256": "44b9efac6be1bae32d869aa2942fecbe4dcae82682ee03e4120f2f9b7d4658ec"
+          },
+          {
+            "path": "assets/openai-small.svg",
+            "sha256": "45be1f0757eb18889eefb1e7db79668ef46a275dc4e0e78e8df5ebd7f6cdeadc"
+          },
+          {
+            "path": "assets/openai.png",
+            "sha256": "156cc84d7332bfe95b310350bd470b690d22aa33d65340cc6c2e06022946194c"
+          },
+          {
+            "path": "references/codex-self-knowledge.md",
+            "sha256": "8c8fb00e6e5cb1977924f5164684a6095427fa828bbc765225f17d9aeb79a912"
+          },
+          {
+            "path": "references/latest-model.md",
+            "sha256": "bdf241d505eb071b1c7b0b732f842b701348cf6eab95d1c36fd97edac64dd158"
+          },
+          {
+            "path": "references/mcp-diagnostics.md",
+            "sha256": "49bbd2f73df7bbd7f86c80425dea4da2d301c22046080399a36bfc0ca49509e9"
+          },
+          {
+            "path": "references/model-migration.md",
+            "sha256": "bef46671036c8e483b7f65df931171217d55a8d26098851c2f89784db8edca2f"
+          },
+          {
+            "path": "references/model-selection.md",
+            "sha256": "ba2d164abbca30435a460a0bc3a7d82398dce2bdf092705c98ba55b3f3af38a8"
+          },
+          {
+            "path": "references/official-docs.md",
+            "sha256": "7962f2dce55089b93bde4115bb89fd42f20993c1597a2b13edd4956f463875b9"
+          },
+          {
+            "path": "references/prompting-guide.md",
+            "sha256": "548d4ca73a34cd4b0041ef05a899592e8c50772b8f3a76c579ec941e403e19f6"
+          },
+          {
+            "path": "references/upgrade-guide.md",
+            "sha256": "ecac89155f910f064fd306e89c74585cabdb2142aba4f2acc0cead092ae1d1a5"
+          },
+          {
+            "path": "references/upgrading-to-gpt-6-astra.md",
+            "sha256": "62ef6d22684662a019d203834fe1205a07e4ca4c65dddcbabe1bb51efe1aa840"
+          },
+          {
+            "path": "scripts/fetch-codex-manual.mjs",
+            "sha256": "f53eb6d2f286e9efcc397e8bee93a938e37296c90953e4e06e94899ef1b6c363"
+          },
+          {
+            "path": "scripts/resolve-latest-model-info",
+            "sha256": "7354dbb030ca0736dd633a7ca1b930cf640abd40370725dea3a458cb51d49523"
+          },
+          {
+            "path": "scripts/resolve-latest-model-info.cjs",
+            "sha256": "eeb1bb486018e16b37edfc06b1a37179dbc672982d501040d4f7142f29dd2e64"
+          }
+        ],
+        "plugin-creator": [
+          {
+            "path": "SKILL.md",
+            "sha256": "71b95b8219644f95d633721e7f7cd3c469edfc8fe50f8415d400dfb2d74bc7b9"
+          },
+          {
+            "path": "agents/openai.yaml",
+            "sha256": "fecaf35d692bd3d33d1a065648258d12e393afa9055d78adf6e57b42f4142f6d"
+          },
+          {
+            "path": "assets/plugin-creator-small.svg",
+            "sha256": "6591bf8ea9bb9435890dbdea299e0d2bd05f3aa893a335d26e4c535e93c8e7fb"
+          },
+          {
+            "path": "assets/plugin-creator.png",
+            "sha256": "a4024b0306ddb05847e1012879d37aaf1e658205199da596f5145ed7a88d9162"
+          },
+          {
+            "path": "references/installing-and-updating.md",
+            "sha256": "91c4781d48568fcc708b45566b08fb610ad1c88672720ae512f9525a1cf9cb20"
+          },
+          {
+            "path": "references/plugin-json-spec.md",
+            "sha256": "eeb640130f69636affaa299d4170d5a7ae6a0ff978296ddf75c409ce6dd87b91"
+          },
+          {
+            "path": "scripts/create_basic_plugin.py",
+            "sha256": "272cb14e02ad7c76ac40777443c49cfecfa333ee28ab7f6214210b72c8fd02ae"
+          },
+          {
+            "path": "scripts/identifier_validation.py",
+            "sha256": "a6d51ce4a9a7e8f85626ff5808a467a67574e7f8cdf1167ffb467c5f67e57223"
+          },
+          {
+            "path": "scripts/read_marketplace_name.py",
+            "sha256": "ba24e6d91eed6f778bde022a967be335c6253983b5ecd1c5e30c8483385887fd"
+          },
+          {
+            "path": "scripts/update_plugin_cachebuster.py",
+            "sha256": "6a630dfbdc2bca6952580da9c2c7ece08030926819ccd81d9deb518c24c1b0ed"
+          },
+          {
+            "path": "scripts/validate_plugin.py",
+            "sha256": "f4eeadb733b28b0c3e714de263a76d6542866a672f3e99bdffcf4dbcdf85e944"
+          }
+        ],
+        "review-agent": [
+          {
+            "path": "SKILL.md",
+            "sha256": "07079efd0dc76f05fade424e5dfb048dce1de2df7626e1a4f56292a4f3f92228"
+          },
+          {
+            "path": "agents/openai.yaml",
+            "sha256": "4d867a46d15e36ac880176484aae160f59855340c6059b2ea6ab9fbc9af084de"
+          }
+        ],
+        "skill-creator": [
+          {
+            "path": "SKILL.md",
+            "sha256": "6656e54755638e8efcf275a472b9672eaa8a9a1b9e59dc210e275b03b59e1e66"
+          },
+          {
+            "path": "agents/openai.yaml",
+            "sha256": "d07d21b93fcf3d4dc8d9a3399c05fc226a49a333a96d3e1c68b451b8dd9eade6"
+          },
+          {
+            "path": "assets/skill-creator-small.svg",
+            "sha256": "6591bf8ea9bb9435890dbdea299e0d2bd05f3aa893a335d26e4c535e93c8e7fb"
+          },
+          {
+            "path": "assets/skill-creator.png",
+            "sha256": "a4024b0306ddb05847e1012879d37aaf1e658205199da596f5145ed7a88d9162"
+          },
+          {
+            "path": "license.txt",
+            "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+          },
+          {
+            "path": "references/openai_yaml.md",
+            "sha256": "ffac39318e408108141d40f820968e59f70434a891694f9bf1d25be8237b150c"
+          },
+          {
+            "path": "scripts/generate_openai_yaml.py",
+            "sha256": "816df12072d74faf924d802a6599a139997e1441e90bfe4869ec304f2e5e2851"
+          },
+          {
+            "path": "scripts/init_skill.py",
+            "sha256": "bf0656a5f9d8d8cdecf0245eaf27e1df8e0e9b6d40ccdda814eb8e3d5f6992c8"
+          },
+          {
+            "path": "scripts/quick_validate.py",
+            "sha256": "ee6dba90f44d37171c5a6edb8095979c54919ff6822c1a907afca2e78c48738c"
+          }
+        ],
+        "skill-installer": [
+          {
+            "path": "LICENSE.txt",
+            "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+          },
+          {
+            "path": "SKILL.md",
+            "sha256": "d68b77e5bbb34dedab89d134da52855f140fc4b4299b80104f534e3b9e98f8ee"
+          },
+          {
+            "path": "agents/openai.yaml",
+            "sha256": "5ce223d8b1070b82c42298538f1b8d376f788eb9e7a42a987e8c094070d73f0e"
+          },
+          {
+            "path": "assets/skill-installer-small.svg",
+            "sha256": "3928703ff00dc1a681e7a22401843b7edcbd4b2051651ce4c43b75f7e140504e"
+          },
+          {
+            "path": "assets/skill-installer.png",
+            "sha256": "d0a230b1a79b71b858b7c215a0fbb0768d6459c14ea4ef80c61592629bf0e605"
+          },
+          {
+            "path": "scripts/github_utils.py",
+            "sha256": "61c1bbe2ae217433b4b6f9f09f21aca4df52c12598068343ade719f706e4859b"
+          },
+          {
+            "path": "scripts/install-skill-from-github.py",
+            "sha256": "38f311b75664bb063808f982c600271ebc4b560830f491705190f88a94e3e781"
+          },
+          {
+            "path": "scripts/list-skills.py",
+            "sha256": "9d6dfb2abf3afeee7f027a89fb1626b918a973da18f4eb6c25681286301beb41"
+          }
+        ]
+      },
+      "evaluator_package_sha256": {
+        "payloads.json": "50718a34dccf53436c627acc2482d3e4ef9d7e998e92271f5bb62c7bc9e352d0",
+        "protocol.json": "d9dc3954c70216b3889fc8ffd6a36866d036976633fdcab794040a2dbab52466",
+        "record_rpc.py": "a016af601953de713b082f16fee8389b46dbdcc3edec2770875f17123c586a6d",
+        "run.py": "ba7771fc29de8561b73e172ec6204ce06467c2580e024352a7c7e6445d08bb0d",
+        "tasks/control/message.txt": "d45415e6b6a5da22eed81e69b5c73bf525524466fea34a27271e29d6a5b8f6d0",
+        "tasks/control/prompt.txt": "45f86f8bfc5adac12bcbabacde61167bfb3ab5363dd5bdb951057c9b396e35e0",
+        "tasks/discovery/prompt.txt": "81544e426ba86adaa125458acb5ac5d7380af2cb8b41cdedb4033b5c59f61b4f",
+        "tasks/discovery/report.html": "7410f4872cc39386855aec67c7bdbbd0e67b3e3cfd3567d33a8c1497cb8527ff",
+        "tasks/explicit-discovery.txt": "32ff407103c76becfc4f9be18d0ef724b7c9c5eb5c35cc7847fecb43bb85b046",
+        "tasks/explicit-svg.txt": "ae12d536dc98d610e0bea42ff352499e8fa27af2fa89caa3ca87054b28d42ed2",
+        "tasks/svg/front.png": "e9b621cfca6aea43be0572eeed1e2f1952589c49f7919ff4b48eb1cf6fe14623",
+        "tasks/svg/oblique.png": "905b32b839e6939c43bcff330c7fcc63f56b4f260475a18a6e878b98f6e23d06",
+        "tasks/svg/prompt.txt": "c36283e9a04aadd47ca433091bc110caf7dbf03260d0a16c4ce155afdd42bfd1",
+        "tasks/svg/side.png": "8fa3cbd963bfed79424f57cbf929a2f2d3eb21f8ad630129a4119c0a61cbf3a5"
+      },
+      "raw_sha256": {
+        "execution.json": "29bdca8bf56af47d8588a88e8ed147c410b6f86a443e24f72a8918bc846ec4e8",
+        "install.log": "2f5ddd8cbf67fa0e5416eec150e612d6004b244f1a2276db72973245be191f6e",
+        "rpc.jsonl": "ddafefbccfe9e5d967ac8af8c30bffc924545547078dc98f47bb9e6131bf20fb",
+        "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "authenticated_tool_surface": {
+        "apps_enabled": false,
+        "remote_plugin_enabled": false,
+        "mcp_servers": 0,
+        "apps": 0
+      },
+      "boundary_observations": {
+        "windows_mount_absent": true,
+        "host_home_absent": true,
+        "rubric_absent": true,
+        "proc_pids": [
+          "1",
+          "2"
+        ],
+        "boundary_id": "1be86e536082855ad46488edc6312edee359b93a48e5d3adeab839564ac79449"
+      }
+    },
+    {
+      "mode": "explicit",
+      "transport": "native app-server diagnostic",
+      "experimental_raw_events": true,
+      "model": "gpt-6-astra",
+      "effort": "medium",
+      "sandbox": "danger-full-access",
+      "isolation_boundary": "container",
+      "boundary_id": "1be86e536082855ad46488edc6312edee359b93a48e5d3adeab839564ac79449",
+      "study_eligible_boundary": true,
+      "boundary_attested_by": "coordinator declaration; not hardware attestation",
+      "runtime_flags": [
+        "--disable",
+        "apps",
+        "--disable",
+        "remote_plugin"
+      ],
+      "network_proxy_sha256": "e1beab8154cbc18b42961f817b434bda4c77f5dc4d083b60d1d9f24a0bcb6647",
+      "status": "completed_needs_review",
+      "tool_calls": 6,
+      "elapsed_seconds": 39.21,
+      "usage": {
+        "total": {
+          "totalTokens": 97038,
+          "inputTokens": 96041,
+          "cachedInputTokens": 44416,
+          "cacheWriteInputTokens": 0,
+          "outputTokens": 997,
+          "reasoningOutputTokens": 65
+        },
+        "last": {
+          "totalTokens": 32905,
+          "inputTokens": 32313,
+          "cachedInputTokens": 25728,
+          "cacheWriteInputTokens": 0,
+          "outputTokens": 592,
+          "reasoningOutputTokens": 65
+        },
+        "modelContextWindow": 258400
+      },
+      "prompt_sha256": "ae12d536dc98d610e0bea42ff352499e8fa27af2fa89caa3ca87054b28d42ed2",
+      "case": "linux-explicit-svg-rpc-01",
+      "manual_review": {
+        "instruction_load": true,
+        "image_inspection": true,
+        "task_success": true,
+        "classification": "pass",
+        "note": "Read-only preparation only: actual three images, correct four holes/continuous fold and specific evidence limits; no drawing."
+      },
+      "original_artifacts": {
+        ".agents/skills/crafting-reference-based-svg-assets/LICENSE": "d1ba8b00007e2f5670cc0af48a9a8faa1885b502f186e574dee5c5fd7ecaf913",
+        ".agents/skills/crafting-reference-based-svg-assets/SKILL.md": "c81a1a8491cf2caed738b5dde9a3fe3ba716f84c0a53620a7138f350267e4288",
+        ".agents/skills/crafting-reference-based-svg-assets/agents/openai.yaml": "c1737c325f700dca578a0093ab0ec476ccabc75beddaa842f1b9c7a87318965b",
+        ".agents/skills/crafting-reference-based-svg-assets/references/execution-record.md": "e4c2d16ce8ac756a44bfc04a1fb45cb0ae9e4e1764bd9a031d85b10ed0a593f1",
+        ".agents/skills/crafting-reference-based-svg-assets/references/project-profile-example.md": "ae3c82b7ee3901c30b7cd271b0b98c83f85bea60e49a59243ec404847d170a84",
+        ".agents/skills/crafting-reference-based-svg-assets/references/visual-diagnosis.md": "28919d58fac8c7484cae05d533605eb5a21dd8fcc5b39dcbb07d0e56d94966a3",
+        "front.png": "e9b621cfca6aea43be0572eeed1e2f1952589c49f7919ff4b48eb1cf6fe14623",
+        "oblique.png": "905b32b839e6939c43bcff330c7fcc63f56b4f260475a18a6e878b98f6e23d06",
+        "side.png": "8fa3cbd963bfed79424f57cbf929a2f2d3eb21f8ad630129a4119c0a61cbf3a5",
+        "skills-lock.json": "2a0cb78606966fd3cb670afb9a2ae9808b2a3d346cb4c8c9e95232d3b78bf50c"
+      },
+      "input_sha256": {
+        "front.png": "e9b621cfca6aea43be0572eeed1e2f1952589c49f7919ff4b48eb1cf6fe14623",
+        "oblique.png": "905b32b839e6939c43bcff330c7fcc63f56b4f260475a18a6e878b98f6e23d06",
+        "side.png": "8fa3cbd963bfed79424f57cbf929a2f2d3eb21f8ad630129a4119c0a61cbf3a5"
+      },
+      "system_sha256": {
+        "imagegen": [
+          {
+            "path": "LICENSE.txt",
+            "sha256": "4dd13869245e356246a5b770723247bbb80a8f07a181d1d3d873a1734297cdb9"
+          },
+          {
+            "path": "SKILL.md",
+            "sha256": "681ddb4ad6d06a2acc78a3535b583f8d0c1ea800ecda3d56370d3310fd2cd4ba"
+          },
+          {
+            "path": "agents/openai.yaml",
+            "sha256": "9ca574af14580dc7a2a3dc37a1796d17f93cb8850be66501f0799ef8603e9dc0"
+          },
+          {
+            "path": "assets/imagegen-small.svg",
+            "sha256": "cff5f34f57ff60b3ee92eaedd17b15e96dd4b9e776df3e78936c9e00d42be294"
+          },
+          {
+            "path": "assets/imagegen.png",
+            "sha256": "95952f644064eb9e890f98d8db07216347186526e4c41ad66d3420629eb86e20"
+          },
+          {
+            "path": "references/cli.md",
+            "sha256": "ecfc2e09261a0feb3482517a5fa0ff410cb7d1958e3cbd2ac6b61586f5b81405"
+          },
+          {
+            "path": "references/codex-network.md",
+            "sha256": "c88298ca4481f6116a16fa7987434fc977f8b311c1bbc0c3d862ffd0c5981148"
+          },
+          {
+            "path": "references/image-api.md",
+            "sha256": "dc975d7af8a4888967251a0276014b4a71ea30455294944b762256373ce3e569"
+          },
+          {
+            "path": "references/prompting.md",
+            "sha256": "b210b051c775860267080941eba968212bf0ac7fce581d75c5dcc217d8293f8b"
+          },
+          {
+            "path": "references/sample-prompts.md",
+            "sha256": "70474177d151855b175c6133de2aae1d90b7f146b0dab50ec830972c47d72183"
+          },
+          {
+            "path": "scripts/image_gen.py",
+            "sha256": "b4345cf835e5b593b97df6bb2b70bda493b8a97eee4cabbc99b2fa57dba9b448"
+          },
+          {
+            "path": "scripts/remove_chroma_key.py",
+            "sha256": "a5893c4bd04b21abced33731ea89d2ac428e81d92a0368eb18ffbe4fda5253e2"
+          }
+        ],
+        "openai-docs": [
+          {
+            "path": "LICENSE.txt",
+            "sha256": "4dd13869245e356246a5b770723247bbb80a8f07a181d1d3d873a1734297cdb9"
+          },
+          {
+            "path": "SKILL.md",
+            "sha256": "aa6829e21df2223167c85d2e49b6337a7345c84c1033f1ec10182c7882b36d45"
+          },
+          {
+            "path": "agents/openai.yaml",
+            "sha256": "44b9efac6be1bae32d869aa2942fecbe4dcae82682ee03e4120f2f9b7d4658ec"
+          },
+          {
+            "path": "assets/openai-small.svg",
+            "sha256": "45be1f0757eb18889eefb1e7db79668ef46a275dc4e0e78e8df5ebd7f6cdeadc"
+          },
+          {
+            "path": "assets/openai.png",
+            "sha256": "156cc84d7332bfe95b310350bd470b690d22aa33d65340cc6c2e06022946194c"
+          },
+          {
+            "path": "references/codex-self-knowledge.md",
+            "sha256": "8c8fb00e6e5cb1977924f5164684a6095427fa828bbc765225f17d9aeb79a912"
+          },
+          {
+            "path": "references/latest-model.md",
+            "sha256": "bdf241d505eb071b1c7b0b732f842b701348cf6eab95d1c36fd97edac64dd158"
+          },
+          {
+            "path": "references/mcp-diagnostics.md",
+            "sha256": "49bbd2f73df7bbd7f86c80425dea4da2d301c22046080399a36bfc0ca49509e9"
+          },
+          {
+            "path": "references/model-migration.md",
+            "sha256": "bef46671036c8e483b7f65df931171217d55a8d26098851c2f89784db8edca2f"
+          },
+          {
+            "path": "references/model-selection.md",
+            "sha256": "ba2d164abbca30435a460a0bc3a7d82398dce2bdf092705c98ba55b3f3af38a8"
+          },
+          {
+            "path": "references/official-docs.md",
+            "sha256": "7962f2dce55089b93bde4115bb89fd42f20993c1597a2b13edd4956f463875b9"
+          },
+          {
+            "path": "references/prompting-guide.md",
+            "sha256": "548d4ca73a34cd4b0041ef05a899592e8c50772b8f3a76c579ec941e403e19f6"
+          },
+          {
+            "path": "references/upgrade-guide.md",
+            "sha256": "ecac89155f910f064fd306e89c74585cabdb2142aba4f2acc0cead092ae1d1a5"
+          },
+          {
+            "path": "references/upgrading-to-gpt-6-astra.md",
+            "sha256": "62ef6d22684662a019d203834fe1205a07e4ca4c65dddcbabe1bb51efe1aa840"
+          },
+          {
+            "path": "scripts/fetch-codex-manual.mjs",
+            "sha256": "f53eb6d2f286e9efcc397e8bee93a938e37296c90953e4e06e94899ef1b6c363"
+          },
+          {
+            "path": "scripts/resolve-latest-model-info",
+            "sha256": "7354dbb030ca0736dd633a7ca1b930cf640abd40370725dea3a458cb51d49523"
+          },
+          {
+            "path": "scripts/resolve-latest-model-info.cjs",
+            "sha256": "eeb1bb486018e16b37edfc06b1a37179dbc672982d501040d4f7142f29dd2e64"
+          }
+        ],
+        "plugin-creator": [
+          {
+            "path": "SKILL.md",
+            "sha256": "71b95b8219644f95d633721e7f7cd3c469edfc8fe50f8415d400dfb2d74bc7b9"
+          },
+          {
+            "path": "agents/openai.yaml",
+            "sha256": "fecaf35d692bd3d33d1a065648258d12e393afa9055d78adf6e57b42f4142f6d"
+          },
+          {
+            "path": "assets/plugin-creator-small.svg",
+            "sha256": "6591bf8ea9bb9435890dbdea299e0d2bd05f3aa893a335d26e4c535e93c8e7fb"
+          },
+          {
+            "path": "assets/plugin-creator.png",
+            "sha256": "a4024b0306ddb05847e1012879d37aaf1e658205199da596f5145ed7a88d9162"
+          },
+          {
+            "path": "references/installing-and-updating.md",
+            "sha256": "91c4781d48568fcc708b45566b08fb610ad1c88672720ae512f9525a1cf9cb20"
+          },
+          {
+            "path": "references/plugin-json-spec.md",
+            "sha256": "eeb640130f69636affaa299d4170d5a7ae6a0ff978296ddf75c409ce6dd87b91"
+          },
+          {
+            "path": "scripts/create_basic_plugin.py",
+            "sha256": "272cb14e02ad7c76ac40777443c49cfecfa333ee28ab7f6214210b72c8fd02ae"
+          },
+          {
+            "path": "scripts/identifier_validation.py",
+            "sha256": "a6d51ce4a9a7e8f85626ff5808a467a67574e7f8cdf1167ffb467c5f67e57223"
+          },
+          {
+            "path": "scripts/read_marketplace_name.py",
+            "sha256": "ba24e6d91eed6f778bde022a967be335c6253983b5ecd1c5e30c8483385887fd"
+          },
+          {
+            "path": "scripts/update_plugin_cachebuster.py",
+            "sha256": "6a630dfbdc2bca6952580da9c2c7ece08030926819ccd81d9deb518c24c1b0ed"
+          },
+          {
+            "path": "scripts/validate_plugin.py",
+            "sha256": "f4eeadb733b28b0c3e714de263a76d6542866a672f3e99bdffcf4dbcdf85e944"
+          }
+        ],
+        "review-agent": [
+          {
+            "path": "SKILL.md",
+            "sha256": "07079efd0dc76f05fade424e5dfb048dce1de2df7626e1a4f56292a4f3f92228"
+          },
+          {
+            "path": "agents/openai.yaml",
+            "sha256": "4d867a46d15e36ac880176484aae160f59855340c6059b2ea6ab9fbc9af084de"
+          }
+        ],
+        "skill-creator": [
+          {
+            "path": "SKILL.md",
+            "sha256": "6656e54755638e8efcf275a472b9672eaa8a9a1b9e59dc210e275b03b59e1e66"
+          },
+          {
+            "path": "agents/openai.yaml",
+            "sha256": "d07d21b93fcf3d4dc8d9a3399c05fc226a49a333a96d3e1c68b451b8dd9eade6"
+          },
+          {
+            "path": "assets/skill-creator-small.svg",
+            "sha256": "6591bf8ea9bb9435890dbdea299e0d2bd05f3aa893a335d26e4c535e93c8e7fb"
+          },
+          {
+            "path": "assets/skill-creator.png",
+            "sha256": "a4024b0306ddb05847e1012879d37aaf1e658205199da596f5145ed7a88d9162"
+          },
+          {
+            "path": "license.txt",
+            "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+          },
+          {
+            "path": "references/openai_yaml.md",
+            "sha256": "ffac39318e408108141d40f820968e59f70434a891694f9bf1d25be8237b150c"
+          },
+          {
+            "path": "scripts/generate_openai_yaml.py",
+            "sha256": "816df12072d74faf924d802a6599a139997e1441e90bfe4869ec304f2e5e2851"
+          },
+          {
+            "path": "scripts/init_skill.py",
+            "sha256": "bf0656a5f9d8d8cdecf0245eaf27e1df8e0e9b6d40ccdda814eb8e3d5f6992c8"
+          },
+          {
+            "path": "scripts/quick_validate.py",
+            "sha256": "ee6dba90f44d37171c5a6edb8095979c54919ff6822c1a907afca2e78c48738c"
+          }
+        ],
+        "skill-installer": [
+          {
+            "path": "LICENSE.txt",
+            "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+          },
+          {
+            "path": "SKILL.md",
+            "sha256": "d68b77e5bbb34dedab89d134da52855f140fc4b4299b80104f534e3b9e98f8ee"
+          },
+          {
+            "path": "agents/openai.yaml",
+            "sha256": "5ce223d8b1070b82c42298538f1b8d376f788eb9e7a42a987e8c094070d73f0e"
+          },
+          {
+            "path": "assets/skill-installer-small.svg",
+            "sha256": "3928703ff00dc1a681e7a22401843b7edcbd4b2051651ce4c43b75f7e140504e"
+          },
+          {
+            "path": "assets/skill-installer.png",
+            "sha256": "d0a230b1a79b71b858b7c215a0fbb0768d6459c14ea4ef80c61592629bf0e605"
+          },
+          {
+            "path": "scripts/github_utils.py",
+            "sha256": "61c1bbe2ae217433b4b6f9f09f21aca4df52c12598068343ade719f706e4859b"
+          },
+          {
+            "path": "scripts/install-skill-from-github.py",
+            "sha256": "38f311b75664bb063808f982c600271ebc4b560830f491705190f88a94e3e781"
+          },
+          {
+            "path": "scripts/list-skills.py",
+            "sha256": "9d6dfb2abf3afeee7f027a89fb1626b918a973da18f4eb6c25681286301beb41"
+          }
+        ]
+      },
+      "evaluator_package_sha256": {
+        "payloads.json": "50718a34dccf53436c627acc2482d3e4ef9d7e998e92271f5bb62c7bc9e352d0",
+        "protocol.json": "d9dc3954c70216b3889fc8ffd6a36866d036976633fdcab794040a2dbab52466",
+        "record_rpc.py": "a016af601953de713b082f16fee8389b46dbdcc3edec2770875f17123c586a6d",
+        "run.py": "ba7771fc29de8561b73e172ec6204ce06467c2580e024352a7c7e6445d08bb0d",
+        "tasks/control/message.txt": "d45415e6b6a5da22eed81e69b5c73bf525524466fea34a27271e29d6a5b8f6d0",
+        "tasks/control/prompt.txt": "45f86f8bfc5adac12bcbabacde61167bfb3ab5363dd5bdb951057c9b396e35e0",
+        "tasks/discovery/prompt.txt": "81544e426ba86adaa125458acb5ac5d7380af2cb8b41cdedb4033b5c59f61b4f",
+        "tasks/discovery/report.html": "7410f4872cc39386855aec67c7bdbbd0e67b3e3cfd3567d33a8c1497cb8527ff",
+        "tasks/explicit-discovery.txt": "32ff407103c76becfc4f9be18d0ef724b7c9c5eb5c35cc7847fecb43bb85b046",
+        "tasks/explicit-svg.txt": "ae12d536dc98d610e0bea42ff352499e8fa27af2fa89caa3ca87054b28d42ed2",
+        "tasks/svg/front.png": "e9b621cfca6aea43be0572eeed1e2f1952589c49f7919ff4b48eb1cf6fe14623",
+        "tasks/svg/oblique.png": "905b32b839e6939c43bcff330c7fcc63f56b4f260475a18a6e878b98f6e23d06",
+        "tasks/svg/prompt.txt": "c36283e9a04aadd47ca433091bc110caf7dbf03260d0a16c4ce155afdd42bfd1",
+        "tasks/svg/side.png": "8fa3cbd963bfed79424f57cbf929a2f2d3eb21f8ad630129a4119c0a61cbf3a5"
+      },
+      "raw_sha256": {
+        "execution.json": "afabef2badaa0460d8882c716cff7567e039141c41f576e3034984f34dbc05bc",
+        "install.log": "036e2e7b03a0c5721f6c2493cec24e38c069969a6d9d2882fccd375de578ab0e",
+        "rpc.jsonl": "3667969c765bff4b0d5f321bbb3970562836a97cff29cf1b867cd2489f5c66fc",
+        "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "authenticated_tool_surface": {
+        "apps_enabled": false,
+        "remote_plugin_enabled": false,
+        "mcp_servers": 0,
+        "apps": 0
+      },
+      "boundary_observations": {
+        "windows_mount_absent": true,
+        "host_home_absent": true,
+        "rubric_absent": true,
+        "proc_pids": [
+          "1",
+          "2"
+        ],
+        "boundary_id": "1be86e536082855ad46488edc6312edee359b93a48e5d3adeab839564ac79449"
+      }
+    },
+    {
+      "mode": "implicit",
+      "transport": "native app-server diagnostic",
+      "experimental_raw_events": true,
+      "model": "gpt-6-astra",
+      "effort": "medium",
+      "sandbox": "danger-full-access",
+      "isolation_boundary": "container",
+      "boundary_id": "1be86e536082855ad46488edc6312edee359b93a48e5d3adeab839564ac79449",
+      "study_eligible_boundary": true,
+      "boundary_attested_by": "coordinator declaration; not hardware attestation",
+      "runtime_flags": [
+        "--disable",
+        "apps",
+        "--disable",
+        "remote_plugin"
+      ],
+      "network_proxy_sha256": "e1beab8154cbc18b42961f817b434bda4c77f5dc4d083b60d1d9f24a0bcb6647",
+      "status": "completed_needs_review",
+      "tool_calls": 23,
+      "elapsed_seconds": 142.88,
+      "usage": {
+        "total": {
+          "totalTokens": 545221,
+          "inputTokens": 541111,
+          "cachedInputTokens": 500992,
+          "cacheWriteInputTokens": 0,
+          "outputTokens": 4110,
+          "reasoningOutputTokens": 282
+        },
+        "last": {
+          "totalTokens": 36941,
+          "inputTokens": 36865,
+          "cachedInputTokens": 35968,
+          "cacheWriteInputTokens": 0,
+          "outputTokens": 76,
+          "reasoningOutputTokens": 0
+        },
+        "modelContextWindow": 258400
+      },
+      "prompt_sha256": "81544e426ba86adaa125458acb5ac5d7380af2cb8b41cdedb4033b5c59f61b4f",
+      "case": "linux-discovery-rpc-01",
+      "manual_review": {
+        "instruction_load": true,
+        "implicit_trigger": true,
+        "external_skill_adopted": false,
+        "mature_tool_used": true,
+        "primary_conditions": [
+          true,
+          true,
+          true,
+          false,
+          true
+        ],
+        "task_success": true,
+        "classification": "fail",
+        "note": "Two-page WeasyPrint output independently passes. Search snippets/font-license download do not prove actual workflow/source/license inspection; primary condition 4 unmet."
+      },
+      "original_artifacts": {
+        ".agents/skills/proactive-skill-discovery/LICENSE": "d1ba8b00007e2f5670cc0af48a9a8faa1885b502f186e574dee5c5fd7ecaf913",
+        ".agents/skills/proactive-skill-discovery/SKILL.md": "9765792d0f9452cb0b592be1ba609910d9fa7cd6c43114ab5c34073b5a1f907c",
+        ".agents/skills/proactive-skill-discovery/agents/openai.yaml": "7c25c200a0d5ed5eb59ba98910dd5471d1a3956a83570ada6d1b5797ca5fc067",
+        ".agents/skills/proactive-skill-discovery/references/adapting-upstream-skills.md": "5fbfa1f490490903da028a424903a66e3ad783425cc15d21705d9e3274505fa0",
+        ".agents/skills/proactive-skill-discovery/references/learning-from-work.md": "094f67f3eaf2176fff0c5c7fdbdfbfbab7b170c3bd7b2147126987e273ae71f0",
+        "VERIFICATION.md": "9490deaffb77f5897fcc9ec1b74f90a488afdaa3103790d8636427b1f80cbdb5",
+        "fonts.conf": "a0ce26410c2ec4752b587173ae0d7cf00c92a63b99f84bce650e8959810b26ba",
+        "print.css": "b183ee2bf8860181084630001f98386423db0a530791b2dbabb5bc11b06a828d",
+        "render.py": "9056ecc35855cab1ec72a1ae48be1a5edb1d2ef6cf16cdfeba162ad228b8d01f",
+        "report.html": "7410f4872cc39386855aec67c7bdbbd0e67b3e3cfd3567d33a8c1497cb8527ff",
+        "report.pdf": "6d724018cc81eeb95b35afe3647233b10c5f25cd6871a320e80a477cf7f161a9",
+        "skills-lock.json": "5cdef5e83e3aea2740ef36dc910bfbcc38eacb0c56eb4c4b32879cf8617a978c",
+        "verification/checks.json": "bf54af6f2e9958735dfc59efaa1fc8643587d237e4ce14ded420de8821b9ba59",
+        "verification/extracted.txt": "445fbb1dbf767bdb6a0a9596b34ca1cd3c4246fc824d5133f1079e6f7579db93",
+        "verification/page-1.png": "f7f2ce59009d578bda2453befb959a7421cd28ce1336fcbd482482d192865494",
+        "verification/page-2.png": "e66744c20171729116ecaae7ce3ec0a3d36de65c5aa2ec48a0260cebdebb52be",
+        "verify.py": "4f12e539c93db9f36dda20e50574fce767a71eb9e723958d1536f22bb3d9dceb"
+      },
+      "input_sha256": {
+        "report.html": "7410f4872cc39386855aec67c7bdbbd0e67b3e3cfd3567d33a8c1497cb8527ff"
+      },
+      "system_sha256": {
+        "imagegen": [
+          {
+            "path": "LICENSE.txt",
+            "sha256": "4dd13869245e356246a5b770723247bbb80a8f07a181d1d3d873a1734297cdb9"
+          },
+          {
+            "path": "SKILL.md",
+            "sha256": "681ddb4ad6d06a2acc78a3535b583f8d0c1ea800ecda3d56370d3310fd2cd4ba"
+          },
+          {
+            "path": "agents/openai.yaml",
+            "sha256": "9ca574af14580dc7a2a3dc37a1796d17f93cb8850be66501f0799ef8603e9dc0"
+          },
+          {
+            "path": "assets/imagegen-small.svg",
+            "sha256": "cff5f34f57ff60b3ee92eaedd17b15e96dd4b9e776df3e78936c9e00d42be294"
+          },
+          {
+            "path": "assets/imagegen.png",
+            "sha256": "95952f644064eb9e890f98d8db07216347186526e4c41ad66d3420629eb86e20"
+          },
+          {
+            "path": "references/cli.md",
+            "sha256": "ecfc2e09261a0feb3482517a5fa0ff410cb7d1958e3cbd2ac6b61586f5b81405"
+          },
+          {
+            "path": "references/codex-network.md",
+            "sha256": "c88298ca4481f6116a16fa7987434fc977f8b311c1bbc0c3d862ffd0c5981148"
+          },
+          {
+            "path": "references/image-api.md",
+            "sha256": "dc975d7af8a4888967251a0276014b4a71ea30455294944b762256373ce3e569"
+          },
+          {
+            "path": "references/prompting.md",
+            "sha256": "b210b051c775860267080941eba968212bf0ac7fce581d75c5dcc217d8293f8b"
+          },
+          {
+            "path": "references/sample-prompts.md",
+            "sha256": "70474177d151855b175c6133de2aae1d90b7f146b0dab50ec830972c47d72183"
+          },
+          {
+            "path": "scripts/image_gen.py",
+            "sha256": "b4345cf835e5b593b97df6bb2b70bda493b8a97eee4cabbc99b2fa57dba9b448"
+          },
+          {
+            "path": "scripts/remove_chroma_key.py",
+            "sha256": "a5893c4bd04b21abced33731ea89d2ac428e81d92a0368eb18ffbe4fda5253e2"
+          }
+        ],
+        "openai-docs": [
+          {
+            "path": "LICENSE.txt",
+            "sha256": "4dd13869245e356246a5b770723247bbb80a8f07a181d1d3d873a1734297cdb9"
+          },
+          {
+            "path": "SKILL.md",
+            "sha256": "aa6829e21df2223167c85d2e49b6337a7345c84c1033f1ec10182c7882b36d45"
+          },
+          {
+            "path": "agents/openai.yaml",
+            "sha256": "44b9efac6be1bae32d869aa2942fecbe4dcae82682ee03e4120f2f9b7d4658ec"
+          },
+          {
+            "path": "assets/openai-small.svg",
+            "sha256": "45be1f0757eb18889eefb1e7db79668ef46a275dc4e0e78e8df5ebd7f6cdeadc"
+          },
+          {
+            "path": "assets/openai.png",
+            "sha256": "156cc84d7332bfe95b310350bd470b690d22aa33d65340cc6c2e06022946194c"
+          },
+          {
+            "path": "references/codex-self-knowledge.md",
+            "sha256": "8c8fb00e6e5cb1977924f5164684a6095427fa828bbc765225f17d9aeb79a912"
+          },
+          {
+            "path": "references/latest-model.md",
+            "sha256": "bdf241d505eb071b1c7b0b732f842b701348cf6eab95d1c36fd97edac64dd158"
+          },
+          {
+            "path": "references/mcp-diagnostics.md",
+            "sha256": "49bbd2f73df7bbd7f86c80425dea4da2d301c22046080399a36bfc0ca49509e9"
+          },
+          {
+            "path": "references/model-migration.md",
+            "sha256": "bef46671036c8e483b7f65df931171217d55a8d26098851c2f89784db8edca2f"
+          },
+          {
+            "path": "references/model-selection.md",
+            "sha256": "ba2d164abbca30435a460a0bc3a7d82398dce2bdf092705c98ba55b3f3af38a8"
+          },
+          {
+            "path": "references/official-docs.md",
+            "sha256": "7962f2dce55089b93bde4115bb89fd42f20993c1597a2b13edd4956f463875b9"
+          },
+          {
+            "path": "references/prompting-guide.md",
+            "sha256": "548d4ca73a34cd4b0041ef05a899592e8c50772b8f3a76c579ec941e403e19f6"
+          },
+          {
+            "path": "references/upgrade-guide.md",
+            "sha256": "ecac89155f910f064fd306e89c74585cabdb2142aba4f2acc0cead092ae1d1a5"
+          },
+          {
+            "path": "references/upgrading-to-gpt-6-astra.md",
+            "sha256": "62ef6d22684662a019d203834fe1205a07e4ca4c65dddcbabe1bb51efe1aa840"
+          },
+          {
+            "path": "scripts/fetch-codex-manual.mjs",
+            "sha256": "f53eb6d2f286e9efcc397e8bee93a938e37296c90953e4e06e94899ef1b6c363"
+          },
+          {
+            "path": "scripts/resolve-latest-model-info",
+            "sha256": "7354dbb030ca0736dd633a7ca1b930cf640abd40370725dea3a458cb51d49523"
+          },
+          {
+            "path": "scripts/resolve-latest-model-info.cjs",
+            "sha256": "eeb1bb486018e16b37edfc06b1a37179dbc672982d501040d4f7142f29dd2e64"
+          }
+        ],
+        "plugin-creator": [
+          {
+            "path": "SKILL.md",
+            "sha256": "71b95b8219644f95d633721e7f7cd3c469edfc8fe50f8415d400dfb2d74bc7b9"
+          },
+          {
+            "path": "agents/openai.yaml",
+            "sha256": "fecaf35d692bd3d33d1a065648258d12e393afa9055d78adf6e57b42f4142f6d"
+          },
+          {
+            "path": "assets/plugin-creator-small.svg",
+            "sha256": "6591bf8ea9bb9435890dbdea299e0d2bd05f3aa893a335d26e4c535e93c8e7fb"
+          },
+          {
+            "path": "assets/plugin-creator.png",
+            "sha256": "a4024b0306ddb05847e1012879d37aaf1e658205199da596f5145ed7a88d9162"
+          },
+          {
+            "path": "references/installing-and-updating.md",
+            "sha256": "91c4781d48568fcc708b45566b08fb610ad1c88672720ae512f9525a1cf9cb20"
+          },
+          {
+            "path": "references/plugin-json-spec.md",
+            "sha256": "eeb640130f69636affaa299d4170d5a7ae6a0ff978296ddf75c409ce6dd87b91"
+          },
+          {
+            "path": "scripts/create_basic_plugin.py",
+            "sha256": "272cb14e02ad7c76ac40777443c49cfecfa333ee28ab7f6214210b72c8fd02ae"
+          },
+          {
+            "path": "scripts/identifier_validation.py",
+            "sha256": "a6d51ce4a9a7e8f85626ff5808a467a67574e7f8cdf1167ffb467c5f67e57223"
+          },
+          {
+            "path": "scripts/read_marketplace_name.py",
+            "sha256": "ba24e6d91eed6f778bde022a967be335c6253983b5ecd1c5e30c8483385887fd"
+          },
+          {
+            "path": "scripts/update_plugin_cachebuster.py",
+            "sha256": "6a630dfbdc2bca6952580da9c2c7ece08030926819ccd81d9deb518c24c1b0ed"
+          },
+          {
+            "path": "scripts/validate_plugin.py",
+            "sha256": "f4eeadb733b28b0c3e714de263a76d6542866a672f3e99bdffcf4dbcdf85e944"
+          }
+        ],
+        "review-agent": [
+          {
+            "path": "SKILL.md",
+            "sha256": "07079efd0dc76f05fade424e5dfb048dce1de2df7626e1a4f56292a4f3f92228"
+          },
+          {
+            "path": "agents/openai.yaml",
+            "sha256": "4d867a46d15e36ac880176484aae160f59855340c6059b2ea6ab9fbc9af084de"
+          }
+        ],
+        "skill-creator": [
+          {
+            "path": "SKILL.md",
+            "sha256": "6656e54755638e8efcf275a472b9672eaa8a9a1b9e59dc210e275b03b59e1e66"
+          },
+          {
+            "path": "agents/openai.yaml",
+            "sha256": "d07d21b93fcf3d4dc8d9a3399c05fc226a49a333a96d3e1c68b451b8dd9eade6"
+          },
+          {
+            "path": "assets/skill-creator-small.svg",
+            "sha256": "6591bf8ea9bb9435890dbdea299e0d2bd05f3aa893a335d26e4c535e93c8e7fb"
+          },
+          {
+            "path": "assets/skill-creator.png",
+            "sha256": "a4024b0306ddb05847e1012879d37aaf1e658205199da596f5145ed7a88d9162"
+          },
+          {
+            "path": "license.txt",
+            "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+          },
+          {
+            "path": "references/openai_yaml.md",
+            "sha256": "ffac39318e408108141d40f820968e59f70434a891694f9bf1d25be8237b150c"
+          },
+          {
+            "path": "scripts/generate_openai_yaml.py",
+            "sha256": "816df12072d74faf924d802a6599a139997e1441e90bfe4869ec304f2e5e2851"
+          },
+          {
+            "path": "scripts/init_skill.py",
+            "sha256": "bf0656a5f9d8d8cdecf0245eaf27e1df8e0e9b6d40ccdda814eb8e3d5f6992c8"
+          },
+          {
+            "path": "scripts/quick_validate.py",
+            "sha256": "ee6dba90f44d37171c5a6edb8095979c54919ff6822c1a907afca2e78c48738c"
+          }
+        ],
+        "skill-installer": [
+          {
+            "path": "LICENSE.txt",
+            "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+          },
+          {
+            "path": "SKILL.md",
+            "sha256": "d68b77e5bbb34dedab89d134da52855f140fc4b4299b80104f534e3b9e98f8ee"
+          },
+          {
+            "path": "agents/openai.yaml",
+            "sha256": "5ce223d8b1070b82c42298538f1b8d376f788eb9e7a42a987e8c094070d73f0e"
+          },
+          {
+            "path": "assets/skill-installer-small.svg",
+            "sha256": "3928703ff00dc1a681e7a22401843b7edcbd4b2051651ce4c43b75f7e140504e"
+          },
+          {
+            "path": "assets/skill-installer.png",
+            "sha256": "d0a230b1a79b71b858b7c215a0fbb0768d6459c14ea4ef80c61592629bf0e605"
+          },
+          {
+            "path": "scripts/github_utils.py",
+            "sha256": "61c1bbe2ae217433b4b6f9f09f21aca4df52c12598068343ade719f706e4859b"
+          },
+          {
+            "path": "scripts/install-skill-from-github.py",
+            "sha256": "38f311b75664bb063808f982c600271ebc4b560830f491705190f88a94e3e781"
+          },
+          {
+            "path": "scripts/list-skills.py",
+            "sha256": "9d6dfb2abf3afeee7f027a89fb1626b918a973da18f4eb6c25681286301beb41"
+          }
+        ]
+      },
+      "evaluator_package_sha256": {
+        "payloads.json": "50718a34dccf53436c627acc2482d3e4ef9d7e998e92271f5bb62c7bc9e352d0",
+        "protocol.json": "d9dc3954c70216b3889fc8ffd6a36866d036976633fdcab794040a2dbab52466",
+        "record_rpc.py": "a016af601953de713b082f16fee8389b46dbdcc3edec2770875f17123c586a6d",
+        "run.py": "ba7771fc29de8561b73e172ec6204ce06467c2580e024352a7c7e6445d08bb0d",
+        "tasks/control/message.txt": "d45415e6b6a5da22eed81e69b5c73bf525524466fea34a27271e29d6a5b8f6d0",
+        "tasks/control/prompt.txt": "45f86f8bfc5adac12bcbabacde61167bfb3ab5363dd5bdb951057c9b396e35e0",
+        "tasks/discovery/prompt.txt": "81544e426ba86adaa125458acb5ac5d7380af2cb8b41cdedb4033b5c59f61b4f",
+        "tasks/discovery/report.html": "7410f4872cc39386855aec67c7bdbbd0e67b3e3cfd3567d33a8c1497cb8527ff",
+        "tasks/explicit-discovery.txt": "32ff407103c76becfc4f9be18d0ef724b7c9c5eb5c35cc7847fecb43bb85b046",
+        "tasks/explicit-svg.txt": "ae12d536dc98d610e0bea42ff352499e8fa27af2fa89caa3ca87054b28d42ed2",
+        "tasks/svg/front.png": "e9b621cfca6aea43be0572eeed1e2f1952589c49f7919ff4b48eb1cf6fe14623",
+        "tasks/svg/oblique.png": "905b32b839e6939c43bcff330c7fcc63f56b4f260475a18a6e878b98f6e23d06",
+        "tasks/svg/prompt.txt": "c36283e9a04aadd47ca433091bc110caf7dbf03260d0a16c4ce155afdd42bfd1",
+        "tasks/svg/side.png": "8fa3cbd963bfed79424f57cbf929a2f2d3eb21f8ad630129a4119c0a61cbf3a5"
+      },
+      "raw_sha256": {
+        "execution.json": "ceef2892eae2a00d8bca9294f083424412f4fe620bc9a35570351cd2ac1bd595",
+        "install.log": "d4bfbca3a7d227ddd2761fc7074122eec9a6135a751a371f5a8c8c5e0a0b1b44",
+        "rpc.jsonl": "710fd3c636da2327c0e0aeb0d12650e04396e8e064f862f48c7d471ada6f607b",
+        "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "authenticated_tool_surface": {
+        "apps_enabled": false,
+        "remote_plugin_enabled": false,
+        "mcp_servers": 0,
+        "apps": 0
+      },
+      "boundary_observations": {
+        "windows_mount_absent": true,
+        "host_home_absent": true,
+        "rubric_absent": true,
+        "proc_pids": [
+          "1",
+          "2"
+        ],
+        "boundary_id": "1be86e536082855ad46488edc6312edee359b93a48e5d3adeab839564ac79449"
+      }
+    }
+  ],
+  "additional_failures": [
+    {
+      "case": "explicit-discovery-02",
+      "phase": "Skills CLI installation",
+      "classification": "environment_blocked",
+      "log_sha256": "63a1aa9ce9ead84e9691ea0b110cbd5face1c735d7a12ca8cf6b829838d77e08",
+      "note": "GitHub TLS/443 failed; no model task ran."
+    }
+  ]
+}

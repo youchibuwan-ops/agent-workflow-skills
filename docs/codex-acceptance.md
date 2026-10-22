@@ -1,105 +1,128 @@
 # Codex pre-release acceptance — 2026-10-23
 
-**NO-GO under the frozen limited-preview rule.** Package installation and local host
-discovery work; independent resource loading, explicit execution and the complete
-implicit discovery → reuse → verified-output chain have not passed in a clean runtime.
-This is an environment-blocked acceptance, not a measured Skill failure rate.
-PR #1 remains a draft; no main merge, Release or third-party submission was performed.
+**Both standalone instruction/resource loads now pass. Overall limited-preview
+acceptance remains NO-GO under protocol v1.** This follow-up completed real model
+runs after repairing the environment. No Skill, task, model, effort, rubric or budget
+was changed to obtain a pass. PR #1 remains a draft; no merge, Release, submission or
+DeepSeek Harness work occurred.
 
-## What was fixed and checked
+[Follow-up evidence, actual PDF and page previews](../examples/codex-acceptance/followup/README.md)
+include failures as well as successes. [Initial records](../examples/codex-acceptance/README.md)
+remain unchanged. These are author diagnostics, not friend results or performance evidence.
 
-- Reviewed against `c1434f04704938774eb359053aaafdf38ee90868`; both Skill payloads
-  retain exactly those bytes. No behavior tuning was made after observing results.
-- Each target was installed alone through Skills CLI 1.7.4 into a fresh project;
-  every payload file, MIT notice and linked resource matched the frozen inventory.
-  Native Codex 0.155.1 `skills/list` found only the target and six built-ins. A control
-  preparation found only the same six built-ins, with identical payloads and task inputs.
-  [Public inventories and observations](../examples/codex-acceptance/README.md).
-- Removed local authoring paths, file-browser buffers and weak-library provenance
-  from the optional binder `construction.blend`. Native Blender 4.5.14 opened and
-  inspected the sanitized file. An independent review found the same evaluated
-  geometry/camera fingerprint before and after; four regenerated public PNGs are
-  byte-identical. [Manifest](../examples/svg-binder-clip/case-manifest.json).
-- Fixed actual evaluator defects: recheck target/built-in payloads and CLI version
-  at execution, reject treatment changes, clean temporary credentials on copy/chmod
-  and process errors, stop on unexpected MCP, and classify policy rejection separately.
-  Regression tests use synthetic fixtures/fake credentials, not real account files.
-- Native directories cannot enforce isolation. Friend runs require a disposable
-  VM/container, a recorded boundary and destruction after **each** run. Windows
-  `taskkill /T` remains best-effort; it cannot guarantee cleanup of orphan descendants.
-- Gitleaks is used for credential scanning, alongside review of binary authoring
-  metadata. A zero-finding scan is bounded evidence, not proof of absence. Earlier
-  branch history still contains the old binary's local paths; history was not rewritten.
-  Those paths are not credentials, but current-tree cleanup does not erase old commits.
+## Environment repair and actual isolation
 
-## Actual authenticated author pilots
+- Windows CLI 0.155.1 without a selected sandbox backend produced effective read-only
+  permissions despite requested workspace-write. Selecting `windows.sandbox="unelevated"`
+  and placing runtime flags after `exec` produced real successful fixture reads,
+  writes and byte verification. The earlier failed invocation remains recorded.
+- Apps and remote plugins are separate surfaces. Both are disabled per invocation.
+  Authenticated `config/read`, `mcpServerStatus/list` and `app/installed` found disabled
+  features and zero MCP servers/apps before the new tasks. This is separate from
+  local `skills/list`. Unexpected MCP aborts a run.
+- A credential-free proxy can be declared explicitly and must match preparation.
+  No personal proxy configuration is inherited. Git HTTP/1.1 is process-local.
+  A GitHub installation failure and the initial no-proxy Linux health timeout remain
+  failures. A terminal CP936 display issue was separately diagnosed; raw Chinese
+  resources were intact, so it is not used to explain away the SVG mistake.
+- New Linux runs actually used WSL Ubuntu and Bubblewrap 0.9.0: separate mount/PID
+  namespaces, dropped capabilities, read-only runtime/task package, fresh writable
+  result root, temporary `/tmp`, and only the current auth file mounted read-only.
+  Probes found no Windows mount, host home, scoring rubric or sibling results;
+  the initial PID namespace contained only PIDs 1 and 2. Inner full-access mode was
+  used only inside that external boundary. This is not a Docker build or a VM.
+- The Linux authenticated health task actually read/wrote/verified a Chinese canary
+  after restoring the declared network route. Task runs also exercised image viewing,
+  network and rendering. Transient auth copies were removed; original credentials
+  and account settings were unchanged.
 
-Tasks, rubric, model, effort and budgets were committed in `2dfd37c` **before** these
-runs. All three used `gpt-6-astra`, medium, requested workspace-write, approval never,
-300 seconds / 40 observed tool-start events. No explicit Skill instruction occurs in
-the implicit prompt. The initial `gpt-6.1-sol` health preflight was unsupported by this
-account; `gpt-6-astra` was selected from its actual model catalog before the protocol
-freeze and returned `READY` in a separate health request.
+Verified Linux Codex 0.155.1 and Node 22.22.1 distribution digests and namespace setup
+are in the [reproduction notes](../examples/codex-acceptance/followup/README.md#linux-boundary-reproduction).
+Network/proxy and remote services were shared. This is a tested filesystem/process
+boundary, not complete infrastructure isolation. Native Windows folders remain
+ineligible as a friend-study security boundary. Docker remains unbuilt locally.
 
-| Run | Installation / local catalog | Actual instruction/resource load | Reuse / output | Classification |
-| --- | --- | --- | --- | --- |
-| Explicit discovery | Pass | Not verified: reads rejected | No reuse; no requested edit | Environment blocked |
-| Explicit SVG, read-only research | Pass | Not verified: reads rejected | No image inspection/authoring | Invalid contamination: account MCP visible |
-| Implicit discovery B pilot | Pass | Agent selected the workflow and attempted `Get-Content …/SKILL.md`; rejected | No inspected external source, applied method or PDF | Environment blocked; full chain not passed |
+## Frozen runs and separate outcomes
 
-The native router recorded `exec_command … rejected: blocked by policy` despite the
-requested workspace-write setting. The effective policy's underlying cause remains
-unestablished. A model's statement that it was read-only is not independent proof.
-Separate disposable permission probes, including the named workspace profile, also
-failed to read/write the health fixture. No host restriction was bypassed.
+Target bytes remain `c1434f04704938774eb359053aaafdf38ee90868`; protocol/tasks/rubric
+were frozen in `2dfd37c` before execution. Every task uses CLI 0.155.1, `gpt-6-astra`,
+medium, approval never, 300 seconds / 40 observed tool starts. There is no hard total-token
+or dollar cap. CLI JSONL and app-server event visibility/counts differ; do not pool them.
 
-An isolated local Skill catalog did **not** ensure an isolated authenticated tool
-surface: the SVG pilot's account MCP resource list exposed unrelated plugins.
-Its account resource payloads are redacted publicly; event type/order and hashes are
-retained. The runtime guard now stops at the first unexpected MCP event. Guards were
-revised after these observations; the pilots were **not** silently rerun or upgraded.
-JSONL tool-start counts omit commands rejected before an item event; stderr rejection
-counts are recorded separately. A completed model turn is not a task pass.
+| Case | Actual loading / actions | Task and chain outcome |
+| --- | --- | --- |
+| Windows explicit discovery, repaired invocation | Target and adaptation reference successfully read | Load passes. Frozen prompt omits replacement text; actor correctly asks, no exact edit completed |
+| Windows explicit SVG, CLI | Target and relevant references read; final explanation says four holes | Load passes. Actual image viewing unobservable in CLI JSONL |
+| Windows explicit SVG, RPC | All three images actually opened | Preparation fails: final explanation wrongly says three holes. Real structural error retained |
+| Linux explicit discovery, Bubblewrap/RPC | Target and both discovery references actually read | Load passes. Same missing replacement text; no invented edit |
+| Linux explicit SVG, Bubblewrap/RPC | Target/references and three image views; correct four holes, continuous fold and specific evidence limits | Read-only preparation passes; no authoring/assembly claim |
+| Windows implicit discovery, CLI | Spontaneous target read, search, actual PyMuPDF use | PDF independently passes. Full source/license inspection unobservable in this transport |
+| Windows implicit discovery, RPC | Spontaneous target read before decisions; candidate source/license opened; actual PDFKit/Cheerio use | Frozen primary conditions 5/5; validation 2; rubric 9/10. External candidate Skill rejected, not adopted |
+| Linux implicit discovery, Bubblewrap/RPC | Spontaneous target read; actual WeasyPrint use, font downloads and page inspections | PDF independently passes. Primary condition 4 fails: search/download do not establish actual workflow/source/license review |
+| Windows adjacent control A/B | Same inputs/built-ins; both exact byte edits pass | No lookup; B does not load/trigger discovery. One author pair only |
 
-These are native author pilots, not friend A/B outcomes, desktop-app activation
-tests or controlled evidence of improvement. The A preparation was checked but no
-paired implicit A result was collected after the environment failed preflight.
+The five protocol primary conditions do **not** require accepting the candidate.
+The Windows RPC case meets them, while `external_skill_adopted=false`. Actual library/font
+use is true; complete observed source/license-fit review of the adopted stack is not
+established. Do not rename this result “external Skill reuse proven” or add a new
+acceptance requirement after seeing it. The Linux task's correct PDF cannot fill its
+missing inspection evidence, and a different run cannot fill that gap either.
 
-## Friend experiment and remaining gates
+The explicit discovery prompt says “make the exact requested edit” but supplies no
+replacement, and the actor workspace excludes the control prompt. This is an
+underspecified fixture, not evidence that the Skill cannot edit text. It is retained
+as an uncompleted smoke rather than quietly repaired/regraded. A revised fixture
+requires a new preregistered version; original outcomes remain.
 
-[The bilingual test pack](../evals/codex/README.md) contains two target tasks, a nearby
-negative control, separate explicit smokes, a frozen rubric and a blank raw-record
-template. A has no target; B has exactly one. Use the same immutable base image,
-model, effort, permissions, tools and caps, three fresh repetitions per arm/task,
-counterbalanced order and blind artifact scoring. Installation, host discovery,
-loading, implicit activation, external reuse and task success remain separate fields.
-Token usage is recorded; there is no hard total-token/dollar cap.
+## Independent artifact checks and observability
 
-Before scoring, the coordinator must validate shell read/write, network, image
-viewing, output rendering and the **authenticated** tool surface in a separate fresh
-health environment, then destroy it. Environment failure is recorded, never silently
-discarded as a bad Skill run. Do not show actors the rubric, answers, previous runs or
-this author's pilot report. The three SVG PNGs are owned synthetic geometry references;
-their editable source is withheld, and this is not a broad photographic benchmark.
+Three PDFs were checked against the original HTML with independent pypdf/pdfplumber
+checks and Poppler renders. All 36 rows, 108 cells, selectable Chinese/English, repeated
+headings and page bounds pass; every current page was actually opened. Windows RPC
+and Linux PDFs also received independent read-only review. Linux rows split 18/18;
+Windows RPC rows split 14/16/6. The CLI PDF has unused non-BMP font-CMap warnings;
+its used text/pages passed. Other characters, viewers and physical printing are untested.
 
-Local Docker was unavailable: the supplied Dockerfile/container commands have not
-been built or run here. A friend/coordinator must validate that boundary before the
-study; a folder-only rehearsal is ineligible. No friend outcomes are prefilled.
+The [published PDF](../examples/codex-acceptance/followup/pdf-example/report.pdf) embeds
+Noto CJK and includes its OFL notice. Generation/verification source and three
+independently rendered pages are supplied. The Microsoft-font CLI PDF remains private;
+no font binary or third-party Skill code is bundled.
 
-Release gates still open:
+CLI JSONL hides image-view events and some multi-URL web parameters. The optional
+`record_rpc.py` uses the native app-server, not a trigger simulator or custom agent
+loop. Raw events are opt-in experimental diagnostics pinned to 0.155.1. Full logs stay
+private because they contain internal instructions, images and third-party pages.
+Public selected records retain source line numbers/hashes, commands, exits and relevant
+call arguments; they are not complete logs and do not upgrade earlier unobservable cases.
 
-1. Obtain a clean authenticated Codex tool surface with working task permissions.
-2. Pass both explicit resource-reading smokes in new environments.
-3. Complete at least one valid implicit discovery/search/inspection/application/output
-   pilot using the unchanged criteria. Preserve failures as well as passes.
-4. Run the independent friend study before making any reliability/performance claim.
+Post-run payload mutation now records invalid contamination even when its check raises;
+failure states exit 2 and cleanup errors remain failures. Regression tests cover guards,
+not model quality. No target instructions were changed after these observations.
 
-Static green CI cannot close these behavioral gates. Review of this draft and test
-preparation can proceed; publishing it as behaviorally accepted cannot.
+## Remaining gates and release recommendation
+
+1. **Closed:** standalone install, host discovery, both instruction/reference loads,
+   authenticated empty MCP/Apps checks, working permissions, and an actually exercised
+   disposable filesystem/process boundary.
+2. **Observed with limits:** one native Windows RPC pilot meets five discovery conditions
+   and independently passes the task. No external candidate Skill adopted; the strongly
+   isolated Linux case misses inspection condition 4.
+3. **Open:** the frozen explicit discovery task cannot complete without a specified
+   replacement. Do not change it in place or claim both complete smokes passed.
+4. **Open for broader claims:** independent blinded friend A/B runs; their records remain
+   blank. One correct Linux SVG preparation does not erase the Windows structural failure
+   or establish full SVG production reliability.
+
+**NO-GO for declaring protocol-v1 limited-preview acceptance complete.** Review and
+independent experimental use can proceed with these limits. Static green CI cannot
+turn remaining outcomes into passes. The [friend pack](../evals/codex/README.md) retains
+identical tasks/scoring, per-run disposable environments and counterbalanced repetitions.
 
 ## 中文结论
 
-本轮没有把“安装成功”算成“自动触发成功”。隐式试跑确实主动选用了发现流程并尝试读
-Skill，但读取被策略拒绝，未完成检索、筛选、复用和产物验证；显式 SVG 试跑还暴露了
-账号级 MCP 污染。按试跑前固定的规则，发布建议是 **NO-GO**。测试包已备好，朋友结果
-留空；需要先解决干净环境与工具执行，再按原标准复测。没有开展 DeepSeek Harness 适配。
+本轮已实际解决并复测工具执行、账号工具表和隔离边界，两份 Skill 都成功读取主体与配套
+资源。Linux SVG 只读准备通过；Windows 同任务曾误读孔数，失败保留。Windows RPC 隐式
+发现满足原定五条条件且 PDF 独立通过；候选 Skill 被拒用，不能说已采用外部 Skill。
+Linux 也交付了合格 PDF，但缺完整来源/许可审阅证据，完整链不能判通过。显式发现原测试
+遗漏替换内容，仍如实列为未完成。整体 NO-GO 对应这些具体未关闭项，而非继续停留在
+“环境不可用”；朋友结果、可靠性和性能提升均尚未验证。

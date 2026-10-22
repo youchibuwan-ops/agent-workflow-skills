@@ -2,9 +2,17 @@
 
 ## Unreleased
 
-- Codex acceptance protocol frozen before authenticated author pilots; installation
+- Actual clean-runtime follow-up: repaired Windows execution/App/MCP guards; exercised
+  Bubblewrap isolation and both standalone resource loads. One Windows RPC discovery
+  pilot meets frozen primary conditions; isolated Linux misses inspection evidence.
+  Three PDFs independently checked; SVG structural failure and underspecified explicit
+  edit retained. Overall acceptance remains incomplete; no friend effect claim.
+- Optional native app-server diagnostic recorder, explicit transport declaration and
+  failure-preserving guards; original target/tasks/rubric/model/budgets unchanged.
+
+- Initial Codex acceptance protocol frozen before authenticated author pilots; installation
   and local catalogs verified, resource reads blocked and account MCP contamination
-  retained. Explicit/implicit success remains unverified: NO-GO under the frozen rule.
+  retained. Those blocked observations remain unchanged; actual follow-up is above.
 - Isolated friend A/B tasks, scoring/raw-record templates and native Codex wrapper;
   actual payload/version guards and credential-cleanup regressions tested. Container
   recipe supplied but not locally executed; no friend results or effect-size claim.

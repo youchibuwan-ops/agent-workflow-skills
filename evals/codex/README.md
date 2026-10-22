@@ -2,11 +2,14 @@
 
 The target payload is frozen at `c1434f04704938774eb359053aaafdf38ee90868`.
 The runnable wrapper uses native Skills CLI installation, Codex `skills/list` and
-`codex exec --json`; it does not emulate a model or use another host's trigger proxy.
+`codex exec --json`, plus an optional native app-server diagnostic recorder; it does
+not emulate a model or use another host's trigger proxy.
 Skill instructions are unchanged by this pack. No DeepSeek Harness work is included.
 
 Guard repairs after the author pilots did not change frozen tasks, model, budgets,
-rubric or target payload. No behavioral rerun is claimed for the repaired wrapper.
+rubric or target payload. Actual repaired-environment author runs are recorded in
+[the follow-up](../../examples/codex-acceptance/followup/README.md), including failures.
+Final evidence-preservation guard changes did not receive another model rerun.
 Read [protocol.json](protocol.json) and [the frozen rubric](RUBRIC.md) before running.
 The [record template](RESULT_TEMPLATE.json) intentionally contains no friend results.
 The HTML, text and three bracket reference PNGs are owned synthetic fixtures under
@@ -108,6 +111,47 @@ python evals/codex/run.py run --out /absolute/private/explicit-svg --explicit --
 The SVG smoke is read-only R/B research. It cannot count as authoring/assembly or
 final visual acceptance. PDF success requires actual text and page-image checks;
 SVG success requires actual editable sources and image inspection.
+
+**Known frozen fixture limitation:** `explicit-discovery.txt` requests an exact edit
+but does not specify the replacement. Actual actors correctly asked for it. Retain
+successful loading separately from the uncompleted edit; do not invent an edit or
+silently add the control prompt. Repairing that fixture needs a newly preregistered
+version, preserving v1 outcomes. Do not expose this coordinator note to actors.
+
+## Native observability and transport
+
+Windows runtime flags select the unelevated sandbox backend and follow the `exec`
+subcommand. Both Apps and remote plugins are explicitly disabled; authenticated
+MCP/Apps/config checks run before model execution. `tool-surface.json` contains only
+feature booleans/counts. A debug permission check alone is not a real read/write probe.
+
+If the environment requires a proxy, declare a credential-free HTTP(S) origin using
+`--network-proxy` in **both** preparation and execution. It must match and be identical
+between A/B. Personal proxy/config/credential variables are never inherited. Do not
+use proxy credentials or change transport to salvage a scored result.
+
+CLI JSONL omits image-view events and collapses some web-open arguments. For a new
+fresh run requiring those observations, use the optional diagnostic transport:
+
+```sh
+python evals/codex/record_rpc.py --out /absolute/private/B1 --auth-file /private/auth.json --experimental-raw-events
+```
+
+It uses official native app-server JSON-RPC, a single native turn, original prompt,
+model, effort and budgets. It checks actual thread settings and authenticated tool
+surfaces; post-run mutation is recorded as invalid contamination, not lost on exception.
+No automatic scoring is added. Standard events record actual image views. The opt-in
+raw-event field is experimental/internal diagnostics in CLI 0.155.1, not a stable API.
+Full logs can contain hidden instructions, image bytes, account information and
+copyrighted source pages: keep private and publish only reviewed/redacted evidence.
+Failure/invalid/budget status returns 2; completed-needs-review returns 0, never a score.
+
+Choose and fix one transport for each friend pair **before** execution; never pool
+CLI/RPC timings or backfill one run's missing evidence from another. The same boundary,
+sandbox, explicit-smoke and network options apply to the recorder. A tested Bubblewrap
+namespace description and actual distribution digests are supplied in the
+[follow-up reproduction notes](../../examples/codex-acceptance/followup/README.md#linux-boundary-reproduction).
+Those author diagnostics do not substitute for the independent friend study.
 
 ## Disposable container recipe
 

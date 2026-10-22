@@ -87,6 +87,7 @@ with `DISABLE_TELEMETRY=1`; PowerShell can set `$env:DISABLE_TELEMETRY='1'` for 
 Verification installs are not promotional traffic.
 
 Codex package discovery/resource integrity was tested. Other Agent Skills hosts are
-format-compatible candidates. Actual native automatic/explicit pilots were blocked;
-resource loading and the full automatic chain have not passed. See
-[Codex acceptance](codex-acceptance.md); do not treat listing as successful loading.
+format-compatible candidates. Both instruction/resource loads now pass in actual
+Codex runs, including Bubblewrap-isolated Linux. Automatic inspection/adoption and
+task outcomes remain separately qualified in [Codex acceptance](codex-acceptance.md);
+listing alone never establishes loading or task success.

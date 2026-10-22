@@ -4,7 +4,7 @@ FROM node:22.22.1-bookworm-slim
 RUN apt-get update && apt-get install -y --no-install-recommends git python3 poppler-utils fonts-noto-cjk ca-certificates \
     && rm -rf /var/lib/apt/lists/* \
     && npm install -g @openai/codex@0.155.1
-COPY evals/codex/run.py evals/codex/protocol.json evals/codex/payloads.json /opt/experiment/
+COPY evals/codex/run.py evals/codex/record_rpc.py evals/codex/protocol.json evals/codex/payloads.json /opt/experiment/
 COPY evals/codex/tasks/ /opt/experiment/tasks/
 WORKDIR /work
 ENTRYPOINT ["python3", "/opt/experiment/run.py"]

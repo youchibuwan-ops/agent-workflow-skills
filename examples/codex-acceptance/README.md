@@ -1,6 +1,8 @@
 # Actual Codex author-pilot evidence
 
-**No full-chain pass; no friend results.** Read the
+**Initial blocked-run snapshot; no friend results.** Later actual repaired-runtime
+tests are in [follow-up evidence](followup/README.md); these original failures are retained.
+Read the
 [acceptance decision](../../docs/codex-acceptance.md) before interpreting these records.
 
 - [observations.json](observations.json): manual classifications, timing, usage,

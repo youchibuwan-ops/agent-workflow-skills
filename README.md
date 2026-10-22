@@ -16,8 +16,10 @@ Run from the intended project. Requires Git and Node ≥22.20.0 for this third-p
 the skills themselves have no Node/Python runtime.
 
 **Pre-release status (2026-10-23): NO-GO under the frozen acceptance rule.**
-Individual install and local Codex discovery were verified; explicit resource reading
-and the complete implicit reuse chain were blocked in native author pilots.
+Both standalone instruction/resource loads now pass. Actual follow-up runs include a
+verified PDF and one Windows RPC pilot meeting the frozen five discovery conditions;
+the isolated Linux pilot still misses source/license inspection. The explicit edit
+fixture also lacks replacement text. Failures remain recorded; acceptance is incomplete.
 Read the [actual evidence and remaining gates](docs/codex-acceptance.md) and
 [friend A/B pack](evals/codex/README.md). No measured performance gain is claimed.
 Commands above/below pin the reviewed PR payload; unmerged `main` has older content.
