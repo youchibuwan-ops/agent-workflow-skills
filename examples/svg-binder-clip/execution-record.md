@@ -1,6 +1,6 @@
 # Binder-clip execution record
 
-Current stage: REOPENED after the user identified a wrong central curl in commit 72e77a0. The whole inspection for source 6432b456d31320b80450b1e80c62dbc6d169a3b7dec4df6bddbf848857c6ec75 is withdrawn. Central cross-section is being corrected; no current whole approval or user acceptance.
+Current stage: REOPENED after user correction of the central lip edge lengths in f97382c. That central-only review missed dimensional taper. Neither previous central nor whole approval carries forward.
 
 ## Reference roles actually inspected
 
@@ -194,3 +194,23 @@ opened the current isolated curl, mouth context, whole and native rotations. It
 read a raised crest, returning face and free edge over the sheet rather than a
 flat flange or a third closed tube. No concrete mandatory issue was identified
 within that central-only scope. It does not reinstate the withdrawn whole approval.
+
+## Central free-edge length correction
+
+The user identified another missed dimension: the raised free edge must be shorter
+than the lower/root span; the previous drawing treated the curl as almost uniform
+rail stock. That central-only review is withdrawn. Root reopened the primary
+same-coordinate crop, metal-finish section and the large front-facing clip in
+support-views.jpg. The latter exposes sloping end cuts and unequal longitudinal
+edges; it supplies topology, not a target measurement ratio.
+
+The revised raised edge runs from (340,459) to (372,499), about 51 SVG units;
+the root span remains (335,450) to (384,511), about 78 units. These are authored
+geometry checks, not measured photo dimensions. Both end transitions now consume
+part of the span instead of extending the raised edge over nearly the full base.
+Root opened the independent same-coordinate comparison before assembly.
+
+After exact-group assembly, root opened the current mouth context and eight native
+views again. This iteration addresses the visible unequal edge lengths; it does
+not reinstate a whole pass or user acceptance. The repeated missed dimension is
+retained as failure evidence rather than presented as a successful skill test.
