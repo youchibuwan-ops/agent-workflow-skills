@@ -1,6 +1,6 @@
 ---
 name: proactive-skill-discovery
-description: Use when a substantial task enters an unfamiliar domain, lacks a suitable installed workflow, shows unexplained errors or output that contradicts requirements, repeatedly fails, needs external agent skills adapted or combined, or yields reusable lessons that need evidence-based validation and maintenance without waiting for a user reminder.
+description: Use when a task has failed prior attempts, unexplained errors or output that violates requirements; before implementing a nontrivial converter, renderer or standard-format writer or choosing an unfamiliar third-party tool; or when adapting skills and maintaining tested reusable lessons. Applies even when the programming language is familiar. Not for routine exact edits with an established workflow.
 license: MIT
 compatibility: Requires an agent with file access; external discovery and installation need network and an installer. No mandatory bundled runtime.
 ---
