@@ -1,0 +1,10 @@
+order_id,status,amount
+A01,accepted,100
+A01,accepted,100
+A02,cancelled,50
+A03,accepted,25
+A04,accepted,40
+A04,accepted,45
+A05,pending,60
+A06,accepted,oops
+A07,accepted,60

@@ -1,0 +1,12 @@
+Offline CSV audit task. Preserve these input files.
+Amounts are decimal currency units. Do not coerce invalid numbers to zero.
+An exact duplicate of all fields is one duplicate copy; count the order once.
+If the same order_id has conflicting fields, quarantine ALL rows of that ID.
+Only accepted orders with valid numeric amounts contribute to accepted_count and total.
+cancelled orders count as cancelled_count and do not contribute money.
+pending/unknown statuses count as unresolved_count and do not contribute money.
+Invalid numeric amounts count as invalid_amount_count and do not contribute money.
+Conflict IDs count as conflicting_id_count (count IDs, not rows).
+Write summary.csv as one row with these columns:
+accepted_count,total,cancelled_count,duplicate_copy_count,conflicting_id_count,unresolved_count,invalid_amount_count
+Write a separate audit record describing actual checks and quarantined rows.

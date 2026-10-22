@@ -2,6 +2,18 @@
 
 [English](README.md)
 
+## DSH Desktop 同学试用版
+
+**Windows 同学从这里开始：[下载 ZIP → 安装 → 使用 → 卸载](docs/dsh/install.zh-CN.md)。**
+仅需官方 DSH Desktop 和 Windows 自带 PowerShell，无需 Codex、Git、Node.js 或 Python。
+当前为 `0.1.0-dsh-preview.1`，未做同学/Desktop 实测验收，正式推广结论 **NO-GO**。
+[同学测试包与 A/B 步骤](docs/dsh/trial-kit/README.zh-CN.md) ·
+[真实验证与未验证项](docs/dsh/validation.md) · [官方兼容性核查](docs/dsh/compatibility.md)。
+本分支基于 `c1434f0`；两份 Skill 正文和引用保持原样，不修改官方 DSH 或个人配置。
+
+**Codex 用户：[中文安装/卸载](docs/codex-install.zh-CN.md) ·
+[English install/remove](docs/installation.md)。** 下文 CLI 命令面向 Codex，不适用于 DSH 同学。
+
 让编码代理主动找到合适的 Skill，核查后实际使用，再把已验证的方法沉淀下来。
 本仓库提供两份可单独安装的工作流 Skill，重点是 **proactive-skill-discovery**。
 

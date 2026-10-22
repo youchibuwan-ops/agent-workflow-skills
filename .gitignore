@@ -10,3 +10,4 @@ node_modules/
 .agents/
 .venv/
 lychee-out.md
+dist/
