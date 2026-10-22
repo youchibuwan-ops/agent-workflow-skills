@@ -28,7 +28,7 @@ SYSTEM = {'imagegen', 'openai-docs', 'plugin-creator', 'review-agent', 'skill-cr
 
 def configure_study(version):
     global PROTOCOL, PROTOCOL_FILE, PAYLOADS_FILE
-    if version not in {1, 2, 3}:
+    if version not in {1, 2, 3, 4}:
         raise ValueError('Unknown preregistered study version')
     folder = PACKAGE if version == 1 else PACKAGE / ('v' + str(version))
     PROTOCOL_FILE, PAYLOADS_FILE = folder / 'protocol.json', folder / 'payloads.json'
@@ -253,6 +253,8 @@ def network_env(env, proxy):
 
 def prepare(args):
     configure_study(args.study_version)
+    if args.task not in PROTOCOL['target_skills']:
+        raise ValueError('Task is not registered in the selected study version')
     root = fresh_root(Path(args.out))
     env = network_env(isolated_env(root), args.network_proxy)
     shutil.copytree(PACKAGE / 'tasks' / args.task, root / 'workspace')
@@ -411,9 +413,9 @@ if __name__ == '__main__':
     commands = parser.add_subparsers(dest='action', required=True)
     setup = commands.add_parser('prepare')
     setup.add_argument('--out', required=True)
-    setup.add_argument('--task', choices=sorted(PROTOCOL['target_skills']), required=True)
+    setup.add_argument('--task', choices=['control', 'discovery', 'svg', 'workbook'], required=True)
     setup.add_argument('--arm', choices=['A', 'B'], required=True)
-    setup.add_argument('--study-version', type=int, choices=[1, 2, 3], default=1)
+    setup.add_argument('--study-version', type=int, choices=[1, 2, 3, 4], default=1)
     setup.add_argument('--codex')
     setup.add_argument('--network-proxy', help='Optional credential-free HTTP(S) proxy origin; fixed for both arms')
     execute = commands.add_parser('run')

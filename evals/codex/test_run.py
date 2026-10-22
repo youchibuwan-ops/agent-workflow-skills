@@ -11,16 +11,26 @@ SPEC.loader.exec_module(experiment)
 
 
 class IsolationTests(unittest.TestCase):
+    def test_unregistered_transfer_task_is_rejected_before_creating_state(self):
+        from types import SimpleNamespace
+        args = SimpleNamespace(study_version=1, task='workbook', out='unused')
+        with patch.object(experiment, 'fresh_root', side_effect=AssertionError('created state before task validation')):
+            with self.assertRaisesRegex(ValueError, 'Task is not registered'):
+                experiment.prepare(args)
+
     def test_study_versions_select_distinct_payloads_and_preserve_v1(self):
         self.addCleanup(experiment.configure_study, 1)
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
             (root / 'v2').mkdir()
             (root / 'v3').mkdir()
-            for prefix, version in [('', 1), ('v2/', 2), ('v3/', 3)]:
+            (root / 'v4').mkdir()
+            for prefix, version in [('', 1), ('v2/', 2), ('v3/', 3), ('v4/', 4)]:
                 (root / (prefix + 'protocol.json')).write_text(json.dumps({'version': version}), encoding='utf8')
                 (root / (prefix + 'payloads.json')).write_text(json.dumps({'target': {'SKILL.md': str(version)}}), encoding='utf8')
             with patch.object(experiment, 'PACKAGE', root):
+                experiment.configure_study(4)
+                self.assertEqual(experiment.expected_payload('target'), {'SKILL.md': '4'})
                 experiment.configure_study(3)
                 self.assertEqual(experiment.expected_payload('target'), {'SKILL.md': '3'})
                 experiment.configure_study(2)
