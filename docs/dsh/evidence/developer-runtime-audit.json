@@ -1,0 +1,97 @@
+{
+  "scope": "Developer-only official DSH 0.2.1-rc.2 test fixture; not a student runtime",
+  "counts": {
+    "info": 0,
+    "low": 0,
+    "moderate": 12,
+    "high": 0,
+    "critical": 0,
+    "total": 12
+  },
+  "packages": [
+    {
+      "name": "@deepseek-ai/dsh",
+      "severity": "moderate",
+      "isDirect": true,
+      "via": []
+    },
+    {
+      "name": "@deepseek-ai/dsh-acp",
+      "severity": "moderate",
+      "isDirect": false,
+      "via": []
+    },
+    {
+      "name": "@deepseek-ai/dsh-acp-app",
+      "severity": "moderate",
+      "isDirect": false,
+      "via": []
+    },
+    {
+      "name": "@deepseek-ai/dsh-mcp-client",
+      "severity": "moderate",
+      "isDirect": false,
+      "via": []
+    },
+    {
+      "name": "@deepseek-ai/dsh-office-to-pdf",
+      "severity": "moderate",
+      "isDirect": false,
+      "via": []
+    },
+    {
+      "name": "@deepseek-ai/dsh-sdk-app",
+      "severity": "moderate",
+      "isDirect": false,
+      "via": []
+    },
+    {
+      "name": "@deepseek-ai/dsh-sdk-minimal",
+      "severity": "moderate",
+      "isDirect": false,
+      "via": []
+    },
+    {
+      "name": "@deepseek-ai/dsh-skill-office",
+      "severity": "moderate",
+      "isDirect": false,
+      "via": []
+    },
+    {
+      "name": "@deepseek-ai/dsh-web-app",
+      "severity": "moderate",
+      "isDirect": false,
+      "via": []
+    },
+    {
+      "name": "@deepseek-ai/libreoffice-kit",
+      "severity": "moderate",
+      "isDirect": false,
+      "via": []
+    },
+    {
+      "name": "@modelcontextprotocol/client",
+      "severity": "moderate",
+      "isDirect": false,
+      "via": [
+        {
+          "title": "MCP TypeScript client SDK: HTTP client transports and OAuth requests followed cross-origin redirects and re-sent custom headers and request bodies",
+          "url": "https://github.com/advisories/GHSA-6prh-2h8m-c8cw",
+          "range": ">=2.0.0 <2.3.0"
+        }
+      ]
+    },
+    {
+      "name": "fflate",
+      "severity": "moderate",
+      "isDirect": false,
+      "via": [
+        {
+          "title": "fflate unzipSync can enter an infinite loop when parsing malformed ZIP64 archives",
+          "url": "https://github.com/advisories/GHSA-px8p-9vwx-vf98",
+          "range": ">=0.8.0 <0.8.3"
+        }
+      ]
+    }
+  ]
+}

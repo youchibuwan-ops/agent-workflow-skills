@@ -1,5 +1,17 @@
 # Installation and compatibility
 
+This page covers **Codex**, not DSH. [中文 Codex 安装](codex-install.zh-CN.md).
+Windows DSH users: [English](dsh/install.en.md) / [中文](dsh/install.zh-CN.md).
+
+No developer tools are needed for manual Codex project installation: download and
+extract this repository ZIP, then copy one complete `skills/<name>` directory into
+your project's `.agents/skills/<name>`. Cancel on any existing name; do not merge
+unknown installations. Retain the license, references and agents metadata, record
+the source revision, and start a new Codex conversation. Invoke `$<name>`. For manual
+updates, first back up and move away your own previous copy, then copy the new folder.
+For manual removal, move only that known copy to the Recycle Bin. This manual flow
+does not create a DSH installer receipt and must not be managed by the DSH scripts.
+
 ## Install one skill for Codex
 
 Requires Git and Node ≥22.20.0 (CLI 1.7.4's declared minimum). Run from the project:

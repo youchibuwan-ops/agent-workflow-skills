@@ -1,5 +1,17 @@
 # Agent Workflow Skills
 
+## DSH Desktop preview for Windows students
+
+**Start here: [Download ZIP → install → use → uninstall](docs/dsh/install.en.md)**
+([零基础中文](docs/dsh/install.zh-CN.md)). Requires official Desktop and Windows PowerShell,
+not Codex, Git, Node.js or Python. Preview `0.1.0-dsh-preview.1`: **NO-GO for general
+rollout** until actual classmate/Desktop trials. [Trial kit and A/B protocol](docs/dsh/trial-kit/README.en.md)
+· [Evidence and unverified items](docs/dsh/validation.md) · [Official source audit](docs/dsh/compatibility.md).
+
+Based on `c1434f0`; skill bodies and references stay unchanged. No official DSH,
+personal configuration or QQ Bridge changes. **Codex installation is separate:**
+[English](docs/installation.md) · [中文](docs/codex-install.zh-CN.md).
+
 [中文说明](README.zh-CN.md) · [Examples](#real-examples) · [Install guide](docs/installation.md)
 
 **Find the right skills, verify that they work, and retain what you learn.**

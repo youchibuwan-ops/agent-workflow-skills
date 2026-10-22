@@ -1,0 +1,9 @@
+{
+  "name": "agent-workflow-skills-dsh-component-tests",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Developer-only official DSH component fixture; not required by students",
+  "dependencies": {
+    "@deepseek-ai/dsh": "0.2.1-rc.2"
+  }
+}
