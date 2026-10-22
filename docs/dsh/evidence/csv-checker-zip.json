@@ -1,0 +1,74 @@
+{
+  "kind": "csv-checker-child-process-regression",
+  "shell": "7.6.5",
+  "legacyProbe": false,
+  "cases": [
+    {
+      "name": "correct integer total and intact inputs accepted without changing files",
+      "result": "pass"
+    },
+    {
+      "name": "numerically equivalent decimal total accepted",
+      "result": "pass"
+    },
+    {
+      "name": "wrong total produces FAIL and nonzero exit",
+      "result": "pass"
+    },
+    {
+      "name": "wrong conflict counter rejected",
+      "result": "pass"
+    },
+    {
+      "name": "extra summary row rejected",
+      "result": "pass"
+    },
+    {
+      "name": "wrong header rejected",
+      "result": "pass"
+    },
+    {
+      "name": "quoted merged header cells rejected",
+      "result": "pass"
+    },
+    {
+      "name": "missing summary rejected",
+      "result": "pass"
+    },
+    {
+      "name": "missing pre-task baseline rejected",
+      "result": "pass"
+    },
+    {
+      "name": "changed input rejected even when summary matches new input",
+      "result": "pass"
+    },
+    {
+      "name": "changed rules rejected",
+      "result": "pass"
+    },
+    {
+      "name": "existing baseline cannot be silently overwritten",
+      "result": "pass"
+    },
+    {
+      "name": "malformed baseline rejected",
+      "result": "pass"
+    },
+    {
+      "name": "unknown rules refused at snapshot",
+      "result": "pass"
+    },
+    {
+      "name": "malformed CSV extra field rejected",
+      "result": "pass"
+    },
+    {
+      "name": "decimal currency and quoted order ID computed independently",
+      "result": "pass"
+    }
+  ],
+  "desktop": "unverified",
+  "model": "not used",
+  "zipSha256": "a43ce3de10ba3fd43b65393f5815682c0b35c14ae6a7ca0c6bb3eeba9bca5797"
+}

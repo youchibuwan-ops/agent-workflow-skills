@@ -1,0 +1,252 @@
+{
+  "kind": "csv-checker-child-process-regression",
+  "shell": "7.6.5",
+  "legacyProbe": false,
+  "cases": [
+    {
+      "processes": [
+        {
+          "action": "Snapshot",
+          "exitCode": 0,
+          "output": "SNAPSHOT_RESULT=PASS\r\nThis is a local input snapshot, not an authenticated execution trace. Keep it outside the model task folder.\r\n"
+        },
+        {
+          "action": "Verify",
+          "exitCode": 0,
+          "output": "INPUT_SHA256 orders.csv=d7fc57b47016f90c605292972c9cfaee8e7ac05535c2fcf6a6658e260cb707a9; matches pre-task snapshot and verification end\r\nINPUT_SHA256 rules.txt=fcdcbeb5860b75abdae4580f2d6296e3eb8dfa0a8488f81b28b42b71956cf178; matches pre-task snapshot and verification end\r\nEXPECTED=3,185,1,1,1,1,1\r\nVERIFY_RESULT=PASS\r\n"
+        }
+      ],
+      "name": "correct integer total and intact inputs accepted without changing files",
+      "result": "pass"
+    },
+    {
+      "processes": [
+        {
+          "action": "Snapshot",
+          "exitCode": 0,
+          "output": "SNAPSHOT_RESULT=PASS\r\nThis is a local input snapshot, not an authenticated execution trace. Keep it outside the model task folder.\r\n"
+        },
+        {
+          "action": "Verify",
+          "exitCode": 0,
+          "output": "INPUT_SHA256 orders.csv=d7fc57b47016f90c605292972c9cfaee8e7ac05535c2fcf6a6658e260cb707a9; matches pre-task snapshot and verification end\r\nINPUT_SHA256 rules.txt=fcdcbeb5860b75abdae4580f2d6296e3eb8dfa0a8488f81b28b42b71956cf178; matches pre-task snapshot and verification end\r\nEXPECTED=3,185,1,1,1,1,1\r\nVERIFY_RESULT=PASS\r\n"
+        }
+      ],
+      "name": "numerically equivalent decimal total accepted",
+      "result": "pass"
+    },
+    {
+      "processes": [
+        {
+          "action": "Snapshot",
+          "exitCode": 0,
+          "output": "SNAPSHOT_RESULT=PASS\r\nThis is a local input snapshot, not an authenticated execution trace. Keep it outside the model task folder.\r\n"
+        },
+        {
+          "action": "Verify",
+          "exitCode": 1,
+          "output": "VERIFY_RESULT=FAIL\r\nERROR: Mismatch in total: expected=185; actual=999\r\n"
+        }
+      ],
+      "name": "wrong total produces FAIL and nonzero exit",
+      "result": "pass"
+    },
+    {
+      "processes": [
+        {
+          "action": "Snapshot",
+          "exitCode": 0,
+          "output": "SNAPSHOT_RESULT=PASS\r\nThis is a local input snapshot, not an authenticated execution trace. Keep it outside the model task folder.\r\n"
+        },
+        {
+          "action": "Verify",
+          "exitCode": 1,
+          "output": "VERIFY_RESULT=FAIL\r\nERROR: Mismatch in conflicting_id_count: expected=1; actual=2\r\n"
+        }
+      ],
+      "name": "wrong conflict counter rejected",
+      "result": "pass"
+    },
+    {
+      "processes": [
+        {
+          "action": "Snapshot",
+          "exitCode": 0,
+          "output": "SNAPSHOT_RESULT=PASS\r\nThis is a local input snapshot, not an authenticated execution trace. Keep it outside the model task folder.\r\n"
+        },
+        {
+          "action": "Verify",
+          "exitCode": 1,
+          "output": "VERIFY_RESULT=FAIL\r\nERROR: summary.csv must contain exactly one data row.\r\n"
+        }
+      ],
+      "name": "extra summary row rejected",
+      "result": "pass"
+    },
+    {
+      "processes": [
+        {
+          "action": "Snapshot",
+          "exitCode": 0,
+          "output": "SNAPSHOT_RESULT=PASS\r\nThis is a local input snapshot, not an authenticated execution trace. Keep it outside the model task folder.\r\n"
+        },
+        {
+          "action": "Verify",
+          "exitCode": 1,
+          "output": "VERIFY_RESULT=FAIL\r\nERROR: CSV header differs from the trial contract.\r\n"
+        }
+      ],
+      "name": "wrong header rejected",
+      "result": "pass"
+    },
+    {
+      "processes": [
+        {
+          "action": "Snapshot",
+          "exitCode": 0,
+          "output": "SNAPSHOT_RESULT=PASS\r\nThis is a local input snapshot, not an authenticated execution trace. Keep it outside the model task folder.\r\n"
+        },
+        {
+          "action": "Verify",
+          "exitCode": 1,
+          "output": "VERIFY_RESULT=FAIL\r\nERROR: CSV header field count differs from the trial contract.\r\n"
+        }
+      ],
+      "name": "quoted merged header cells rejected",
+      "result": "pass"
+    },
+    {
+      "processes": [
+        {
+          "action": "Snapshot",
+          "exitCode": 0,
+          "output": "SNAPSHOT_RESULT=PASS\r\nThis is a local input snapshot, not an authenticated execution trace. Keep it outside the model task folder.\r\n"
+        },
+        {
+          "action": "Verify",
+          "exitCode": 1,
+          "output": "VERIFY_RESULT=FAIL\r\nERROR: ʹ�á�3�����������á�.ctor��ʱ�����쳣:��δ���ҵ��ļ���<temporary-test-root>\\case-7 ��\\summary.csv������\r\n"
+        }
+      ],
+      "name": "missing summary rejected",
+      "result": "pass"
+    },
+    {
+      "processes": [
+        {
+          "action": "Verify",
+          "exitCode": 1,
+          "output": "VERIFY_RESULT=FAIL\r\nERROR: ʹ�á�1�����������á�ReadAllText��ʱ�����쳣:��δ���ҵ��ļ���<temporary-test-root>\\baseline-8.json������\r\n"
+        }
+      ],
+      "name": "missing pre-task baseline rejected",
+      "result": "pass"
+    },
+    {
+      "processes": [
+        {
+          "action": "Snapshot",
+          "exitCode": 0,
+          "output": "SNAPSHOT_RESULT=PASS\r\nThis is a local input snapshot, not an authenticated execution trace. Keep it outside the model task folder.\r\n"
+        },
+        {
+          "action": "Verify",
+          "exitCode": 1,
+          "output": "VERIFY_RESULT=FAIL\r\nERROR: Input differs from pre-task snapshot: orders.csv\r\n"
+        }
+      ],
+      "name": "changed input rejected even when summary matches new input",
+      "result": "pass"
+    },
+    {
+      "processes": [
+        {
+          "action": "Snapshot",
+          "exitCode": 0,
+          "output": "SNAPSHOT_RESULT=PASS\r\nThis is a local input snapshot, not an authenticated execution trace. Keep it outside the model task folder.\r\n"
+        },
+        {
+          "action": "Verify",
+          "exitCode": 1,
+          "output": "VERIFY_RESULT=FAIL\r\nERROR: Unsupported rules.txt: this checker only implements the supplied offline trial contract.\r\n"
+        }
+      ],
+      "name": "changed rules rejected",
+      "result": "pass"
+    },
+    {
+      "processes": [
+        {
+          "action": "Snapshot",
+          "exitCode": 0,
+          "output": "SNAPSHOT_RESULT=PASS\r\nThis is a local input snapshot, not an authenticated execution trace. Keep it outside the model task folder.\r\n"
+        },
+        {
+          "action": "Snapshot",
+          "exitCode": 1,
+          "output": "SNAPSHOT_RESULT=FAIL\r\nERROR: ʹ�á�4�����������á�Open��ʱ�����쳣:���ļ���<temporary-test-root>\\baseline-11.json���Ѿ����ڡ���\r\n"
+        }
+      ],
+      "name": "existing baseline cannot be silently overwritten",
+      "result": "pass"
+    },
+    {
+      "processes": [
+        {
+          "action": "Verify",
+          "exitCode": 1,
+          "output": "VERIFY_RESULT=FAIL\r\nERROR: �ڴ˶������Ҳ������ԡ�kind������ȷ�ϸ����Դ��ڡ�\r\n"
+        }
+      ],
+      "name": "malformed baseline rejected",
+      "result": "pass"
+    },
+    {
+      "processes": [
+        {
+          "action": "Snapshot",
+          "exitCode": 1,
+          "output": "SNAPSHOT_RESULT=FAIL\r\nERROR: Unsupported rules.txt: this checker only implements the supplied offline trial contract.\r\n"
+        }
+      ],
+      "name": "unknown rules refused at snapshot",
+      "result": "pass"
+    },
+    {
+      "processes": [
+        {
+          "action": "Snapshot",
+          "exitCode": 0,
+          "output": "SNAPSHOT_RESULT=PASS\r\nThis is a local input snapshot, not an authenticated execution trace. Keep it outside the model task folder.\r\n"
+        },
+        {
+          "action": "Verify",
+          "exitCode": 1,
+          "output": "VERIFY_RESULT=FAIL\r\nERROR: Malformed CSV field count.\r\n"
+        }
+      ],
+      "name": "malformed CSV extra field rejected",
+      "result": "pass"
+    },
+    {
+      "processes": [
+        {
+          "action": "Snapshot",
+          "exitCode": 0,
+          "output": "SNAPSHOT_RESULT=PASS\r\nThis is a local input snapshot, not an authenticated execution trace. Keep it outside the model task folder.\r\n"
+        },
+        {
+          "action": "Verify",
+          "exitCode": 0,
+          "output": "INPUT_SHA256 orders.csv=1096456dcffde22058bbf524590182ae7e21dd45623ae4328f429ed4ecac2d78; matches pre-task snapshot and verification end\r\nINPUT_SHA256 rules.txt=fcdcbeb5860b75abdae4580f2d6296e3eb8dfa0a8488f81b28b42b71956cf178; matches pre-task snapshot and verification end\r\nEXPECTED=2,3.30,0,0,0,0,0\r\nVERIFY_RESULT=PASS\r\n"
+        }
+      ],
+      "name": "decimal currency and quoted order ID computed independently",
+      "result": "pass"
+    }
+  ],
+  "desktop": "unverified",
+  "model": "not used",
+  "distributionVersion": "0.1.0-dsh-preview.3",
+  "verifierSha256": "45863d3e283ba8222efc5754c6db9db0fe1a026e2be0e4959a83484d65648d5c"
+}

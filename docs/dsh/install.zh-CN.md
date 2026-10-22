@@ -2,7 +2,8 @@
 
 [English](install.en.md) · [回到中文首页](../../README.zh-CN.md)
 
-这是 **DSH 预览试用包 preview.2**。已收到一份试用文字报告，原始产物未提供，完整验收尚未通过。
+这是 **DSH 预览试用包 preview.3**。补交日志、收据和源件已核查，完整验收尚未通过。
+新一轮使用 [run-02 步骤](trial-kit/run-02.zh-CN.md)，不沿用旧任务成功冒充新版实测。
 你只需官方 DSH Desktop 和
 Windows 自带的 Windows PowerShell 5.1，不需要 Codex、Git、Node.js、Python 或管理员权限。
 Skill 本身是文字说明和参考文件，不是 DSH 插件，也不会安装后台服务。
@@ -29,7 +30,7 @@ Skill 本身是文字说明和参考文件，不是 DSH 插件，也不会安装
 `Install-DSH.cmd`、`Uninstall-DSH.cmd`、`dsh-manifest.json`、`windows` 和 `skills`。
 不要在压缩包预览窗口里运行脚本，不要只拷贝一个 CMD。
 
-已经安装 preview.1？请使用新包的 `Update-DSH.cmd`，按第5节操作；
+已经安装 preview.1/.2？请使用新包的 `Update-DSH.cmd`，按第5节操作；
 `Install-DSH.cmd` 会拒绝覆盖不同版本。版本与下载提交的区别见[溯源说明](provenance.md)。
 
 ## 3. 安装
@@ -63,7 +64,7 @@ Skill 本身是文字说明和参考文件，不是 DSH 插件，也不会安装
 本包未做代码签名；如 Windows 拦截，请先核对来源并阅读脚本，不要盲目放行。
 SHA-256 清单检测损坏和串版，不能认证一个被恶意整体替换的下载包。
 
-preview.2 的四个 CMD 入口会在自身局部环境中清除继承的 `PSModulePath`，
+从 preview.2 起，四个 CMD 入口会在自身局部环境中清除继承的 `PSModulePath`，
 让 Windows PowerShell 5.1 建立自己的内置模块路径，支持从 PowerShell 7 / Windows Terminal
 启动。不会改变父终端、用户或系统环境变量；同学无需手工修改模块路径。
 请使用 CMD 入口，直接执行内部 PS1 不属于这条启动兼容性保证。

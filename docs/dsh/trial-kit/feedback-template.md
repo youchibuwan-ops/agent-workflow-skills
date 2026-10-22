@@ -1,11 +1,15 @@
 # DSH 同学试用记录 / Trial record
 
-状态可填：通过 PASS / 失败 FAIL / 未验证 UNVERIFIED / 受阻 BLOCKED。
+状态可填：通过 PASS / 失败 FAIL / 未验证 UNVERIFIED / 受阻 BLOCKED / 未完成 INCOMPLETE。
+缺失的原始材料另列缺失，不补造；run-02 与旧失败各自留档。
 本模板未预填结果。每份 Skill、每轮运行各复制一份。
 
 ## 环境
 
-- 测试编号、日期、匿名测试者：
+- 测试编号（如 run-02）、日期、匿名测试者：
+- 实际由同学 GUI 操作 / 后台代理操作：
+- 任务开始前 Snapshot、baseline 路径与输出/退出码：
+- 任务后 Verify 输出/退出码；是否只在验证期间核哈希：
 - 官方 Desktop 版本、来源、Windows 版本：
 - 仓库 commit / ZIP SHA-256 / 清单 version：
 - 模型、推理设置、工具和权限、网络、时间上限：

@@ -34,8 +34,12 @@ regenerate hashes to suppress an unexplained integrity error.
 2. Run Windows lifecycle tests and official component probe as in [validation](validation.md).
    Also run `pwsh.exe -NoProfile -File tests/dsh-ps7.ps1`; it must use real PS7 modules first,
    the real CMD entry points, and no test-harness sanitization for current launchers.
+   Run `tests/dsh-csv.ps1` under both Windows PowerShell5.1 and PS7. Include real positive
+   and negative child-process controls; a printed FAIL with process exit0 is a test failure.
 3. Build, extract into a Unicode path with spaces, run the CMD launcher with isolated
    DSH_HOME, then Check/Update/Uninstall; compare installed bytes and unrelated sentinels.
+   Run `tests/dsh-csv.ps1 -ZipPath <archive>` too. Retain original failed red reports;
+   new preview.3 lifecycle/component reports use distinct filenames, not old evidence paths.
 4. Confirm `git diff c1434f0 -- skills` is empty. Review manifest, paths, ownership,
    rollback and links with a fresh reviewer. Keep trial results distinct from component tests.
 5. Push only the independent branch, create a Draft PR, attach it to the chat. Since the

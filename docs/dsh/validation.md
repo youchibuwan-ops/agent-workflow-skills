@@ -1,14 +1,15 @@
 # DSH preview validation and decision
 
 Date: 2026-10-23. Skill source: `c1434f04704938774eb359053aaafdf38ee90868`.
-Adapter: `0.1.0-dsh-preview.2`. Original skill payload unchanged.
+Adapter: `0.1.0-dsh-preview.3`. Original skill payload unchanged.
 
 **NO-GO for general distribution as accepted/reliable Desktop skills. GO only for a
 clearly labeled, supervised classmate preview.** The user confirmed no Desktop is
 installed locally and asked for the classmate to test it. A written trial report was
-subsequently supplied without the referenced raw logs, scripts, SVGs or renders.
-It is recorded as reported observations, not independently verified acceptance or
-model-task success. No formal Release, merge or submission is authorized.
+subsequently supplemented with logs, receipts, scripts, source SVGs and renders.
+[Supplementary evidence review](supplement-review.md) distinguishes log-supported
+installer results, independently checked artifacts and missing raw model traces.
+This is not complete novice Desktop acceptance. No formal Release, merge or submission is authorized.
 
 ## Actual local results
 
@@ -16,21 +17,22 @@ model-task success. No formal Release, merge or submission is authorized.
 | --- | --- | --- | --- |
 | Install, exact payload, references/license copied | PASS | PASS | Windows PowerShell 5.1 actual filesystem operations, including Unicode/spaces. |
 | Repeat install, same-version update, synthetic next-version update | PASS | PASS | Next-version fixture is generated only inside the test. It is not a shipped second release. |
-| Refuse unknown install, edits, extra files/directories, bad receipt paths, locks, junctions; rollback and cleanup failures; provenance and legacy receipts | PASS | PASS | [25-case lifecycle report](evidence/windows-lifecycle.json); assertions are not host tests. |
-| Actual PS7 parent → CMD → Windows PowerShell launch | PASS | PASS | [Old failure](evidence/ps7-regression-red.json), [repaired six-action run](evidence/ps7-regression.json); no module-path sanitization by test for new launchers. |
-| PS7 chain after actual preview.2 ZIP extraction | PASS | PASS | [ZIP regression](evidence/ps7-zip-regression.json), real launchers in a path with Unicode/spaces. |
-| Real previous preview.1 archive → new Update under PS7 | PASS | PASS | [Developer test](evidence/ps7-real-preview1-update.json); old package setup uses its supported clean environment, then new launchers receive the PS7-first path. Not a novice acceptance result. |
+| Refuse unknown install, edits, extra files/directories, bad receipt paths, locks, junctions; rollback and cleanup failures; provenance and legacy receipts | PASS | PASS | [25-case lifecycle report](evidence/preview3-windows-lifecycle.json); assertions are not host tests. |
+| Actual PS7 parent → CMD → Windows PowerShell launch | PASS | PASS | [Old failure](evidence/ps7-regression-red.json), [repaired six-action run](evidence/preview3-ps7-regression.json); no module-path sanitization by test for new launchers. |
+| PS7 chain after actual preview.3 ZIP extraction | PASS | PASS | [ZIP regression](evidence/preview3-ps7-zip-regression.json), real launchers in a path with Unicode/spaces. |
+| Actual preview.1/.2 ZIP → preview.3 Update under PS7 | PASS | PASS | Developer-only [from preview.1](evidence/preview3-from-preview1.json) / [from preview.2](evidence/preview3-from-preview2.json); disposable home, no Desktop. |
+| Historical preview.1 → preview.2 real archive Update under PS7 | PASS | PASS | [Developer test](evidence/ps7-real-preview1-update.json); old package setup uses its supported clean environment, then new launchers receive the PS7-first path. Not a novice acceptance result. |
 | Uninstall, repeat uninstall, unrelated config sentinel preserved | PASS | PASS | Tests never use personal DSH home. |
-| Official Provider discovers `user-dsh`; model catalog lists name | PASS | PASS | [official-components.json](evidence/official-components.json), published0.2.1-rc.2 components. No Desktop UI. |
+| Official Provider discovers `user-dsh`; model catalog lists name | PASS | PASS | [official-components.json](evidence/preview3-official-components.json), published0.2.1-rc.2 components. No Desktop UI. |
 | Registry and skill tool return entire original body | PASS | PASS | Exact body comparison and terminal content included; references read via real resource base. |
 | Direct `/name` injects entire body | PASS | PASS | Official pre-step event handler executed. This is deterministic injection, not a model answering a task. |
 | Automatic model invocation from task description | UNVERIFIED | UNVERIFIED | No model, account or Desktop task used. |
 | Unrelated prompts do not cause inappropriate model invocation | UNVERIFIED | UNVERIFIED | Only absence of deterministic slash injection tested; cannot stand in for a negative model test. |
-| Actual task execution, reference use, final artifact quality | UNVERIFIED | UNVERIFIED | Pending classmate trace and artifacts. No DSH-generated SVG or CSV result claimed. |
+| Full model execution/reference trace | UNVERIFIED | UNVERIFIED | Submitted preview.1 CSV/SVG artifacts independently check correctly; full tool traces are missing. This is not preview.3 execution. |
 | Official Desktop UI, fresh Windows machine, novice completion | UNVERIFIED | UNVERIFIED | Development machine tests do not meet this acceptance criterion. |
 | Long-context model behavior/recovery | UNVERIFIED | UNVERIFIED | Official pruner function characterized: SVG is over budget. No complete pressure-triggered model run. |
 
-[Extracted ZIP test](evidence/zip-test.json) records the exact archive hash it tested;
+[Extracted ZIP test](evidence/preview3-zip-test.json) records the exact archive hash it tested;
 later rebuilt archives have different hashes and must be tested again. CI attaches
 the archive, its checksum and that run's external test report together. This avoids
 pretending a report embedded in an archive can hash its own containing archive.
@@ -94,7 +96,7 @@ ACLs only on a disposable test fixture, never a real installation.
 
 - Classmate official Desktop install/find/explicit/full reference/task and uninstall trial.
 - Same-prompt A/B model trials for both skills, negative cases and raw evidence.
-- A real second distributed version for novice cross-version update testing.
+- Novice cross-version update testing of the current distribution (developer migrations are separate).
 - Desktop versions other than the reviewed source and published0.2.1-rc.2 components.
 - Complete long-context compaction and reread recovery with an actual model.
 - Forced process kill/power failure, disk full, hostile concurrent filesystem mutation,
@@ -108,17 +110,14 @@ ACLs only on a disposable test fixture, never a real installation.
 Trial inputs, exact prompts, isolation instructions, scoring boundaries and a blank
 record are in the [classmate kit](trial-kit/README.zh-CN.md). Pending fields remain blank.
 
-## Written classmate report received; raw evidence pending
+## Supplementary evidence and preview.3
 
-The user's supplied report describes successful installation/loading and task outputs,
-but its referenced logs, verification scripts, source SVG and rendered images were not
-provided here. No corresponding acceptance row is upgraded to PASS. Its uninstall,
-residual-directory and SVG auto-invocation sections remain incomplete. Automatic discovery
-was prompted with explicit Skill-loading language and a unique reference filename;
-the negative result relies on an agent's account of its tool use, not a supplied raw trace.
-Fresh Desktop chats, unprompted positives/negatives, clean-account A/B and long-context
-recovery remain unverified. The original report is not edited or republished.
+The original missing-artifact status is historical:114 supplemental files were
+received and locally inspected. See [the bounded review](supplement-review.md).
+No fresh Desktop/model execution was performed by the maintainer. Auto SVG remains
+incomplete, and full body/reference tool traces, unprompted positives/negatives,
+clean-account A/B, GUI novice usage and long-context recovery remain unverified.
 
-The reported PS7 installer defect was independently reproduced and fixed in this repo;
-those new developer results are separate from the classmate's missing evidence.
-See [preview.2 repair scope](preview2-repair.md) and [provenance](provenance.md).
+Preview.3 ships an offline CSV checker with pre-task snapshots and nonzero failure
+exits. [Repair and real subprocess controls](preview3-verifier.md) preserve the old
+FAIL-with-exit0 record. These checker results cannot upgrade a Desktop/model row.

@@ -1,0 +1,46 @@
+{
+  "kind": "real-powershell7-cmd-windows-powershell-regression",
+  "parentVersion": "7.6.5",
+  "modulePath": "PowerShell 7 modules deliberately first; never sanitized by test",
+  "result": "pass",
+  "actions": [
+    {
+      "exitCode": 0,
+      "result": "pass",
+      "action": "Install"
+    },
+    {
+      "exitCode": 0,
+      "result": "pass",
+      "action": "Install"
+    },
+    {
+      "exitCode": 0,
+      "result": "pass",
+      "action": "Check"
+    },
+    {
+      "exitCode": 0,
+      "result": "pass",
+      "action": "Update"
+    },
+    {
+      "exitCode": 0,
+      "result": "pass",
+      "action": "Uninstall"
+    },
+    {
+      "exitCode": 0,
+      "result": "pass",
+      "action": "Uninstall"
+    }
+  ],
+  "desktop": "unverified",
+  "model": "not used",
+  "zipSha256": "a43ce3de10ba3fd43b65393f5815682c0b35c14ae6a7ca0c6bb3eeba9bca5797",
+  "distributionVersion": "0.1.0-dsh-preview.3",
+  "skillContentCommit": "c1434f04704938774eb359053aaafdf38ee90868",
+  "manifestSha256": "b8a39a960947aaf446018900a37cfbae6e9c2dd039b4405e5ab5664f9bc0da37",
+  "parentEnvironmentPreserved": true,
+  "userAndMachineEnvironmentPreserved": true
+}

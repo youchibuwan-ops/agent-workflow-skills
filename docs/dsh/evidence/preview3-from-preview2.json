@@ -1,0 +1,49 @@
+{
+  "kind": "real-powershell7-cmd-windows-powershell-regression",
+  "parentVersion": "7.6.5",
+  "modulePath": "PowerShell 7 modules deliberately first; never sanitized by test",
+  "result": "pass",
+  "actions": [
+    {
+      "result": "pass",
+      "exitCode": 0,
+      "action": "Update"
+    },
+    {
+      "result": "pass",
+      "exitCode": 0,
+      "action": "Install"
+    },
+    {
+      "result": "pass",
+      "exitCode": 0,
+      "action": "Check"
+    },
+    {
+      "result": "pass",
+      "exitCode": 0,
+      "action": "Update"
+    },
+    {
+      "result": "pass",
+      "exitCode": 0,
+      "action": "Uninstall"
+    },
+    {
+      "result": "pass",
+      "exitCode": 0,
+      "action": "Uninstall"
+    }
+  ],
+  "desktop": "unverified",
+  "model": "not used",
+  "zipSha256": "a43ce3de10ba3fd43b65393f5815682c0b35c14ae6a7ca0c6bb3eeba9bca5797",
+  "previousDistributionVersion": "0.1.0-dsh-preview.2",
+  "previousVersionSetup": "real preview.2 ZIP and new launchers both receive inherited PS7 module environment",
+  "previousZipSha256": "7f0a1d52f4dd8fbafd9dbce5eca67575daf6e18d42eb3f5304ff35f71cae0837",
+  "distributionVersion": "0.1.0-dsh-preview.3",
+  "skillContentCommit": "c1434f04704938774eb359053aaafdf38ee90868",
+  "manifestSha256": "b8a39a960947aaf446018900a37cfbae6e9c2dd039b4405e5ab5664f9bc0da37",
+  "parentEnvironmentPreserved": true,
+  "userAndMachineEnvironmentPreserved": true
+}

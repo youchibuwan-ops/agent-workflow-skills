@@ -6,7 +6,7 @@
 | 现象 | 检查与恢复 |
 | --- | --- |
 | 双击窗口立即退出 | 确认“全部解压”，`windows/Manage-DshSkills.ps1` 与 CMD 相对位置未变；在解压目录的终端运行同一 CMD 读取错误。 |
-| preview.1 从 PS7 启动报 `Get-FileHash` 不存在 | 换用完整 preview.2 新包中的 CMD 入口；已有安装运行新包的 Update。新入口局部隔离模块路径，无需改系统环境。若 preview.2 仍失败，保留原始报错，不记通过。 |
+| preview.1 从 PS7 启动报 `Get-FileHash` 不存在 | 换用完整当前 preview.3 新包中的 CMD 入口；已有安装运行新包的 Update。新入口保留 preview.2 的局部模块路径隔离，无需改系统环境。若仍失败，保留原始报错，不记通过。 |
 | 被系统/学校策略阻止 | 核对下载来源；设备策略不可自行绕过。用手动复制，或请设备管理员处理。不要全局 Set-ExecutionPolicy。 |
 | `Foreign/unmanaged skill` 或同名冲突 | 已有文件未被改动；检查来源并备份。不要删除收据冒充新安装，不要合并目录。需要保留原版时选另一个测试 Windows 用户。 |
 | `Changed or missing file` / `Extra ...` | 文件被改过、缺失或多出笔记/空目录；先完整备份到别处。手动比较变更，恢复原安装文件后再检查；保留定制时不要更新/卸载。 |

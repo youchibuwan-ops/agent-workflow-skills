@@ -2,12 +2,12 @@
 
 ## 中文
 
-当前分发版本为 `0.1.0-dsh-preview.2`。原两份 Skill 正文、references、许可证与 agents
+当前分发版本为 `0.1.0-dsh-preview.3`。原两份 Skill 正文、references、许可证与 agents
 文件继续使用 `c1434f04704938774eb359053aaafdf38ee90868` 的原始内容。
 
 | 标识 | 含义 | 如何核对 |
 | --- | --- | --- |
-| 清单/收据 `version` | DSH 分发版本，涵盖安装器和文档的版本号；当前 preview.2 | 新包清单、安装输出、安装收据应一致。 |
+| 清单/收据 `version` | DSH 分发版本，涵盖安装器和文档的版本号；当前 preview.3 | 新包清单、安装输出、安装收据应一致。 |
 | `sourceCommit`，角色 `skill-content-baseline` | 只标识原始 Skill 内容基准；不是 ZIP 的下载提交 | 对比该提交下的 `skills/`，再核每个文件 SHA-256。 |
 | 新收据 `manifestSha256` | 安装时原始 `dsh-manifest.json` 文件的 SHA-256 | 用同一个下载包的清单字节计算并比较；序列化或换行变化也会改变摘要。 |
 | GitHub ZIP URL 中的完整 commit | 整个仓库快照，含安装器、文档和测试 | 记录实际下载链接/commit，避免只记录会移动的分支名。 |
@@ -29,7 +29,7 @@ Check 会提示“Legacy receipt”；使用新包 Update 后记录新版本及�
 
 ## English
 
-`version` identifies the DSH distribution (currently preview.2). `sourceCommit`
+`version` identifies the DSH distribution (currently preview.3). `sourceCommit`
 identifies only the unchanged original Skill content baseline, not the source ZIP's
 repository revision. Their roles are explicit in the new manifest/receipts and output.
 

@@ -2,7 +2,7 @@
 
 [中文零基础教程](install.zh-CN.md) · [Codex instructions](../installation.md)
 
-This is preview.2. A written trial report was received without its underlying artifacts;
+This is preview.3. Supplementary trial logs, receipts and artifacts have been reviewed;
 complete classmate/Desktop acceptance remains unverified. Students need official
 DSH Desktop and built-in Windows PowerShell 5.1. No Codex, Git, Node.js, Python,
 administrator access or developer tools are needed to install these instruction bundles.
@@ -26,7 +26,7 @@ those capabilities. The skill bodies and references are currently Chinese.
 5. Double-click **Check-DSH.cmd** for a file-integrity check, then open a **new DSH chat**.
    Ask for the current catalog and retain catalog/tool evidence, not just a model's claim.
 
-Already using preview.1? Run the **new package's Update-DSH.cmd**, not Install.
+Already using preview.1/.2? Run the **new package's Update-DSH.cmd**, not Install.
 See [provenance](provenance.md) for the content baseline, distribution version,
 receipt manifest hash and separate ZIP revision/checksum.
 
@@ -49,7 +49,7 @@ used for the included PowerShell script; it downloads nothing. This package is u
 If school policy blocks scripts, use manual copying or the device administrator;
 do not disable system protections. Hashes detect corruption, not a maliciously replaced package.
 
-All four preview.2 CMD launchers locally clear inherited `PSModulePath` so Windows
+Since preview.2 all four CMD launchers locally clear inherited `PSModulePath` so Windows
 PowerShell 5.1 rebuilds its built-in module locations when started from PowerShell 7
 or Windows Terminal. Parent-process, user and machine environment values stay unchanged.
 No manual environment workaround is needed. Use the CMD entry points; invoking the

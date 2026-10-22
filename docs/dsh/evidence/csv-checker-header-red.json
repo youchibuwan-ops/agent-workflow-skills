@@ -1,0 +1,74 @@
+{
+    "kind":  "csv-checker-child-process-regression",
+    "shell":  "5.1.26100.9711",
+    "legacyProbe":  false,
+    "cases":  [
+                  {
+                      "result":  "pass",
+                      "name":  "correct integer total and intact inputs accepted without changing files"
+                  },
+                  {
+                      "result":  "pass",
+                      "name":  "numerically equivalent decimal total accepted"
+                  },
+                  {
+                      "result":  "pass",
+                      "name":  "wrong total produces FAIL and nonzero exit"
+                  },
+                  {
+                      "result":  "pass",
+                      "name":  "wrong conflict counter rejected"
+                  },
+                  {
+                      "result":  "pass",
+                      "name":  "extra summary row rejected"
+                  },
+                  {
+                      "result":  "pass",
+                      "name":  "wrong header rejected"
+                  },
+                  {
+                      "error":  "Invalid result accepted: exit=0; INPUT_SHA256 orders.csv=d7fc57b47016f90c605292972c9cfaee8e7ac05535c2fcf6a6658e260cb707a9; matches pre-task snapshot and verification end\r\nINPUT_SHA256 rules.txt=fcdcbeb5860b75abdae4580f2d6296e3eb8dfa0a8488f81b28b42b71956cf178; matches pre-task snapshot and verification end\r\nEXPECTED=3,185,1,1,1,1,1\r\nVERIFY_RESULT=PASS\r\n",
+                      "result":  "fail",
+                      "name":  "quoted merged header cells rejected"
+                  },
+                  {
+                      "result":  "pass",
+                      "name":  "missing summary rejected"
+                  },
+                  {
+                      "result":  "pass",
+                      "name":  "missing pre-task baseline rejected"
+                  },
+                  {
+                      "result":  "pass",
+                      "name":  "changed input rejected even when summary matches new input"
+                  },
+                  {
+                      "result":  "pass",
+                      "name":  "changed rules rejected"
+                  },
+                  {
+                      "result":  "pass",
+                      "name":  "existing baseline cannot be silently overwritten"
+                  },
+                  {
+                      "result":  "pass",
+                      "name":  "malformed baseline rejected"
+                  },
+                  {
+                      "result":  "pass",
+                      "name":  "unknown rules refused at snapshot"
+                  },
+                  {
+                      "result":  "pass",
+                      "name":  "malformed CSV extra field rejected"
+                  },
+                  {
+                      "result":  "pass",
+                      "name":  "decimal currency and quoted order ID computed independently"
+                  }
+              ],
+    "desktop":  "unverified",
+    "model":  "not used"
+}

@@ -1,0 +1,14 @@
+{
+    "kind":  "csv-checker-child-process-regression",
+    "shell":  "5.1.26100.9711",
+    "legacyProbe":  true,
+    "cases":  [
+                  {
+                      "error":  "Historical defect reproduced: output=INPUT orders.csv sha256 before=D7FC57B47016F90C605292972C9CFAEE8E7AC05535C2FCF6A6658E260CB707A9 after=D7FC57B47016F90C605292972C9CFAEE8E7AC05535C2FCF6A6658E260CB707A9 unchanged=True INPUT rules.txt sha256 before=FCDCBEB5860B75ABDAE4580F2D6296E3EB8DFA0A8488F81B28B42B71956CF178 after=FCDCBEB5860B75ABDAE4580F2D6296E3EB8DFA0A8488F81B28B42B71956CF178 unchanged=True   order_id rows distinct                  classification               -------- ---- --------                  --------------               A01         2 accepted|100              accepted+valid               A02         1 cancelled|50              cancelled                    A03         1 accepted|25               accepted+valid               A04         2 accepted|40 ; accepted|45 QUARANTINED (conflicting ID) A05         1 pending|60                unresolved (pending)         A06         1 accepted|oops             accepted+invalid amount      A07         1 accepted|60               accepted+valid                  CONFLICT_IDS=A04 DUPLICATE_COPIES=1 EXPECTED=accepted_count=3 total=185 cancelled_count=1 duplicate_copy_count=1 conflicting_id_count=1 unresolved_count=1 invalid_amount_count=1 ACTUAL_HEADER=accepted_count,total,cancelled_count,duplicate_copy_count,conflicting_id_count,unresolved_count,invalid_amount_count ACTUAL_ROW=accepted_count=3 total=999 cancelled_count=1 duplicate_copy_count=1 conflicting_id_count=1 unresolved_count=1 invalid_amount_count=1 VERIFY_RESULT=FAIL: total expected=185 actual=999; summary row count=, expected 1; process exit=0",
+                      "result":  "fail",
+                      "name":  "wrong total must produce nonzero exit (historical checker)"
+                  }
+              ],
+    "desktop":  "unverified",
+    "model":  "not used"
+}

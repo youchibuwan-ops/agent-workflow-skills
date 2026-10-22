@@ -15,23 +15,32 @@ jobs:
           node-version: '22.22.1'
       - run: npm.cmd ci --ignore-scripts
       - run: npm.cmd run lint
+      - name: CSV verifier positive and negative controls (Windows PowerShell)
+        shell: powershell
+        run: ./tests/dsh-csv.ps1 -ReportPath docs/dsh/evidence/csv-checker-windows.json
+      - name: CSV verifier through PowerShell 7 parent and CMD
+        shell: pwsh
+        run: ./tests/dsh-csv.ps1 -ReportPath docs/dsh/evidence/csv-checker-ps7.json
       - name: Windows PowerShell 5.1 lifecycle
         shell: powershell
-        run: ./tests/dsh-lifecycle.ps1 -ReportPath docs/dsh/evidence/windows-lifecycle.json
+        run: ./tests/dsh-lifecycle.ps1 -ReportPath docs/dsh/evidence/preview3-windows-lifecycle.json
       - name: PowerShell 7 parent through CMD (unfiltered environment)
         shell: pwsh
-        run: ./tests/dsh-ps7.ps1 -ReportPath docs/dsh/evidence/ps7-regression.json
+        run: ./tests/dsh-ps7.ps1 -ReportPath docs/dsh/evidence/preview3-ps7-regression.json
       - run: npm.cmd ci --prefix tests/dsh-runtime --ignore-scripts
-      - run: node scripts/verify-dsh-runtime.mjs tests/dsh-runtime docs/dsh/evidence/official-components.json
+      - run: node scripts/verify-dsh-runtime.mjs tests/dsh-runtime docs/dsh/evidence/preview3-official-components.json
       - name: Build preview archive
         shell: powershell
         run: ./scripts/build-dsh-package.ps1 -OutputDirectory dist/ci
       - name: Extract and exercise ZIP
         shell: powershell
-        run: ./tests/dsh-zip.ps1 -ZipPath dist/ci/agent-workflow-skills-dsh-preview.zip -ReportPath docs/dsh/evidence/zip-test.json
+        run: ./tests/dsh-zip.ps1 -ZipPath dist/ci/agent-workflow-skills-dsh-preview.zip -ReportPath docs/dsh/evidence/preview3-zip-test.json
       - name: PowerShell 7 regression from extracted ZIP
         shell: pwsh
-        run: ./tests/dsh-ps7.ps1 -ZipPath dist/ci/agent-workflow-skills-dsh-preview.zip -ReportPath docs/dsh/evidence/ps7-zip-regression.json
+        run: ./tests/dsh-ps7.ps1 -ZipPath dist/ci/agent-workflow-skills-dsh-preview.zip -ReportPath docs/dsh/evidence/preview3-ps7-zip-regression.json
+      - name: CSV controls from the actual extracted ZIP
+        shell: pwsh
+        run: ./tests/dsh-csv.ps1 -ZipPath dist/ci/agent-workflow-skills-dsh-preview.zip -ReportPath docs/dsh/evidence/csv-checker-zip.json
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
           name: dsh-windows-preview

@@ -1,0 +1,108 @@
+﻿{
+    "powershell":  "5.1.26100.9711",
+    "model":  "not used",
+    "cases":  [
+                  {
+                      "result":  "pass",
+                      "name":  "install both complete payloads; preserve config and other plugins"
+                  },
+                  {
+                      "result":  "pass",
+                      "name":  "repeat install is an idempotent no-op"
+                  },
+                  {
+                      "result":  "pass",
+                      "name":  "receipt separates distribution identity from Skill content baseline"
+                  },
+                  {
+                      "result":  "pass",
+                      "name":  "legacy preview.1 receipts update to current provenance without payload changes"
+                  },
+                  {
+                      "result":  "pass",
+                      "name":  "check inventories without loading a model"
+                  },
+                  {
+                      "result":  "pass",
+                      "name":  "single-skill install does not add its sibling"
+                  },
+                  {
+                      "result":  "pass",
+                      "name":  "foreign same-name directory blocks both before any installation"
+                  },
+                  {
+                      "result":  "pass",
+                      "name":  "flat skill name collision blocks installation"
+                  },
+                  {
+                      "result":  "pass",
+                      "name":  "quoted YAML alias with inline comment is a name collision"
+                  },
+                  {
+                      "result":  "pass",
+                      "name":  "bookkeeping-like directory cannot hide a foreign same-name skill"
+                  },
+                  {
+                      "result":  "pass",
+                      "name":  "damaged source fails before creating a destination"
+                  },
+                  {
+                      "result":  "pass",
+                      "name":  "local edits block update and uninstall"
+                  },
+                  {
+                      "result":  "pass",
+                      "name":  "extra user file blocks uninstall"
+                  },
+                  {
+                      "result":  "pass",
+                      "name":  "empty user directory blocks uninstall"
+                  },
+                  {
+                      "result":  "pass",
+                      "name":  "nested junction blocks uninstall without touching external data"
+                  },
+                  {
+                      "result":  "pass",
+                      "name":  "receipt traversal is rejected and outside files survive"
+                  },
+                  {
+                      "result":  "pass",
+                      "name":  "update changes version and payload only with matching ownership"
+                  },
+                  {
+                      "result":  "pass",
+                      "name":  "second-bundle commit failure restores the first bundle"
+                  },
+                  {
+                      "result":  "pass",
+                      "name":  "committed update survives backup-cleanup failure"
+                  },
+                  {
+                      "result":  "pass",
+                      "name":  "concurrent/stale lock blocks mutation"
+                  },
+                  {
+                      "result":  "pass",
+                      "name":  "junction home rejected; external sentinel survives"
+                  },
+                  {
+                      "result":  "pass",
+                      "name":  "uninstall only owned directories; repeated uninstall succeeds"
+                  },
+                  {
+                      "result":  "pass",
+                      "name":  "DSH_HOME environment selection"
+                  },
+                  {
+                      "result":  "pass",
+                      "name":  "double-click entry point default package root works"
+                  },
+                  {
+                      "result":  "pass",
+                      "name":  "no affirmative consent fails without destination changes"
+                  }
+              ],
+    "desktop":  "not tested",
+    "kind":  "windows-filesystem-lifecycle"
+}

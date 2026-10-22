@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+- DSH distribution preview.3: ship a built-in Windows CSV Snapshot/Verify checker,
+  nonzero failure exits, immutable pre-task checkpoints and positive/negative real
+  subprocess controls for Windows PowerShell5.1 and PS7; retain the original red record.
+- Add bilingual run-02 instructions and a scoped supplementary-evidence review.
+  Preserve automatic SVG failure, missing raw traces and unverified Desktop acceptance.
+
 - DSH distribution preview.2: isolate inherited PS7 module paths in the four CMD
   launchers; add actual PS7/CMD and extracted-ZIP regressions, retain the real old
   failure, and support unchanged preview.1 receipts during update.

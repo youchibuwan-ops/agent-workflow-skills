@@ -20,7 +20,7 @@ if ($RefreshManifest) {
 [IO.Directory]::CreateDirectory($OutputDirectory) | Out-Null
 $zip = Join-Path $OutputDirectory 'agent-workflow-skills-dsh-preview.zip'
 if (Test-Path -LiteralPath $zip) { throw "Output already exists; choose a fresh output directory: $zip" }
-$include = @('README.md','README.zh-CN.md','LICENSE','CHANGELOG.md','skills','windows','docs','scripts','tests/dsh-lifecycle.ps1','tests/dsh-zip.ps1','tests/dsh-ps7.ps1','tests/dsh-runtime/package.json','tests/dsh-runtime/package-lock.json','examples','package.json','package-lock.json','.markdownlint.json','Install-DSH.cmd','Update-DSH.cmd','Uninstall-DSH.cmd','Check-DSH.cmd','dsh-manifest.json')
+$include = @('README.md','README.zh-CN.md','LICENSE','CHANGELOG.md','skills','windows','docs','scripts','tests/dsh-lifecycle.ps1','tests/dsh-zip.ps1','tests/dsh-ps7.ps1','tests/dsh-csv.ps1','tests/dsh-runtime/package.json','tests/dsh-runtime/package-lock.json','examples','package.json','package-lock.json','.markdownlint.json','Install-DSH.cmd','Update-DSH.cmd','Uninstall-DSH.cmd','Check-DSH.cmd','dsh-manifest.json')
 Add-Type -AssemblyName System.IO.Compression
 Add-Type -AssemblyName System.IO.Compression.FileSystem
 $archive = [IO.Compression.ZipFile]::Open($zip, [IO.Compression.ZipArchiveMode]::Create)

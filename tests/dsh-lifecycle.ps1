@@ -1,6 +1,7 @@
 param([string]$ReportPath)
 $ErrorActionPreference = 'Stop'
 $repo = Split-Path $PSScriptRoot -Parent
+$currentVersion = ([IO.File]::ReadAllText((Join-Path $repo 'dsh-manifest.json')) | ConvertFrom-Json).version
 $manager = Join-Path $repo 'windows/Manage-DshSkills.ps1'
 if (-not (Test-Path -LiteralPath $manager)) { throw 'DSH lifecycle manager is not implemented.' }
 $scratch = Join-Path ([IO.Path]::GetTempPath()) ('aws-dsh-tests-' + [guid]::NewGuid().ToString('N'))
@@ -52,7 +53,7 @@ try {
         $digest = (Get-FileHash -LiteralPath $manifestPath -Algorithm SHA256).Hash.ToLowerInvariant()
         foreach ($name in $names) {
             $receipt = Get-Content -LiteralPath (Join-Path (SkillPath $target $name) '.agent-workflow-skills.receipt.json') -Raw | ConvertFrom-Json
-            Assert ($receipt.version -eq '0.1.0-dsh-preview.2') 'Expected repaired distribution version'
+            Assert ($receipt.version -eq $currentVersion) 'Expected current distribution version'
             Assert ($receipt.sourceCommit -eq 'c1434f04704938774eb359053aaafdf38ee90868') 'Skill content baseline changed'
             Assert ($receipt.manifestSha256 -eq $digest) 'Exact distribution manifest digest was not recorded'
         }
@@ -80,7 +81,7 @@ try {
         Run Update $legacy | Out-Null
         foreach ($name in $names) {
             $r = Get-Content -LiteralPath (Join-Path (SkillPath $legacy $name) '.agent-workflow-skills.receipt.json') -Raw | ConvertFrom-Json
-            Assert ($r.version -eq '0.1.0-dsh-preview.2' -and $r.manifestSha256) 'Legacy receipt upgrade failed'
+            Assert ($r.version -eq $currentVersion -and $r.manifestSha256) 'Legacy receipt upgrade failed'
         }
         Run Uninstall $legacy | Out-Null
     }
@@ -220,7 +221,7 @@ try {
             # remove it or restore partially deleted rollback copies.
             foreach ($name in $names) {
                 $receipt = Get-Content -LiteralPath (Join-Path (SkillPath $target $name) '.agent-workflow-skills.receipt.json') -Raw | ConvertFrom-Json
-                Assert ($receipt.version -eq '0.1.0-dsh-preview.2') 'Healthy committed update was rolled back'
+                Assert ($receipt.version -eq $currentVersion) 'Healthy committed update was rolled back'
             }
             Run Check $target | Out-Null
         } finally {

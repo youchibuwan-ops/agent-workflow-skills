@@ -2,8 +2,10 @@
 
 [中文完整步骤和原始提示词](README.zh-CN.md) · [Install](../install.en.md) · [Blank record](feedback-template.md)
 
-A written trial report was received without the referenced raw logs/artifacts.
-Complete classmate acceptance remains unverified. This kit is a protocol, not evidence of a pass.
+Supplementary logs, receipts and CSV/SVG artifacts were received and reviewed. Full
+tool traces and complete classmate acceptance remain unverified; automatic SVG is
+still incomplete. Start the new round with [run-02](run-02.en.md) and the
+[offline CSV checker](tools/README.md). This kit is a protocol, not evidence of a pass.
 
 Use a separate Windows test account with official Desktop. Do not import personal
 DSH settings, skills, credentials or QQ Bridge. Create task folders outside this

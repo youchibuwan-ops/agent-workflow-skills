@@ -1,0 +1,45 @@
+{
+  "kind": "official-components-no-model",
+  "runtimeVersion": "0.2.1-rc.2",
+  "node": "v22.22.1",
+  "skills": [
+    {
+      "name": "proactive-skill-discovery",
+      "discovery": "pass",
+      "catalog": "pass",
+      "registryFullBody": "pass",
+      "toolFullBody": "pass",
+      "slashFullBody": "pass",
+      "referencesReadable": [
+        "adapting-upstream-skills.md",
+        "learning-from-work.md"
+      ],
+      "contentCharacters": 2211,
+      "renderedCharacters": 2628,
+      "bodySha256": "2f0a3cf29b5260c6c6a86ae1158d73576f4b31fbf77a619fade068a535c9592c",
+      "prunerProbe": "below threshold"
+    },
+    {
+      "name": "crafting-reference-based-svg-assets",
+      "discovery": "pass",
+      "catalog": "pass",
+      "registryFullBody": "pass",
+      "toolFullBody": "pass",
+      "slashFullBody": "pass",
+      "referencesReadable": [
+        "execution-record.md",
+        "project-profile-example.md",
+        "visual-diagnosis.md"
+      ],
+      "contentCharacters": 8145,
+      "renderedCharacters": 8582,
+      "bodySha256": "7c58ba01f0b9adfc6a19eea056bb729e771468d6e4dbdb1f196379f91bf314c5",
+      "prunerProbe": "pruneContent returned a replacement"
+    }
+  ],
+  "desktop": "unverified",
+  "automaticSelection": "unverified",
+  "realTasks": "unverified",
+  "installationEntry": "real CMD launcher; no harness PSModulePath sanitization",
+  "negativeExplicitInjection": "pass; does not test model selection"
+}

@@ -62,11 +62,13 @@ try {
         # Set up the real old package using its supported clean module environment.
         # Only this setup is sanitized. Every NEW launcher still receives PS7-first.
         $oldLauncher = Join-Path $previousRoot 'Install-DSH.cmd'
-        $setup = Invoke-CmdLauncher $oldLauncher -LegacySetup
-        if ($setup.code -ne 0) { throw "Previous-version setup failed: $($setup.log)" }
         $previousManifest = [IO.File]::ReadAllText((Join-Path $previousRoot 'dsh-manifest.json')) | ConvertFrom-Json
-        if ($previousManifest.version -ne '0.1.0-dsh-preview.1') { throw 'Expected original preview.1 archive' }
-        $report.previousVersionSetup = 'real preview.1 ZIP installed under clean module environment; new launchers remain unsanitized'
+        if ($previousManifest.version -notin @('0.1.0-dsh-preview.1','0.1.0-dsh-preview.2')) { throw 'Expected original preview.1 or preview.2 archive' }
+        $legacySetup = $previousManifest.version -eq '0.1.0-dsh-preview.1'
+        $setup = Invoke-CmdLauncher $oldLauncher -LegacySetup:$legacySetup
+        if ($setup.code -ne 0) { throw "Previous-version setup failed: $($setup.log)" }
+        $report.previousDistributionVersion = $previousManifest.version
+        $report.previousVersionSetup = if ($legacySetup) { 'real preview.1 ZIP installed under clean module environment; new launchers remain unsanitized' } else { 'real preview.2 ZIP and new launchers both receive inherited PS7 module environment' }
         $report.previousZipSha256 = (Get-FileHash -LiteralPath $previousArchive -Algorithm SHA256).Hash.ToLowerInvariant()
         $actions = @('Update','Install','Check','Update','Uninstall','Uninstall')
     }
