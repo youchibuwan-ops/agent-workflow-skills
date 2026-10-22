@@ -1,0 +1,6 @@
+interface:
+  display_name: "主动发现与选用Skill"
+  short_description: "主动匹配任务、搜索现成技能，完成内容筛选、适配和实际使用"
+  default_prompt: "使用 $proactive-skill-discovery，为当前任务主动匹配、发现、筛选和适配合适的Skill，并继续完成任务。"
+policy:
+  allow_implicit_invocation: true

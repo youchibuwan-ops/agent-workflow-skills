@@ -1,0 +1,4 @@
+interface:
+  display_name: "实物SVG逐件精修与复审"
+  short_description: "根据真实物品逐件精修SVG，先完成独立局部，再复审整件"
+  default_prompt: "使用 $crafting-reference-based-svg-assets，根据当前项目约束逐件精修并实际检查这件SVG素材，先做好局部再组装。"
