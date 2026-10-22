@@ -30,9 +30,9 @@
       "files": {
         "agents/openai.yaml": "c1737c325f700dca578a0093ab0ec476ccabc75beddaa842f1b9c7a87318965b",
         "LICENSE": "d1ba8b00007e2f5670cc0af48a9a8faa1885b502f186e574dee5c5fd7ecaf913",
-        "references/execution-record.md": "47129ef46458415cb55a86d52cd22d891a76fea259a6538bf8eb99165bed6f1e",
+        "references/execution-record.md": "1a57cf34f6b45083389c807183cf8f447d307db337978e6cf9d4ed10c63b04af",
         "references/project-profile-example.md": "ae3c82b7ee3901c30b7cd271b0b98c83f85bea60e49a59243ec404847d170a84",
-        "references/visual-diagnosis.md": "4cc1f89f53118fd210174e44ba0cc85d079af75ef4eece0d5c88fb8219cfc249",
+        "references/visual-diagnosis.md": "f5e523866e7fdc9260cf0cd5e7d992b48a9262868304670d73aa53a4d930b13e",
         "SKILL.md": "712caae59d82bb2ac3c29f3f03dba58e2ba8bef6f4d1ffa4c8c08f4556fc3aed"
       }
     }

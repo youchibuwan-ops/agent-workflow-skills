@@ -10,12 +10,14 @@
     <path d="M307 408 L382 324 Q387 318 394 329 M424 545 L516 518" fill="none" stroke="#95a0a2" stroke-width="2.5" stroke-linecap="round"/>
   </g>
   <g id="central-lip" stroke-linejoin="round" stroke-linecap="round">
-    <path d="M335 450 L384 511 Q388 518 381 520 Q377 520 374 516 L331 463 Q325 456 329 451 Q332 447 335 450 Z" fill="#60717a"/>
-    <path d="M335 450 Q334 455 340 459 L372 499 Q376 502 378 507 L384 511 Q386 517 381 518 L375 512 L333 460 Q330 455 335 450 Z" fill="#384650"/>
-    <path d="M330 451 Q326 455 331 462 L375 516 Q380 522 385 516" fill="none" stroke="#25323e" stroke-width="2.5"/>
-    <path d="M329 454 Q329 458 333 463 L376 515 Q379 518 382 517" fill="none" stroke="#9aa5a6" stroke-width="2.4"/>
-    <path d="M335 450 Q334 455 340 459 L372 499 Q378 502 384 511" fill="none" stroke="#26333e" stroke-width="2"/>
-    <path d="M340 459 L372 499" fill="none" stroke="#7d8c91" stroke-width="1.2"/>
+    <path d="M341 459 L372 499 Q373 501 374 504 L380 515 Q378 521 374 517 L331 464 Q328 459 332 457 Z" fill="#697a81"/>
+    <path d="M341 459 L372 499 L376 508 Q375 511 373 508 L336 463 Q334 460 336 459 Z" fill="#34434e"/>
+    <path d="M332 457 L341 459 L336 463 Q332 463 332 460 Z" fill="#879397"/>
+    <path d="M372 499 L380 515 Q379 519 376 518 L373 508 Q375 508 374 504 Z" fill="#4a5c66"/>
+    <path d="M332 457 Q328 459 331 464 L374 517 Q378 522 380 515" fill="none" stroke="#25323e" stroke-width="2.3"/>
+    <path d="M331 460 Q331 462 334 466 L375 516 Q377 518 378 517" fill="none" stroke="#a2aca9" stroke-width="2.2"/>
+    <path d="M332 457 L341 459 L372 499 L380 515" fill="none" stroke="#26333e" stroke-width="1.6"/>
+    <path d="M342 459 L371 497" fill="none" stroke="#87979b" stroke-width="1"/>
   </g>
   <g id="front-lever" fill="none" stroke-linecap="round" stroke-linejoin="round">
     <defs><clipPath id="front-wire-exit-window"><path d="M318 432 L329 418 L344 423 L334 441 L323 441 Z"/><ellipse cx="402" cy="530" rx="4" ry="3" transform="rotate(-35 402 530)"/></clipPath></defs>

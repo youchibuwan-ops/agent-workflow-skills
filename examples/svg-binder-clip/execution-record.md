@@ -214,3 +214,22 @@ After exact-group assembly, root opened the current mouth context and eight nati
 views again. This iteration addresses the visible unequal edge lengths; it does
 not reinstate a whole pass or user acceptance. The repeated missed dimension is
 retained as failure evidence rather than presented as a successful skill test.
+
+## Actual boundary correction after the highlight-only attempt
+
+Commit 04120b6 did not implement the claimed taper: its 51-unit line was an inner
+highlight, while the principal fill still used nearly full-length rails and rounded
+ends. A fresh review identified that concrete failure; the prior dimension claim is
+withdrawn. Root inspected the fill boundary itself, then changed it to a short edge
+(341,459) to (372,499), about 51 units, and a long edge (331,464) to (374,517), about
+68 units, with sloping cut ends. Those are actual fill contour vertices this time.
+The exact ratio remains stylized rather than a target-photo measurement.
+
+Root opened the independent local comparison before exact-group assembly, then
+opened the new mouth context, reference-evidence board, whole comparison and native
+views. A fresh read-only central review confirmed that the taper now changes the
+filled boundary, and found no through-gap behind the central sheet or new floating
+fragment at the neighboring mouths. It did not assess all other parts or declare a
+whole pass. The generic diagnosis/template now require checking actual dimension
+boundaries separately from highlights. This new wording has not yet received a
+held-out behavioral trial and is not claimed to prevent future errors.
