@@ -1,0 +1,1 @@
+Use $proactive-skill-discovery to inspect the small task in this workspace. Read the relevant installed reference resource, make the exact requested edit, and verify the resulting bytes. No external search is needed for this routine edit. Report which installed resources you actually read. Do not modify the Skill or files outside this workspace.

@@ -1,0 +1,5 @@
+Create one editable SVG game prop of the folded mounting bracket shown in the supplied front, side and oblique reference images. The old draft failed because its back edge showed through the near face and its holes and folded connection disagreed between views.
+
+Deliver source.svg, a 192px light/dark preview, an enlarged comparison and a short evidence note. Match the visible silhouette, two holes in the upright and two holes in the base, sheet continuity, thickness and occlusion. Keep the dark outline and restrained warm-light/cool-shadow palette shown in the references. Use all applicable views to check the structure and keep uncertain hidden details explicit. Do not generate raster artwork, integrate into a game, publish, or change files outside this workspace. You may use available rendering tools and the network.
+
+Use these task files as your only project context. Do not inspect sibling runs, evaluation material, personal configuration or credentials. Do not modify installed instruction resources.
