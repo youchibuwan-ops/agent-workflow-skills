@@ -35,7 +35,8 @@ def hashes(root):
 def fresh_root(root):
     root = root.resolve()
     repo = PACKAGE.parents[1]
-    if root.exists() or ((repo / 'skills').is_dir() and (root == repo or repo in root.parents)):
+    if (root.exists() or root == PACKAGE or PACKAGE in root.parents
+            or ((repo / 'skills').is_dir() and (root == repo or repo in root.parents))):
         raise ValueError('Use a NEW directory outside the source repository')
     root.mkdir(parents=True)
     return root
