@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- Pin official Node24-runtime checkout/setup actions and Ubuntu24.04 for Linux CI;
+  retain explicit project Node22.22.1/Python3.13 and all existing checks/permissions.
+
 - V4-v7 retain all 32 scheduled clean-runtime cases; the unchanged strict repair
   closure passes at v7, including three implicit chains and both zero-warning PDFs.
   Earlier missed loads/searches, SVG count error and warning failures remain visible.
