@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="160" height="160" viewBox="260 160 440 440">
+  <title>Reference-based binder clip, oblique view</title>
+  <desc>Hand-drawn adaptation of Richard Wheeler's Binder Clip photograph, 2007. CC BY-SA 3.0. See ATTRIBUTION.md. Simplified reflections and no cast shadow.</desc>
+  <g id="rear-lever" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M483 428 L548 407 C567 401 573 365 598 366 C628 365 657 384 666 408 C681 447 653 448 624 444 L600 440 C580 437 546 452 507 466" stroke="#27313b" stroke-width="13"/>
+    <path d="M483 428 L548 407 C567 401 573 365 598 366 C628 365 657 384 666 408 C681 447 653 448 624 444 L600 440 C580 437 546 452 507 466" stroke="#b7b6a7" stroke-width="7"/>
+    <path d="M490 426 L548 403 C566 396 578 363 598 370 C627 370 651 385 662 409 M624 440 L600 436 C579 434 545 448 507 462" stroke="#f6ead0" stroke-width="2.4"/>
+  </g>
+  <g id="spring-body" stroke="#202c38" stroke-width="5" stroke-linejoin="round">
+    <path d="M290 438 L420 407 L526 531 L391 577 Z" fill="#252e38"/>
+    <path d="M301 423 L376 320 Q388 305 400 326 L518 485 Q539 512 519 522 L410 556 L339 486 Z" fill="#59636b"/>
+    <path d="M302 424 L378 323 Q388 313 397 327 L488 451 L399 531 L343 481 Z" fill="#46535e"/>
+    <path d="M399 531 L488 451 Q499 443 507 461 L525 491 Q538 512 518 520 L417 549 Z" fill="#242e39"/>
+    <path d="M340 483 L397 557 L411 554 L352 479 Z" fill="#59626a"/>
+    <path d="M302 423 Q283 401 291 390 Q300 380 313 393 L337 424 Q345 435 330 443 Q314 449 302 423 Z" fill="#45505a"/>
+    <path d="M338 483 Q322 462 331 454 Q339 447 350 462 L408 537 L400 549 Z" fill="#4c5761"/>
+    <path d="M306 420 L380 325 Q387 316 396 330 M351 484 L400 549" fill="none" stroke="#8a9498" stroke-width="2.5" stroke-linecap="round"/>
+  </g>
+  <g id="front-lever" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M322 433 C371 398 420 352 469 293 C489 270 495 251 503 219 C509 193 523 185 539 192 C565 201 581 223 585 243 C591 267 576 276 548 284 C525 290 519 295 505 316 L399 477 C389 492 394 510 406 529" stroke="#27313b" stroke-width="13"/>
+    <path d="M322 433 C371 398 420 352 469 293 C489 270 495 251 503 219 C509 193 523 185 539 192 C565 201 581 223 585 243 C591 267 576 276 548 284 C525 290 519 295 505 316 L399 477 C389 492 394 510 406 529" stroke="#b7b6a7" stroke-width="7"/>
+    <path d="M325 430 C376 390 422 347 465 292 M505 220 C511 197 521 190 537 195 C554 201 568 214 576 229 M548 280 C523 288 514 294 501 314 L397 475" stroke="#f6ead0" stroke-width="2.4"/>
+  </g>
+  <g id="rolled-sockets" stroke="#202c38" stroke-width="4">
+    <path d="M308 427 Q307 418 318 417 L339 433 L330 447 Q316 449 308 437 Z" fill="#535c60"/>
+    <ellipse cx="320" cy="430" rx="9" ry="5" transform="rotate(-36 320 430)" fill="#141d26"/>
+    <path d="M391 523 Q389 512 399 512 L420 535 L414 551 Q401 557 395 542 Z" fill="#535c60"/>
+    <ellipse cx="406" cy="535" rx="7" ry="5" transform="rotate(-40 406 535)" fill="#141d26"/>
+    <path d="M398 553 Q397 544 407 543 L422 552 L415 565 Q404 570 399 561 Z" fill="#3c4853"/>
+    <ellipse cx="412" cy="554" rx="7" ry="4" transform="rotate(-40 412 554)" fill="#121c27"/>
+  </g>
+</svg>

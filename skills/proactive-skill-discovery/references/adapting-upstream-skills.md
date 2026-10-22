@@ -24,4 +24,6 @@ SKILL.md 定义何时做、怎样做及成功标准；scripts/ 实现需要重�
 
 保留上游许可证和必要署名，不将公开可读误当再分发许可。私有项目规则、机器绝对路径、任务当前进度与真实凭据留在项目，不进入通用版本。打包后在没有原项目背景的情景中测试，确保既能做目标任务，也能识别不适用的相邻任务。
 
-参考能力：Vercel find-skills（https://github.com/vercel-labs/skills/tree/main/skills/find-skills），可选使用，不随本 Skill 捆绑其代码或CLI。
+以单个目录分发时，从空目录实际安装该单项，再读取其引用资源，并核对上游许可要求的正文/署名是否随包保留；仓库根部存在许可证不证明单项安装带上了它。对比已核查源与安装后的文件内容；安装器退出成功只证明安装步骤结束，不证明资源完整或任务能力有效。
+
+参考能力：[Vercel find-skills](https://github.com/vercel-labs/skills/tree/main/skills/find-skills)，可选使用，不随本 Skill 捆绑其代码或CLI。

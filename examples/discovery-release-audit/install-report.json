@@ -1,0 +1,40 @@
+{
+  "cli": "skills@1.7.4",
+  "node": "v22.22.1",
+  "mode": "project-copy",
+  "telemetry": false,
+  "skills": [
+    {
+      "name": "proactive-skill-discovery",
+      "result": "pass",
+      "referencesRead": [
+        "references/adapting-upstream-skills.md",
+        "references/learning-from-work.md"
+      ],
+      "files": {
+        "agents/openai.yaml": "7c25c200a0d5ed5eb59ba98910dd5471d1a3956a83570ada6d1b5797ca5fc067",
+        "LICENSE": "d1ba8b00007e2f5670cc0af48a9a8faa1885b502f186e574dee5c5fd7ecaf913",
+        "references/adapting-upstream-skills.md": "5b6be248be520026ee2b335fb90bc9a0a64004415c0f165b54d78a91bc4d731f",
+        "references/learning-from-work.md": "ea134924c292ee7f33d3244599096ca42ddfe8e6cc015a973a860ec216ef7991",
+        "SKILL.md": "2cb0b628d5477be9b93dc592d3dad192ca89eb79ab3a59f8a46ebe65d1bce9e3"
+      }
+    },
+    {
+      "name": "crafting-reference-based-svg-assets",
+      "result": "pass",
+      "referencesRead": [
+        "references/project-profile-example.md",
+        "references/execution-record.md",
+        "references/visual-diagnosis.md"
+      ],
+      "files": {
+        "agents/openai.yaml": "c1737c325f700dca578a0093ab0ec476ccabc75beddaa842f1b9c7a87318965b",
+        "LICENSE": "d1ba8b00007e2f5670cc0af48a9a8faa1885b502f186e574dee5c5fd7ecaf913",
+        "references/execution-record.md": "47129ef46458415cb55a86d52cd22d891a76fea259a6538bf8eb99165bed6f1e",
+        "references/project-profile-example.md": "ae3c82b7ee3901c30b7cd271b0b98c83f85bea60e49a59243ec404847d170a84",
+        "references/visual-diagnosis.md": "4cc1f89f53118fd210174e44ba0cc85d079af75ef4eece0d5c88fb8219cfc249",
+        "SKILL.md": "712caae59d82bb2ac3c29f3f03dba58e2ba8bef6f4d1ffa4c8c08f4556fc3aed"
+      }
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="160" height="160" viewBox="260 160 440 440">
+  <title>Rear wire lever in assembly coordinates</title>
+  <desc>Adapted from Richard Wheeler, CC BY-SA 3.0. See ATTRIBUTION.md.</desc>
+  <g id="rear-lever" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M465 434 L548 407 C567 401 573 365 598 366 C628 365 657 384 666 408 C681 447 653 448 624 444 L600 440 C580 437 546 452 507 466" stroke="#27313b" stroke-width="13"/>
+    <path d="M465 434 L548 407 C567 401 573 365 598 366 C628 365 657 384 666 408 C681 447 653 448 624 444 L600 440 C580 437 546 452 507 466" stroke="#b7b6a7" stroke-width="7"/>
+    <path d="M490 426 L548 403 C566 396 578 363 598 370 C627 370 651 385 662 409 M624 440 L600 436 C579 434 545 448 507 462" stroke="#f6ead0" stroke-width="2.4"/>
+  </g>
+</svg>

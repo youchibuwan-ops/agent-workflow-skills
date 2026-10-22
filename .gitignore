@@ -5,3 +5,8 @@ __pycache__/
 .env.*
 !.env.example
 *.log
+
+node_modules/
+.agents/
+.venv/
+lychee-out.md

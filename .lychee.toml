@@ -1,0 +1,8 @@
+# These two research sources reject automated requests (403); see docs/validation.md.
+# Do not accept all 403 responses or exclude entire domains.
+exclude = [
+  '^https://www\.ebay\.com/itm/235336760648$',
+  '^https://www\.jumbo\.ch/.*/p/6912745$',
+]
+host_concurrency = 1
+host_request_interval = '1s'

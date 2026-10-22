@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="160" height="160" viewBox="260 160 440 440">
+  <title>Middle sheet tongue and bowed rolled lip between two wire reliefs</title>
+  <desc>Adapted from Richard Wheeler and Polyparadigm, CC BY-SA 3.0. See ATTRIBUTION.md. Upper edge continues the broad sheet; lower rim curls outwards.</desc>
+  <g id="central-lip" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M335 450 L384 511 L378 516 Q374 520 371 517 L332 464 Q329 459 335 450 Z" fill="#46535e"/>
+    <path d="M334 459 L375 512 Q378 515 381 512 L378 516 Q374 520 371 517 L332 464 Q330 461 334 459 Z" fill="#5b6b74"/>
+    <path d="M334 451 Q329 458 332 464 L371 517 Q374 521 378 516 L383 512" fill="none" stroke="#25323e" stroke-width="2.5"/>
+    <path d="M333 464 L372 516 Q374 518 377 515" fill="none" stroke="#a2aaa8" stroke-width="2"/>
+  </g>
+</svg>

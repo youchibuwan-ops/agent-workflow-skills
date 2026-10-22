@@ -1,6 +1,8 @@
 ---
 name: proactive-skill-discovery
 description: Use when a substantial task enters an unfamiliar domain, lacks a suitable installed workflow, repeatedly fails, needs external agent skills adapted or combined, or yields verified reusable lessons worth capturing in skills without waiting for a user reminder.
+license: MIT
+compatibility: Requires an agent with file access; external discovery and installation need network and an installer. No mandatory bundled runtime.
 ---
 
 # 主动发现、使用与沉淀 Skill

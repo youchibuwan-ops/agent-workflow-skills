@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="160" height="160" viewBox="260 160 440 440">
+  <title>One continuous long wire handle, including both insertion bends</title>
+  <desc>Hand-drawn after Richard Wheeler's Binder Clip photograph. CC BY-SA 3.0. See ATTRIBUTION.md. Hidden far insertion length is schematic; visible bends and mouth relations are the study scope.</desc>
+  <g id="front-lever" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <defs><clipPath id="front-wire-exit-window"><path d="M318 432 L329 418 L344 423 L334 441 L323 441 Z"/><ellipse cx="402" cy="530" rx="4" ry="3" transform="rotate(-35 402 530)"/></clipPath></defs>
+    <path d="M310 411 L324 432 Q327 434 331 430 C371 398 420 352 469 293 C489 270 495 251 503 219 C509 193 523 185 539 192 C565 201 581 223 585 243 C591 267 576 276 548 284 C525 290 519 295 505 316 L385 496 Q380 501 383 505 L402 530" stroke="#27313b" stroke-width="13"/>
+    <path d="M310 411 L324 432 Q327 434 331 430 C371 398 420 352 469 293 C489 270 495 251 503 219 C509 193 523 185 539 192 C565 201 581 223 585 243 C591 267 576 276 548 284 C525 290 519 295 505 316 L385 496 Q380 501 383 505 L402 530" stroke="#b7b6a7" stroke-width="7"/>
+    <path d="M331 429 C376 390 422 347 465 292 M505 220 C511 197 521 190 537 195 C554 201 568 214 576 229 M548 280 C523 288 514 294 501 314 L385 494" stroke="#f6ead0" stroke-width="2.4"/>
+  </g>
+  <g id="front-wire-exit">
+    <use href="#front-lever" clip-path="url(#front-wire-exit-window)"/>
+  </g>
+</svg>

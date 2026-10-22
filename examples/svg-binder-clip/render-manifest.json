@@ -1,0 +1,57 @@
+{
+  "renderer": "@resvg/resvg-js@2.6.2",
+  "compositor": "sharp@0.35.5",
+  "photoCrop": [
+    260,
+    160,
+    440,
+    440
+  ],
+  "nativeSize": [
+    160,
+    160
+  ],
+  "connectionCrop": [
+    370,
+    495,
+    70,
+    80
+  ],
+  "independentGroupsUnchanged": [
+    "front-lever",
+    "rear-lever",
+    "spring-body",
+    "central-lip",
+    "rolled-sockets",
+    "rear-sleeve",
+    "right-joint-study",
+    "left-joint-study",
+    "front-mouth-study",
+    "rear-lever-study"
+  ],
+  "sha256": {
+    "reference.jpg": "143cd17a0cd3dc4bc98cf786e4d1bed8204cbd05c866601cf8b02692286026db",
+    "support-black.jpg": "4c8a80ef1e64c2f13bd9e2f3d44f0528242a6e22ed81e14782df6bd5d0537b5d",
+    "support-unpainted.jpg": "5c39fb3b82fb8a89eac3610e4e4641ca00d69d1642b309e0b043fd0ce6925f01",
+    "support-views.jpg": "e6348d5f59796c76752bef00e70c0b4243ed61c9881771279d7737f9c2390350",
+    "support-no-handles.jpg": "d5f062431e4f6c2b32544c552a3cbec698524f5ea18364a4cb8d696d40a8f0ea",
+    "front-lever.svg": "b30a9f226aab2a871d589ca4ec7e99596ca7eb4be420014aa715e9dff5b4f90a",
+    "rear-lever.svg": "7da938336ddbfb4a7804bc4dfec44ca9d3e3c4edcb236ebddd03a7af6057c922",
+    "spring-body.svg": "79ac51baa53896dec0f26035ae22eecc21410f6286f499174ddbcf2c659cd2ee",
+    "central-lip.svg": "e838e85a5c842c2651133a0789e35a15d0d966ef05d3613eea271d28f57caa36",
+    "rolled-sockets.svg": "edc465617238f753806d4ab8868b49b1df6ddd6d79f139c154e34702e8815b82",
+    "rear-sleeve.svg": "2e444510dc68db5185a36853583b7e934c1a1ccdd91adc987fbb89cad8ca65e8",
+    "right-joint-study.svg": "bca1f5848db91ef63b26401b70d5af8361c06f71cbf664fe236c42eb3de216ef",
+    "left-joint-study.svg": "0227a4cdb9c623c6432921b483ca46c224eaf1677db03d2827f2d3fc9eaff2a9",
+    "front-mouth-study.svg": "7818ee8aef2aee6fd4a78c51ad221d3f055f358b2a0901352dc745f080570ec7",
+    "rear-lever-study.svg": "9076f6f851a0a06dcb1847168b75caeafd4e60845da2e200998d397a4d26083c",
+    "before.svg": "ab4358e4a02eaf7e565ee4ad3026e656519ac8b1534d2e84e1eb9d5a3094943a",
+    "source.svg": "6432b456d31320b80450b1e80c62dbc6d169a3b7dec4df6bddbf848857c6ec75",
+    "comparison.png": "0a9074ed172f3097991e4505e0fbc60c5dbe3cf261e701e91f79dc8027c0ddf2",
+    "inspection.png": "c4723aae617c94c219b9c4c1b0667d27a1607e784839621de0b6d2b2306e8b5d",
+    "connections.png": "38f9c97051233004f07a982fd74d0e14cc83375142cc89e0448059aba0d84e6b",
+    "reference-evidence.png": "35c37cb46ad1d17feeb2aea0385850a0ddd7b108310f8e04fe5e798df9faab33",
+    "wire-through-comparison.png": "43c9ff5a911d21f0bb8031b7a0d7c8c85177b3bdd51affcc38d59b09ac3094c1",
+    "left-wire-through-comparison.png": "462c545ea2f6302caf7f58a51f8a1bfbfb177d5aeb8310f42f70f0f8d629668e"
+  }
+}
