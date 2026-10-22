@@ -1,235 +1,126 @@
-# Binder-clip execution record
+# Binder clip execution record — accepted r08
 
-Current stage: REOPENED after user correction of the central lip edge lengths in f97382c. That central-only review missed dimensional taper. Neither previous central nor whole approval carries forward.
+Date: 2026-10-23. One stylized prop, native 160×160, editable transparent SVG.
+The user explicitly accepted r08 for public display after the new whole review.
+No game integration or mechanical-load validation was performed.
 
-## Reference roles actually inspected
+## R/B: observations and shared basis
 
-- reference.jpg: target oblique projection, complete loops, near and far mouth regions. Dark regions require cross-checking.
-- support-views.jpg: large broad-face clip shows two interruptions with a central curled tongue; lower-right clip shows folded end structure. Different specimens: topology only, no transferred dimensions.
-- support-black.jpg: broad sheet, rolled edge and wire relation under another pose.
-- support-unpainted.jpg: thin folded material and rolled edge under a different finish. No color/proportion transfer.
+Actual complementary photographs were opened, compared and assigned specific roles
+in the [case README](README.md). The clear mouth photograph supplies BODY dimensions
+and formation; the different oblique specimen supplies pose and complete handles.
+The foreshortened mouth view does not determine intrinsic handle curvature/length.
+The MAUL 21532 front/side drawing supplies complementary interface evidence, not
+exact dimensions for these other clips.
 
-## Complete local work list
+The complete inventory is one sheet with four outer rolls, two returning central
+lips and four entry reliefs, plus two continuous wire handles. Opposing curls start
+from their own inner roots, turn through the curved wall and return toward their
+own sheet. The model tests this formation, rather than translating one tube shell.
+The lower dark photographic footprint is cast shadow, not an extra plate.
 
-| ID | Local and neighbors | Current work state |
-| --- | --- | --- |
-| P01 | Long handle distal loop, neck and both wire legs | Current independent source actually re-rendered and viewed against same-coordinate target, enlarged and 111×129px light/dark. Retain loop, neck and both legs; endpoint engagement is separately checked in P02/P03 |
-| P02 | Left/far front wire bend, sleeve mouth and neighboring sheet | Independent inserted wire end corrected and actually viewed at enlarged and 29×34px light/dark size; whole not yet updated. Neighboring sheet boundary remains under P03/P05 review |
-| P03 | Near front entry relief, bent leg and near sleeve start | Reworked the physical broad-sheet boundary into two separate reliefs, rather than overlaying sleeves on an uninterrupted plate. Current front-mouth-study inspection actually viewed at large and 40×47px light/dark; each leg is separately tracked |
-| P04 | Central tongue, rolled lip and both interrupted boundaries | Current curled lip compared against support-views broad face and target; retained curl, removed false upper seam, 1px fill overlap removes antialias hairline. Current front-mouth-study inspection viewed |
-| P05 | Broad spring sheet: full four edges, upper corner and material thickness | Current independent sheet re-rendered and viewed: top tip, both oblique sides, two reliefs and broad plane. Reliefs now exist in actual sheet boundary; no central top seam. 96×103px light/dark viewed |
-| P06 | Near side fold, rear lower sheet, metal bottom edge versus cast shadow | Current side-fold inspection viewed enlarged and 96×103px light/dark; retain visible triangular opening and thin rim. User identified the lower-left dark footprint as cast shadow. Do not add a rear plate/flange from that footprint; prior reviewer flange suggestion rejected. Compare actual rolled rims and visible side-sheet edge only |
-| P07 | Short rear loop, neck, both arms and distinct emergence positions | Current independent wire and neighbor-context study actually viewed, large and 82×49px light/dark; upper arm emerges near photo (480,430), lower near (513,464), separately. Retain both legs/neck/loop; no internal engagement claim |
-| P08 | Two near rolled sheet ends, their end projections and visible wire ends | Current independent study re-rendered with updated neighboring sheet and actually viewed at large and 25×29px light/dark; adjacent projected ends and two visible wire tips retained. Parent whole judgment pending |
+Construction units are normalized: sheet width 45, back depth derived from a
+21.3 slant and 10.3 half-opening, outer/central nominal radii 2.7/2.4, sheet
+thickness 0.16 and wire radius 0.6. These are not measured millimetres. Hidden
+central roots and roll angles remain bounded construction choices.
 
-Same camera coordinates and scale throughout. Independent files and actual picture review are required, not just this table. Any local edit invalidates the affected assembly/whole judgment. After every row is completed: reassemble, regenerate current whole and connection crops, then inspect full perimeter and all contacts at large and native light/dark rotations.
+One common BODY camera was fitted with the actual upstream
+[img2threejs camera solver](https://github.com/img2threejs/img2threejs/tree/954cd5845e90efd045694bab725d68a9863c20e0)
+(Apache-2.0), using six identified BODY correspondences; other endpoints were
+held out. Its unchanged camera was used to compare the following BODY revisions.
+The saved construction preserves the corresponding camera parameters.
+Far upper central endpoint residual remains approximately 20px at photo size.
+This was not treated as an exact scan or a recovered unique hidden structure.
 
-## Real failures retained
+An attempted handle-camera fit based on projected curve extrema was rejected:
+those extrema need not identify the same material points across views. The final
+handle uses a shared planar U supported by complementary whole/side evidence,
+with two rigid hinge poses; the target camera remains approximate.
 
-The first attempt completed only one handle locally. Later whole reviews missed separate entry reliefs, central lip continuity and near-roll projection. User corrections invalidated those passes. A fresh execution test also found the left inserted end occluded out of the current mouth. These are observed failures, not a fabricated no-skill baseline.
+## P/M/V: all eleven local scopes
 
-This record is work in progress. It is not an artistic PASS and does not substitute for the actual inspections below.
+Each local had an actual isolated geometry view, then material and adjacency
+views, followed by actual light/dark native inspection before advancing.
+The shared coordinates and material roles were retained through assembly.
 
-## Shadow correction during P06
+| Current local | Concrete observation checked |
+| --- | --- |
+| [N wire](locals/N-wire.svg) | Complete two-legged U, own two bent pins, real hidden/reappearing path; no extra terminal dot |
+| [F wire](locals/F-wire.svg) | Same intrinsic U, rigid opposing pose; both short pin islands remain real visible parts |
+| [N-L](locals/N-L.svg) | Open C wall, inner root and returning free edge, actual wire entry |
+| [F-L](locals/F-L.svg) | Opposite sheet's own curl direction and partially hidden far roll, not a translated near shell |
+| [N central](locals/N-central.svg) | Raised returning lip, broader root and shorter free span; unequal end cuts |
+| [F central](locals/F-central.svg) | Opposing return and real narrow far exposed edge; hidden rear line not drawn through the near face |
+| [N-R](locals/N-R.svg) | Open roll and near pin-through path; front/back end-port relationship |
+| [F-R](locals/F-R.svg) | Own root/curl formation, real far pin exposure, shared axis family |
+| [N face](locals/N-face.svg) | Both reliefs, full boundary, continuous attachments and common coating |
+| [F face](locals/F-face.svg) | Both opposing reliefs and true dark inner face; no added shadow plate |
+| [Back web](locals/back-web.svg) | Actual continuous fold between both faces, exposed inner wall/cut edge only |
 
-A reviewer suggested a missing bottom flange from the dark footprint. Root began considering that interpretation; the user correctly identified the projected shadow. No proposed rear plane was added. The footprint is not evidence of metal continuity or thickness. Retain this rejected inference so it cannot later reappear as a required structure. Side cavity, rolled rims and cast shadow must be distinguished at their visible boundaries.
+The [complete N](locals/N-wire-complete.svg) and
+[complete F](locals/F-wire-complete.svg) studies remove neighboring occlusion without
+changing either wire. The material uses dark coated-sheet tones and distinctly
+brighter silver-wire tones, with common ink outlines and light/shadow roles.
 
-## Auxiliary views applied to current geometry, not just collected
+N/F had independent current local reviews. Each BODY scope was also actually
+opened and reviewed by the author before assembly. Local approval was never
+used as a substitute for the following new whole review.
 
-Positions below refer to original photo pixels, not millimetres. Different specimens are **qualitative topology evidence only**.
+## A/W: actual failed assembly, repair and new review
 
-| Local | Actual complementary evidence | Consequence for current SVG |
-| --- | --- | --- |
-| P01/P07 wire handles | support-views upper-left clip (x150–650, y50–650) shows one continuous loop returning as two legs; support-black shows two handle poses | Track both legs separately; no extra rod or single-leg shortcut. Target reference alone sets the long/short loop proportions and target pose; retain them after current comparison |
-| P02 far entry | support-black lower mouth (x380–740, y500–650) and support-views large clip mouth (x190–640, y580–650) show wire bends at interrupted rolled segments | Restore the actually visible far wire bend inside its mouth; do not leave an empty dark cap. New neighboring relief remains visible after assembly |
-| P03 both entry reliefs | support-views large front-facing clip clearly has an interruption at each leg (around x325/y610 and x510/y600), separated by continuous middle sheet | Replace the uninterrupted broad-face polygon with two actual boundary cutouts. Track each wire leg to its own opening; painting two sleeves over solid sheet was insufficient |
-| P04 central lip | Same support-views mouth between those two entries shows a curled sheet tongue, not a separate attached bar; unpainted view separates thin bent sheet from reflections | Keep central fill continuous with main sheet, omit an artificial upper seam, retain the curved outer lip. Re-rendered after removing a visible antialias hairline |
-| P05 broad sheet | support-black front face and support-unpainted continuous sheet clarify thin folded material; support-views shows the interrupted mouth boundary | Preserve the target top tip and two side edges, retain thin-sheet shading, and put the entry interruptions in that sheet itself. No dimensions transferred from other clips |
-| P06 side fold/shadow | support-views lower-right clip (x990–1370, y780–1080) exposes folded end and open cavity; support-unpainted shows physical bent-sheet edges under another finish | Use these only to identify the folded/open relationship, then locate actual edges in the target. They do not justify a new bottom flange. Reject the proposed rear plate traced from the target's lower-left cast shadow; add no such geometry |
-| P08 opposing near ends | support-views lower-right end reveals the two opposing rolled jaw ends separated across an open end, rather than two pipes along one axis | Preserve separate projected near front/rear ends and their painter order. Their target diameters, spacing and axes come from the target crop, not from the differently posed auxiliary clip |
+The first r07 whole retained all eleven checked groups and had continuous native
+geometry, but a fresh independent whole review found a fine false dark seam at
+N-face/N-central and N-face/N-R. The actual
+[rejected render crop](assembly-seam-rejected.png) is retained. A second limited
+review had missed this seam; reviewer agreement was not a sufficient criterion.
 
-Current whole `source.svg` includes these current group geometries unchanged. Regenerated `comparison.png`, `connections.png` and `inspection.png` were actually opened by root. Fresh independent review is in [whole-review.md](whole-review.md); this table is not a substitute for it.
+Cause: each semantic local overpainted a dark underfill at a continuous attachment;
+anti-aliasing could darken it despite a merged physical-sheet substrate underneath.
+r08 removed only that underpaint in a narrow attachment band. Actual material
+faces, physical strokes, both wires, substrate, geometry and camera stayed unchanged.
+All nine affected material locals were regenerated and opened individually before
+the new exact assembly and whole review.
 
-## Current wire correction after reopening
+The new independent whole review actually reopened current light/dark large images,
+native four-turn views, the fixed primary-photo comparison and three construction
+cameras. It rechecked the entire perimeter, all retained entities, four pin paths,
+central line visibility and real narrow far edge. Thirty-two projected attachment
+bands included 3,909 stable interior pixels with no new dark/bright seam deviations
+of at least three per channel; the original failure pixels recovered their surface
+color. These finite checks locate the observed seam failure, not all possible defects.
 
-A fresh same-coordinate overlay exposed that the near long-wire bend was too low:
-its old curve turned around (388,503), while the visible target bend is around
-(390,486). The independent front lever now turns at (391,480)–(390,493) and continues
-toward its visible mouth. Enlarged and 111×133px light/dark lever views were actually
-opened, followed by the 40×47px mouth context.
+The actual saved evaluated model has one closed connected sheet (1,800 vertices)
+and two closed connected wire instances (4,620 vertices each); no nonadjacent
+self-intersections or inter-object crossings were detected at this authored pose.
+No all-motion, spring-force or manufacturing-tolerance claim follows from that.
 
-The former `left-visible-wire` patch was questioned by the user and removed. Instead
-of laying an extra short line over the mouth, the same continuous front-lever path
-now bends into the far mouth; the far sleeve paints behind that leg and the near
-sleeve paints in front of its corresponding leg. Current left context at 29×34px and
-mouth/whole views were regenerated and actually opened. A duplicate physical
-`study-front-roll` group in the earlier assembly was also removed; the renderer now
-rejects duplicate physical group IDs.
+Current r08 passed this finite static whole review, then the user approved public
+display. [case-manifest.json](case-manifest.json) records the reviewed source hash,
+public source hash and exact local groups. The public SVG adds license metadata;
+its rendered pixels are checked against the accepted source separately.
 
-Current `reference-evidence.png` places actually inspected auxiliary crops next to
-the target and current SVG: the top row shows both entry interruptions and the
-continuous middle tongue; the middle shows the folded end and opposing mouths;
-the bottom shows the bent-wire/rolled-sheet relation under another finish. Auxiliary
-specimens establish qualitative relationships, not target dimensions. Whole review
-is pending for this newly corrected source; older reports do not apply.
+## Earlier genuine failures and limits
 
-## Physical continuity correction
+The retained [before.svg](before.svg) is an actual earlier rejected draft. The work
+also exposed omitted far rolls, shadow mistaken for structure, a flat-looking
+central lip, arbitrary handle depth inferred from a foreshortened projection,
+self-intersecting curve sweeps, invalid two-anchor orthographic alignment and
+insufficient local/whole review. Those earlier passes were withdrawn.
 
-Physical identities are: S1, the folded spring sheet (broad face, central lip, side
-fold and rolled jaws); W1, the long continuous wire handle; W2, the short continuous
-wire handle. Local files are studies of features, not a count of separate parts.
+The current construction and user acceptance do not retroactively validate those
+versions or establish a no-skill/with-skill improvement rate. Raw failed iterations,
+tool outputs and independent reports were preserved outside the installable package;
+the repository keeps a compact, reproducible current example and representative failures.
 
-The user identified that one real continuous object was rendered as disconnected
-pieces. W1 now uses the same continuous path for its visible far bend, without the
-separate `left-visible-wire` patch. For S1, the dark outline along the attached side
-of each front rolled edge was removed while retaining the real exterior perimeter,
-open end and curvature highlight. The far rim no longer has a separate bright full
-collar. This preserves a folded-sheet transition rather than drawing a pipe pasted
-over a plate. Both local contexts, the regenerated whole comparison and all eight
-native-size views were actually opened after this change. This changes the current
-source again; the preceding reviewer report does not cover it.
+Optional native inspection with Blender 4.5 (not required to install either Skill):
 
-## Through-sleeve continuity: right first, then left
+```sh
+blender --disable-autoexec -b examples/svg-binder-clip/construction.blend --python-exit-code 1 --python scripts/inspect-binder.py -- --output /absolute/temporary-directory
+node scripts/render-example.mjs --construction-views /absolute/temporary-directory
+```
 
-The user identified the remaining whole-object error: a leg approaching a tube and
-a separate bright end inside its mouth do not prove a single through-going wire.
-Earlier same-color/contact checks and reviewer passes missed that relationship.
-
-Right: replaced the tail ending at (405,525) with one complete path whose inserted
-straight segment runs from (383,505) to (402,530), parallel to the sleeve axis from
-(386,511) to (405,536). The separately drawn bright terminal ellipse was removed.
-`front-wire-exit` now reuses `#front-lever` through a visibility clip; changing that
-physical path changes both its approach and its visible mouth segment. The whole
-path without the sleeve and the sleeve-occluded result were actually compared to
-the target in `wire-through-comparison.png`, enlarged and at native size. Fresh
-right-side read-only review covered this relationship only.
-
-Left, after the right relation was checked: the same wire now continues from the
-left bend into the opposite rolled segment, with projected segment (310.5,415) to
-(324,432) parallel to that sleeve's (27,34) axis vector. Its inserted extent is a
-hidden-length schematic, not a measured or visible extra exit. The visible bend
-again reuses the complete wire, not an independently positioned short patch. Root
-viewed the current local and 29px light/dark crops; fresh local review traced both
-legs together and compared the mouth projection/occlusion with the right side.
-
-`left-wire-through-comparison.png` and `wire-through-comparison.png` are generated
-by the regular renderer: left = target; middle = complete wire with sleeve removed;
-right = current assembly. All panels share target coordinates and isotropic scale.
-After both locals, root reassembled exact current groups and actually opened both
-three-panel checks, current whole comparison and eight 160px light/dark rotations.
-A new whole review is pending; no previous report is promoted to this new source.
-
-## User rejection of the first left-side through-wire result
-
-The user rejected the three-panel left result: after restoring the sleeve, its
-closed mouth rim still severed the approaching wire and left a separate-looking
-light oval. Reusing a complete path had not made its displayed occlusion correct.
-Earlier local/whole PASS opinions do not cover or override this correction.
-
-The left mouth's visibility region now includes the approaching bend crossing the
-rim, instead of clipping the wire strictly to an isolated interior ellipse. It
-still reuses the same wire path; no independent short rod or terminal was added.
-A same-coordinate photo grid also showed the far sleeve had been too short/thin.
-Its outer silhouette and projected mouth were recalibrated to the target, and the
-hidden tail was realigned to that revised local direction. Root reopened and viewed
-the current left context, both reference/complete-wire/assembly panels, whole
-comparison and native light/dark rotations. This fixes this iteration's visible
-left result; no broad reliability or final whole acceptance is asserted here.
-
-## Central lip rework after left connection
-
-A separate reference-only trace could not confirm the central/right boundary in
-the primary photo's black-on-black region; its long bright edge cannot all be named
-as central lip. Root searched further and actually opened Thaurisil's **Three binder
-clips.jpg**, including an arm-free clip. The exposed mouth shows a shallow folded
-central tongue with chamfered returns into the entry slots, not a third closed tube
-or a separate round-ended bar. Its different specimen supplies topology only.
-
-The current central source removes the large U-shaped near end, narrows the curved
-return and moves its long free edge toward the primary photo's visible contour.
-Upper fill remains continuous with the broad sheet. Root viewed the independent
-central source and mouth context against the same target coordinates and 29×38px
-light/dark views, then transferred the same group into the whole source. New source
-and evidence exports supersede the earlier whole reviews; hidden exact boundaries
-and dimensions are not claimed as measured facts.
-
-## Current whole inspection after central rework
-
-Root opened the current assembled comparison, auxiliary-evidence board and all
-eight native-size views. A fresh independent reference trace first identified the
-primary photo's uncertain black-on-black boundaries; after the new arm-free
-reference and central revision, a fresh read-only whole review re-rendered and
-viewed source `6432b456d31320b80450b1e80c62dbc6d169a3b7dec4df6bddbf848857c6ec75`.
-It found no concrete visible mandatory repair in the inspected static scope.
-The exact central/right boundary, hidden wire extent and composition of isolated
-photo highlights remain unconfirmed; auxiliary specimens do not establish target
-measurements. The original unedited reports remain in the private test cache.
-The withdrawn [earlier whole review](whole-review.md) is retained as failure history,
-not evidence for this current source or a substitute for visual judgment.
-
-## Upturned central curl correction
-
-The user rejected commit 72e77a0: the central free edge was flattened into a
-strip/downward flange. The preceding whole inspection is withdrawn. A front view
-without handles identified the slots but did not establish a flat cross-section;
-using it to simplify the curl was a mistaken inference.
-
-Root and a fresh read-only reference trace opened all four auxiliary/target views.
-In support-unpainted.jpg, (365,495) to (520,250) shows the relevant middle edge:
-continuous sheet root, raised rounded crest, returning face and exposed curved
-sheet ends. The earlier lower-left crop around a sleeve did not answer this
-cross-section question. The central feature is an open curl, not another closed
-wire sleeve. Rise is relative to the sheet plane, not simply screen-up translation.
-
-Root revised the independent central SVG into a curved raised section with an
-inward-returning free edge; opened its same-coordinate target comparison and 1×
-light/dark views; then transferred that exact group to the mouth context, left
-context and whole. Root reopened the new mouth comparison and whole/native views.
-The evidence board now shows the actual metal-finish middle-edge crop. Exact curl
-angle/radius are schematic rather than measured. No user acceptance is claimed.
-
-A fresh independent image review of current source
-`91557872be885ce188972a5fbb3ff44bf6dc4d432528262da12c69a21f423a58`
-opened the current isolated curl, mouth context, whole and native rotations. It
-read a raised crest, returning face and free edge over the sheet rather than a
-flat flange or a third closed tube. No concrete mandatory issue was identified
-within that central-only scope. It does not reinstate the withdrawn whole approval.
-
-## Central free-edge length correction
-
-The user identified another missed dimension: the raised free edge must be shorter
-than the lower/root span; the previous drawing treated the curl as almost uniform
-rail stock. That central-only review is withdrawn. Root reopened the primary
-same-coordinate crop, metal-finish section and the large front-facing clip in
-support-views.jpg. The latter exposes sloping end cuts and unequal longitudinal
-edges; it supplies topology, not a target measurement ratio.
-
-The revised raised edge runs from (340,459) to (372,499), about 51 SVG units;
-the root span remains (335,450) to (384,511), about 78 units. These are authored
-geometry checks, not measured photo dimensions. Both end transitions now consume
-part of the span instead of extending the raised edge over nearly the full base.
-Root opened the independent same-coordinate comparison before assembly.
-
-After exact-group assembly, root opened the current mouth context and eight native
-views again. This iteration addresses the visible unequal edge lengths; it does
-not reinstate a whole pass or user acceptance. The repeated missed dimension is
-retained as failure evidence rather than presented as a successful skill test.
-
-## Actual boundary correction after the highlight-only attempt
-
-Commit 04120b6 did not implement the claimed taper: its 51-unit line was an inner
-highlight, while the principal fill still used nearly full-length rails and rounded
-ends. A fresh review identified that concrete failure; the prior dimension claim is
-withdrawn. Root inspected the fill boundary itself, then changed it to a short edge
-(341,459) to (372,499), about 51 units, and a long edge (331,464) to (374,517), about
-68 units, with sloping cut ends. Those are actual fill contour vertices this time.
-The exact ratio remains stylized rather than a target-photo measurement.
-
-Root opened the independent local comparison before exact-group assembly, then
-opened the new mouth context, reference-evidence board, whole comparison and native
-views. A fresh read-only central review confirmed that the taper now changes the
-filled boundary, and found no through-gap behind the central sheet or new floating
-fragment at the neighboring mouths. It did not assess all other parts or declare a
-whole pass. The generic diagnosis/template now require checking actual dimension
-boundaries separately from highlights. This new wording has not yet received a
-held-out behavioral trial and is not claimed to prevent future errors.
+This actually checks saved meshes and regenerates the three construction views.
+SVG assembly/rendering uses `npm run assemble:example` and `npm run render:example`.
+Editing a model requires renewed projection/local review; assembly does not silently
+reproject a modified model. Renderer success and exact-group hashes remain integrity
+evidence, not automatic visual approval.

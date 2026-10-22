@@ -1,6 +1,6 @@
 # Publishing research and launch copy
 
-Checked 2026-10-22. Drafts only: no form submitted, account connected, paid placement,
+Checked 2026-10-23. Drafts only: no form submitted, account connected, paid placement,
 formal Release or mass outreach authorized. Recheck destination rules before submission.
 
 ## Directory requirements
@@ -9,12 +9,18 @@ formal Release or mass outreach authorized. Recheck destination rules before sub
 | --- | --- | --- |
 | [skills.sh FAQ](https://www.skills.sh/docs/faq) | Lists skills through real CLI installation telemetry; no separate submission form required for that route | Public GitHub layout and commands ready. Tests disable telemetry; do not manufacture installs or promise ranking/index timing. Optional packs require Vercel/GitHub account connection |
 | [Skillboard submission](https://www.skillboard.lol/submit) | Public GitHub repository or skill directory, valid `name`/`description`, license permitting indexing/attribution; normalized, checked and deduplicated | Two skill-directory URLs and MIT supplied. Human submits after branch review; account requirements beyond the visible form not established |
-| [Agent Skills Directory](https://www.skillsdirectory.com/) | Public site links to `app.skillsdirectory.com/submit`; says submissions are reviewed and listed entries have automated analysis | Linked form was inaccessible through research tooling; login, required fields, fees and approval timing are unverified. Manual account/form inspection remains necessary |
+| [Agent Skills Directory](https://www.skillsdirectory.com/) | Following its live Submit link reaches [sign-in](https://app.skillsdirectory.com/sign-in?returnTo=/submit), offering GitHub, Google or an emailed sign-in link; the same flow creates an account | Sign-in is required before the submission form. Authenticated fields, OAuth scopes, fees and approval timing remain unverified; no account action performed |
 | [AGNXI](https://agnxi.com/about) | Current About page describes a small hand-kept personal list; old search snippets still describe an open submission catalog | Do not rely on the stale submit instructions. No current public submission route confirmed; any personal outreach requires separate approval |
 
 “Agent Skills Directory” is an ambiguous name; the actual domains are listed to avoid
 confusing independent services. [agentskills.io](https://agentskills.io/specification)
 is the format specification, not an automatic community listing service.
+
+The optional [skills.sh packs flow](https://www.skills.sh/docs/packs) requires Vercel
+sign-in and a team; importing GitHub sources uses a connected account. It omits
+binary files and individual files over 2 MB. Packs are optional and unlisted;
+creating one does not establish leaderboard placement. This repository's installable
+payloads contain text resources; its image examples live outside those payloads.
 
 Submission sources after these changes are reviewed and merged:
 
@@ -44,6 +50,8 @@ The repo includes an actual release-audit trace: individual installation worked,
 the root MIT notice was missing from both standalone payloads. The updated check
 compares installed files and opens reference resources. The SVG example also retains
 failed reviews and corrections rather than presenting every iteration as success.
+The current binder example was accepted by its user after a new whole review.
+A separate paired CSV execution probe tied; no performance improvement is inferred.
 
 Try one skill with:
 
@@ -66,7 +74,8 @@ improvement is claimed; controlled DSH comparisons can be added when actually ru
 
 这次仓库准备发现了一个实际问题：单项安装成功，但根目录 MIT 正文没跟着安装。
 因此补了每项的许可文件，并用隔离目录安装、内容比对和引用读取验证。SVG 案例
-保留了漏查结构、用户纠正和返工过程，不把审阅者同意当作质量证明。
+保留了漏查结构、用户纠正和返工过程，不把审阅者同意当作质量证明。当前长尾夹版本
+已获用户同意公开展示；另有两版均通过的 CSV 执行测试，如实记为平局。
 
 源码、安装命令和案例在[GitHub 仓库](https://github.com/youchibuwan-ops/agent-workflow-skills)。
 欢迎反馈真实失败例，尤其是误触发、筛选不当、安装后仍不能完成任务的情况。

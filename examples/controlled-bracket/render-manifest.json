@@ -1,0 +1,12 @@
+{
+  "scope": "controlled owned-vector fixture; hashes are not an artistic pass",
+  "renderer": "@resvg/resvg-js@2.6.2",
+  "compositor": "sharp@0.35.5",
+  "sha256": {
+    "reference.svg": "a6940f0f763aadf84eb00538de434c1dabeb4695cddfe363dc3b154a47b1cd73",
+    "faulty.svg": "eb2b2e9b0c1d5e4161af6366ec7b1719726944eba452795e837b384f95c11b27",
+    "source.svg": "a6940f0f763aadf84eb00538de434c1dabeb4695cddfe363dc3b154a47b1cd73",
+    "upright.svg": "5b162f2e5c6184607049a69de3e295f8c1c0df8803a7664349a0d0173f3664eb",
+    "base.svg": "7e38b39d38628f6d3a060d29d7461be5c372107c1548654d1d2e88d0432cb9b2"
+  }
+}

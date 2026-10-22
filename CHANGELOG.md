@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+- Proactive output checks, mechanism-based Skill matching, actual-use verification,
+  conditional lesson promotion, counterexamples and revalidation/withdrawal guidance.
+- Current binder r08: complete six-curl/two-wire construction, eleven reviewed local
+  scopes, fresh whole review, user approval for public display and reproducible exact
+  assembly/native inspection; representative failed versions remain explicit.
+- Primary-source learning research and paired CSV execution evidence, with a tied
+  baseline outcome rather than a fabricated performance improvement.
+
 - English README and Chinese guide emphasizing proactive discovery.
 - Single-skill Codex installation, resource layout and lifecycle documentation.
 - Standalone MIT texts, compatibility fields and English Codex UI metadata.
@@ -11,6 +19,14 @@
   and corrections without a model-performance claim.
 - Complete local inventories, physical-entity continuity and through-sleeve inspection
   before reassembly; SVG case retains repeated failed judgments and actual corrections.
+- Ordered SVG workflow with reference-to-geometry evidence, shared whole-object
+  anchors, geometry before materials, and explicit local/whole rework loops.
+- Agent-driven stage recovery, complete local inventories, shared palette/scale
+  checks, and cross-section/multiview construction for unresolved curved geometry.
+- Per-part reference roles, shape/pose separation and bounded structural inference
+  when evidence is sparse; actual front-only versus spatial-delivery execution checks.
+- Owned-vector regression fixture; frozen read-only tests are distinguished from
+  actual authoring, reference research and user acceptance.
 - Automated Markdown, schema, link, package-installation and render checks.
 - Bilingual community drafts and dated directory submission research.
 

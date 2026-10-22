@@ -1,126 +1,90 @@
-# Real case: binder-clip reference review and editable SVG
+# Binder clip: reference, construction and editable SVG
 
-Target: one stylized **oblique** clip, transparent editable SVG, 160×160 native canvas.
-No game integration, generated imagery or engineering reconstruction is claimed.
-This is an actual iterative example, including errors; it is not a performance benchmark.
+One real iterative task: a transparent, editable 160×160 prop. The photographs,
+rejected drafts and current construction are actual artifacts from the work.
+This is not a no-skill/with-skill benchmark.
 
-## References and what each can establish
+Current r08 passed a fresh whole-object static review and was explicitly accepted
+by the user for public display on 2026-10-23.
 
-| File | Actual observation and role | Boundary |
+![Reference pose and current stylized SVG](comparison.png)
+
+Left: Richard Wheeler's photograph. Right: current SVG, aligned by one global
+rotation, translation and uniform scale. The photograph supplies pose and complete
+handles; its body is a different specimen from the selected dimensional reference.
+It is not a fabricated “before” image or an exact silhouette target for that body.
+
+## What the references establish
+
+| Reference | Used to answer | Limit |
 | --- | --- | --- |
-| `reference.jpg` | Richard Wheeler's complete oblique clip; target silhouette, handle projections and relative locations | Dark paint hides parts of the mouth; not an orthographic ruler |
-| `support-black.jpg` | HenryLi's black clip, broad-face oblique; sheet continuity and raised wire legs | Different specimen/size, not a source of target proportions |
-| `support-unpainted.jpg` | Prosavage2600's unpainted folded clip; rolled sheet and wire contact under different reflectance | Different finish/specimen; not a color or silhouette reference |
-| `support-no-handles.jpg` | Thaurisil's arm-up/arm-down/arm-free clips; the exposed mouth identifies two entry slots and the central continuous sheet; the metal-finish view is needed to read its raised curled section | Different specimen, topology only; not a dimensional source |
-| `support-views.jpg` | Polyparadigm's set; large broad-face clip shows two mouth interruptions and central curled lip; lower-right end view shows folded cross-section | Different sizes and poses; only common visible topology is transferable |
+| [Clear mouth photograph](support-axial.jpg) | Selected BODY proportions, four outer rolls, two central returning lips, relative end/root/free-edge spans | Perspective and occlusion remain; not an orthographic drawing or a ruler for intrinsic handle shape |
+| [Complete oblique photograph](reference.jpg) | Target pose, complete U handles, projected legs and occlusion | Different body specimen; exact body dimensions are not transferred |
+| [Black clip](support-black.jpg) | Coated sheet, complete raised handles and attachment relationships | Different specimen and illumination |
+| [Unpainted clip](support-unpainted.jpg) | Continuous folded sheet, returning edges and wire interfaces under different reflectance | Not the coating-color reference |
+| [Multiple views](support-views.jpg) | End-section, broad face, slots and opposing curl formation | Different sizes/poses are not interchangeable measurements |
+| [Clips with/without handles](support-no-handles.jpg) | Exposed mouth, both reliefs and central sheet continuity | Common topology only |
 
-Searches included `binder clip single`, Commons file/category searches, and candidate
-angle comparisons. Each listed photo was opened as pixels. A Flickr stack was rejected
-as the main reference because several clips overlap. Mauro Cateb's `Binder clip - 1`
-was actually opened but rejected: it is a wire spring clamp, a different mechanism.
-The HDR collection was viewed but rejected for local diagnosis because overlaps and
-reflections obscure the required mouth detail. See [credits](ATTRIBUTION.md).
+Each photograph was actually opened. Overlapping stacks and a differently operating
+wire clamp were rejected. A MAUL 21532 manufacturer front/side drawing was also
+inspected for complementary handle/hinge relationships; its different specification
+was not used as an exact dimensional source. [Credits and licenses](ATTRIBUTION.md).
 
-## Concrete structure, not image count
+## Structure before appearance
 
-The broad-face reference shows two distinct relief/entry positions along the mouth.
-The two front wire legs do not merely terminate on one unbroken rolled strip. Two
-outer sleeves flank a central sheet tongue whose lip is curled; it is continuous
-with the broad spring sheet, not a bolted-on flat bar. The end-view reference helps
-separate folded sheet, side cavity and background shadow.
+The construction has **one continuous folded sheet**, with four outer C-shaped
+bearing rolls and two central returning lips. Each opposing curl was traced from
+its own sheet root through the curved wall to its open free edge. Four entry
+reliefs remain. Two continuous U-shaped wires supply four legs and bent pin ends;
+an exposed terminal is part of that wire, not a separately added bright dot.
+The dark footprint in the photograph is cast shadow and is excluded from the prop.
 
-Current source uses shared coordinates for independent parts:
+The shared [construction.blend](construction.blend) preserves the sheet, common
+editable handle guide, two rigid handle instances and cameras. It is an optional
+spatial construction aid, not a runtime dependency or an engineering scan.
 
-- `front-lever.svg`: long two-legged wire handle and its bent ends.
-- `rear-lever.svg`: shorter handle, with distinct emergence positions; hidden engagement is unverified.
-- `spring-body.svg`: broad folded sheet and visible side cross-section.
-- `central-lip.svg`: middle tongue with bowed curled lip between the two entry reliefs.
-- `rolled-sockets.svg`: far rolled sleeve and its end section.
-- `left-joint-study.svg`, `right-joint-study.svg`: each mouth with neighboring sheet and visible wire ends.
-- `front-mouth-study.svg`: both entry reliefs and the continuous curled tongue.
-- `rear-lever-study.svg`: short handle with both distinct emergence positions.
+![Same construction, front/end/reverse views](construction-views.png)
 
-The initial partial-local attempt failed. The current version follows the complete
-[local execution record](execution-record.md), with actual independent part/context
-inspections before reassembly in `source.svg`, followed by whole inspection and subsequent user corrections in the
-[central rework and withdrawn whole inspection](execution-record.md#upturned-central-curl-correction).
-The render script checks that assembly includes the exact current part groups. This
-checks version integrity, not whether the drawing is structurally or artistically correct.
+These are model cameras, not additional photographs. The end view combines
+different positions along the width; it is not one unique cross-section.
 
-## Recorded failures and revisions
+![Current BODY at the selected reference camera](primary-body-comparison.png)
 
-Initial work inspected only the long handle independently and advanced to assembly
-too early. A dark-background fix and an independent whole review both missed more
-fundamental topology. Those approvals were withdrawn after user correction.
+Same crop and camera on both BODY columns; no independent X/Y stretching or camera
+refit between revisions. Handles are omitted from the construction column because
+the mouth photograph uses a different handle configuration. The far central upper
+endpoint retains approximately 20px residual at the original 1920×1280 photo size.
+Hidden roots/roll angles are bounded construction assumptions, not exact measurements.
 
-The retained `before.svg` is a genuine rejected in-session draft. Subsequent work
-removed an unsupported bottom wedge, separated dark faces, corrected a rear wire
-terminal, and then rebuilt the segmented mouth after recognizing two entry reliefs.
-The central lip also required revision from an attached-looking flat strip into a
-continuation of the curled sheet. These are not no-skill/with-skill conditions: the
-skill was already available during the failed work. Reviewer agreement was insufficient. A later proposed bottom flange was also rejected:
-the dark footprint under the clip is cast shadow, not an extra plate. The current
-record maps each auxiliary view to the actual geometry changed or retained; merely
-opening several photos did not prevent the earlier mistaken interpretation.
+## Reproduce the artifact checks
 
-## Reproduce and inspect
+From the repository root, with Node ≥22.20.0:
 
 ```sh
 npm ci --ignore-scripts
+npm run assemble:example
 npm run render:example
 ```
 
-![Reference, independent long handle, current assembly](comparison.png)
+Assembly reads the current [local SVGs](locals/N-wire.svg) in their shared coordinates and
+checks all four outer-roll and both central-lip instances. It preserves the exact
+local groups; changing an actual part requires renewed visual review.
+[case-manifest.json](case-manifest.json) binds source/model/groups;
+[render-manifest.json](render-manifest.json) binds generated images. These integrity
+checks cannot judge geometry or appearance.
 
-Same crop/viewBox `[260,160,440,440]`, isotropic scaling. Left is photograph, middle
-is a part study, right is assembly; the photograph is not a fabricated before image.
+![160px light/dark, four screen orientations](inspection.png)
 
-![160px light/dark views at 0, 90, 180, 270 degrees](inspection.png)
+Rows: light/dark. Columns: 0°, 90°, 180°, 270°. These are screen rotations, not
+additional camera views. The separate construction views use the same actual model.
 
-The rows show light/dark backgrounds; columns show 0°, 90°, 180°, 270°.
-These rotations test screen readability, not new camera views. `render-manifest.json`
-binds current source, references and exported images. Regeneration is not visual approval.
+The [execution record](execution-record.md) explains the per-local geometry,
+material, adjacency and whole-object reviews, including failures and corrective loops.
+The genuine rejected [before.svg](before.svg) and
+[assembly seam crop](assembly-seam-rejected.png) are historical failure evidence;
+neither is a controlled baseline. No game integration, mechanical-load test or
+general agent-reliability improvement is claimed.
 
-The image set remains an illustrative static study. Hidden rear sleeve engagement,
-exact dimensions, material tolerances, dynamic performance and user aesthetic
-acceptance are outside the demonstrated evidence. Failed earlier reviews remain part
-of the record rather than being presented as successful proof.
-
-## Reproduce one local inspection
-
-```sh
-node scripts/inspect-local.mjs front-mouth-study 310 420 110 130
-```
-
-The output places the same-coordinate target crop beside the current local and adds
-light/dark views at its true size within a 160px whole. See
-[entry reliefs and central lip](front-mouth-study-inspection.png),
-[left joint](left-joint-study-inspection.png),
-[right joint](right-joint-study-inspection.png),
-[broad sheet and side fold](spring-body-inspection.png),
-[long handle](front-lever-inspection.png) and
-[short handle emergence](rear-lever-study-inspection.png).
-
-## Auxiliary evidence applied to the drawing
-
-![Auxiliary view, target and current SVG for three local relationships](reference-evidence.png)
-
-Rows cover the raised central curl (metal-finish specimen), folded end/opposing mouths, and bent wire/rolled
-sheet. Left crops are different specimens and explain topology only; target and SVG
-columns use the same target crop and scale. The lower-left footprint remains cast
-shadow and is excluded from the transparent prop. The later wire correction and
-removal of an extra overlay segment are recorded in [the execution record](execution-record.md).
-
-## One wire across both sleeve connections
-
-The later correction checks one complete long handle before applying sleeve
-occlusion. It removes a separately drawn terminal dot and makes the visible mouth
-segments reuse the same wire geometry. Both sides were checked separately, right
-then left, then reassembled and inspected as a whole.
-
-![Left: target, complete wire without sleeve, current assembly](left-wire-through-comparison.png)
-
-![Right: target, complete wire without sleeve, current assembly](wire-through-comparison.png)
-
-The hidden far insertion length is schematic; these checks demonstrate visible
-continuity and projection, not an engineering measurement of an unseen mechanism.
+中文：先厘清同一片材的六处卷折和两根完整手柄，再在共同基准中逐局部制作、
+核材质与邻接、原样回装，最后重新审核整件。照片、模型多视图、格式检查和用户
+审美认可各有不同作用，不能互相冒充。当前 r08 已获用户同意作为公开案例展示。

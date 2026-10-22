@@ -33,8 +33,9 @@ jobs:
       - run: skills-ref validate skills/proactive-skill-discovery
       - run: skills-ref validate skills/crafting-reference-based-svg-assets
       - run: npm run verify:install
+      - run: npm run assemble:example
       - run: npm run render:example
-      - run: git diff --exit-code -- examples/svg-binder-clip
+      - run: git diff --exit-code -- examples/svg-binder-clip examples/controlled-bracket
   links:
     runs-on: ubuntu-latest
     steps:

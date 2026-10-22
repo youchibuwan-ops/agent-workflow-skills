@@ -1,0 +1,34 @@
+{
+  "date": "2026-10-23",
+  "scope": "One controlled synthetic CSV task plus one routine edit, two fresh directed frozen-Skill actors; identical task/input, same inherited model settings, exact underlying model not independently identified. Not a production incident or automatic-host-activation test.",
+  "actual_root_readback": [
+    {
+      "condition": "baseline",
+      "summary_exact": true,
+      "all_notes_values_preserved": true,
+      "routine_edit_exact": true,
+      "skill_sha256": "2cb0b628d5477be9b93dc592d3dad192ca89eb79ab3a59f8a46ebe65d1bce9e3",
+      "output_sha256": {
+        "summary.csv": "f06fd2dafd79cc6d608f15f7c009c1c0aaefe4bcc015108eba70b8b643dbda36",
+        "notes.csv": "b5f3a89061b015135ca38be8b17d38d0f30789b00bf14af82dc96f6ac87ee315",
+        "routine.txt": "5f74b59ce5fbdc02de3a8ddab76cbb2492ac8033c4959b5507f05f6a3576ed74"
+      }
+    },
+    {
+      "condition": "candidate",
+      "summary_exact": true,
+      "all_notes_values_preserved": true,
+      "routine_edit_exact": true,
+      "skill_sha256": "9765792d0f9452cb0b592be1ba609910d9fa7cd6c43114ab5c34073b5a1f907c",
+      "output_sha256": {
+        "summary.csv": "4db171bf9f89462e97c6e38ecc414d57bab0947986bf51abdec0bf2f04b5b216",
+        "notes.csv": "068238bb71552722c3bcaa96ff7df2080c7654a08913086044c9a842bced640b",
+        "routine.txt": "5f74b59ce5fbdc02de3a8ddab76cbb2492ac8033c4959b5507f05f6a3576ed74"
+      }
+    }
+  ],
+  "comparison": "tie on checked outputs; no improvement measured",
+  "maintenance": "Both actors left generic Skill copies unchanged and retained CSV-specific facts in task notes; no new general rule was established.",
+  "transfer": "Separate candidate-only run actually inspected three cached candidates and runtime interfaces; rejected unavailable/incompatible automatic Codex activation claims. Its rule-retirement and skipped-step cases were hypothetical decisions, not executed converter tests.",
+  "public_copy": "CSV record separators normalized to LF; all parsed original note values preserved. Full raw actor commands and snapshots retained privately, not bundled with Skills."
+}

@@ -9,14 +9,16 @@
       "result": "pass",
       "referencesRead": [
         "references/adapting-upstream-skills.md",
+        "references/learning-from-work.md",
+        "references/adapting-upstream-skills.md",
         "references/learning-from-work.md"
       ],
       "files": {
         "agents/openai.yaml": "7c25c200a0d5ed5eb59ba98910dd5471d1a3956a83570ada6d1b5797ca5fc067",
         "LICENSE": "d1ba8b00007e2f5670cc0af48a9a8faa1885b502f186e574dee5c5fd7ecaf913",
-        "references/adapting-upstream-skills.md": "5b6be248be520026ee2b335fb90bc9a0a64004415c0f165b54d78a91bc4d731f",
-        "references/learning-from-work.md": "ea134924c292ee7f33d3244599096ca42ddfe8e6cc015a973a860ec216ef7991",
-        "SKILL.md": "2cb0b628d5477be9b93dc592d3dad192ca89eb79ab3a59f8a46ebe65d1bce9e3"
+        "references/adapting-upstream-skills.md": "5fbfa1f490490903da028a424903a66e3ad783425cc15d21705d9e3274505fa0",
+        "references/learning-from-work.md": "094f67f3eaf2176fff0c5c7fdbdfbfbab7b170c3bd7b2147126987e273ae71f0",
+        "SKILL.md": "9765792d0f9452cb0b592be1ba609910d9fa7cd6c43114ab5c34073b5a1f907c"
       }
     },
     {
@@ -30,10 +32,10 @@
       "files": {
         "agents/openai.yaml": "c1737c325f700dca578a0093ab0ec476ccabc75beddaa842f1b9c7a87318965b",
         "LICENSE": "d1ba8b00007e2f5670cc0af48a9a8faa1885b502f186e574dee5c5fd7ecaf913",
-        "references/execution-record.md": "1a57cf34f6b45083389c807183cf8f447d307db337978e6cf9d4ed10c63b04af",
+        "references/execution-record.md": "e4c2d16ce8ac756a44bfc04a1fb45cb0ae9e4e1764bd9a031d85b10ed0a593f1",
         "references/project-profile-example.md": "ae3c82b7ee3901c30b7cd271b0b98c83f85bea60e49a59243ec404847d170a84",
-        "references/visual-diagnosis.md": "f5e523866e7fdc9260cf0cd5e7d992b48a9262868304670d73aa53a4d930b13e",
-        "SKILL.md": "712caae59d82bb2ac3c29f3f03dba58e2ba8bef6f4d1ffa4c8c08f4556fc3aed"
+        "references/visual-diagnosis.md": "28919d58fac8c7484cae05d533605eb5a21dd8fcc5b39dcbb07d0e56d94966a3",
+        "SKILL.md": "c81a1a8491cf2caed738b5dde9a3fe3ba716f84c0a53620a7138f350267e4288"
       }
     }
   ]

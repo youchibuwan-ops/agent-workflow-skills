@@ -9,6 +9,7 @@
   "scripts": {
     "lint": "node scripts/lint.mjs",
     "verify:install": "node scripts/verify-install.mjs",
+    "assemble:example": "node scripts/assemble-binder.mjs",
     "render:example": "node scripts/render-example.mjs"
   },
   "devDependencies": {

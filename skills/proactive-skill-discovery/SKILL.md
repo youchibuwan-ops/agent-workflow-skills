@@ -1,6 +1,6 @@
 ---
 name: proactive-skill-discovery
-description: Use when a substantial task enters an unfamiliar domain, lacks a suitable installed workflow, repeatedly fails, needs external agent skills adapted or combined, or yields verified reusable lessons worth capturing in skills without waiting for a user reminder.
+description: Use when a substantial task enters an unfamiliar domain, lacks a suitable installed workflow, shows unexplained errors or output that contradicts requirements, repeatedly fails, needs external agent skills adapted or combined, or yields reusable lessons that need evidence-based validation and maintenance without waiting for a user reminder.
 license: MIT
 compatibility: Requires an agent with file access; external discovery and installation need network and an installer. No mandatory bundled runtime.
 ---
@@ -13,17 +13,21 @@ compatibility: Requires an agent with file access; external discovery and instal
 
 开始实质任务时先匹配已安装技能；本地流程足够就直接使用。新领域、明确能力缺口、专业工作难以把握或同类失误反复出现时，主动搜索外部 Skill，不等用户提醒。普通答复和已有成熟流程不机械地反复联网。任务中出现反复纠错、非显然的有效方法、可复用工具或现有技能缺漏时，也主动评估经验沉淀，不等用户提醒。
 
+**主动发现问题，不等用户指出。** 开始时从当前请求提取可观察的交付条件；首个样例、阶段交接和宣布完成前，将当前产物逐项对回条件及受影响的保留部分。工具报成功只覆盖它实际检查的范围。出现不符、证据冲突、旧预览或无法解释的结果，立即定位并处理；不能等同类错误重复多次才启动诊断，也不能只改最后被点名的位置。
+
+当前任务只需常规操作且能力已足够时直接做。需要诊断/匹配时读[缺口与适配](references/adapting-upstream-skills.md)；需要沉淀/复用经验时读[学习与维护](references/learning-from-work.md)。
+
 读取当前用户/项目约束、任务授权及停止点。发现技能不恢复暂停任务，也不改变禁止生图、禁止批量、只读、不得实装等要求。用户已委托自主搜索、筛选、必要的个人目录安装和调用时，在该范围内直接执行，不逐次询问是否要搜/装。Skill本身不授予额外权限；外部发布、发消息等仍按当前任务的实际授权执行。
 
 ## 完整流程
 
-1. **确认缺口。** 明确任务目标、已有技能、所缺能力、宿主工具/运行时和必须保留的约束。先读本地相关 Skill，不重复寻找同一能力。
-2. **检索现成方案。** 按具体任务与技术形成关键词。可使用 `find-skills`、网页/GitHub搜索或可用索引；索引不等于整个GitHub，必要时补查作者/官方仓库与同义词。找到可用候选即收敛；无新线索时继续原任务，不无限研究或反复问能否继续。
+1. **确认缺口。** 明确任务目标、已有技能、所缺能力、宿主工具/运行时和必须保留的约束。先读本地相关 Skill，不重复寻找同一能力。把偏差定位到具体产物/步骤，再区分资料不足、工具环境、方法缺失和执行漏步；不能把每个异常都当作需要再装 Skill。
+2. **检索现成方案。** 按“输入/现象 → 所需机制 → 输出与验证”形成关键词，不只搜物件名或用户原话。可使用 `find-skills`、网页/GitHub搜索或可用索引；索引不等于整个GitHub，必要时补查作者/官方仓库与同义词。找到能覆盖缺口的候选即收敛；无新线索时采用可行替代，或说明具体未解决项并继续独立工作，不无限研究，也不把未解决的关键缺口写成通过。
 3. **实际读候选。** 打开 SKILL.md、所需引用/模板与相关脚本；核实流程真正解决缺口、适用范围和输出契约。检查许可证、来源/维护、宿主兼容性、依赖、命令的联网/写文件范围及与用户规则的冲突。星数和安装量只是排序线索。
 4. **决定复用方式。** 在直接使用、薄适配、多技能组合或有必要的分叉之间选择。别人 Skill 不完全满足时，读 [适配方法](references/adapting-upstream-skills.md)。缺少实际能力才补脚本，不为显得完整而加代码，不把通用提示包装成新能力。
 5. **安装选定项。** 已安装的优先复用；确有增益的新项可在当前授权内装到个人技能目录。优先可信安装器，指定单个路径和已核查版本，保留来源/许可；不整库批装、不覆盖同名版本、不顺带改其他代理或账户配置。工具不可用时换已有渠道，不为纯搜索额外装整套运行时。
-6. **读本地并执行。** 确认安装内容与所审版本对应，读取选定流程与必要资源；保留当前用户指令优先级。只执行任务真正需要的部分，避免多个技能互相套娃、重复审批或重复生成同类产物。
-7. **验证产物。** 用实际任务结果判断是否有效：脚本看真实输出，图审实际看图，代码做相应检查。安装成功、字段齐全或代理同意都不等于任务通过。失败时区分环境问题、流程不适配与实现错误，针对原因调整，不继续盲装技能。
+6. **读本地并执行。** 确认安装内容与所审版本对应，读取选定流程与必要资源；保留当前用户指令优先级。指出采用哪一方法、作用于哪个步骤及应产生什么可核结果，然后实际用于当前任务。只执行任务真正需要的部分，避免多个技能互相套娃、重复审批或重复生成同类产物。
+7. **验证产物。** 先用当前小样核所选方法是否真正解决缺口，再推进后续范围；脚本看真实输出，图审实际看图，代码做相应检查。把“实际输入 → 所用方法 → 当前产物 → 检查依据”对应起来；安装成功、字段齐全、代理同意或自信程度都不等于任务通过。失败时按原因退回证据、匹配或实现；同方式重试没有新依据时换方法，不继续盲装技能。有必改继续修正、重验，不能用找到 Skill 或写完总结结束未完成的原任务。
 8. **保留可复用记录。** 新采用/重要拒绝或适配时，简记来源仓库/路径/版本、许可、实际读过的内容、选择理由和验证结果。保存在项目指定位置或个人技能记录中；不要把机器路径、临时任务状态、密钥或私人素材塞进可分享的 Skill。后续复用已核查方案，更新前比较上游变化并验证本地适配。
 
 9. **主动总结并维护。** 出现上述经验信号时，读[经验沉淀方法](references/learning-from-work.md)，从实际证据提炼可复用决策；优先修订已有 Skill，确无合适归属才新建。在已授权的个人技能维护范围内直接执行并验证，不只提出建议。单次偶发事件或未经验证的猜想留作任务记录。

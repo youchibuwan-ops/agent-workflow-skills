@@ -25,6 +25,11 @@ A search result is a candidate; installation is only setup. This skill keeps the
 4. Verify the actual output, including relevant failure cases.
 5. Maintain verified decisions in an existing skill; create another only when needed.
 
+The [discovery and learning workflow](docs/discovery-workflow.md) adds actual
+artifact checks at entry, first sample, handoff and completion. Diagnose evidence,
+environment, method and execution gaps separately; use new-task tests and nearby
+counterexamples before promoting reusable rules.
+
 Use it for an unfamiliar stack, repeated workflow failures, overlapping skills, or a
 method worth retaining. It grants no permission to publish, spend money or resume paused work.
 
@@ -38,6 +43,10 @@ method worth retaining. It grants no permission to publish, spend money or resum
 Discovery can select the SVG workflow; SVG review does not replace discovery. Neither
 is an autonomous service or a guarantee of model performance. Detailed skill instructions
 currently use Chinese; this README and the usage prompts are English.
+
+The SVG skill follows an [ordered workflow with rework gates](docs/svg-workflow.md):
+references → shared structure/scale → each local's geometry, material and actual
+inspection → exact assembly → a fresh whole-object review.
 
 ## Try it in Codex
 
@@ -71,11 +80,14 @@ activation depends on the host; explicit invocation is the reproducible starting
 - [Release audit and discovery](examples/discovery-release-audit/README.md): actual
   selection, OSS tool reuse, a license packaging finding, installation checks and retained learning.
 - [Binder clip](examples/svg-binder-clip/README.md): licensed photographs, complementary
-  angles, independently inspected parts, assembly corrections and native-size static checks.
+  angles, independent parts and native-size checks, including withdrawn approvals.
+  The current r08 whole was independently reviewed and accepted by the user for public display.
+- [Controlled bracket](examples/controlled-bracket/README.md): an owned vector with
+  explicit planted faults, separately repaired parts and exact-group assembly checks.
 - [Unseen clothespin test](examples/heldout-clothespin/README.md): actual reference
   research on a new object, with unresolved dimensional evidence kept explicit.
 
-![Photo, independent front lever and assembled SVG](examples/svg-binder-clip/comparison.png)
+![Reference pose and accepted editable SVG](examples/svg-binder-clip/comparison.png)
 
 Photo and artwork: CC BY-SA 3.0; [credits and exceptions](examples/svg-binder-clip/ATTRIBUTION.md).
 These are work examples, not no-skill/with-skill benchmarks. Future DSH variants can

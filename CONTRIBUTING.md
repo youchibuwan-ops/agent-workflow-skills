@@ -14,6 +14,7 @@ Respect the actual task authorization and stopping point.
 npm ci --ignore-scripts
 npm run lint
 npm run verify:install
+npm run assemble:example
 npm run render:example
 ```
 
@@ -24,6 +25,10 @@ are locked; consumers install skill folders without this repository's toolchain.
 For workflow changes, exercise an actual target case and an adjacent non-applicable
 case. Reference-research changes need a new object that did not shape the edit and
 actual candidate observations. Schema checks cannot substitute for behavior tests.
+
+Example edits require renewed inspection of affected parts and the current whole.
+Update the case/group manifest deliberately after review, then regenerate images;
+do not drop a missing-part guard or update hashes to conceal a visual failure.
 
 ## Future DSH variants and comparisons
 

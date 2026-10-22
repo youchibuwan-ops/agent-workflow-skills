@@ -67,3 +67,30 @@ Local tools were enough; no new permanent global installation was necessary.
 The example demonstrates real inspection, selection, execution and a retained
 packaging lesson. It does not establish automatic activation, cross-model reliability,
 token savings, aesthetic quality or a causal improvement from the skill.
+
+## Controlled execution probe
+
+Executed 2026-10-23 after the binder was accepted. This supplemental owned CSV
+fixture is synthetic; it is not a production incident. Two fresh directed actors
+used frozen baseline/candidate versions of the discovery Skill on identical inputs.
+Both found that the old file-exists/four-row check missed the requested aggregation,
+leading-zero identifiers, exact money and preserved quoted multiline notes.
+Both repaired copies and produced the required outputs; the routine title edit
+needed no extra discovery. Root independently read back both outputs.
+
+The result is a **tie**, not a measured improvement. Both actors also declined to
+stuff CSV-specific rules into the generic discovery Skill. The
+[evidence record](execution-probe/evidence.json) distinguishes actual execution,
+source/interface inspection and hypothetical transfer decisions.
+
+Reproduce from the repository root with Python ≥3.11, standard library only:
+
+```sh
+python examples/discovery-release-audit/execution-probe/export.py examples/discovery-release-audit/execution-probe/orders.csv examples/discovery-release-audit/execution-probe/summary.csv examples/discovery-release-audit/execution-probe/notes.csv
+python examples/discovery-release-audit/execution-probe/verify.py examples/discovery-release-audit/execution-probe/orders.csv examples/discovery-release-audit/execution-probe/summary.csv examples/discovery-release-audit/execution-probe/notes.csv
+```
+
+The verifier reads saved outputs and uses rational arithmetic independently of the
+exporter's Decimal implementation. [before-export.py](execution-probe/before-export.py)
+retains the deliberately faulty fixture; run it with a different output path and
+the verifier rejects its result. No external Skill code or private data is bundled.

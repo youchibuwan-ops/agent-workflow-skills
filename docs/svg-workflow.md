@@ -91,5 +91,6 @@ quality. Preserve failed iterations and test changed instructions through real a
 有必改继续返工；用户暂停、确实需要输入/授权或外部资源时准确保留未完成状态。
 
 See the [case record](../examples/svg-binder-clip/execution-record.md) and
-[validation scopes](validation.md). The binder clip remains under rework;
-this diagram does not assert that the example passed.
+[validation scopes](validation.md). Current binder r08 passed its new finite static
+whole review and was accepted by the user for public display; older failures remain.
+The diagram alone cannot establish a future asset's quality.

@@ -4,7 +4,7 @@ import { createHash } from 'node:crypto';
 import { execFileSync } from 'node:child_process';
 import { mkdtempSync, mkdirSync, readdirSync, readFileSync, existsSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
-import { resolve, join, relative } from 'node:path';
+import { resolve, join, relative, dirname, basename } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
@@ -55,6 +55,8 @@ try {
   }
   if (output) writeFileSync(output, JSON.stringify(report, null, 2) + '\n');
 } finally {
-  // scratch is created above with mkdtempSync, never a user-supplied deletion path.
+  // Verify the absolute deletion target is the task's own named temporary child.
+  assert.equal(dirname(resolve(scratch)), resolve(tmpdir()));
+  assert(basename(scratch).startsWith('workflow-skills-'));
   rmSync(scratch, { recursive: true, force: true });
 }
