@@ -1,6 +1,6 @@
 # Binder-clip execution record
 
-Current stage: current whole static inspection completed for source `6432b456d31320b80450b1e80c62dbc6d169a3b7dec4df6bddbf848857c6ec75`. Earlier whole approvals were withdrawn and do not carry forward. No engineering reconstruction, user aesthetic acceptance, game integration or general skill reliability claim.
+Current stage: REOPENED after the user identified a wrong central curl in commit 72e77a0. The whole inspection for source 6432b456d31320b80450b1e80c62dbc6d169a3b7dec4df6bddbf848857c6ec75 is withdrawn. Central cross-section is being corrected; no current whole approval or user acceptance.
 
 ## Reference roles actually inspected
 
@@ -166,3 +166,31 @@ photo highlights remain unconfirmed; auxiliary specimens do not establish target
 measurements. The original unedited reports remain in the private test cache.
 The withdrawn [earlier whole review](whole-review.md) is retained as failure history,
 not evidence for this current source or a substitute for visual judgment.
+
+## Upturned central curl correction
+
+The user rejected commit 72e77a0: the central free edge was flattened into a
+strip/downward flange. The preceding whole inspection is withdrawn. A front view
+without handles identified the slots but did not establish a flat cross-section;
+using it to simplify the curl was a mistaken inference.
+
+Root and a fresh read-only reference trace opened all four auxiliary/target views.
+In support-unpainted.jpg, (365,495) to (520,250) shows the relevant middle edge:
+continuous sheet root, raised rounded crest, returning face and exposed curved
+sheet ends. The earlier lower-left crop around a sleeve did not answer this
+cross-section question. The central feature is an open curl, not another closed
+wire sleeve. Rise is relative to the sheet plane, not simply screen-up translation.
+
+Root revised the independent central SVG into a curved raised section with an
+inward-returning free edge; opened its same-coordinate target comparison and 1×
+light/dark views; then transferred that exact group to the mouth context, left
+context and whole. Root reopened the new mouth comparison and whole/native views.
+The evidence board now shows the actual metal-finish middle-edge crop. Exact curl
+angle/radius are schematic rather than measured. No user acceptance is claimed.
+
+A fresh independent image review of current source
+`91557872be885ce188972a5fbb3ff44bf6dc4d432528262da12c69a21f423a58`
+opened the current isolated curl, mouth context, whole and native rotations. It
+read a raised crest, returning face and free edge over the sheet rather than a
+flat flange or a third closed tube. No concrete mandatory issue was identified
+within that central-only scope. It does not reinstate the withdrawn whole approval.

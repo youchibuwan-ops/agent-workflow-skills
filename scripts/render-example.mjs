@@ -71,8 +71,8 @@ for (const [name, box] of [
 // Other specimens explain topology; target and drawing share the exact crop/scale.
 // No auxiliary photograph is stretched or presented as a dimensional ruler.
 const evidenceRows = [
-  { photo: 'support-no-handles.jpg', crop: [1090, 420, 340, 85], target: [310, 420, 110, 130],
-    local: 'front-mouth-study.svg', label: 'Two entries; continuous central curled lip' },
+  { photo: 'support-unpainted.jpg', crop: [340, 230, 220, 330], target: [310, 420, 110, 130],
+    local: 'front-mouth-study.svg', label: 'Raised curved crest and returning free edge, not a flat flange' },
   { photo: 'support-views.jpg', crop: [985, 805, 240, 225], target: [390, 440, 155, 140],
     local: 'source.svg', label: 'Folded end and opposing rolls; exclude the cast shadow' },
   { photo: 'support-unpainted.jpg', crop: [205, 430, 700, 500], target: [285, 385, 80, 90],

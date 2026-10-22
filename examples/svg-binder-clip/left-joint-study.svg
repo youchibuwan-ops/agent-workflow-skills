@@ -10,10 +10,12 @@
     <path d="M307 408 L382 324 Q387 318 394 329 M424 545 L516 518" fill="none" stroke="#95a0a2" stroke-width="2.5" stroke-linecap="round"/>
   </g>
   <g id="central-lip" stroke-linejoin="round" stroke-linecap="round">
-    <path d="M335 450 L384 511 L378 516 Q374 520 371 517 L332 464 Q329 459 335 450 Z" fill="#46535e"/>
-    <path d="M334 459 L375 512 Q378 515 381 512 L378 516 Q374 520 371 517 L332 464 Q330 461 334 459 Z" fill="#5b6b74"/>
-    <path d="M334 451 Q329 458 332 464 L371 517 Q374 521 378 516 L383 512" fill="none" stroke="#25323e" stroke-width="2.5"/>
-    <path d="M333 464 L372 516 Q374 518 377 515" fill="none" stroke="#a2aaa8" stroke-width="2"/>
+    <path d="M335 450 L384 511 L387 516 Q382 523 375 516 L330 461 Q324 453 329 449 Q332 446 337 449 L382 505 Q387 511 384 514 L379 509 L335 454 Q332 451 333 454 L378 511 L383 512 Z" fill="#60717a"/>
+    <path d="M335 450 L384 511 Q387 515 383 518 L378 513 L333 457 Q330 453 332 451 Z" fill="#384650"/>
+    <path d="M330 450 Q326 453 331 460 L376 515 Q381 521 385 516" fill="none" stroke="#25323e" stroke-width="2.5"/>
+    <path d="M329 452 Q328 455 332 460 L376 514 Q379 517 382 516" fill="none" stroke="#9aa5a6" stroke-width="2.4"/>
+    <path d="M337 449 L382 505 Q387 511 384 514" fill="none" stroke="#26333e" stroke-width="2"/>
+    <path d="M337 449 L381 504" fill="none" stroke="#7d8c91" stroke-width="1.2"/>
   </g>
   <g id="front-lever" fill="none" stroke-linecap="round" stroke-linejoin="round">
     <defs><clipPath id="front-wire-exit-window"><path d="M318 432 L329 418 L344 423 L334 441 L323 441 Z"/><ellipse cx="402" cy="530" rx="4" ry="3" transform="rotate(-35 402 530)"/></clipPath></defs>

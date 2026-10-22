@@ -11,7 +11,7 @@ This is an actual iterative example, including errors; it is not a performance b
 | `reference.jpg` | Richard Wheeler's complete oblique clip; target silhouette, handle projections and relative locations | Dark paint hides parts of the mouth; not an orthographic ruler |
 | `support-black.jpg` | HenryLi's black clip, broad-face oblique; sheet continuity and raised wire legs | Different specimen/size, not a source of target proportions |
 | `support-unpainted.jpg` | Prosavage2600's unpainted folded clip; rolled sheet and wire contact under different reflectance | Different finish/specimen; not a color or silhouette reference |
-| `support-no-handles.jpg` | Thaurisil's arm-up/arm-down/arm-free clips; the exposed mouth confirms the central shallow folded lip and chamfered returns into two entry slots | Different specimen, topology only; not a dimensional source |
+| `support-no-handles.jpg` | Thaurisil's arm-up/arm-down/arm-free clips; the exposed mouth identifies two entry slots and the central continuous sheet; the metal-finish view is needed to read its raised curled section | Different specimen, topology only; not a dimensional source |
 | `support-views.jpg` | Polyparadigm's set; large broad-face clip shows two mouth interruptions and central curled lip; lower-right end view shows folded cross-section | Different sizes and poses; only common visible topology is transferable |
 
 Searches included `binder clip single`, Commons file/category searches, and candidate
@@ -42,8 +42,8 @@ Current source uses shared coordinates for independent parts:
 
 The initial partial-local attempt failed. The current version follows the complete
 [local execution record](execution-record.md), with actual independent part/context
-inspections before reassembly in `source.svg`, followed by a fresh
-[current whole inspection](execution-record.md#current-whole-inspection-after-central-rework).
+inspections before reassembly in `source.svg`, followed by whole inspection and subsequent user corrections in the
+[central rework and withdrawn whole inspection](execution-record.md#upturned-central-curl-correction).
 The render script checks that assembly includes the exact current part groups. This
 checks version integrity, not whether the drawing is structurally or artistically correct.
 
@@ -105,7 +105,7 @@ light/dark views at its true size within a 160px whole. See
 
 ![Auxiliary view, target and current SVG for three local relationships](reference-evidence.png)
 
-Rows cover entry reliefs/central lip, folded end/opposing mouths, and bent wire/rolled
+Rows cover the raised central curl (metal-finish specimen), folded end/opposing mouths, and bent wire/rolled
 sheet. Left crops are different specimens and explain topology only; target and SVG
 columns use the same target crop and scale. The lower-left footprint remains cast
 shadow and is excluded from the transparent prop. The later wire correction and
