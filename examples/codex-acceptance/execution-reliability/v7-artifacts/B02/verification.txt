@@ -1,0 +1,18 @@
+Created `report.pdf` from `report.html`: 3 A4 pages, with an embedded Noto Sans CJK SC font and print-specific pagination. Original HTML unchanged.
+
+Checks actually run:
+- pdfplumber extracted all 36 table rows and compared every ID, bilingual description and amount exactly with the HTML, in order, with no duplicates or omissions.
+- Table headings matched on all three pages. Row ranges: 01–15, 16–32, 33–36.
+- Chinese and English text extracted correctly, including title and closing text. Font embedding and Unicode mappings were verified; the PDF contains selectable text, not page images.
+- Checked every character against page bounds and every table character against its enclosing cell; no clipping or duplicate overprinted text detected.
+- pypdf strict parsing read all 21 indirect objects, decoded streams and parsed all page content without warnings or errors. Conversion also produced no warnings.
+- Rendered all pages independently with PDFium at 120 dpi and visually inspected each: Chinese glyphs present, complete rows, repeated headings, no visible clipping or overlap.
+
+Limitation: no interactive copy/paste test in a desktop PDF viewer or physical printer test was performed. Text extraction and independent rendering passed; this is not PDF/A or accessibility certification.
+
+Reproduction scripts, print stylesheet, local tools/font, previews and detailed results are retained in `.delivery/`. To rebuild or verify from this folder:
+
+```sh
+TMPDIR="$PWD/.delivery/tmp" XDG_CACHE_HOME="$PWD/.delivery/cache" FONTCONFIG_FILE="$PWD/.delivery/fonts.conf" PYTHONPATH="$PWD/.delivery/lib" python .delivery/build.py
+TMPDIR="$PWD/.delivery/tmp" XDG_CACHE_HOME="$PWD/.delivery/cache" FONTCONFIG_FILE="$PWD/.delivery/fonts.conf" PYTHONPATH="$PWD/.delivery/lib" python .delivery/verify.py
+```

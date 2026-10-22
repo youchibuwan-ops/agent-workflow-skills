@@ -1,0 +1,2053 @@
+{
+  "date": "2026-10-23",
+  "friend_results": null,
+  "preregistration": {
+    "v2": "5d054328ae5cee8cec51e336228107a0d725fd37",
+    "v3": "3052aff215f102669c8d41afdc20efa601a29a17"
+  },
+  "builtin_inventories": {
+    "26f5134951233cae0300bcf376e1e80f22b37b736d68b32f2950ce0eb4397798": {
+      "imagegen": [
+        {
+          "path": "LICENSE.txt",
+          "sha256": "4dd13869245e356246a5b770723247bbb80a8f07a181d1d3d873a1734297cdb9"
+        },
+        {
+          "path": "SKILL.md",
+          "sha256": "681ddb4ad6d06a2acc78a3535b583f8d0c1ea800ecda3d56370d3310fd2cd4ba"
+        },
+        {
+          "path": "agents/openai.yaml",
+          "sha256": "9ca574af14580dc7a2a3dc37a1796d17f93cb8850be66501f0799ef8603e9dc0"
+        },
+        {
+          "path": "assets/imagegen-small.svg",
+          "sha256": "cff5f34f57ff60b3ee92eaedd17b15e96dd4b9e776df3e78936c9e00d42be294"
+        },
+        {
+          "path": "assets/imagegen.png",
+          "sha256": "95952f644064eb9e890f98d8db07216347186526e4c41ad66d3420629eb86e20"
+        },
+        {
+          "path": "references/cli.md",
+          "sha256": "ecfc2e09261a0feb3482517a5fa0ff410cb7d1958e3cbd2ac6b61586f5b81405"
+        },
+        {
+          "path": "references/codex-network.md",
+          "sha256": "c88298ca4481f6116a16fa7987434fc977f8b311c1bbc0c3d862ffd0c5981148"
+        },
+        {
+          "path": "references/image-api.md",
+          "sha256": "dc975d7af8a4888967251a0276014b4a71ea30455294944b762256373ce3e569"
+        },
+        {
+          "path": "references/prompting.md",
+          "sha256": "b210b051c775860267080941eba968212bf0ac7fce581d75c5dcc217d8293f8b"
+        },
+        {
+          "path": "references/sample-prompts.md",
+          "sha256": "70474177d151855b175c6133de2aae1d90b7f146b0dab50ec830972c47d72183"
+        },
+        {
+          "path": "scripts/image_gen.py",
+          "sha256": "b4345cf835e5b593b97df6bb2b70bda493b8a97eee4cabbc99b2fa57dba9b448"
+        },
+        {
+          "path": "scripts/remove_chroma_key.py",
+          "sha256": "a5893c4bd04b21abced33731ea89d2ac428e81d92a0368eb18ffbe4fda5253e2"
+        }
+      ],
+      "openai-docs": [
+        {
+          "path": "LICENSE.txt",
+          "sha256": "4dd13869245e356246a5b770723247bbb80a8f07a181d1d3d873a1734297cdb9"
+        },
+        {
+          "path": "SKILL.md",
+          "sha256": "aa6829e21df2223167c85d2e49b6337a7345c84c1033f1ec10182c7882b36d45"
+        },
+        {
+          "path": "agents/openai.yaml",
+          "sha256": "44b9efac6be1bae32d869aa2942fecbe4dcae82682ee03e4120f2f9b7d4658ec"
+        },
+        {
+          "path": "assets/openai-small.svg",
+          "sha256": "45be1f0757eb18889eefb1e7db79668ef46a275dc4e0e78e8df5ebd7f6cdeadc"
+        },
+        {
+          "path": "assets/openai.png",
+          "sha256": "156cc84d7332bfe95b310350bd470b690d22aa33d65340cc6c2e06022946194c"
+        },
+        {
+          "path": "references/codex-self-knowledge.md",
+          "sha256": "8c8fb00e6e5cb1977924f5164684a6095427fa828bbc765225f17d9aeb79a912"
+        },
+        {
+          "path": "references/latest-model.md",
+          "sha256": "bdf241d505eb071b1c7b0b732f842b701348cf6eab95d1c36fd97edac64dd158"
+        },
+        {
+          "path": "references/mcp-diagnostics.md",
+          "sha256": "49bbd2f73df7bbd7f86c80425dea4da2d301c22046080399a36bfc0ca49509e9"
+        },
+        {
+          "path": "references/model-migration.md",
+          "sha256": "bef46671036c8e483b7f65df931171217d55a8d26098851c2f89784db8edca2f"
+        },
+        {
+          "path": "references/model-selection.md",
+          "sha256": "ba2d164abbca30435a460a0bc3a7d82398dce2bdf092705c98ba55b3f3af38a8"
+        },
+        {
+          "path": "references/official-docs.md",
+          "sha256": "7962f2dce55089b93bde4115bb89fd42f20993c1597a2b13edd4956f463875b9"
+        },
+        {
+          "path": "references/prompting-guide.md",
+          "sha256": "548d4ca73a34cd4b0041ef05a899592e8c50772b8f3a76c579ec941e403e19f6"
+        },
+        {
+          "path": "references/upgrade-guide.md",
+          "sha256": "ecac89155f910f064fd306e89c74585cabdb2142aba4f2acc0cead092ae1d1a5"
+        },
+        {
+          "path": "references/upgrading-to-gpt-6-astra.md",
+          "sha256": "62ef6d22684662a019d203834fe1205a07e4ca4c65dddcbabe1bb51efe1aa840"
+        },
+        {
+          "path": "scripts/fetch-codex-manual.mjs",
+          "sha256": "f53eb6d2f286e9efcc397e8bee93a938e37296c90953e4e06e94899ef1b6c363"
+        },
+        {
+          "path": "scripts/resolve-latest-model-info",
+          "sha256": "7354dbb030ca0736dd633a7ca1b930cf640abd40370725dea3a458cb51d49523"
+        },
+        {
+          "path": "scripts/resolve-latest-model-info.cjs",
+          "sha256": "eeb1bb486018e16b37edfc06b1a37179dbc672982d501040d4f7142f29dd2e64"
+        }
+      ],
+      "plugin-creator": [
+        {
+          "path": "SKILL.md",
+          "sha256": "71b95b8219644f95d633721e7f7cd3c469edfc8fe50f8415d400dfb2d74bc7b9"
+        },
+        {
+          "path": "agents/openai.yaml",
+          "sha256": "fecaf35d692bd3d33d1a065648258d12e393afa9055d78adf6e57b42f4142f6d"
+        },
+        {
+          "path": "assets/plugin-creator-small.svg",
+          "sha256": "6591bf8ea9bb9435890dbdea299e0d2bd05f3aa893a335d26e4c535e93c8e7fb"
+        },
+        {
+          "path": "assets/plugin-creator.png",
+          "sha256": "a4024b0306ddb05847e1012879d37aaf1e658205199da596f5145ed7a88d9162"
+        },
+        {
+          "path": "references/installing-and-updating.md",
+          "sha256": "91c4781d48568fcc708b45566b08fb610ad1c88672720ae512f9525a1cf9cb20"
+        },
+        {
+          "path": "references/plugin-json-spec.md",
+          "sha256": "eeb640130f69636affaa299d4170d5a7ae6a0ff978296ddf75c409ce6dd87b91"
+        },
+        {
+          "path": "scripts/create_basic_plugin.py",
+          "sha256": "272cb14e02ad7c76ac40777443c49cfecfa333ee28ab7f6214210b72c8fd02ae"
+        },
+        {
+          "path": "scripts/identifier_validation.py",
+          "sha256": "a6d51ce4a9a7e8f85626ff5808a467a67574e7f8cdf1167ffb467c5f67e57223"
+        },
+        {
+          "path": "scripts/read_marketplace_name.py",
+          "sha256": "ba24e6d91eed6f778bde022a967be335c6253983b5ecd1c5e30c8483385887fd"
+        },
+        {
+          "path": "scripts/update_plugin_cachebuster.py",
+          "sha256": "6a630dfbdc2bca6952580da9c2c7ece08030926819ccd81d9deb518c24c1b0ed"
+        },
+        {
+          "path": "scripts/validate_plugin.py",
+          "sha256": "f4eeadb733b28b0c3e714de263a76d6542866a672f3e99bdffcf4dbcdf85e944"
+        }
+      ],
+      "review-agent": [
+        {
+          "path": "SKILL.md",
+          "sha256": "07079efd0dc76f05fade424e5dfb048dce1de2df7626e1a4f56292a4f3f92228"
+        },
+        {
+          "path": "agents/openai.yaml",
+          "sha256": "4d867a46d15e36ac880176484aae160f59855340c6059b2ea6ab9fbc9af084de"
+        }
+      ],
+      "skill-creator": [
+        {
+          "path": "SKILL.md",
+          "sha256": "6656e54755638e8efcf275a472b9672eaa8a9a1b9e59dc210e275b03b59e1e66"
+        },
+        {
+          "path": "agents/openai.yaml",
+          "sha256": "d07d21b93fcf3d4dc8d9a3399c05fc226a49a333a96d3e1c68b451b8dd9eade6"
+        },
+        {
+          "path": "assets/skill-creator-small.svg",
+          "sha256": "6591bf8ea9bb9435890dbdea299e0d2bd05f3aa893a335d26e4c535e93c8e7fb"
+        },
+        {
+          "path": "assets/skill-creator.png",
+          "sha256": "a4024b0306ddb05847e1012879d37aaf1e658205199da596f5145ed7a88d9162"
+        },
+        {
+          "path": "license.txt",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+        },
+        {
+          "path": "references/openai_yaml.md",
+          "sha256": "ffac39318e408108141d40f820968e59f70434a891694f9bf1d25be8237b150c"
+        },
+        {
+          "path": "scripts/generate_openai_yaml.py",
+          "sha256": "816df12072d74faf924d802a6599a139997e1441e90bfe4869ec304f2e5e2851"
+        },
+        {
+          "path": "scripts/init_skill.py",
+          "sha256": "bf0656a5f9d8d8cdecf0245eaf27e1df8e0e9b6d40ccdda814eb8e3d5f6992c8"
+        },
+        {
+          "path": "scripts/quick_validate.py",
+          "sha256": "ee6dba90f44d37171c5a6edb8095979c54919ff6822c1a907afca2e78c48738c"
+        }
+      ],
+      "skill-installer": [
+        {
+          "path": "LICENSE.txt",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+        },
+        {
+          "path": "SKILL.md",
+          "sha256": "d68b77e5bbb34dedab89d134da52855f140fc4b4299b80104f534e3b9e98f8ee"
+        },
+        {
+          "path": "agents/openai.yaml",
+          "sha256": "5ce223d8b1070b82c42298538f1b8d376f788eb9e7a42a987e8c094070d73f0e"
+        },
+        {
+          "path": "assets/skill-installer-small.svg",
+          "sha256": "3928703ff00dc1a681e7a22401843b7edcbd4b2051651ce4c43b75f7e140504e"
+        },
+        {
+          "path": "assets/skill-installer.png",
+          "sha256": "d0a230b1a79b71b858b7c215a0fbb0768d6459c14ea4ef80c61592629bf0e605"
+        },
+        {
+          "path": "scripts/github_utils.py",
+          "sha256": "61c1bbe2ae217433b4b6f9f09f21aca4df52c12598068343ade719f706e4859b"
+        },
+        {
+          "path": "scripts/install-skill-from-github.py",
+          "sha256": "38f311b75664bb063808f982c600271ebc4b560830f491705190f88a94e3e781"
+        },
+        {
+          "path": "scripts/list-skills.py",
+          "sha256": "9d6dfb2abf3afeee7f027a89fb1626b918a973da18f4eb6c25681286301beb41"
+        }
+      ]
+    }
+  },
+  "cases": [
+    {
+      "mode": "explicit",
+      "protocol_version": 2,
+      "frozen_skill_commit": "dc4cace4fe488af813ec21853950202f06118900",
+      "model": "gpt-6-astra",
+      "effort": "medium",
+      "sandbox": "danger-full-access",
+      "status": "completed_needs_review",
+      "elapsed_seconds": 20.95,
+      "tool_calls": 3,
+      "usage": {
+        "total": {
+          "totalTokens": 51772,
+          "inputTokens": 51352,
+          "cachedInputTokens": 32384,
+          "cacheWriteInputTokens": 0,
+          "outputTokens": 420,
+          "reasoningOutputTokens": 0
+        },
+        "last": {
+          "totalTokens": 18791,
+          "inputTokens": 18669,
+          "cachedInputTokens": 18304,
+          "cacheWriteInputTokens": 0,
+          "outputTokens": 122,
+          "reasoningOutputTokens": 0
+        },
+        "modelContextWindow": 258400
+      },
+      "payload_integrity": true,
+      "case": "v2-explicit-discovery-01",
+      "review": {
+        "installation": true,
+        "host_discovery": true,
+        "catalog_valid": true,
+        "expected_target_absent": false,
+        "instruction_load": true,
+        "implicit_trigger": false,
+        "external_skill_adopted": false,
+        "mature_library_or_resource_used": false,
+        "task_success": true,
+        "full_chain_pass": null,
+        "adopted_review_gate": "not_applicable",
+        "scope": "explicit loading and exact edit",
+        "exact_bytes_pass": true
+      },
+      "prompt_sha256": "bd16f786084b1db39c3fa54c9f61c075605aab6870cc8c747cd5c2a196247415",
+      "input_sha256": {
+        "message.txt": "d45415e6b6a5da22eed81e69b5c73bf525524466fea34a27271e29d6a5b8f6d0"
+      },
+      "builtin_inventory_sha256": "26f5134951233cae0300bcf376e1e80f22b37b736d68b32f2950ce0eb4397798",
+      "catalog": [
+        {
+          "name": "proactive-skill-discovery",
+          "scope": "repo",
+          "enabled": true
+        },
+        {
+          "name": "imagegen",
+          "scope": "system",
+          "enabled": true
+        },
+        {
+          "name": "openai-docs",
+          "scope": "system",
+          "enabled": true
+        },
+        {
+          "name": "plugin-creator",
+          "scope": "system",
+          "enabled": true
+        },
+        {
+          "name": "review-agent",
+          "scope": "system",
+          "enabled": true
+        },
+        {
+          "name": "skill-creator",
+          "scope": "system",
+          "enabled": true
+        },
+        {
+          "name": "skill-installer",
+          "scope": "system",
+          "enabled": true
+        }
+      ],
+      "authenticated_tool_surface": {
+        "apps_enabled": false,
+        "remote_plugin_enabled": false,
+        "mcp_servers": 0,
+        "apps": 0
+      },
+      "boundary": {
+        "windows_mount_absent": true,
+        "host_home_absent": true,
+        "rubric_absent": true,
+        "proc_pids": [
+          "1",
+          "2"
+        ],
+        "boundary_id": "77149e7610720e9b48611a26cc0d62c1e31ffaacfd218f557934679c701febfd"
+      },
+      "evaluator_package_sha256": {
+        "payloads.json": "50718a34dccf53436c627acc2482d3e4ef9d7e998e92271f5bb62c7bc9e352d0",
+        "protocol.json": "d9dc3954c70216b3889fc8ffd6a36866d036976633fdcab794040a2dbab52466",
+        "record_rpc.py": "da33e35c000a098c763968b1486a2b4eebaadf86c22b720e3e6d8c5de4390df8",
+        "run.py": "37fa1e5b321705e4ffb12c855425c804739dfe970d13245269841d58555fd486",
+        "tasks/control/message.txt": "d45415e6b6a5da22eed81e69b5c73bf525524466fea34a27271e29d6a5b8f6d0",
+        "tasks/control/prompt.txt": "45f86f8bfc5adac12bcbabacde61167bfb3ab5363dd5bdb951057c9b396e35e0",
+        "tasks/discovery/prompt.txt": "81544e426ba86adaa125458acb5ac5d7380af2cb8b41cdedb4033b5c59f61b4f",
+        "tasks/discovery/report.html": "7410f4872cc39386855aec67c7bdbbd0e67b3e3cfd3567d33a8c1497cb8527ff",
+        "tasks/explicit-discovery-v2.txt": "bd16f786084b1db39c3fa54c9f61c075605aab6870cc8c747cd5c2a196247415",
+        "tasks/explicit-discovery.txt": "32ff407103c76becfc4f9be18d0ef724b7c9c5eb5c35cc7847fecb43bb85b046",
+        "tasks/explicit-svg.txt": "ae12d536dc98d610e0bea42ff352499e8fa27af2fa89caa3ca87054b28d42ed2",
+        "tasks/svg/front.png": "e9b621cfca6aea43be0572eeed1e2f1952589c49f7919ff4b48eb1cf6fe14623",
+        "tasks/svg/oblique.png": "905b32b839e6939c43bcff330c7fcc63f56b4f260475a18a6e878b98f6e23d06",
+        "tasks/svg/prompt.txt": "c36283e9a04aadd47ca433091bc110caf7dbf03260d0a16c4ce155afdd42bfd1",
+        "tasks/svg/side.png": "8fa3cbd963bfed79424f57cbf929a2f2d3eb21f8ad630129a4119c0a61cbf3a5",
+        "v2/payloads.json": "f2996dc103fbe67620b85102c9c6df19ee7c05211e705d64307026ae66624cec",
+        "v2/protocol.json": "b37c56eada6dd1dc59aea8c742606e173fd68e4b7218f1131ea0ff0d1b2ef166"
+      },
+      "raw_files_sha256": {
+        "catalog.json": "8fc4de7d137f64cdd18450aae490b33c0cbfd07f6c747ec169bc8a70b25d4836",
+        "execution.json": "8adefc77f7542600471c14604b6dfced120f997d33d1d1bbb2a4f96ed0a41a35",
+        "preparation.json": "684f59755b752f2bc965995669ef3ccc239f0f4e84c03dc7c10e1a3d6a80aeaa",
+        "prompt.txt": "bd16f786084b1db39c3fa54c9f61c075605aab6870cc8c747cd5c2a196247415",
+        "rpc.jsonl": "7afe248085749bc1786bcf66cffa16900c24ef211b11a84a4f1f625c7513d0f1",
+        "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "thread-settings.json": "05f44033dc417b51f6cc0ab627357c02efdd3a903dcaa4b6ac561d3897c2ca6a",
+        "tool-surface.json": "bdd4befd987abd5267e1507c82087061026f7aaf16bb019bf7d5ef869dc5577a"
+      },
+      "artifacts": {
+        ".agents/skills/proactive-skill-discovery/LICENSE": "d1ba8b00007e2f5670cc0af48a9a8faa1885b502f186e574dee5c5fd7ecaf913",
+        ".agents/skills/proactive-skill-discovery/SKILL.md": "88c216be692a36edad7a934bfbddb9913aac017696d0e8c1aec89ef2c51ca774",
+        ".agents/skills/proactive-skill-discovery/agents/openai.yaml": "7c25c200a0d5ed5eb59ba98910dd5471d1a3956a83570ada6d1b5797ca5fc067",
+        ".agents/skills/proactive-skill-discovery/references/adapting-upstream-skills.md": "f8b4bd22e959c29713d82c498bd694886d09077adfbf1e49319f1c415222fe98",
+        ".agents/skills/proactive-skill-discovery/references/learning-from-work.md": "094f67f3eaf2176fff0c5c7fdbdfbfbab7b170c3bd7b2147126987e273ae71f0",
+        "message.txt": "e0fd1e18778d5be09be69017b3688610b597d973dc031a9c056b0b5645fc04be",
+        "skills-lock.json": "8b89db85e3642cdbb3b94ded569c898c8e36584ee8688972069c2bd6827f79f8"
+      }
+    },
+    {
+      "mode": "explicit",
+      "protocol_version": 2,
+      "frozen_skill_commit": "dc4cace4fe488af813ec21853950202f06118900",
+      "model": "gpt-6-astra",
+      "effort": "medium",
+      "sandbox": "danger-full-access",
+      "status": "completed_needs_review",
+      "elapsed_seconds": 32.79,
+      "tool_calls": 7,
+      "usage": {
+        "total": {
+          "totalTokens": 103878,
+          "inputTokens": 103101,
+          "cachedInputTokens": 70144,
+          "cacheWriteInputTokens": 0,
+          "outputTokens": 777,
+          "reasoningOutputTokens": 0
+        },
+        "last": {
+          "totalTokens": 32871,
+          "inputTokens": 32400,
+          "cachedInputTokens": 25984,
+          "cacheWriteInputTokens": 0,
+          "outputTokens": 471,
+          "reasoningOutputTokens": 0
+        },
+        "modelContextWindow": 258400
+      },
+      "payload_integrity": true,
+      "case": "v2-explicit-svg-01",
+      "review": {
+        "installation": true,
+        "host_discovery": true,
+        "catalog_valid": true,
+        "expected_target_absent": false,
+        "instruction_load": true,
+        "implicit_trigger": false,
+        "external_skill_adopted": false,
+        "mature_library_or_resource_used": false,
+        "task_success": true,
+        "full_chain_pass": null,
+        "adopted_review_gate": "not_applicable",
+        "scope": "read-only SVG preparation"
+      },
+      "prompt_sha256": "ae12d536dc98d610e0bea42ff352499e8fa27af2fa89caa3ca87054b28d42ed2",
+      "input_sha256": {
+        "front.png": "e9b621cfca6aea43be0572eeed1e2f1952589c49f7919ff4b48eb1cf6fe14623",
+        "oblique.png": "905b32b839e6939c43bcff330c7fcc63f56b4f260475a18a6e878b98f6e23d06",
+        "side.png": "8fa3cbd963bfed79424f57cbf929a2f2d3eb21f8ad630129a4119c0a61cbf3a5"
+      },
+      "builtin_inventory_sha256": "26f5134951233cae0300bcf376e1e80f22b37b736d68b32f2950ce0eb4397798",
+      "catalog": [
+        {
+          "name": "crafting-reference-based-svg-assets",
+          "scope": "repo",
+          "enabled": true
+        },
+        {
+          "name": "imagegen",
+          "scope": "system",
+          "enabled": true
+        },
+        {
+          "name": "openai-docs",
+          "scope": "system",
+          "enabled": true
+        },
+        {
+          "name": "plugin-creator",
+          "scope": "system",
+          "enabled": true
+        },
+        {
+          "name": "review-agent",
+          "scope": "system",
+          "enabled": true
+        },
+        {
+          "name": "skill-creator",
+          "scope": "system",
+          "enabled": true
+        },
+        {
+          "name": "skill-installer",
+          "scope": "system",
+          "enabled": true
+        }
+      ],
+      "authenticated_tool_surface": {
+        "apps_enabled": false,
+        "remote_plugin_enabled": false,
+        "mcp_servers": 0,
+        "apps": 0
+      },
+      "boundary": {
+        "windows_mount_absent": true,
+        "host_home_absent": true,
+        "rubric_absent": true,
+        "proc_pids": [
+          "1",
+          "2"
+        ],
+        "boundary_id": "77149e7610720e9b48611a26cc0d62c1e31ffaacfd218f557934679c701febfd"
+      },
+      "evaluator_package_sha256": {
+        "payloads.json": "50718a34dccf53436c627acc2482d3e4ef9d7e998e92271f5bb62c7bc9e352d0",
+        "protocol.json": "d9dc3954c70216b3889fc8ffd6a36866d036976633fdcab794040a2dbab52466",
+        "record_rpc.py": "da33e35c000a098c763968b1486a2b4eebaadf86c22b720e3e6d8c5de4390df8",
+        "run.py": "37fa1e5b321705e4ffb12c855425c804739dfe970d13245269841d58555fd486",
+        "tasks/control/message.txt": "d45415e6b6a5da22eed81e69b5c73bf525524466fea34a27271e29d6a5b8f6d0",
+        "tasks/control/prompt.txt": "45f86f8bfc5adac12bcbabacde61167bfb3ab5363dd5bdb951057c9b396e35e0",
+        "tasks/discovery/prompt.txt": "81544e426ba86adaa125458acb5ac5d7380af2cb8b41cdedb4033b5c59f61b4f",
+        "tasks/discovery/report.html": "7410f4872cc39386855aec67c7bdbbd0e67b3e3cfd3567d33a8c1497cb8527ff",
+        "tasks/explicit-discovery-v2.txt": "bd16f786084b1db39c3fa54c9f61c075605aab6870cc8c747cd5c2a196247415",
+        "tasks/explicit-discovery.txt": "32ff407103c76becfc4f9be18d0ef724b7c9c5eb5c35cc7847fecb43bb85b046",
+        "tasks/explicit-svg.txt": "ae12d536dc98d610e0bea42ff352499e8fa27af2fa89caa3ca87054b28d42ed2",
+        "tasks/svg/front.png": "e9b621cfca6aea43be0572eeed1e2f1952589c49f7919ff4b48eb1cf6fe14623",
+        "tasks/svg/oblique.png": "905b32b839e6939c43bcff330c7fcc63f56b4f260475a18a6e878b98f6e23d06",
+        "tasks/svg/prompt.txt": "c36283e9a04aadd47ca433091bc110caf7dbf03260d0a16c4ce155afdd42bfd1",
+        "tasks/svg/side.png": "8fa3cbd963bfed79424f57cbf929a2f2d3eb21f8ad630129a4119c0a61cbf3a5",
+        "v2/payloads.json": "f2996dc103fbe67620b85102c9c6df19ee7c05211e705d64307026ae66624cec",
+        "v2/protocol.json": "b37c56eada6dd1dc59aea8c742606e173fd68e4b7218f1131ea0ff0d1b2ef166"
+      },
+      "raw_files_sha256": {
+        "catalog.json": "621c633793c22c261f0fb4bb6bc52a989cb4fa54a2613aa6e8713eb43f7548df",
+        "execution.json": "5df7e43ba2974a6dcad9e297febdc51ea3fd7b735d5fb13c20670fbe8a217dbc",
+        "preparation.json": "7272055b40e8bc0b0d7278825fe157a964677ef923485045cef95ef63800e9f1",
+        "prompt.txt": "ae12d536dc98d610e0bea42ff352499e8fa27af2fa89caa3ca87054b28d42ed2",
+        "rpc.jsonl": "1c293f4be8ed175159d3f3e0e418ec5599004a57ede792b054246d065c4aaff4",
+        "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "thread-settings.json": "05f44033dc417b51f6cc0ab627357c02efdd3a903dcaa4b6ac561d3897c2ca6a",
+        "tool-surface.json": "bdd4befd987abd5267e1507c82087061026f7aaf16bb019bf7d5ef869dc5577a"
+      },
+      "artifacts": {
+        ".agents/skills/crafting-reference-based-svg-assets/LICENSE": "d1ba8b00007e2f5670cc0af48a9a8faa1885b502f186e574dee5c5fd7ecaf913",
+        ".agents/skills/crafting-reference-based-svg-assets/SKILL.md": "c81a1a8491cf2caed738b5dde9a3fe3ba716f84c0a53620a7138f350267e4288",
+        ".agents/skills/crafting-reference-based-svg-assets/agents/openai.yaml": "c1737c325f700dca578a0093ab0ec476ccabc75beddaa842f1b9c7a87318965b",
+        ".agents/skills/crafting-reference-based-svg-assets/references/execution-record.md": "e4c2d16ce8ac756a44bfc04a1fb45cb0ae9e4e1764bd9a031d85b10ed0a593f1",
+        ".agents/skills/crafting-reference-based-svg-assets/references/project-profile-example.md": "ae3c82b7ee3901c30b7cd271b0b98c83f85bea60e49a59243ec404847d170a84",
+        ".agents/skills/crafting-reference-based-svg-assets/references/visual-diagnosis.md": "28919d58fac8c7484cae05d533605eb5a21dd8fcc5b39dcbb07d0e56d94966a3",
+        "front.png": "e9b621cfca6aea43be0572eeed1e2f1952589c49f7919ff4b48eb1cf6fe14623",
+        "oblique.png": "905b32b839e6939c43bcff330c7fcc63f56b4f260475a18a6e878b98f6e23d06",
+        "side.png": "8fa3cbd963bfed79424f57cbf929a2f2d3eb21f8ad630129a4119c0a61cbf3a5",
+        "skills-lock.json": "946a2a115c32b7d17838ea9b1b85bdcfd7f6d2ef1e7a36efafd5560b45fe8fc7"
+      }
+    },
+    {
+      "mode": "implicit",
+      "protocol_version": 2,
+      "frozen_skill_commit": "dc4cace4fe488af813ec21853950202f06118900",
+      "model": "gpt-6-astra",
+      "effort": "medium",
+      "sandbox": "danger-full-access",
+      "status": "completed_needs_review",
+      "elapsed_seconds": 120.71,
+      "tool_calls": 19,
+      "usage": {
+        "total": {
+          "totalTokens": 327339,
+          "inputTokens": 323243,
+          "cachedInputTokens": 279936,
+          "cacheWriteInputTokens": 0,
+          "outputTokens": 4096,
+          "reasoningOutputTokens": 243
+        },
+        "last": {
+          "totalTokens": 41293,
+          "inputTokens": 41221,
+          "cachedInputTokens": 40064,
+          "cacheWriteInputTokens": 0,
+          "outputTokens": 72,
+          "reasoningOutputTokens": 0
+        },
+        "modelContextWindow": 258400
+      },
+      "payload_integrity": true,
+      "case": "v2-discovery-B-01",
+      "review": {
+        "installation": true,
+        "host_discovery": true,
+        "catalog_valid": true,
+        "expected_target_absent": false,
+        "instruction_load": true,
+        "implicit_trigger": true,
+        "external_skill_adopted": false,
+        "mature_library_or_resource_used": true,
+        "task_success": true,
+        "full_chain_pass": false,
+        "adopted_review_gate": "not_established",
+        "scope": "implicit discovery",
+        "validation_score": 2,
+        "reason": "Missing pypdf method inspection; model-visible PDFium license omitted lines70-109 despite complete aggregate stdout; nested use-scope notes were written after use."
+      },
+      "prompt_sha256": "81544e426ba86adaa125458acb5ac5d7380af2cb8b41cdedb4033b5c59f61b4f",
+      "input_sha256": {
+        "report.html": "7410f4872cc39386855aec67c7bdbbd0e67b3e3cfd3567d33a8c1497cb8527ff"
+      },
+      "builtin_inventory_sha256": "26f5134951233cae0300bcf376e1e80f22b37b736d68b32f2950ce0eb4397798",
+      "catalog": [
+        {
+          "name": "proactive-skill-discovery",
+          "scope": "repo",
+          "enabled": true
+        },
+        {
+          "name": "imagegen",
+          "scope": "system",
+          "enabled": true
+        },
+        {
+          "name": "openai-docs",
+          "scope": "system",
+          "enabled": true
+        },
+        {
+          "name": "plugin-creator",
+          "scope": "system",
+          "enabled": true
+        },
+        {
+          "name": "review-agent",
+          "scope": "system",
+          "enabled": true
+        },
+        {
+          "name": "skill-creator",
+          "scope": "system",
+          "enabled": true
+        },
+        {
+          "name": "skill-installer",
+          "scope": "system",
+          "enabled": true
+        }
+      ],
+      "authenticated_tool_surface": {
+        "apps_enabled": false,
+        "remote_plugin_enabled": false,
+        "mcp_servers": 0,
+        "apps": 0
+      },
+      "boundary": {
+        "windows_mount_absent": true,
+        "host_home_absent": true,
+        "rubric_absent": true,
+        "proc_pids": [
+          "1",
+          "2"
+        ],
+        "boundary_id": "77149e7610720e9b48611a26cc0d62c1e31ffaacfd218f557934679c701febfd"
+      },
+      "evaluator_package_sha256": {
+        "payloads.json": "50718a34dccf53436c627acc2482d3e4ef9d7e998e92271f5bb62c7bc9e352d0",
+        "protocol.json": "d9dc3954c70216b3889fc8ffd6a36866d036976633fdcab794040a2dbab52466",
+        "record_rpc.py": "da33e35c000a098c763968b1486a2b4eebaadf86c22b720e3e6d8c5de4390df8",
+        "run.py": "37fa1e5b321705e4ffb12c855425c804739dfe970d13245269841d58555fd486",
+        "tasks/control/message.txt": "d45415e6b6a5da22eed81e69b5c73bf525524466fea34a27271e29d6a5b8f6d0",
+        "tasks/control/prompt.txt": "45f86f8bfc5adac12bcbabacde61167bfb3ab5363dd5bdb951057c9b396e35e0",
+        "tasks/discovery/prompt.txt": "81544e426ba86adaa125458acb5ac5d7380af2cb8b41cdedb4033b5c59f61b4f",
+        "tasks/discovery/report.html": "7410f4872cc39386855aec67c7bdbbd0e67b3e3cfd3567d33a8c1497cb8527ff",
+        "tasks/explicit-discovery-v2.txt": "bd16f786084b1db39c3fa54c9f61c075605aab6870cc8c747cd5c2a196247415",
+        "tasks/explicit-discovery.txt": "32ff407103c76becfc4f9be18d0ef724b7c9c5eb5c35cc7847fecb43bb85b046",
+        "tasks/explicit-svg.txt": "ae12d536dc98d610e0bea42ff352499e8fa27af2fa89caa3ca87054b28d42ed2",
+        "tasks/svg/front.png": "e9b621cfca6aea43be0572eeed1e2f1952589c49f7919ff4b48eb1cf6fe14623",
+        "tasks/svg/oblique.png": "905b32b839e6939c43bcff330c7fcc63f56b4f260475a18a6e878b98f6e23d06",
+        "tasks/svg/prompt.txt": "c36283e9a04aadd47ca433091bc110caf7dbf03260d0a16c4ce155afdd42bfd1",
+        "tasks/svg/side.png": "8fa3cbd963bfed79424f57cbf929a2f2d3eb21f8ad630129a4119c0a61cbf3a5",
+        "v2/payloads.json": "f2996dc103fbe67620b85102c9c6df19ee7c05211e705d64307026ae66624cec",
+        "v2/protocol.json": "b37c56eada6dd1dc59aea8c742606e173fd68e4b7218f1131ea0ff0d1b2ef166"
+      },
+      "raw_files_sha256": {
+        "catalog.json": "8fc4de7d137f64cdd18450aae490b33c0cbfd07f6c747ec169bc8a70b25d4836",
+        "execution.json": "7af69e080269511186c7fd96966537997b1b070d3befed4eeb417e45b2f4dd72",
+        "preparation.json": "3d0f86f38fdcc72b1dc8780af0daf5cd72a073141ad8770c4801e9a84c8baa6e",
+        "prompt.txt": "81544e426ba86adaa125458acb5ac5d7380af2cb8b41cdedb4033b5c59f61b4f",
+        "rpc.jsonl": "b8ef118119156517ef90e73623dc67407b5278dd857a9addf2a9cff4f25da9ee",
+        "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "thread-settings.json": "05f44033dc417b51f6cc0ab627357c02efdd3a903dcaa4b6ac561d3897c2ca6a",
+        "tool-surface.json": "bdd4befd987abd5267e1507c82087061026f7aaf16bb019bf7d5ef869dc5577a"
+      },
+      "artifacts": {
+        ".agents/skills/proactive-skill-discovery/LICENSE": "d1ba8b00007e2f5670cc0af48a9a8faa1885b502f186e574dee5c5fd7ecaf913",
+        ".agents/skills/proactive-skill-discovery/SKILL.md": "88c216be692a36edad7a934bfbddb9913aac017696d0e8c1aec89ef2c51ca774",
+        ".agents/skills/proactive-skill-discovery/agents/openai.yaml": "7c25c200a0d5ed5eb59ba98910dd5471d1a3956a83570ada6d1b5797ca5fc067",
+        ".agents/skills/proactive-skill-discovery/references/adapting-upstream-skills.md": "f8b4bd22e959c29713d82c498bd694886d09077adfbf1e49319f1c415222fe98",
+        ".agents/skills/proactive-skill-discovery/references/learning-from-work.md": "094f67f3eaf2176fff0c5c7fdbdfbfbab7b170c3bd7b2147126987e273ae71f0",
+        "report.html": "7410f4872cc39386855aec67c7bdbbd0e67b3e3cfd3567d33a8c1497cb8527ff",
+        "report.pdf": "196c3e62cac2048a3ddd3515d1af82ab9aa1fcfccb121898f1a37d746a379b11",
+        "skills-lock.json": "8b89db85e3642cdbb3b94ded569c898c8e36584ee8688972069c2bd6827f79f8",
+        "verification.md": "62e1873e8e96d95dd405c4bd9ebeb160813be870c7a045dd332046b84f86dbca"
+      }
+    },
+    {
+      "mode": "implicit",
+      "protocol_version": 2,
+      "frozen_skill_commit": "dc4cace4fe488af813ec21853950202f06118900",
+      "model": "gpt-6-astra",
+      "effort": "medium",
+      "sandbox": "danger-full-access",
+      "status": "completed_needs_review",
+      "elapsed_seconds": 171.76,
+      "tool_calls": 24,
+      "usage": {
+        "total": {
+          "totalTokens": 616956,
+          "inputTokens": 612421,
+          "cachedInputTokens": 545280,
+          "cacheWriteInputTokens": 0,
+          "outputTokens": 4535,
+          "reasoningOutputTokens": 363
+        },
+        "last": {
+          "totalTokens": 48011,
+          "inputTokens": 47936,
+          "cachedInputTokens": 46976,
+          "cacheWriteInputTokens": 0,
+          "outputTokens": 75,
+          "reasoningOutputTokens": 0
+        },
+        "modelContextWindow": 258400
+      },
+      "payload_integrity": true,
+      "case": "v2-discovery-B-02",
+      "review": {
+        "installation": true,
+        "host_discovery": true,
+        "catalog_valid": true,
+        "expected_target_absent": false,
+        "instruction_load": true,
+        "implicit_trigger": true,
+        "external_skill_adopted": false,
+        "mature_library_or_resource_used": true,
+        "task_success": true,
+        "full_chain_pass": false,
+        "adopted_review_gate": "not_established",
+        "scope": "implicit discovery",
+        "validation_score": 2,
+        "reason": "Opened Playwright Page response did not return the needed PDF method; new PyMuPDF and native libraries lack reopened inspection evidence.",
+        "compatibility_limit": "Independent pdfplumber FontBBox warnings; used text, bounds and Poppler pages pass. Other viewers untested."
+      },
+      "prompt_sha256": "81544e426ba86adaa125458acb5ac5d7380af2cb8b41cdedb4033b5c59f61b4f",
+      "input_sha256": {
+        "report.html": "7410f4872cc39386855aec67c7bdbbd0e67b3e3cfd3567d33a8c1497cb8527ff"
+      },
+      "builtin_inventory_sha256": "26f5134951233cae0300bcf376e1e80f22b37b736d68b32f2950ce0eb4397798",
+      "catalog": [
+        {
+          "name": "proactive-skill-discovery",
+          "scope": "repo",
+          "enabled": true
+        },
+        {
+          "name": "imagegen",
+          "scope": "system",
+          "enabled": true
+        },
+        {
+          "name": "openai-docs",
+          "scope": "system",
+          "enabled": true
+        },
+        {
+          "name": "plugin-creator",
+          "scope": "system",
+          "enabled": true
+        },
+        {
+          "name": "review-agent",
+          "scope": "system",
+          "enabled": true
+        },
+        {
+          "name": "skill-creator",
+          "scope": "system",
+          "enabled": true
+        },
+        {
+          "name": "skill-installer",
+          "scope": "system",
+          "enabled": true
+        }
+      ],
+      "authenticated_tool_surface": {
+        "apps_enabled": false,
+        "remote_plugin_enabled": false,
+        "mcp_servers": 0,
+        "apps": 0
+      },
+      "boundary": {
+        "windows_mount_absent": true,
+        "host_home_absent": true,
+        "rubric_absent": true,
+        "proc_pids": [
+          "1",
+          "2"
+        ],
+        "boundary_id": "77149e7610720e9b48611a26cc0d62c1e31ffaacfd218f557934679c701febfd"
+      },
+      "evaluator_package_sha256": {
+        "payloads.json": "50718a34dccf53436c627acc2482d3e4ef9d7e998e92271f5bb62c7bc9e352d0",
+        "protocol.json": "d9dc3954c70216b3889fc8ffd6a36866d036976633fdcab794040a2dbab52466",
+        "record_rpc.py": "da33e35c000a098c763968b1486a2b4eebaadf86c22b720e3e6d8c5de4390df8",
+        "run.py": "37fa1e5b321705e4ffb12c855425c804739dfe970d13245269841d58555fd486",
+        "tasks/control/message.txt": "d45415e6b6a5da22eed81e69b5c73bf525524466fea34a27271e29d6a5b8f6d0",
+        "tasks/control/prompt.txt": "45f86f8bfc5adac12bcbabacde61167bfb3ab5363dd5bdb951057c9b396e35e0",
+        "tasks/discovery/prompt.txt": "81544e426ba86adaa125458acb5ac5d7380af2cb8b41cdedb4033b5c59f61b4f",
+        "tasks/discovery/report.html": "7410f4872cc39386855aec67c7bdbbd0e67b3e3cfd3567d33a8c1497cb8527ff",
+        "tasks/explicit-discovery-v2.txt": "bd16f786084b1db39c3fa54c9f61c075605aab6870cc8c747cd5c2a196247415",
+        "tasks/explicit-discovery.txt": "32ff407103c76becfc4f9be18d0ef724b7c9c5eb5c35cc7847fecb43bb85b046",
+        "tasks/explicit-svg.txt": "ae12d536dc98d610e0bea42ff352499e8fa27af2fa89caa3ca87054b28d42ed2",
+        "tasks/svg/front.png": "e9b621cfca6aea43be0572eeed1e2f1952589c49f7919ff4b48eb1cf6fe14623",
+        "tasks/svg/oblique.png": "905b32b839e6939c43bcff330c7fcc63f56b4f260475a18a6e878b98f6e23d06",
+        "tasks/svg/prompt.txt": "c36283e9a04aadd47ca433091bc110caf7dbf03260d0a16c4ce155afdd42bfd1",
+        "tasks/svg/side.png": "8fa3cbd963bfed79424f57cbf929a2f2d3eb21f8ad630129a4119c0a61cbf3a5",
+        "v2/payloads.json": "f2996dc103fbe67620b85102c9c6df19ee7c05211e705d64307026ae66624cec",
+        "v2/protocol.json": "b37c56eada6dd1dc59aea8c742606e173fd68e4b7218f1131ea0ff0d1b2ef166"
+      },
+      "raw_files_sha256": {
+        "catalog.json": "8fc4de7d137f64cdd18450aae490b33c0cbfd07f6c747ec169bc8a70b25d4836",
+        "execution.json": "b3e0b6b4e161481c518b422bd84744d81c286dbe947bf28a6a80a208bf81aa37",
+        "preparation.json": "3d0f86f38fdcc72b1dc8780af0daf5cd72a073141ad8770c4801e9a84c8baa6e",
+        "prompt.txt": "81544e426ba86adaa125458acb5ac5d7380af2cb8b41cdedb4033b5c59f61b4f",
+        "rpc.jsonl": "d478292a36f2e598ab0f3c41ebdab8c8a5d262efcea5316d57ceed6ba6d8c593",
+        "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "thread-settings.json": "05f44033dc417b51f6cc0ab627357c02efdd3a903dcaa4b6ac561d3897c2ca6a",
+        "tool-surface.json": "bdd4befd987abd5267e1507c82087061026f7aaf16bb019bf7d5ef869dc5577a"
+      },
+      "artifacts": {
+        ".agents/skills/proactive-skill-discovery/LICENSE": "d1ba8b00007e2f5670cc0af48a9a8faa1885b502f186e574dee5c5fd7ecaf913",
+        ".agents/skills/proactive-skill-discovery/SKILL.md": "88c216be692a36edad7a934bfbddb9913aac017696d0e8c1aec89ef2c51ca774",
+        ".agents/skills/proactive-skill-discovery/agents/openai.yaml": "7c25c200a0d5ed5eb59ba98910dd5471d1a3956a83570ada6d1b5797ca5fc067",
+        ".agents/skills/proactive-skill-discovery/references/adapting-upstream-skills.md": "f8b4bd22e959c29713d82c498bd694886d09077adfbf1e49319f1c415222fe98",
+        ".agents/skills/proactive-skill-discovery/references/learning-from-work.md": "094f67f3eaf2176fff0c5c7fdbdfbfbab7b170c3bd7b2147126987e273ae71f0",
+        "VERIFICATION.md": "fa1e1dabe3c39447ae42711cf4043602bbe3c7d8e2e0dfe6792f7c814a4fa2cd",
+        "render_report.py": "ecd2cb7068dd679e64e14c7eef14398ebc00c492f35130fe6c27107fa232e537",
+        "report.html": "7410f4872cc39386855aec67c7bdbbd0e67b3e3cfd3567d33a8c1497cb8527ff",
+        "report.pdf": "1a2d9e83ec4d7b3a0db036acf1b0569c9ac3c4ad35c5a8594346909f760dc1dd",
+        "skills-lock.json": "8b89db85e3642cdbb3b94ded569c898c8e36584ee8688972069c2bd6827f79f8",
+        "verification/checks.json": "c21829520fa27cc6c64f6894d3c3c2ac54778313a221587425a2e1fff9336780",
+        "verification/extracted-text.txt": "7fcdb08342f3273ba49aabf15f557d12a90c60f4cab917d2cc4e115e5963b610",
+        "verification/page-1.png": "9c3105e8397bcfa0ee735fc5c882f2b5ba1ed9be4a953bf361aaa5ecf9382f95",
+        "verification/page-2.png": "1d07c19938bbe579e9e9d6743c3211a6ef26a4e0a09c4c379690e607f4cd523d",
+        "verification/page-3.png": "0006833287a9e9ee44cb5dab46b70c2a0e4d22d51f9b3ec0ee0e1f7a62b0ce5f",
+        "verify_report.py": "7d41df6456fd1a58a85cb5e426bdef7487edcd3bf981359535e43f987a5cb6a0"
+      }
+    },
+    {
+      "mode": "implicit",
+      "protocol_version": 2,
+      "frozen_skill_commit": "dc4cace4fe488af813ec21853950202f06118900",
+      "model": "gpt-6-astra",
+      "effort": "medium",
+      "sandbox": "danger-full-access",
+      "status": "completed_needs_review",
+      "elapsed_seconds": 12.22,
+      "tool_calls": 1,
+      "usage": {
+        "total": {
+          "totalTokens": 25234,
+          "inputTokens": 24926,
+          "cachedInputTokens": 10496,
+          "cacheWriteInputTokens": 0,
+          "outputTokens": 308,
+          "reasoningOutputTokens": 0
+        },
+        "last": {
+          "totalTokens": 12667,
+          "inputTokens": 12638,
+          "cachedInputTokens": 10496,
+          "cacheWriteInputTokens": 0,
+          "outputTokens": 29,
+          "reasoningOutputTokens": 0
+        },
+        "modelContextWindow": 258400
+      },
+      "payload_integrity": true,
+      "case": "v2-control-A-01",
+      "review": {
+        "installation": false,
+        "host_discovery": false,
+        "catalog_valid": true,
+        "expected_target_absent": true,
+        "instruction_load": false,
+        "implicit_trigger": false,
+        "external_skill_adopted": false,
+        "mature_library_or_resource_used": false,
+        "task_success": true,
+        "full_chain_pass": null,
+        "adopted_review_gate": "not_applicable",
+        "scope": "adjacent negative control",
+        "exact_bytes_pass": true
+      },
+      "prompt_sha256": "45f86f8bfc5adac12bcbabacde61167bfb3ab5363dd5bdb951057c9b396e35e0",
+      "input_sha256": {
+        "message.txt": "d45415e6b6a5da22eed81e69b5c73bf525524466fea34a27271e29d6a5b8f6d0"
+      },
+      "builtin_inventory_sha256": "26f5134951233cae0300bcf376e1e80f22b37b736d68b32f2950ce0eb4397798",
+      "catalog": [
+        {
+          "name": "imagegen",
+          "scope": "system",
+          "enabled": true
+        },
+        {
+          "name": "openai-docs",
+          "scope": "system",
+          "enabled": true
+        },
+        {
+          "name": "plugin-creator",
+          "scope": "system",
+          "enabled": true
+        },
+        {
+          "name": "review-agent",
+          "scope": "system",
+          "enabled": true
+        },
+        {
+          "name": "skill-creator",
+          "scope": "system",
+          "enabled": true
+        },
+        {
+          "name": "skill-installer",
+          "scope": "system",
+          "enabled": true
+        }
+      ],
+      "authenticated_tool_surface": {
+        "apps_enabled": false,
+        "remote_plugin_enabled": false,
+        "mcp_servers": 0,
+        "apps": 0
+      },
+      "boundary": {
+        "windows_mount_absent": true,
+        "host_home_absent": true,
+        "rubric_absent": true,
+        "proc_pids": [
+          "1",
+          "2"
+        ],
+        "boundary_id": "77149e7610720e9b48611a26cc0d62c1e31ffaacfd218f557934679c701febfd"
+      },
+      "evaluator_package_sha256": {
+        "payloads.json": "50718a34dccf53436c627acc2482d3e4ef9d7e998e92271f5bb62c7bc9e352d0",
+        "protocol.json": "d9dc3954c70216b3889fc8ffd6a36866d036976633fdcab794040a2dbab52466",
+        "record_rpc.py": "da33e35c000a098c763968b1486a2b4eebaadf86c22b720e3e6d8c5de4390df8",
+        "run.py": "37fa1e5b321705e4ffb12c855425c804739dfe970d13245269841d58555fd486",
+        "tasks/control/message.txt": "d45415e6b6a5da22eed81e69b5c73bf525524466fea34a27271e29d6a5b8f6d0",
+        "tasks/control/prompt.txt": "45f86f8bfc5adac12bcbabacde61167bfb3ab5363dd5bdb951057c9b396e35e0",
+        "tasks/discovery/prompt.txt": "81544e426ba86adaa125458acb5ac5d7380af2cb8b41cdedb4033b5c59f61b4f",
+        "tasks/discovery/report.html": "7410f4872cc39386855aec67c7bdbbd0e67b3e3cfd3567d33a8c1497cb8527ff",
+        "tasks/explicit-discovery-v2.txt": "bd16f786084b1db39c3fa54c9f61c075605aab6870cc8c747cd5c2a196247415",
+        "tasks/explicit-discovery.txt": "32ff407103c76becfc4f9be18d0ef724b7c9c5eb5c35cc7847fecb43bb85b046",
+        "tasks/explicit-svg.txt": "ae12d536dc98d610e0bea42ff352499e8fa27af2fa89caa3ca87054b28d42ed2",
+        "tasks/svg/front.png": "e9b621cfca6aea43be0572eeed1e2f1952589c49f7919ff4b48eb1cf6fe14623",
+        "tasks/svg/oblique.png": "905b32b839e6939c43bcff330c7fcc63f56b4f260475a18a6e878b98f6e23d06",
+        "tasks/svg/prompt.txt": "c36283e9a04aadd47ca433091bc110caf7dbf03260d0a16c4ce155afdd42bfd1",
+        "tasks/svg/side.png": "8fa3cbd963bfed79424f57cbf929a2f2d3eb21f8ad630129a4119c0a61cbf3a5",
+        "v2/payloads.json": "f2996dc103fbe67620b85102c9c6df19ee7c05211e705d64307026ae66624cec",
+        "v2/protocol.json": "b37c56eada6dd1dc59aea8c742606e173fd68e4b7218f1131ea0ff0d1b2ef166"
+      },
+      "raw_files_sha256": {
+        "catalog.json": "27411e84f5d5611bc51329b2a7becf1d5acc322428a7e131e5fa751bd6412dc7",
+        "execution.json": "e9caa4ba9be855ef83aa350581ac28c8f1e2f6dbb05f795f4349b6d47f8ce136",
+        "preparation.json": "9d1c15cc706e7d66da669ecd9ab61ebf8e65f6ca9b252b36a987f19c7e73391c",
+        "prompt.txt": "45f86f8bfc5adac12bcbabacde61167bfb3ab5363dd5bdb951057c9b396e35e0",
+        "rpc.jsonl": "ec67933c7d93f23d07dd7fbda7abad8e0d6443709c7e9163befa7493f24bd54e",
+        "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "thread-settings.json": "05f44033dc417b51f6cc0ab627357c02efdd3a903dcaa4b6ac561d3897c2ca6a",
+        "tool-surface.json": "bdd4befd987abd5267e1507c82087061026f7aaf16bb019bf7d5ef869dc5577a"
+      },
+      "artifacts": {
+        "message.txt": "e0fd1e18778d5be09be69017b3688610b597d973dc031a9c056b0b5645fc04be"
+      }
+    },
+    {
+      "mode": "implicit",
+      "protocol_version": 2,
+      "frozen_skill_commit": "dc4cace4fe488af813ec21853950202f06118900",
+      "model": "gpt-6-astra",
+      "effort": "medium",
+      "sandbox": "danger-full-access",
+      "status": "completed_needs_review",
+      "elapsed_seconds": 14.57,
+      "tool_calls": 1,
+      "usage": {
+        "total": {
+          "totalTokens": 25493,
+          "inputTokens": 25150,
+          "cachedInputTokens": 10496,
+          "cacheWriteInputTokens": 0,
+          "outputTokens": 343,
+          "reasoningOutputTokens": 0
+        },
+        "last": {
+          "totalTokens": 12794,
+          "inputTokens": 12767,
+          "cachedInputTokens": 0,
+          "cacheWriteInputTokens": 0,
+          "outputTokens": 27,
+          "reasoningOutputTokens": 0
+        },
+        "modelContextWindow": 258400
+      },
+      "payload_integrity": true,
+      "case": "v2-control-B-01",
+      "review": {
+        "installation": true,
+        "host_discovery": true,
+        "catalog_valid": true,
+        "expected_target_absent": false,
+        "instruction_load": false,
+        "implicit_trigger": false,
+        "external_skill_adopted": false,
+        "mature_library_or_resource_used": false,
+        "task_success": true,
+        "full_chain_pass": null,
+        "adopted_review_gate": "not_applicable",
+        "scope": "adjacent negative control",
+        "exact_bytes_pass": true
+      },
+      "prompt_sha256": "45f86f8bfc5adac12bcbabacde61167bfb3ab5363dd5bdb951057c9b396e35e0",
+      "input_sha256": {
+        "message.txt": "d45415e6b6a5da22eed81e69b5c73bf525524466fea34a27271e29d6a5b8f6d0"
+      },
+      "builtin_inventory_sha256": "26f5134951233cae0300bcf376e1e80f22b37b736d68b32f2950ce0eb4397798",
+      "catalog": [
+        {
+          "name": "proactive-skill-discovery",
+          "scope": "repo",
+          "enabled": true
+        },
+        {
+          "name": "imagegen",
+          "scope": "system",
+          "enabled": true
+        },
+        {
+          "name": "openai-docs",
+          "scope": "system",
+          "enabled": true
+        },
+        {
+          "name": "plugin-creator",
+          "scope": "system",
+          "enabled": true
+        },
+        {
+          "name": "review-agent",
+          "scope": "system",
+          "enabled": true
+        },
+        {
+          "name": "skill-creator",
+          "scope": "system",
+          "enabled": true
+        },
+        {
+          "name": "skill-installer",
+          "scope": "system",
+          "enabled": true
+        }
+      ],
+      "authenticated_tool_surface": {
+        "apps_enabled": false,
+        "remote_plugin_enabled": false,
+        "mcp_servers": 0,
+        "apps": 0
+      },
+      "boundary": {
+        "windows_mount_absent": true,
+        "host_home_absent": true,
+        "rubric_absent": true,
+        "proc_pids": [
+          "1",
+          "2"
+        ],
+        "boundary_id": "77149e7610720e9b48611a26cc0d62c1e31ffaacfd218f557934679c701febfd"
+      },
+      "evaluator_package_sha256": {
+        "payloads.json": "50718a34dccf53436c627acc2482d3e4ef9d7e998e92271f5bb62c7bc9e352d0",
+        "protocol.json": "d9dc3954c70216b3889fc8ffd6a36866d036976633fdcab794040a2dbab52466",
+        "record_rpc.py": "da33e35c000a098c763968b1486a2b4eebaadf86c22b720e3e6d8c5de4390df8",
+        "run.py": "37fa1e5b321705e4ffb12c855425c804739dfe970d13245269841d58555fd486",
+        "tasks/control/message.txt": "d45415e6b6a5da22eed81e69b5c73bf525524466fea34a27271e29d6a5b8f6d0",
+        "tasks/control/prompt.txt": "45f86f8bfc5adac12bcbabacde61167bfb3ab5363dd5bdb951057c9b396e35e0",
+        "tasks/discovery/prompt.txt": "81544e426ba86adaa125458acb5ac5d7380af2cb8b41cdedb4033b5c59f61b4f",
+        "tasks/discovery/report.html": "7410f4872cc39386855aec67c7bdbbd0e67b3e3cfd3567d33a8c1497cb8527ff",
+        "tasks/explicit-discovery-v2.txt": "bd16f786084b1db39c3fa54c9f61c075605aab6870cc8c747cd5c2a196247415",
+        "tasks/explicit-discovery.txt": "32ff407103c76becfc4f9be18d0ef724b7c9c5eb5c35cc7847fecb43bb85b046",
+        "tasks/explicit-svg.txt": "ae12d536dc98d610e0bea42ff352499e8fa27af2fa89caa3ca87054b28d42ed2",
+        "tasks/svg/front.png": "e9b621cfca6aea43be0572eeed1e2f1952589c49f7919ff4b48eb1cf6fe14623",
+        "tasks/svg/oblique.png": "905b32b839e6939c43bcff330c7fcc63f56b4f260475a18a6e878b98f6e23d06",
+        "tasks/svg/prompt.txt": "c36283e9a04aadd47ca433091bc110caf7dbf03260d0a16c4ce155afdd42bfd1",
+        "tasks/svg/side.png": "8fa3cbd963bfed79424f57cbf929a2f2d3eb21f8ad630129a4119c0a61cbf3a5",
+        "v2/payloads.json": "f2996dc103fbe67620b85102c9c6df19ee7c05211e705d64307026ae66624cec",
+        "v2/protocol.json": "b37c56eada6dd1dc59aea8c742606e173fd68e4b7218f1131ea0ff0d1b2ef166"
+      },
+      "raw_files_sha256": {
+        "catalog.json": "8fc4de7d137f64cdd18450aae490b33c0cbfd07f6c747ec169bc8a70b25d4836",
+        "execution.json": "cdfe637e68e97f6c0248c02db39b73606803daff8768314e2d9ea205de5ad23c",
+        "preparation.json": "684f59755b752f2bc965995669ef3ccc239f0f4e84c03dc7c10e1a3d6a80aeaa",
+        "prompt.txt": "45f86f8bfc5adac12bcbabacde61167bfb3ab5363dd5bdb951057c9b396e35e0",
+        "rpc.jsonl": "53e4366b1f64c0031ef74e828c687904965890a855a9e4ef631c67d19dfa0b79",
+        "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "thread-settings.json": "05f44033dc417b51f6cc0ab627357c02efdd3a903dcaa4b6ac561d3897c2ca6a",
+        "tool-surface.json": "bdd4befd987abd5267e1507c82087061026f7aaf16bb019bf7d5ef869dc5577a"
+      },
+      "artifacts": {
+        ".agents/skills/proactive-skill-discovery/LICENSE": "d1ba8b00007e2f5670cc0af48a9a8faa1885b502f186e574dee5c5fd7ecaf913",
+        ".agents/skills/proactive-skill-discovery/SKILL.md": "88c216be692a36edad7a934bfbddb9913aac017696d0e8c1aec89ef2c51ca774",
+        ".agents/skills/proactive-skill-discovery/agents/openai.yaml": "7c25c200a0d5ed5eb59ba98910dd5471d1a3956a83570ada6d1b5797ca5fc067",
+        ".agents/skills/proactive-skill-discovery/references/adapting-upstream-skills.md": "f8b4bd22e959c29713d82c498bd694886d09077adfbf1e49319f1c415222fe98",
+        ".agents/skills/proactive-skill-discovery/references/learning-from-work.md": "094f67f3eaf2176fff0c5c7fdbdfbfbab7b170c3bd7b2147126987e273ae71f0",
+        "message.txt": "e0fd1e18778d5be09be69017b3688610b597d973dc031a9c056b0b5645fc04be",
+        "skills-lock.json": "8b89db85e3642cdbb3b94ded569c898c8e36584ee8688972069c2bd6827f79f8"
+      }
+    },
+    {
+      "mode": "explicit",
+      "protocol_version": 3,
+      "frozen_skill_commit": "675a2cc18e2e477045ad55bcb54ca5b7b3560dba",
+      "model": "gpt-6-astra",
+      "effort": "medium",
+      "sandbox": "danger-full-access",
+      "status": "completed_needs_review",
+      "elapsed_seconds": 20.09,
+      "tool_calls": 4,
+      "usage": {
+        "total": {
+          "totalTokens": 73519,
+          "inputTokens": 73019,
+          "cachedInputTokens": 56576,
+          "cacheWriteInputTokens": 0,
+          "outputTokens": 500,
+          "reasoningOutputTokens": 0
+        },
+        "last": {
+          "totalTokens": 19842,
+          "inputTokens": 19753,
+          "cachedInputTokens": 19456,
+          "cacheWriteInputTokens": 0,
+          "outputTokens": 89,
+          "reasoningOutputTokens": 0
+        },
+        "modelContextWindow": 258400
+      },
+      "payload_integrity": true,
+      "case": "v3-explicit-discovery-runtime-01",
+      "review": {
+        "installation": true,
+        "host_discovery": true,
+        "catalog_valid": true,
+        "expected_target_absent": false,
+        "instruction_load": true,
+        "implicit_trigger": false,
+        "external_skill_adopted": false,
+        "mature_library_or_resource_used": false,
+        "task_success": true,
+        "full_chain_pass": null,
+        "adopted_review_gate": "not_applicable",
+        "scope": "explicit loading and exact edit",
+        "exact_bytes_pass": true
+      },
+      "prompt_sha256": "bd16f786084b1db39c3fa54c9f61c075605aab6870cc8c747cd5c2a196247415",
+      "input_sha256": {
+        "message.txt": "d45415e6b6a5da22eed81e69b5c73bf525524466fea34a27271e29d6a5b8f6d0"
+      },
+      "builtin_inventory_sha256": "26f5134951233cae0300bcf376e1e80f22b37b736d68b32f2950ce0eb4397798",
+      "catalog": [
+        {
+          "name": "proactive-skill-discovery",
+          "scope": "repo",
+          "enabled": true
+        },
+        {
+          "name": "imagegen",
+          "scope": "system",
+          "enabled": true
+        },
+        {
+          "name": "openai-docs",
+          "scope": "system",
+          "enabled": true
+        },
+        {
+          "name": "plugin-creator",
+          "scope": "system",
+          "enabled": true
+        },
+        {
+          "name": "review-agent",
+          "scope": "system",
+          "enabled": true
+        },
+        {
+          "name": "skill-creator",
+          "scope": "system",
+          "enabled": true
+        },
+        {
+          "name": "skill-installer",
+          "scope": "system",
+          "enabled": true
+        }
+      ],
+      "authenticated_tool_surface": {
+        "apps_enabled": false,
+        "remote_plugin_enabled": false,
+        "mcp_servers": 0,
+        "apps": 0
+      },
+      "boundary": {
+        "windows_mount_absent": true,
+        "host_home_absent": true,
+        "rubric_absent": true,
+        "proc_pids": [
+          "1",
+          "2"
+        ],
+        "boundary_id": "751ed9a0e8b4453ea322da4d8f91179bb3246e11f86c75d16862e13cc91cb3fc"
+      },
+      "evaluator_package_sha256": {
+        "payloads.json": "50718a34dccf53436c627acc2482d3e4ef9d7e998e92271f5bb62c7bc9e352d0",
+        "protocol.json": "d9dc3954c70216b3889fc8ffd6a36866d036976633fdcab794040a2dbab52466",
+        "record_rpc.py": "da33e35c000a098c763968b1486a2b4eebaadf86c22b720e3e6d8c5de4390df8",
+        "run.py": "f3a31a3529f61738c9cf7beb0f4a73ded877569b763382922406e8345f2bcd30",
+        "tasks/control/message.txt": "d45415e6b6a5da22eed81e69b5c73bf525524466fea34a27271e29d6a5b8f6d0",
+        "tasks/control/prompt.txt": "45f86f8bfc5adac12bcbabacde61167bfb3ab5363dd5bdb951057c9b396e35e0",
+        "tasks/discovery/prompt.txt": "81544e426ba86adaa125458acb5ac5d7380af2cb8b41cdedb4033b5c59f61b4f",
+        "tasks/discovery/report.html": "7410f4872cc39386855aec67c7bdbbd0e67b3e3cfd3567d33a8c1497cb8527ff",
+        "tasks/explicit-discovery-v2.txt": "bd16f786084b1db39c3fa54c9f61c075605aab6870cc8c747cd5c2a196247415",
+        "tasks/explicit-discovery.txt": "32ff407103c76becfc4f9be18d0ef724b7c9c5eb5c35cc7847fecb43bb85b046",
+        "tasks/explicit-svg.txt": "ae12d536dc98d610e0bea42ff352499e8fa27af2fa89caa3ca87054b28d42ed2",
+        "tasks/svg/front.png": "e9b621cfca6aea43be0572eeed1e2f1952589c49f7919ff4b48eb1cf6fe14623",
+        "tasks/svg/oblique.png": "905b32b839e6939c43bcff330c7fcc63f56b4f260475a18a6e878b98f6e23d06",
+        "tasks/svg/prompt.txt": "c36283e9a04aadd47ca433091bc110caf7dbf03260d0a16c4ce155afdd42bfd1",
+        "tasks/svg/side.png": "8fa3cbd963bfed79424f57cbf929a2f2d3eb21f8ad630129a4119c0a61cbf3a5",
+        "v3/payloads.json": "1717fbf2adfa13694e4be39bb32b9f137adc79709333bb2cd336acd9e6d7d506",
+        "v3/protocol.json": "0f8d527cda0915e36b9cfc825ba112219a42cf7f69e1e13c7fcf4f4bc4cc89f0"
+      },
+      "raw_files_sha256": {
+        "catalog.json": "8fc4de7d137f64cdd18450aae490b33c0cbfd07f6c747ec169bc8a70b25d4836",
+        "execution.json": "28e801af645396139e7b3e1d870425db2ead4903d81cfd716e925c78059d94e7",
+        "preparation.json": "044cad35f9b29088887c4d61b178d8418e85b650881cde8d9ecdd94ffbfe6d3d",
+        "prompt.txt": "bd16f786084b1db39c3fa54c9f61c075605aab6870cc8c747cd5c2a196247415",
+        "rpc.jsonl": "ea06d0d41ed0e5af4e495f7e2d2017363802ae6d643675b84d8e52c17a742e0c",
+        "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "thread-settings.json": "05f44033dc417b51f6cc0ab627357c02efdd3a903dcaa4b6ac561d3897c2ca6a",
+        "tool-surface.json": "bdd4befd987abd5267e1507c82087061026f7aaf16bb019bf7d5ef869dc5577a"
+      },
+      "artifacts": {
+        ".agents/skills/proactive-skill-discovery/LICENSE": "d1ba8b00007e2f5670cc0af48a9a8faa1885b502f186e574dee5c5fd7ecaf913",
+        ".agents/skills/proactive-skill-discovery/SKILL.md": "3f7e80f0e3a23a1b16e2532e6c6859cddcea7a11d73df74dd5e2a30c63e4f8df",
+        ".agents/skills/proactive-skill-discovery/agents/openai.yaml": "7c25c200a0d5ed5eb59ba98910dd5471d1a3956a83570ada6d1b5797ca5fc067",
+        ".agents/skills/proactive-skill-discovery/references/adapting-upstream-skills.md": "a9f35a4921c9482d44a1bb61f49517027c3ae64d59ae13db4eea29b7db59aeb5",
+        ".agents/skills/proactive-skill-discovery/references/learning-from-work.md": "094f67f3eaf2176fff0c5c7fdbdfbfbab7b170c3bd7b2147126987e273ae71f0",
+        "message.txt": "e0fd1e18778d5be09be69017b3688610b597d973dc031a9c056b0b5645fc04be",
+        "skills-lock.json": "a17abeeaa3167da7c4895a110d95dbc9a24f433101ab984b84c163b378eca407"
+      }
+    },
+    {
+      "mode": "explicit",
+      "protocol_version": 3,
+      "frozen_skill_commit": "675a2cc18e2e477045ad55bcb54ca5b7b3560dba",
+      "model": "gpt-6-astra",
+      "effort": "medium",
+      "sandbox": "danger-full-access",
+      "status": "completed_needs_review",
+      "elapsed_seconds": 38.95,
+      "tool_calls": 7,
+      "usage": {
+        "total": {
+          "totalTokens": 103568,
+          "inputTokens": 102739,
+          "cachedInputTokens": 70144,
+          "cacheWriteInputTokens": 0,
+          "outputTokens": 829,
+          "reasoningOutputTokens": 0
+        },
+        "last": {
+          "totalTokens": 32742,
+          "inputTokens": 32222,
+          "cachedInputTokens": 25984,
+          "cacheWriteInputTokens": 0,
+          "outputTokens": 520,
+          "reasoningOutputTokens": 0
+        },
+        "modelContextWindow": 258400
+      },
+      "payload_integrity": true,
+      "case": "v3-explicit-svg-runtime-01",
+      "review": {
+        "installation": true,
+        "host_discovery": true,
+        "catalog_valid": true,
+        "expected_target_absent": false,
+        "instruction_load": true,
+        "implicit_trigger": false,
+        "external_skill_adopted": false,
+        "mature_library_or_resource_used": false,
+        "task_success": true,
+        "full_chain_pass": null,
+        "adopted_review_gate": "not_applicable",
+        "scope": "read-only SVG preparation"
+      },
+      "prompt_sha256": "ae12d536dc98d610e0bea42ff352499e8fa27af2fa89caa3ca87054b28d42ed2",
+      "input_sha256": {
+        "front.png": "e9b621cfca6aea43be0572eeed1e2f1952589c49f7919ff4b48eb1cf6fe14623",
+        "oblique.png": "905b32b839e6939c43bcff330c7fcc63f56b4f260475a18a6e878b98f6e23d06",
+        "side.png": "8fa3cbd963bfed79424f57cbf929a2f2d3eb21f8ad630129a4119c0a61cbf3a5"
+      },
+      "builtin_inventory_sha256": "26f5134951233cae0300bcf376e1e80f22b37b736d68b32f2950ce0eb4397798",
+      "catalog": [
+        {
+          "name": "crafting-reference-based-svg-assets",
+          "scope": "repo",
+          "enabled": true
+        },
+        {
+          "name": "imagegen",
+          "scope": "system",
+          "enabled": true
+        },
+        {
+          "name": "openai-docs",
+          "scope": "system",
+          "enabled": true
+        },
+        {
+          "name": "plugin-creator",
+          "scope": "system",
+          "enabled": true
+        },
+        {
+          "name": "review-agent",
+          "scope": "system",
+          "enabled": true
+        },
+        {
+          "name": "skill-creator",
+          "scope": "system",
+          "enabled": true
+        },
+        {
+          "name": "skill-installer",
+          "scope": "system",
+          "enabled": true
+        }
+      ],
+      "authenticated_tool_surface": {
+        "apps_enabled": false,
+        "remote_plugin_enabled": false,
+        "mcp_servers": 0,
+        "apps": 0
+      },
+      "boundary": {
+        "windows_mount_absent": true,
+        "host_home_absent": true,
+        "rubric_absent": true,
+        "proc_pids": [
+          "1",
+          "2"
+        ],
+        "boundary_id": "751ed9a0e8b4453ea322da4d8f91179bb3246e11f86c75d16862e13cc91cb3fc"
+      },
+      "evaluator_package_sha256": {
+        "payloads.json": "50718a34dccf53436c627acc2482d3e4ef9d7e998e92271f5bb62c7bc9e352d0",
+        "protocol.json": "d9dc3954c70216b3889fc8ffd6a36866d036976633fdcab794040a2dbab52466",
+        "record_rpc.py": "da33e35c000a098c763968b1486a2b4eebaadf86c22b720e3e6d8c5de4390df8",
+        "run.py": "f3a31a3529f61738c9cf7beb0f4a73ded877569b763382922406e8345f2bcd30",
+        "tasks/control/message.txt": "d45415e6b6a5da22eed81e69b5c73bf525524466fea34a27271e29d6a5b8f6d0",
+        "tasks/control/prompt.txt": "45f86f8bfc5adac12bcbabacde61167bfb3ab5363dd5bdb951057c9b396e35e0",
+        "tasks/discovery/prompt.txt": "81544e426ba86adaa125458acb5ac5d7380af2cb8b41cdedb4033b5c59f61b4f",
+        "tasks/discovery/report.html": "7410f4872cc39386855aec67c7bdbbd0e67b3e3cfd3567d33a8c1497cb8527ff",
+        "tasks/explicit-discovery-v2.txt": "bd16f786084b1db39c3fa54c9f61c075605aab6870cc8c747cd5c2a196247415",
+        "tasks/explicit-discovery.txt": "32ff407103c76becfc4f9be18d0ef724b7c9c5eb5c35cc7847fecb43bb85b046",
+        "tasks/explicit-svg.txt": "ae12d536dc98d610e0bea42ff352499e8fa27af2fa89caa3ca87054b28d42ed2",
+        "tasks/svg/front.png": "e9b621cfca6aea43be0572eeed1e2f1952589c49f7919ff4b48eb1cf6fe14623",
+        "tasks/svg/oblique.png": "905b32b839e6939c43bcff330c7fcc63f56b4f260475a18a6e878b98f6e23d06",
+        "tasks/svg/prompt.txt": "c36283e9a04aadd47ca433091bc110caf7dbf03260d0a16c4ce155afdd42bfd1",
+        "tasks/svg/side.png": "8fa3cbd963bfed79424f57cbf929a2f2d3eb21f8ad630129a4119c0a61cbf3a5",
+        "v3/payloads.json": "1717fbf2adfa13694e4be39bb32b9f137adc79709333bb2cd336acd9e6d7d506",
+        "v3/protocol.json": "0f8d527cda0915e36b9cfc825ba112219a42cf7f69e1e13c7fcf4f4bc4cc89f0"
+      },
+      "raw_files_sha256": {
+        "catalog.json": "621c633793c22c261f0fb4bb6bc52a989cb4fa54a2613aa6e8713eb43f7548df",
+        "execution.json": "a0a8b97153afa14dc91328cc69f7a579e53b5cbcdf46170aec899f9613f44db7",
+        "preparation.json": "5b9a20cb1c507e3f47cbf5dc53752ad253dfda76820d503f284712a12437f687",
+        "prompt.txt": "ae12d536dc98d610e0bea42ff352499e8fa27af2fa89caa3ca87054b28d42ed2",
+        "rpc.jsonl": "3db10f6f7b5cb68fce1ab6611e0e82a0a013802b1b50c71644715fb5c9dcce5d",
+        "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "thread-settings.json": "05f44033dc417b51f6cc0ab627357c02efdd3a903dcaa4b6ac561d3897c2ca6a",
+        "tool-surface.json": "bdd4befd987abd5267e1507c82087061026f7aaf16bb019bf7d5ef869dc5577a"
+      },
+      "artifacts": {
+        ".agents/skills/crafting-reference-based-svg-assets/LICENSE": "d1ba8b00007e2f5670cc0af48a9a8faa1885b502f186e574dee5c5fd7ecaf913",
+        ".agents/skills/crafting-reference-based-svg-assets/SKILL.md": "c81a1a8491cf2caed738b5dde9a3fe3ba716f84c0a53620a7138f350267e4288",
+        ".agents/skills/crafting-reference-based-svg-assets/agents/openai.yaml": "c1737c325f700dca578a0093ab0ec476ccabc75beddaa842f1b9c7a87318965b",
+        ".agents/skills/crafting-reference-based-svg-assets/references/execution-record.md": "e4c2d16ce8ac756a44bfc04a1fb45cb0ae9e4e1764bd9a031d85b10ed0a593f1",
+        ".agents/skills/crafting-reference-based-svg-assets/references/project-profile-example.md": "ae3c82b7ee3901c30b7cd271b0b98c83f85bea60e49a59243ec404847d170a84",
+        ".agents/skills/crafting-reference-based-svg-assets/references/visual-diagnosis.md": "28919d58fac8c7484cae05d533605eb5a21dd8fcc5b39dcbb07d0e56d94966a3",
+        "front.png": "e9b621cfca6aea43be0572eeed1e2f1952589c49f7919ff4b48eb1cf6fe14623",
+        "oblique.png": "905b32b839e6939c43bcff330c7fcc63f56b4f260475a18a6e878b98f6e23d06",
+        "side.png": "8fa3cbd963bfed79424f57cbf929a2f2d3eb21f8ad630129a4119c0a61cbf3a5",
+        "skills-lock.json": "04cb8282fe2d5ee56def421236ff62a17e92f7d73273050e89945b9b4b3906a3"
+      }
+    },
+    {
+      "mode": "implicit",
+      "protocol_version": 3,
+      "frozen_skill_commit": "675a2cc18e2e477045ad55bcb54ca5b7b3560dba",
+      "model": "gpt-6-astra",
+      "effort": "medium",
+      "sandbox": "danger-full-access",
+      "status": "completed_needs_review",
+      "elapsed_seconds": 148.8,
+      "tool_calls": 18,
+      "usage": {
+        "total": {
+          "totalTokens": 406701,
+          "inputTokens": 402715,
+          "cachedInputTokens": 347904,
+          "cacheWriteInputTokens": 0,
+          "outputTokens": 3986,
+          "reasoningOutputTokens": 404
+        },
+        "last": {
+          "totalTokens": 52419,
+          "inputTokens": 52340,
+          "cachedInputTokens": 51328,
+          "cacheWriteInputTokens": 0,
+          "outputTokens": 79,
+          "reasoningOutputTokens": 0
+        },
+        "modelContextWindow": 258400
+      },
+      "payload_integrity": true,
+      "case": "v3-discovery-B-runtime-01",
+      "review": {
+        "installation": true,
+        "host_discovery": true,
+        "catalog_valid": true,
+        "expected_target_absent": false,
+        "instruction_load": true,
+        "implicit_trigger": true,
+        "external_skill_adopted": false,
+        "mature_library_or_resource_used": true,
+        "task_success": true,
+        "full_chain_pass": false,
+        "adopted_review_gate": "not_established",
+        "scope": "implicit discovery",
+        "validation_score": 2,
+        "primary_conditions": [
+          true,
+          true,
+          true,
+          null,
+          true
+        ],
+        "reason": "Visible adoption statement does not repair missing actual ReportLab/TTFont method evidence or missing bundled license ranges. Correct PDF retained separately."
+      },
+      "prompt_sha256": "81544e426ba86adaa125458acb5ac5d7380af2cb8b41cdedb4033b5c59f61b4f",
+      "input_sha256": {
+        "report.html": "7410f4872cc39386855aec67c7bdbbd0e67b3e3cfd3567d33a8c1497cb8527ff"
+      },
+      "builtin_inventory_sha256": "26f5134951233cae0300bcf376e1e80f22b37b736d68b32f2950ce0eb4397798",
+      "catalog": [
+        {
+          "name": "proactive-skill-discovery",
+          "scope": "repo",
+          "enabled": true
+        },
+        {
+          "name": "imagegen",
+          "scope": "system",
+          "enabled": true
+        },
+        {
+          "name": "openai-docs",
+          "scope": "system",
+          "enabled": true
+        },
+        {
+          "name": "plugin-creator",
+          "scope": "system",
+          "enabled": true
+        },
+        {
+          "name": "review-agent",
+          "scope": "system",
+          "enabled": true
+        },
+        {
+          "name": "skill-creator",
+          "scope": "system",
+          "enabled": true
+        },
+        {
+          "name": "skill-installer",
+          "scope": "system",
+          "enabled": true
+        }
+      ],
+      "authenticated_tool_surface": {
+        "apps_enabled": false,
+        "remote_plugin_enabled": false,
+        "mcp_servers": 0,
+        "apps": 0
+      },
+      "boundary": {
+        "windows_mount_absent": true,
+        "host_home_absent": true,
+        "rubric_absent": true,
+        "proc_pids": [
+          "1",
+          "2"
+        ],
+        "boundary_id": "751ed9a0e8b4453ea322da4d8f91179bb3246e11f86c75d16862e13cc91cb3fc"
+      },
+      "evaluator_package_sha256": {
+        "payloads.json": "50718a34dccf53436c627acc2482d3e4ef9d7e998e92271f5bb62c7bc9e352d0",
+        "protocol.json": "d9dc3954c70216b3889fc8ffd6a36866d036976633fdcab794040a2dbab52466",
+        "record_rpc.py": "da33e35c000a098c763968b1486a2b4eebaadf86c22b720e3e6d8c5de4390df8",
+        "run.py": "f3a31a3529f61738c9cf7beb0f4a73ded877569b763382922406e8345f2bcd30",
+        "tasks/control/message.txt": "d45415e6b6a5da22eed81e69b5c73bf525524466fea34a27271e29d6a5b8f6d0",
+        "tasks/control/prompt.txt": "45f86f8bfc5adac12bcbabacde61167bfb3ab5363dd5bdb951057c9b396e35e0",
+        "tasks/discovery/prompt.txt": "81544e426ba86adaa125458acb5ac5d7380af2cb8b41cdedb4033b5c59f61b4f",
+        "tasks/discovery/report.html": "7410f4872cc39386855aec67c7bdbbd0e67b3e3cfd3567d33a8c1497cb8527ff",
+        "tasks/explicit-discovery-v2.txt": "bd16f786084b1db39c3fa54c9f61c075605aab6870cc8c747cd5c2a196247415",
+        "tasks/explicit-discovery.txt": "32ff407103c76becfc4f9be18d0ef724b7c9c5eb5c35cc7847fecb43bb85b046",
+        "tasks/explicit-svg.txt": "ae12d536dc98d610e0bea42ff352499e8fa27af2fa89caa3ca87054b28d42ed2",
+        "tasks/svg/front.png": "e9b621cfca6aea43be0572eeed1e2f1952589c49f7919ff4b48eb1cf6fe14623",
+        "tasks/svg/oblique.png": "905b32b839e6939c43bcff330c7fcc63f56b4f260475a18a6e878b98f6e23d06",
+        "tasks/svg/prompt.txt": "c36283e9a04aadd47ca433091bc110caf7dbf03260d0a16c4ce155afdd42bfd1",
+        "tasks/svg/side.png": "8fa3cbd963bfed79424f57cbf929a2f2d3eb21f8ad630129a4119c0a61cbf3a5",
+        "v3/payloads.json": "1717fbf2adfa13694e4be39bb32b9f137adc79709333bb2cd336acd9e6d7d506",
+        "v3/protocol.json": "0f8d527cda0915e36b9cfc825ba112219a42cf7f69e1e13c7fcf4f4bc4cc89f0"
+      },
+      "raw_files_sha256": {
+        "catalog.json": "8fc4de7d137f64cdd18450aae490b33c0cbfd07f6c747ec169bc8a70b25d4836",
+        "execution.json": "d12d94c69fef8283fa8dec335cb3a8c4eec9a82e0983ae78711f7096e6ccc9c0",
+        "preparation.json": "c8944cd55632042976c2da3463879721b4424dc67b69b8e66f66cd047cc1cbda",
+        "prompt.txt": "81544e426ba86adaa125458acb5ac5d7380af2cb8b41cdedb4033b5c59f61b4f",
+        "rpc.jsonl": "57af37335819e7e83c9af4188415b76171e369ecd5f85e190ec750a8b14266c2",
+        "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "thread-settings.json": "05f44033dc417b51f6cc0ab627357c02efdd3a903dcaa4b6ac561d3897c2ca6a",
+        "tool-surface.json": "bdd4befd987abd5267e1507c82087061026f7aaf16bb019bf7d5ef869dc5577a"
+      },
+      "artifacts": {
+        ".agents/skills/proactive-skill-discovery/LICENSE": "d1ba8b00007e2f5670cc0af48a9a8faa1885b502f186e574dee5c5fd7ecaf913",
+        ".agents/skills/proactive-skill-discovery/SKILL.md": "3f7e80f0e3a23a1b16e2532e6c6859cddcea7a11d73df74dd5e2a30c63e4f8df",
+        ".agents/skills/proactive-skill-discovery/agents/openai.yaml": "7c25c200a0d5ed5eb59ba98910dd5471d1a3956a83570ada6d1b5797ca5fc067",
+        ".agents/skills/proactive-skill-discovery/references/adapting-upstream-skills.md": "a9f35a4921c9482d44a1bb61f49517027c3ae64d59ae13db4eea29b7db59aeb5",
+        ".agents/skills/proactive-skill-discovery/references/learning-from-work.md": "094f67f3eaf2176fff0c5c7fdbdfbfbab7b170c3bd7b2147126987e273ae71f0",
+        "report.html": "7410f4872cc39386855aec67c7bdbbd0e67b3e3cfd3567d33a8c1497cb8527ff",
+        "report.pdf": "0dd025ee99badba346a4ad7c2a95ac5a275e5a628740ebf093fa95c3d1541ace",
+        "skills-lock.json": "a17abeeaa3167da7c4895a110d95dbc9a24f433101ab984b84c163b378eca407",
+        "verification.md": "324cf24d82767ca1b95f2ed14d415041991a6b92cb4afe07a00cb2053a571b7b"
+      }
+    },
+    {
+      "mode": "implicit",
+      "protocol_version": 3,
+      "frozen_skill_commit": "675a2cc18e2e477045ad55bcb54ca5b7b3560dba",
+      "model": "gpt-6-astra",
+      "effort": "medium",
+      "sandbox": "danger-full-access",
+      "status": "completed_needs_review",
+      "elapsed_seconds": 208.98,
+      "tool_calls": 24,
+      "usage": {
+        "total": {
+          "totalTokens": 708130,
+          "inputTokens": 702223,
+          "cachedInputTokens": 642944,
+          "cacheWriteInputTokens": 0,
+          "outputTokens": 5907,
+          "reasoningOutputTokens": 852
+        },
+        "last": {
+          "totalTokens": 56251,
+          "inputTokens": 56177,
+          "cachedInputTokens": 54016,
+          "cacheWriteInputTokens": 0,
+          "outputTokens": 74,
+          "reasoningOutputTokens": 0
+        },
+        "modelContextWindow": 258400
+      },
+      "payload_integrity": true,
+      "case": "v3-discovery-B-runtime-02",
+      "review": {
+        "installation": true,
+        "host_discovery": true,
+        "catalog_valid": true,
+        "expected_target_absent": false,
+        "instruction_load": true,
+        "implicit_trigger": true,
+        "external_skill_adopted": false,
+        "mature_library_or_resource_used": true,
+        "task_success": true,
+        "full_chain_pass": true,
+        "adopted_review_gate": "pass",
+        "scope": "implicit discovery",
+        "validation_score": 2,
+        "primary_conditions": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "reason": "Actual versioned Story/Page method text and complete AGPL/OFL bodies before visible decision and execution. Native tools actually applied; independent task validation2.",
+        "evidence": {
+          "agpl_raw_return_line": 164,
+          "story_method_lines": [
+            237,
+            238
+          ],
+          "page_method_and_font_license_lines": [
+            250,
+            251
+          ],
+          "adoption_message_line": 325,
+          "first_task_execution_line": 341
+        },
+        "compatibility_limit": {
+          "unused_odd_length_ToUnicode_tokens": 1884,
+          "pypdf_warning_lines": 5652,
+          "other_viewers_and_strict_PDF_conformance": "not established",
+          "warning_log_sha256": "16f3ac5694f6ff33a694123ebc39ca4200b318f2a04b947114314e91d5162087"
+        }
+      },
+      "prompt_sha256": "81544e426ba86adaa125458acb5ac5d7380af2cb8b41cdedb4033b5c59f61b4f",
+      "input_sha256": {
+        "report.html": "7410f4872cc39386855aec67c7bdbbd0e67b3e3cfd3567d33a8c1497cb8527ff"
+      },
+      "builtin_inventory_sha256": "26f5134951233cae0300bcf376e1e80f22b37b736d68b32f2950ce0eb4397798",
+      "catalog": [
+        {
+          "name": "proactive-skill-discovery",
+          "scope": "repo",
+          "enabled": true
+        },
+        {
+          "name": "imagegen",
+          "scope": "system",
+          "enabled": true
+        },
+        {
+          "name": "openai-docs",
+          "scope": "system",
+          "enabled": true
+        },
+        {
+          "name": "plugin-creator",
+          "scope": "system",
+          "enabled": true
+        },
+        {
+          "name": "review-agent",
+          "scope": "system",
+          "enabled": true
+        },
+        {
+          "name": "skill-creator",
+          "scope": "system",
+          "enabled": true
+        },
+        {
+          "name": "skill-installer",
+          "scope": "system",
+          "enabled": true
+        }
+      ],
+      "authenticated_tool_surface": {
+        "apps_enabled": false,
+        "remote_plugin_enabled": false,
+        "mcp_servers": 0,
+        "apps": 0
+      },
+      "boundary": {
+        "windows_mount_absent": true,
+        "host_home_absent": true,
+        "rubric_absent": true,
+        "proc_pids": [
+          "1",
+          "2"
+        ],
+        "boundary_id": "751ed9a0e8b4453ea322da4d8f91179bb3246e11f86c75d16862e13cc91cb3fc"
+      },
+      "evaluator_package_sha256": {
+        "payloads.json": "50718a34dccf53436c627acc2482d3e4ef9d7e998e92271f5bb62c7bc9e352d0",
+        "protocol.json": "d9dc3954c70216b3889fc8ffd6a36866d036976633fdcab794040a2dbab52466",
+        "record_rpc.py": "da33e35c000a098c763968b1486a2b4eebaadf86c22b720e3e6d8c5de4390df8",
+        "run.py": "f3a31a3529f61738c9cf7beb0f4a73ded877569b763382922406e8345f2bcd30",
+        "tasks/control/message.txt": "d45415e6b6a5da22eed81e69b5c73bf525524466fea34a27271e29d6a5b8f6d0",
+        "tasks/control/prompt.txt": "45f86f8bfc5adac12bcbabacde61167bfb3ab5363dd5bdb951057c9b396e35e0",
+        "tasks/discovery/prompt.txt": "81544e426ba86adaa125458acb5ac5d7380af2cb8b41cdedb4033b5c59f61b4f",
+        "tasks/discovery/report.html": "7410f4872cc39386855aec67c7bdbbd0e67b3e3cfd3567d33a8c1497cb8527ff",
+        "tasks/explicit-discovery-v2.txt": "bd16f786084b1db39c3fa54c9f61c075605aab6870cc8c747cd5c2a196247415",
+        "tasks/explicit-discovery.txt": "32ff407103c76becfc4f9be18d0ef724b7c9c5eb5c35cc7847fecb43bb85b046",
+        "tasks/explicit-svg.txt": "ae12d536dc98d610e0bea42ff352499e8fa27af2fa89caa3ca87054b28d42ed2",
+        "tasks/svg/front.png": "e9b621cfca6aea43be0572eeed1e2f1952589c49f7919ff4b48eb1cf6fe14623",
+        "tasks/svg/oblique.png": "905b32b839e6939c43bcff330c7fcc63f56b4f260475a18a6e878b98f6e23d06",
+        "tasks/svg/prompt.txt": "c36283e9a04aadd47ca433091bc110caf7dbf03260d0a16c4ce155afdd42bfd1",
+        "tasks/svg/side.png": "8fa3cbd963bfed79424f57cbf929a2f2d3eb21f8ad630129a4119c0a61cbf3a5",
+        "v3/payloads.json": "1717fbf2adfa13694e4be39bb32b9f137adc79709333bb2cd336acd9e6d7d506",
+        "v3/protocol.json": "0f8d527cda0915e36b9cfc825ba112219a42cf7f69e1e13c7fcf4f4bc4cc89f0"
+      },
+      "raw_files_sha256": {
+        "catalog.json": "8fc4de7d137f64cdd18450aae490b33c0cbfd07f6c747ec169bc8a70b25d4836",
+        "execution.json": "2b26a43daa3ce8ea6e8bc9e74e9cc3a15e11d6c50a844ac53d96324a23a5146b",
+        "preparation.json": "c8944cd55632042976c2da3463879721b4424dc67b69b8e66f66cd047cc1cbda",
+        "prompt.txt": "81544e426ba86adaa125458acb5ac5d7380af2cb8b41cdedb4033b5c59f61b4f",
+        "rpc.jsonl": "de3a27823adfbdc4cb7cfab42cc5b7fe093f20208d5997f1fda20ebf4a9b9a45",
+        "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "thread-settings.json": "05f44033dc417b51f6cc0ab627357c02efdd3a903dcaa4b6ac561d3897c2ca6a",
+        "tool-surface.json": "bdd4befd987abd5267e1507c82087061026f7aaf16bb019bf7d5ef869dc5577a"
+      },
+      "artifacts": {
+        ".agents/skills/proactive-skill-discovery/LICENSE": "d1ba8b00007e2f5670cc0af48a9a8faa1885b502f186e574dee5c5fd7ecaf913",
+        ".agents/skills/proactive-skill-discovery/SKILL.md": "3f7e80f0e3a23a1b16e2532e6c6859cddcea7a11d73df74dd5e2a30c63e4f8df",
+        ".agents/skills/proactive-skill-discovery/agents/openai.yaml": "7c25c200a0d5ed5eb59ba98910dd5471d1a3956a83570ada6d1b5797ca5fc067",
+        ".agents/skills/proactive-skill-discovery/references/adapting-upstream-skills.md": "a9f35a4921c9482d44a1bb61f49517027c3ae64d59ae13db4eea29b7db59aeb5",
+        ".agents/skills/proactive-skill-discovery/references/learning-from-work.md": "094f67f3eaf2176fff0c5c7fdbdfbfbab7b170c3bd7b2147126987e273ae71f0",
+        "build_pdf.py": "55a6c78a5242168ee79d35d00bf67ef38266a150078b75b131cc619342e33035",
+        "report.html": "7410f4872cc39386855aec67c7bdbbd0e67b3e3cfd3567d33a8c1497cb8527ff",
+        "report.pdf": "e7d23d660ada258472487eb332831772ac6e174296653a22d72110a5b290237f",
+        "skills-lock.json": "a17abeeaa3167da7c4895a110d95dbc9a24f433101ab984b84c163b378eca407",
+        "verification/checks.json": "834a537b93d1046ff0434774d448246cf704a072b27dbdde340fb8b337966513",
+        "verification/extracted.txt": "4fb6d1b3b9e745f05730ae710862faf77f12aa7d397a51e087430e4077f73d14",
+        "verification/page-1.png": "ec7a31669bfaf6831e41f2f288db7c8fff7784bcdc9f3f4cde94930821697ae3",
+        "verification/page-2.png": "570c8b17ac452b8c3b994d5450aa036ac7bc9349bffe8a874598192cdc0c024a",
+        "verification/page-3.png": "a3c1d4f1c1e7d34e3344c4d7aaacf90d5c8e6b1a7bff8fc52aadb3f5f5629e98",
+        "verification.md": "473790d724df3ea195ae0603c43630a3a456ff389e7de5ad6e054e18a7d969b2",
+        "verify_pdf.py": "46e8f7c1ba5da3b43a8ec7106e1f07bc95a82a19ed7adb83e339a6fbe3bc194b"
+      }
+    },
+    {
+      "mode": "implicit",
+      "protocol_version": 3,
+      "frozen_skill_commit": "675a2cc18e2e477045ad55bcb54ca5b7b3560dba",
+      "model": "gpt-6-astra",
+      "effort": "medium",
+      "sandbox": "danger-full-access",
+      "status": "completed_needs_review",
+      "elapsed_seconds": 13.35,
+      "tool_calls": 1,
+      "usage": {
+        "total": {
+          "totalTokens": 25263,
+          "inputTokens": 24941,
+          "cachedInputTokens": 22656,
+          "cacheWriteInputTokens": 0,
+          "outputTokens": 322,
+          "reasoningOutputTokens": 0
+        },
+        "last": {
+          "totalTokens": 12680,
+          "inputTokens": 12653,
+          "cachedInputTokens": 12160,
+          "cacheWriteInputTokens": 0,
+          "outputTokens": 27,
+          "reasoningOutputTokens": 0
+        },
+        "modelContextWindow": 258400
+      },
+      "payload_integrity": true,
+      "case": "v3-control-A-runtime-01",
+      "review": {
+        "installation": false,
+        "host_discovery": false,
+        "catalog_valid": true,
+        "expected_target_absent": true,
+        "instruction_load": false,
+        "implicit_trigger": false,
+        "external_skill_adopted": false,
+        "mature_library_or_resource_used": false,
+        "task_success": true,
+        "full_chain_pass": null,
+        "adopted_review_gate": "not_applicable",
+        "scope": "adjacent negative control",
+        "exact_bytes_pass": true
+      },
+      "prompt_sha256": "45f86f8bfc5adac12bcbabacde61167bfb3ab5363dd5bdb951057c9b396e35e0",
+      "input_sha256": {
+        "message.txt": "d45415e6b6a5da22eed81e69b5c73bf525524466fea34a27271e29d6a5b8f6d0"
+      },
+      "builtin_inventory_sha256": "26f5134951233cae0300bcf376e1e80f22b37b736d68b32f2950ce0eb4397798",
+      "catalog": [
+        {
+          "name": "imagegen",
+          "scope": "system",
+          "enabled": true
+        },
+        {
+          "name": "openai-docs",
+          "scope": "system",
+          "enabled": true
+        },
+        {
+          "name": "plugin-creator",
+          "scope": "system",
+          "enabled": true
+        },
+        {
+          "name": "review-agent",
+          "scope": "system",
+          "enabled": true
+        },
+        {
+          "name": "skill-creator",
+          "scope": "system",
+          "enabled": true
+        },
+        {
+          "name": "skill-installer",
+          "scope": "system",
+          "enabled": true
+        }
+      ],
+      "authenticated_tool_surface": {
+        "apps_enabled": false,
+        "remote_plugin_enabled": false,
+        "mcp_servers": 0,
+        "apps": 0
+      },
+      "boundary": {
+        "windows_mount_absent": true,
+        "host_home_absent": true,
+        "rubric_absent": true,
+        "proc_pids": [
+          "1",
+          "2"
+        ],
+        "boundary_id": "751ed9a0e8b4453ea322da4d8f91179bb3246e11f86c75d16862e13cc91cb3fc"
+      },
+      "evaluator_package_sha256": {
+        "payloads.json": "50718a34dccf53436c627acc2482d3e4ef9d7e998e92271f5bb62c7bc9e352d0",
+        "protocol.json": "d9dc3954c70216b3889fc8ffd6a36866d036976633fdcab794040a2dbab52466",
+        "record_rpc.py": "da33e35c000a098c763968b1486a2b4eebaadf86c22b720e3e6d8c5de4390df8",
+        "run.py": "f3a31a3529f61738c9cf7beb0f4a73ded877569b763382922406e8345f2bcd30",
+        "tasks/control/message.txt": "d45415e6b6a5da22eed81e69b5c73bf525524466fea34a27271e29d6a5b8f6d0",
+        "tasks/control/prompt.txt": "45f86f8bfc5adac12bcbabacde61167bfb3ab5363dd5bdb951057c9b396e35e0",
+        "tasks/discovery/prompt.txt": "81544e426ba86adaa125458acb5ac5d7380af2cb8b41cdedb4033b5c59f61b4f",
+        "tasks/discovery/report.html": "7410f4872cc39386855aec67c7bdbbd0e67b3e3cfd3567d33a8c1497cb8527ff",
+        "tasks/explicit-discovery-v2.txt": "bd16f786084b1db39c3fa54c9f61c075605aab6870cc8c747cd5c2a196247415",
+        "tasks/explicit-discovery.txt": "32ff407103c76becfc4f9be18d0ef724b7c9c5eb5c35cc7847fecb43bb85b046",
+        "tasks/explicit-svg.txt": "ae12d536dc98d610e0bea42ff352499e8fa27af2fa89caa3ca87054b28d42ed2",
+        "tasks/svg/front.png": "e9b621cfca6aea43be0572eeed1e2f1952589c49f7919ff4b48eb1cf6fe14623",
+        "tasks/svg/oblique.png": "905b32b839e6939c43bcff330c7fcc63f56b4f260475a18a6e878b98f6e23d06",
+        "tasks/svg/prompt.txt": "c36283e9a04aadd47ca433091bc110caf7dbf03260d0a16c4ce155afdd42bfd1",
+        "tasks/svg/side.png": "8fa3cbd963bfed79424f57cbf929a2f2d3eb21f8ad630129a4119c0a61cbf3a5",
+        "v3/payloads.json": "1717fbf2adfa13694e4be39bb32b9f137adc79709333bb2cd336acd9e6d7d506",
+        "v3/protocol.json": "0f8d527cda0915e36b9cfc825ba112219a42cf7f69e1e13c7fcf4f4bc4cc89f0"
+      },
+      "raw_files_sha256": {
+        "catalog.json": "27411e84f5d5611bc51329b2a7becf1d5acc322428a7e131e5fa751bd6412dc7",
+        "execution.json": "e0119a9ae31232b25136c3cf76c1be5b4e8b07b6f9a8edc5e7de266f0396cd81",
+        "preparation.json": "3837b27bcf41864e4068e97651394abef2cb7a2999728c7b4c874952f9a1d3ca",
+        "prompt.txt": "45f86f8bfc5adac12bcbabacde61167bfb3ab5363dd5bdb951057c9b396e35e0",
+        "rpc.jsonl": "6f6e24764a759978d1c7dede7880429b14269b7eb87ac2c668df90b64add5ae4",
+        "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "thread-settings.json": "05f44033dc417b51f6cc0ab627357c02efdd3a903dcaa4b6ac561d3897c2ca6a",
+        "tool-surface.json": "bdd4befd987abd5267e1507c82087061026f7aaf16bb019bf7d5ef869dc5577a"
+      },
+      "artifacts": {
+        "message.txt": "e0fd1e18778d5be09be69017b3688610b597d973dc031a9c056b0b5645fc04be"
+      }
+    },
+    {
+      "mode": "implicit",
+      "protocol_version": 3,
+      "frozen_skill_commit": "675a2cc18e2e477045ad55bcb54ca5b7b3560dba",
+      "model": "gpt-6-astra",
+      "effort": "medium",
+      "sandbox": "danger-full-access",
+      "status": "completed_needs_review",
+      "elapsed_seconds": 13.36,
+      "tool_calls": 1,
+      "usage": {
+        "total": {
+          "totalTokens": 25452,
+          "inputTokens": 25132,
+          "cachedInputTokens": 22656,
+          "cacheWriteInputTokens": 0,
+          "outputTokens": 320,
+          "reasoningOutputTokens": 0
+        },
+        "last": {
+          "totalTokens": 12772,
+          "inputTokens": 12749,
+          "cachedInputTokens": 12160,
+          "cacheWriteInputTokens": 0,
+          "outputTokens": 23,
+          "reasoningOutputTokens": 0
+        },
+        "modelContextWindow": 258400
+      },
+      "payload_integrity": true,
+      "case": "v3-control-B-runtime-01",
+      "review": {
+        "installation": true,
+        "host_discovery": true,
+        "catalog_valid": true,
+        "expected_target_absent": false,
+        "instruction_load": false,
+        "implicit_trigger": false,
+        "external_skill_adopted": false,
+        "mature_library_or_resource_used": false,
+        "task_success": true,
+        "full_chain_pass": null,
+        "adopted_review_gate": "not_applicable",
+        "scope": "adjacent negative control",
+        "exact_bytes_pass": true
+      },
+      "prompt_sha256": "45f86f8bfc5adac12bcbabacde61167bfb3ab5363dd5bdb951057c9b396e35e0",
+      "input_sha256": {
+        "message.txt": "d45415e6b6a5da22eed81e69b5c73bf525524466fea34a27271e29d6a5b8f6d0"
+      },
+      "builtin_inventory_sha256": "26f5134951233cae0300bcf376e1e80f22b37b736d68b32f2950ce0eb4397798",
+      "catalog": [
+        {
+          "name": "proactive-skill-discovery",
+          "scope": "repo",
+          "enabled": true
+        },
+        {
+          "name": "imagegen",
+          "scope": "system",
+          "enabled": true
+        },
+        {
+          "name": "openai-docs",
+          "scope": "system",
+          "enabled": true
+        },
+        {
+          "name": "plugin-creator",
+          "scope": "system",
+          "enabled": true
+        },
+        {
+          "name": "review-agent",
+          "scope": "system",
+          "enabled": true
+        },
+        {
+          "name": "skill-creator",
+          "scope": "system",
+          "enabled": true
+        },
+        {
+          "name": "skill-installer",
+          "scope": "system",
+          "enabled": true
+        }
+      ],
+      "authenticated_tool_surface": {
+        "apps_enabled": false,
+        "remote_plugin_enabled": false,
+        "mcp_servers": 0,
+        "apps": 0
+      },
+      "boundary": {
+        "windows_mount_absent": true,
+        "host_home_absent": true,
+        "rubric_absent": true,
+        "proc_pids": [
+          "1",
+          "2"
+        ],
+        "boundary_id": "751ed9a0e8b4453ea322da4d8f91179bb3246e11f86c75d16862e13cc91cb3fc"
+      },
+      "evaluator_package_sha256": {
+        "payloads.json": "50718a34dccf53436c627acc2482d3e4ef9d7e998e92271f5bb62c7bc9e352d0",
+        "protocol.json": "d9dc3954c70216b3889fc8ffd6a36866d036976633fdcab794040a2dbab52466",
+        "record_rpc.py": "da33e35c000a098c763968b1486a2b4eebaadf86c22b720e3e6d8c5de4390df8",
+        "run.py": "f3a31a3529f61738c9cf7beb0f4a73ded877569b763382922406e8345f2bcd30",
+        "tasks/control/message.txt": "d45415e6b6a5da22eed81e69b5c73bf525524466fea34a27271e29d6a5b8f6d0",
+        "tasks/control/prompt.txt": "45f86f8bfc5adac12bcbabacde61167bfb3ab5363dd5bdb951057c9b396e35e0",
+        "tasks/discovery/prompt.txt": "81544e426ba86adaa125458acb5ac5d7380af2cb8b41cdedb4033b5c59f61b4f",
+        "tasks/discovery/report.html": "7410f4872cc39386855aec67c7bdbbd0e67b3e3cfd3567d33a8c1497cb8527ff",
+        "tasks/explicit-discovery-v2.txt": "bd16f786084b1db39c3fa54c9f61c075605aab6870cc8c747cd5c2a196247415",
+        "tasks/explicit-discovery.txt": "32ff407103c76becfc4f9be18d0ef724b7c9c5eb5c35cc7847fecb43bb85b046",
+        "tasks/explicit-svg.txt": "ae12d536dc98d610e0bea42ff352499e8fa27af2fa89caa3ca87054b28d42ed2",
+        "tasks/svg/front.png": "e9b621cfca6aea43be0572eeed1e2f1952589c49f7919ff4b48eb1cf6fe14623",
+        "tasks/svg/oblique.png": "905b32b839e6939c43bcff330c7fcc63f56b4f260475a18a6e878b98f6e23d06",
+        "tasks/svg/prompt.txt": "c36283e9a04aadd47ca433091bc110caf7dbf03260d0a16c4ce155afdd42bfd1",
+        "tasks/svg/side.png": "8fa3cbd963bfed79424f57cbf929a2f2d3eb21f8ad630129a4119c0a61cbf3a5",
+        "v3/payloads.json": "1717fbf2adfa13694e4be39bb32b9f137adc79709333bb2cd336acd9e6d7d506",
+        "v3/protocol.json": "0f8d527cda0915e36b9cfc825ba112219a42cf7f69e1e13c7fcf4f4bc4cc89f0"
+      },
+      "raw_files_sha256": {
+        "catalog.json": "8fc4de7d137f64cdd18450aae490b33c0cbfd07f6c747ec169bc8a70b25d4836",
+        "execution.json": "f56ddd845242f8b6ae86fcc619aa7636b1ced978f08d7b70472c5a035ef3cf8f",
+        "preparation.json": "044cad35f9b29088887c4d61b178d8418e85b650881cde8d9ecdd94ffbfe6d3d",
+        "prompt.txt": "45f86f8bfc5adac12bcbabacde61167bfb3ab5363dd5bdb951057c9b396e35e0",
+        "rpc.jsonl": "f12a8516ceed693a2055073c0e8f39e72cb72c8b2518fe0f61279ab9c45275cf",
+        "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "thread-settings.json": "05f44033dc417b51f6cc0ab627357c02efdd3a903dcaa4b6ac561d3897c2ca6a",
+        "tool-surface.json": "bdd4befd987abd5267e1507c82087061026f7aaf16bb019bf7d5ef869dc5577a"
+      },
+      "artifacts": {
+        ".agents/skills/proactive-skill-discovery/LICENSE": "d1ba8b00007e2f5670cc0af48a9a8faa1885b502f186e574dee5c5fd7ecaf913",
+        ".agents/skills/proactive-skill-discovery/SKILL.md": "3f7e80f0e3a23a1b16e2532e6c6859cddcea7a11d73df74dd5e2a30c63e4f8df",
+        ".agents/skills/proactive-skill-discovery/agents/openai.yaml": "7c25c200a0d5ed5eb59ba98910dd5471d1a3956a83570ada6d1b5797ca5fc067",
+        ".agents/skills/proactive-skill-discovery/references/adapting-upstream-skills.md": "a9f35a4921c9482d44a1bb61f49517027c3ae64d59ae13db4eea29b7db59aeb5",
+        ".agents/skills/proactive-skill-discovery/references/learning-from-work.md": "094f67f3eaf2176fff0c5c7fdbdfbfbab7b170c3bd7b2147126987e273ae71f0",
+        "message.txt": "e0fd1e18778d5be09be69017b3688610b597d973dc031a9c056b0b5645fc04be",
+        "skills-lock.json": "a17abeeaa3167da7c4895a110d95dbc9a24f433101ab984b84c163b378eca407"
+      }
+    }
+  ],
+  "pre_actor_failures": [
+    {
+      "case": "v3-explicit-discovery-01",
+      "classification": "environment_blocked",
+      "phase": "coordinator namespace launch before model/preparation",
+      "model_called": false,
+      "reason": "Coordinator version substitution mistakenly changed node-v22.22.1 to node-v32.22.1; mount source absent. Fixed path; later actors use different new directories.",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "3cced6a905091432d254e4af39a8a3d558ef429bf171686bd2bb99cbc19015a4"
+    },
+    {
+      "case": "v3-explicit-svg-01",
+      "classification": "environment_blocked",
+      "phase": "coordinator namespace launch before model/preparation",
+      "model_called": false,
+      "reason": "Coordinator version substitution mistakenly changed node-v22.22.1 to node-v32.22.1; mount source absent. Fixed path; later actors use different new directories.",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "3cced6a905091432d254e4af39a8a3d558ef429bf171686bd2bb99cbc19015a4"
+    },
+    {
+      "case": "v3-discovery-B-01",
+      "classification": "environment_blocked",
+      "phase": "coordinator namespace launch before model/preparation",
+      "model_called": false,
+      "reason": "Coordinator version substitution mistakenly changed node-v22.22.1 to node-v32.22.1; mount source absent. Fixed path; later actors use different new directories.",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "3cced6a905091432d254e4af39a8a3d558ef429bf171686bd2bb99cbc19015a4"
+    }
+  ]
+}

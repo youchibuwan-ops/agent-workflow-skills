@@ -1,0 +1,124 @@
+{
+  "reviewed_whole_sha256": "9f95c9196869ed7598826d72300621342f4ee3036943b92a515445b35b80b412",
+  "source_blend_sha256": "94bffffe725c88e0c8855bf45e6d38769c50a8b112e3f1cfcde162fbf4cca53a",
+  "frame": [
+    200,
+    8,
+    410,
+    410
+  ],
+  "order": [
+    "F-face",
+    "back-web",
+    "N-face",
+    "F-L",
+    "F-central",
+    "F-R",
+    "N-L",
+    "N-central",
+    "N-R",
+    "F-wire",
+    "N-wire"
+  ],
+  "parts": {
+    "sheet-substrate": {
+      "id": "continuous-sheet-material-substrate",
+      "group_sha256": "442bc8ed16d0e2aeeadd5a25d3eb9b47943c6eb4567f8516db081dd2c68425cd"
+    },
+    "F-face": {
+      "id": "F-face-material",
+      "group_sha256": "4f4ae5e862bf2c0f16c7fb659c05e2b59ddd0949453ebee19a722f5c316b810c"
+    },
+    "back-web": {
+      "id": "back-web-material",
+      "group_sha256": "3feb063a466e6dda854158e3fa42f48b021ac53efd66f8238236c1ef44c82ab7"
+    },
+    "N-face": {
+      "id": "N-face-material",
+      "group_sha256": "59e2de3d62cedbd478a2856c6be6cdb3462d4fd0ec60db31aec20b5a0bd04b9a"
+    },
+    "F-L": {
+      "id": "F-L-material",
+      "group_sha256": "4c745a42e26b953a893f9b903f68c9a0fc9be595e8e6f6093a40c13c792ef91e"
+    },
+    "F-central": {
+      "id": "F-central-material",
+      "group_sha256": "0d34ad4af16d0784f7435189bad455ff838a5c903650f2b54424ce2619ca1a66"
+    },
+    "F-R": {
+      "id": "F-R-material",
+      "group_sha256": "6981cb5b6e97c7d6eddb71a4ac5b97648af3af7016b38b0a47123a509cfcbcad"
+    },
+    "N-L": {
+      "id": "N-L-material",
+      "group_sha256": "f35c8ffcf07cf864fb00c7dc0e34521219019001ea82cd23d4abadc487797745"
+    },
+    "N-central": {
+      "id": "N-central-material",
+      "group_sha256": "4d2229bb93782b31708672528a34c1132db80373e8a40dbe09945c7e397fbe3b"
+    },
+    "N-R": {
+      "id": "N-R-material",
+      "group_sha256": "be046313cfd26e77231d3a5acd21710246db079d9d0e15c7e4a18418ef4e5e03"
+    },
+    "F-wire": {
+      "id": "F-continuous-handle-material",
+      "group_sha256": "d838238a582092f9b9d647efa272ad6c581c0d26673bcc396c0371370c0d7d66"
+    },
+    "N-wire": {
+      "id": "N-continuous-handle-material",
+      "group_sha256": "2d806a8a15b601365393926ccb4d476d893c3a68d01bf70e0fc3b0d282d585c4"
+    }
+  },
+  "scope": "Accepted r08 stylized prop; finite static whole review and explicit user approval for public display on 2026-10-23. Not a precise engineering reconstruction or general Skill benchmark.",
+  "source_sha256": "697dd1f139c814adfa7893844f2501421b15ef68d65b2befe3ae9e3f038367b6",
+  "user_accepted_for_public_display": "2026-10-23",
+  "review": {
+    "status": "pass within static scope",
+    "four_outer_rolls": true,
+    "two_central_returning_lips": true,
+    "two_continuous_wire_handles": true,
+    "local_groups_preserved": 11,
+    "body_attachment_bands_checked": 32,
+    "stable_projected_pixels_checked": 3909,
+    "unexpected_seam_dark_or_bright_pixels": 0,
+    "native_body_components": 1,
+    "body_nonadjacent_intersections": 0,
+    "wire_body_or_other_wire_intersections": 0,
+    "remaining_limits": [
+      "approximately 20px far upper central endpoint residual in the 1920x1280 body reference",
+      "bounded hidden roots and roll angles",
+      "approximate target camera; different specimens have different dimensions"
+    ]
+  },
+  "reference_sha256": {
+    "reference.jpg": "143cd17a0cd3dc4bc98cf786e4d1bed8204cbd05c866601cf8b02692286026db",
+    "support-axial.jpg": "3199ca181d71afed3df3249be50907a7c081e2726ce03b93d21ee5bffaa3f5ec",
+    "support-black.jpg": "4c8a80ef1e64c2f13bd9e2f3d44f0528242a6e22ed81e14782df6bd5d0537b5d",
+    "support-no-handles.jpg": "d5f062431e4f6c2b32544c552a3cbec698524f5ea18364a4cb8d696d40a8f0ea",
+    "support-unpainted.jpg": "5c39fb3b82fb8a89eac3610e4e4641ca00d69d1642b309e0b043fd0ce6925f01",
+    "support-views.jpg": "e6348d5f59796c76752bef00e70c0b4243ed61c9881771279d7737f9c2390350"
+  },
+  "target_transform": {
+    "matrix": [
+      1.0366871597251925,
+      -0.0064992247917952635,
+      0.0064992247917952635,
+      1.0366871597251925,
+      49.68626497139589,
+      162.30635317802194
+    ],
+    "scope": "similarity for target pose/occlusion in different specimen; not BODY dimensions or full camera calibration",
+    "crop": {
+      "left": 265,
+      "top": 165,
+      "width": 440,
+      "height": 440
+    }
+  },
+  "reviewed_blend_sha256": "8b9a027591e89caf7eed5426c69ce17f5acbf1962c3766bcb91225083f61da00",
+  "native_metadata_sanitization": {
+    "scope": "Remove authoring paths, weak library provenance and file-browser buffers without changing object geometry/cameras",
+    "geometry_camera_fingerprint": "5c047b24b3a318bbcfa7e8c29889d5451833c4ec80a91a5d3b362dbd41768815"
+  }
+}

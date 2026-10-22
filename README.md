@@ -1,40 +1,133 @@
 # Agent Workflow Skills
 
-Two reusable agent skills for deliberate skill selection and reference-based SVG art.
+[中文说明](README.zh-CN.md) · [Examples](#real-examples) · [Install guide](docs/installation.md)
 
-| Skill | Purpose |
-|---|---|
-| [proactive-skill-discovery](skills/proactive-skill-discovery/SKILL.md) | Match installed skills, discover and inspect external candidates, adapt or combine workflows, validate actual task results, and capture verified lessons by updating or creating skills. |
-| [crafting-reference-based-svg-assets](skills/crafting-reference-based-svg-assets/SKILL.md) | Refine real-object SVG props, finish difficult details independently, assemble them, and visually review the entire object against references. |
+**Find the right skills, verify that they work, and retain what you learn.**
 
-## 使用
-
-使用兼容的 Skills CLI 选择需要的单个 Skill（以下命令面向 Codex）：
+Two MIT-licensed Agent Skills for developers using Codex or another Agent Skills host.
+Start with **proactive-skill-discovery**: connect capability gaps to inspected workflows,
+actual task results, and maintained reusable lessons.
 
 ```sh
-npx skills add youchibuwan-ops/agent-workflow-skills --skill proactive-skill-discovery -a codex
-npx skills add youchibuwan-ops/agent-workflow-skills --skill crafting-reference-based-svg-assets -a codex
+npx skills@1.7.4 add https://github.com/youchibuwan-ops/agent-workflow-skills/tree/6aaedb39545b3f60892b824862396951c8147b81 --skill proactive-skill-discovery -a codex
 ```
 
-也可以将单个 Skill 目录复制到宿主支持的个人技能目录。保持 SKILL.md 和配套 references/agents 文件在同一目录；不需要安装整个仓库或游戏项目。
+Run from the intended project. Requires Git and Node ≥22.20.0 for this third-party CLI;
+the skills themselves have no Node/Python runtime.
 
-- `$proactive-skill-discovery`：主动匹配、发现、筛选、适配和使用技能，并从实际任务中总结、维护可复用技能。
-- `$crafting-reference-based-svg-assets`：按实物精修并复审可编辑SVG素材。
+**Codex candidate acceptance (2026-10-23): registered strict repair suite passed.**
+V7 passes both complete explicit smokes, all three scheduled implicit discovery
+chains and the adjacent A/B controls. Both current PDFs pass independent full-content,
+page and zero-warning checks. All v4-v6 failures remain public; these known-task
+author regressions do not establish general reliability or performance improvement.
+The [evidence and limits](docs/codex-acceptance.md) and [blank friend A/B pack](evals/codex/README.md)
+separate installation, loading, activation, source/license review and task quality.
+No formal Release has been published. Commands pin the reviewed candidate;
+see [PR #1](https://github.com/youchibuwan-ops/agent-workflow-skills/pull/1) for integration status.
 
-自动匹配依赖宿主支持和Skill描述。使用Skill不扩大权限；已授权范围内直接执行，用户/项目的禁用项与停止要求始终有效。发现技能不意味着自动恢复暂停任务。
+## Why proactive discovery?
 
-## 适配现成Skill
+A search result is a candidate; installation is only setup. This skill keeps the actual task in view:
 
-保留上游来源与许可证，优先用薄适配层处理差异；组合流程由总控Skill协调，确定性操作确有需要时才增加脚本。参见[适配方法](skills/proactive-skill-discovery/references/adapting-upstream-skills.md)。
+1. Match installed capabilities before looking elsewhere.
+2. Search for a real gap; read instructions, resources and licenses.
+3. Select, thinly adapt or combine suitable workflows within the user's authorization.
+4. Verify the actual output, including relevant failure cases.
+5. Maintain verified decisions in an existing skill; create another only when needed.
 
-Vercel [find-skills](https://github.com/vercel-labs/skills/tree/main/skills/find-skills) 可作为可选发现工具；其代码和CLI不包含在本包中。
+The [discovery and learning workflow](docs/discovery-workflow.md) adds actual
+artifact checks at entry, first sample, handoff and completion. Diagnose evidence,
+environment, method and execution gaps separately; use new-task tests and nearby
+counterexamples before promoting reusable rules.
 
-本包不包含游戏素材、实物照片、私人项目规则、机器配置、审核日志或凭据。美术Skill中的项目配置仅为通用示例。
+Use it for an unfamiliar stack, repeated workflow failures, overlapping skills, or a
+method worth retaining. It grants no permission to publish, spend money or resume paused work.
 
-## 主动沉淀经验
+## Choose a skill
 
-出现反复纠错、有效新方法或技能缺漏时，主动从实际证据提炼经验，优先更新已有 Skill，必要时才新建；同时验证目标情景与相邻反例。个人/项目偏好与私人资料不扩散到通用技能。参见[经验沉淀方法](skills/proactive-skill-discovery/references/learning-from-work.md)。
+| Skill | Best for | Expected output |
+| --- | --- | --- |
+| [proactive-skill-discovery](skills/proactive-skill-discovery/SKILL.md) | Selecting, inspecting, adapting and using skills, then maintaining lessons | Chosen/rejected sources, reasons, task evidence and a scoped reusable update |
+| [crafting-reference-based-svg-assets](skills/crafting-reference-based-svg-assets/SKILL.md) | Real-object SVG props with unclear proportions, thickness, connections or assembly | Editable parts, assembled SVGs, reference comparisons and bounded visual judgments |
+
+Discovery can select the SVG workflow; SVG review does not replace discovery. Neither
+is an autonomous service or a guarantee of model performance. Detailed skill instructions
+currently use Chinese; this README and the usage prompts are English.
+
+The SVG skill follows an [ordered workflow with rework gates](docs/svg-workflow.md):
+references → shared structure/scale → each local's geometry, material and actual
+inspection → exact assembly → a fresh whole-object review.
+
+## Try it in Codex
+
+After installing, start a chat in that project. If the skill is absent, restart Codex.
+
+```text
+Use $proactive-skill-discovery for this repository's release-quality audit.
+Reuse existing tools, inspect candidates and licenses, verify the real install path,
+and retain verified lessons. Work on a branch; do not release or submit externally.
+```
+
+Install the SVG skill separately:
+
+```sh
+npx skills@1.7.4 add https://github.com/youchibuwan-ops/agent-workflow-skills/tree/6aaedb39545b3f60892b824862396951c8147b81 --skill crafting-reference-based-svg-assets -a codex
+```
+
+```text
+Use $crafting-reference-based-svg-assets to make one editable binder-clip prop.
+Compare reference angles, resolve the rolled edges and wire connections, finish the
+difficult parts separately, then review the whole asset at its actual size.
+Do not integrate it into a game.
+```
+
+SVG work needs real image inspection and an SVG editor/renderer supplied by the host.
+No renderer, image generator, API key or required review model is bundled. Automatic
+activation depends on the host; explicit invocation is the reproducible starting point.
+
+## Real examples
+
+- [Release audit and discovery](examples/discovery-release-audit/README.md): actual
+  selection, OSS tool reuse, a license packaging finding, installation checks and retained learning.
+- [Binder clip](examples/svg-binder-clip/README.md): licensed photographs, complementary
+  angles, independent parts and native-size checks, including withdrawn approvals.
+  The current r08 whole was independently reviewed and accepted by the user for public display.
+- [Controlled bracket](examples/controlled-bracket/README.md): an owned vector with
+  explicit planted faults, separately repaired parts and exact-group assembly checks.
+- [Unseen clothespin test](examples/heldout-clothespin/README.md): actual reference
+  research on a new object, with unresolved dimensional evidence kept explicit.
+
+![Reference pose and accepted editable SVG](examples/svg-binder-clip/comparison.png)
+
+Photo and artwork: CC BY-SA 3.0; [credits and exceptions](examples/svg-binder-clip/ATTRIBUTION.md).
+These are work examples, not no-skill/with-skill benchmarks. Future DSH variants can
+use the [comparison protocol](docs/validation.md).
+
+## Installation and compatibility
+
+CLI 1.7.4 installs Codex project skills to `.agents/skills/<name>/`. Add `-g` for
+user-wide installation. See [installation](docs/installation.md) for Windows, directory
+layout, manual fallback, updates and removal. Keep the complete folder, including its license.
+
+Codex is the install target tested here. Other Agent Skills hosts may read these
+folders; cross-host behavior has not been tested. See the [validation record](docs/validation.md).
+
+## Contribute and verify
+
+```sh
+npm ci --ignore-scripts
+npm run lint
+npm run verify:install
+npm run render:example
+```
+
+Development dependencies serve checks/examples only. Consumers do not run `npm install`
+in this repo. Schema checks reuse upstream `skills-ref`; links use lychee. CI repeats
+installation on Windows and Linux. See [validation](docs/validation.md),
+[contributing](CONTRIBUTING.md), [security](SECURITY.md) and [changelog](CHANGELOG.md).
 
 ## License
 
-[MIT](LICENSE) © 2026 youchibuwan-ops.
+Skills, scripts and documentation: [MIT](LICENSE), © 2026 youchibuwan-ops.
+Example photographs and derivative SVGs use the explicit licenses beside them.
+Optional upstream tools are not bundled; their licenses remain their own.

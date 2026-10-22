@@ -1,0 +1,120 @@
+{
+  "version": 7,
+  "frozen_skill_commit": "6aaedb39545b3f60892b824862396951c8147b81",
+  "cli_version": "0.155.1",
+  "model": "gpt-6-astra",
+  "reasoning_effort": "medium",
+  "wall_seconds": 300,
+  "max_tool_calls": 40,
+  "repetitions_per_arm": 3,
+  "seeded_order": [
+    "B",
+    "A",
+    "A",
+    "B",
+    "B",
+    "A"
+  ],
+  "target_skills": {
+    "discovery": "proactive-skill-discovery",
+    "svg": "crafting-reference-based-svg-assets",
+    "control": "proactive-skill-discovery",
+    "workbook": "proactive-skill-discovery"
+  },
+  "primary_discovery_pass": [
+    "Host catalog contains the exact enabled target; no personal/project/plugin contamination",
+    "Prompt contains no target name, explicit skill invocation or request to search for skills",
+    "A successful observable read of the target SKILL.md, or host skill-use event, occurs before the relevant method decision",
+    "Actual search for a reusable external skill/workflow and actual source/resource/license inspection",
+    "A suitable method is actually applied to the task and its output independently checked"
+  ],
+  "outcome_classes": [
+    "pass",
+    "fail",
+    "environment_blocked",
+    "budget_exhausted",
+    "invalid_contamination",
+    "unobservable"
+  ],
+  "separate_measures": [
+    "installation",
+    "host_discovery",
+    "instruction_load",
+    "implicit_trigger",
+    "external_reuse",
+    "task_success"
+  ],
+  "go_rule": "GO for a limited Codex preview requires intact legal/package checks, both explicit smokes and one valid implicit full-chain pilot. Broad reliability or performance claims require the independent friend study; no paired result is prefilled. Otherwise NO-GO for that unsupported claim, with precise blockers.",
+  "do_not_change_after_execution": [
+    "prompts",
+    "input_files",
+    "rubrics",
+    "budgets",
+    "skill_payload",
+    "model",
+    "effort"
+  ],
+  "limits": "CLI token usage is reported, not a hard token/dollar cap. Wall/tool caps are equal. A local author pilot is not a friend's A/B result or a desktop activation test. A folder is not an OS security boundary. Use separate disposable containers/VMs for the friend study.",
+  "explicit_discovery_prompt": "tasks/explicit-discovery-v2.txt",
+  "parent_protocol_commit": "829c4ca2c6c7876d7b65707321856c5e2f1e33ff",
+  "additional_adopted_review_gate": [
+    "Actual source/method and applicable license-body inspection for each newly adopted substantive workflow/tool/resource, with version and use-scope decision",
+    "Search snippets, SPDX-only metadata or download/save alone do not establish inspection",
+    "Review evidence must precede adoption/use; fallback and added resources reopen their corresponding gate; no backdating"
+  ],
+  "repair_closure_rule": "Keep all original v3 gates. For this repair additionally require both scheduled PDF B runs and the transfer workbook B run to complete the full inspection-before-use chain and task; both explicit smokes and both controls pass; new PDFs have no observed extraction warnings or malformed CMap tokens in independent pypdf/pdfplumber checks and actual Poppler page review. Every scheduled outcome retained. This does not replace the old finite-preview rule or establish statistical reliability.",
+  "author_schedule": [
+    [
+      "explicit-discovery",
+      "control",
+      "B",
+      true
+    ],
+    [
+      "explicit-svg",
+      "svg",
+      "B",
+      true
+    ],
+    [
+      "discovery-B-01",
+      "discovery",
+      "B",
+      false
+    ],
+    [
+      "control-A",
+      "control",
+      "A",
+      false
+    ],
+    [
+      "workbook-A",
+      "workbook",
+      "A",
+      false
+    ],
+    [
+      "discovery-B-02",
+      "discovery",
+      "B",
+      false
+    ],
+    [
+      "control-B",
+      "control",
+      "B",
+      false
+    ],
+    [
+      "workbook-B",
+      "workbook",
+      "B",
+      false
+    ]
+  ],
+  "transfer_input_sha256": {
+    "deliveries.csv": "ce233ae3395d66b015b1f8ca85d96b3b1aeb7c2bd1ba23c3193c5b83475dbf7c",
+    "prompt.txt": "e23bf2a1ae381f3961c1b923b748ce66d0e9cf610a609d94bec7556ad82c619b"
+  }
+}

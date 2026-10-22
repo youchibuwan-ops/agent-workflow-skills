@@ -1,0 +1,6 @@
+﻿sku,quantity,unit_price,note
+0012,3,0.10,"包装,保留"
+0040,2,1.25,"line one
+line two"
+0012,2,0.20,补货
+0100,1,0.01,尾项

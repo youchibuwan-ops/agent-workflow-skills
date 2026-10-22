@@ -1,6 +1,6 @@
 interface:
-  display_name: "主动发现与沉淀Skill"
-  short_description: "主动匹配、筛选和使用技能，将已验证的任务经验沉淀为可复用Skill"
-  default_prompt: "使用 $proactive-skill-discovery，为当前任务主动匹配、发现、筛选和适配合适的Skill，继续完成任务，并将已验证的可复用经验总结到合适的Skill。"
+  display_name: "Proactive Skill Discovery"
+  short_description: "Find, verify, adapt skills and retain proven lessons"
+  default_prompt: "Use $proactive-skill-discovery to match or discover suitable skills, inspect their source and license, complete the task, and retain verified reusable lessons."
 policy:
   allow_implicit_invocation: true

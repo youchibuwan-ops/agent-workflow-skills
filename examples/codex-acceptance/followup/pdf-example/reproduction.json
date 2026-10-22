@@ -1,0 +1,77 @@
+{
+  "node": "22.22.1",
+  "fresh_directory": true,
+  "prior_pdf_copied": false,
+  "pages": 3,
+  "actor_checks": {
+    "pages": 3,
+    "rows": 36,
+    "checks": [
+      "Every source row matched on one PDF text baseline, including ID, Chinese/English description and exact amount",
+      "Each ID occurs exactly once",
+      "All pages contain bilingual table heading",
+      "Title and closing text extracted",
+      "All text bounds inside page"
+    ],
+    "pageRows": [
+      {
+        "page": 1,
+        "rows": [
+          "ROW-01",
+          "ROW-02",
+          "ROW-03",
+          "ROW-04",
+          "ROW-05",
+          "ROW-06",
+          "ROW-07",
+          "ROW-08",
+          "ROW-09",
+          "ROW-10",
+          "ROW-11",
+          "ROW-12",
+          "ROW-13",
+          "ROW-14"
+        ]
+      },
+      {
+        "page": 2,
+        "rows": [
+          "ROW-15",
+          "ROW-16",
+          "ROW-17",
+          "ROW-18",
+          "ROW-19",
+          "ROW-20",
+          "ROW-21",
+          "ROW-22",
+          "ROW-23",
+          "ROW-24",
+          "ROW-25",
+          "ROW-26",
+          "ROW-27",
+          "ROW-28",
+          "ROW-29",
+          "ROW-30"
+        ]
+      },
+      {
+        "page": 3,
+        "rows": [
+          "ROW-31",
+          "ROW-32",
+          "ROW-33",
+          "ROW-34",
+          "ROW-35",
+          "ROW-36"
+        ]
+      }
+    ]
+  },
+  "poppler_pixels_equal_to_published_pages": [
+    true,
+    true,
+    true
+  ],
+  "pdf_sha256": "d74cb55b2c025402c9d8326e2640232c13a954ce60ea007854b9131891a36ddf",
+  "scope": "Artifact reproduction only; no new model or trigger run"
+}

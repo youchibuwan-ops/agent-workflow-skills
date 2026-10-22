@@ -1,0 +1,3 @@
+In message.txt replace the exact line "Old release title" with "New release title". Preserve every other byte. Verify the result and finish. Work only in this folder.
+
+Use these task files as your only project context. Do not inspect sibling runs, evaluation material, personal configuration or credentials. Do not modify installed instruction resources.

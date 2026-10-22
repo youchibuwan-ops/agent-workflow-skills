@@ -1,0 +1,17 @@
+{
+  "proactive-skill-discovery": {
+    "LICENSE": "d1ba8b00007e2f5670cc0af48a9a8faa1885b502f186e574dee5c5fd7ecaf913",
+    "SKILL.md": "3f7e80f0e3a23a1b16e2532e6c6859cddcea7a11d73df74dd5e2a30c63e4f8df",
+    "agents/openai.yaml": "7c25c200a0d5ed5eb59ba98910dd5471d1a3956a83570ada6d1b5797ca5fc067",
+    "references/adapting-upstream-skills.md": "a9f35a4921c9482d44a1bb61f49517027c3ae64d59ae13db4eea29b7db59aeb5",
+    "references/learning-from-work.md": "094f67f3eaf2176fff0c5c7fdbdfbfbab7b170c3bd7b2147126987e273ae71f0"
+  },
+  "crafting-reference-based-svg-assets": {
+    "LICENSE": "d1ba8b00007e2f5670cc0af48a9a8faa1885b502f186e574dee5c5fd7ecaf913",
+    "SKILL.md": "c81a1a8491cf2caed738b5dde9a3fe3ba716f84c0a53620a7138f350267e4288",
+    "agents/openai.yaml": "c1737c325f700dca578a0093ab0ec476ccabc75beddaa842f1b9c7a87318965b",
+    "references/execution-record.md": "e4c2d16ce8ac756a44bfc04a1fb45cb0ae9e4e1764bd9a031d85b10ed0a593f1",
+    "references/project-profile-example.md": "ae3c82b7ee3901c30b7cd271b0b98c83f85bea60e49a59243ec404847d170a84",
+    "references/visual-diagnosis.md": "28919d58fac8c7484cae05d533605eb5a21dd8fcc5b39dcbb07d0e56d94966a3"
+  }
+}

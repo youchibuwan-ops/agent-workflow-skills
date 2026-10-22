@@ -1,4 +1,6 @@
 interface:
-  display_name: "实物SVG逐件精修与复审"
-  short_description: "根据真实物品逐件精修SVG，先完成独立局部，再复审整件"
-  default_prompt: "使用 $crafting-reference-based-svg-assets，根据当前项目约束逐件精修并实际检查这件SVG素材，先做好局部再组装。"
+  display_name: "Reference-based SVG Assets"
+  short_description: "Refine SVG props with references and visual review"
+  default_prompt: "Use $crafting-reference-based-svg-assets to inspect the references, resolve unclear structure, finish difficult details, and visually review the complete editable SVG."
+policy:
+  allow_implicit_invocation: true

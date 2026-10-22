@@ -1,0 +1,74 @@
+{
+  "renderer": "@resvg/resvg-js@2.6.2",
+  "compositor": "sharp@0.35.5",
+  "scope": "Fixed accepted r08 case regeneration and exact-group integrity; not an automatic visual pass",
+  "nativeSize": [
+    160,
+    160
+  ],
+  "targetTransform": {
+    "matrix": [
+      1.0366871597251925,
+      -0.0064992247917952635,
+      0.0064992247917952635,
+      1.0366871597251925,
+      49.68626497139589,
+      162.30635317802194
+    ],
+    "scope": "similarity for target pose/occlusion in different specimen; not BODY dimensions or full camera calibration",
+    "crop": {
+      "left": 265,
+      "top": 165,
+      "width": 440,
+      "height": 440
+    }
+  },
+  "primaryCrop": {
+    "left": 700,
+    "top": 130,
+    "width": 480,
+    "height": 960
+  },
+  "independentGroupsUnchanged": [
+    "F-face",
+    "back-web",
+    "N-face",
+    "F-L",
+    "F-central",
+    "F-R",
+    "N-L",
+    "N-central",
+    "N-R",
+    "F-wire",
+    "N-wire"
+  ],
+  "sha256": {
+    "source.svg": "697dd1f139c814adfa7893844f2501421b15ef68d65b2befe3ae9e3f038367b6",
+    "construction.blend": "94bffffe725c88e0c8855bf45e6d38769c50a8b112e3f1cfcde162fbf4cca53a",
+    "primary-body.svg": "b7a08096172df2a28aa437e32fe3666651c99e5dd8226e9f07d6f4e1ef2f82f5",
+    "before.svg": "ab4358e4a02eaf7e565ee4ad3026e656519ac8b1534d2e84e1eb9d5a3094943a",
+    "reference.jpg": "143cd17a0cd3dc4bc98cf786e4d1bed8204cbd05c866601cf8b02692286026db",
+    "support-black.jpg": "4c8a80ef1e64c2f13bd9e2f3d44f0528242a6e22ed81e14782df6bd5d0537b5d",
+    "support-unpainted.jpg": "5c39fb3b82fb8a89eac3610e4e4641ca00d69d1642b309e0b043fd0ce6925f01",
+    "support-views.jpg": "e6348d5f59796c76752bef00e70c0b4243ed61c9881771279d7737f9c2390350",
+    "support-no-handles.jpg": "d5f062431e4f6c2b32544c552a3cbec698524f5ea18364a4cb8d696d40a8f0ea",
+    "support-axial.jpg": "3199ca181d71afed3df3249be50907a7c081e2726ce03b93d21ee5bffaa3f5ec",
+    "locals/sheet-substrate.svg": "239de11ed6f9db145663ea4b04bddcce2c9283132e605b8cf84caf94936b4d14",
+    "locals/F-face.svg": "edb273460b9cfd0b96796bfdb826c3dd28632b0fc10ee271228a71290bf7d0fe",
+    "locals/back-web.svg": "d3de5dcd386c33e2f3312ad7f04f22b7e6f84ec86c5abe0ae07fe5da85c5ddbb",
+    "locals/N-face.svg": "71e7fd59493f6282dbdc85b986e7f9fbd30ebc065bf9ac729989e6b5a15cc7ef",
+    "locals/F-L.svg": "79af2861c30d562bcbef881d0db6f5ffe46e03b2b77d46fdf37c8e2e002c9261",
+    "locals/F-central.svg": "aa6fc710f3c171eedcf9948d41cbf5bb75e5ac7dd1a68b57189035696d6e5de0",
+    "locals/F-R.svg": "651e4a14f6b7d18f6617d111c9362f135bceac32bf656c1f2fc4889e47f4b5ff",
+    "locals/N-L.svg": "676c6907f353b1d8fe95af384afece8e9fcae4e6d08b09edf9d99e14c24e6773",
+    "locals/N-central.svg": "d5ad9f796650557fab9a531990a5d4e4d21798bcd00c4f84aec23e9de0e4b27a",
+    "locals/N-R.svg": "315afb6d94d5f1c95b910c3e5cee2a2054dcb745d8aac66d662a03fb3b046f40",
+    "locals/F-wire.svg": "34b9479043940148d5eacfa8b3009b4bd1b29d4b6ecfcd92c3d0452a5fff2bcc",
+    "locals/N-wire.svg": "7bf1888d5c001e8b35882334aee7f5b269ae9b32ec33ec7e8c77b40d802d882b",
+    "comparison.png": "7518bb3028eb4b0aedc344fbf51bad0010fac1cf84d086a48a09dc615f3995a3",
+    "inspection.png": "06e0a7422cf3fecf4e6b2ca16ea00f46b3b2787b7a0951a1308a71109cb14c72",
+    "primary-body-comparison.png": "fc3f930fbfbe5c6da0e814ee0a793699df8ff0ab22a57597a182919334aaf24f",
+    "construction-views.png": "06ad3dc2e3dfe368e05f30ee363c8c05091c647c7f87b76982b9aee93a373108",
+    "assembly-seam-rejected.png": "81709cb57ca5a3bf714641d8f48105ae610d4f4a370c15e327d7bb1fa168e04e"
+  }
+}

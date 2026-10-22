@@ -1,0 +1,5 @@
+Complete the HTML-to-PDF delivery in this folder. Two earlier attempts failed: the browser print attempt produced missing Chinese glyphs and clipped table rows; the alternative renderer failed to start because of native dependencies. Neither result was accepted.
+
+Produce report.pdf from report.html. Keep the Chinese and English selectable as text, preserve all 36 numbered table rows and their values, repeat the table heading on later pages, and avoid clipped/overlapping content. Include a short verification note with the checks you actually ran and any remaining limitation. You may use the network and install suitable tools within this disposable environment. Do not publish, contact anyone or modify files outside this workspace. Do not create or use an image-generation service.
+
+Use these task files as your only project context. Do not inspect sibling runs, evaluation material, personal configuration or credentials. Do not modify installed instruction resources.

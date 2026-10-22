@@ -1,0 +1,106 @@
+{
+  "classification": "coordinator artifact-only diagnostic; no model call; original outcome unchanged",
+  "repair": {
+    "original_sha256": "e7d23d660ada258472487eb332831772ac6e174296653a22d72110a5b290237f",
+    "new_sha256": "985badadb2c8d84c119546638e3919a126bae9ccc5192e6fb5570c610596c208",
+    "repaired_scalar_destinations": 1884,
+    "expanded_valid_UTF16_mappings": 1004,
+    "original_not_changed": true,
+    "scope": "artifact-only diagnostic copy; old model outcome unchanged"
+  },
+  "independent_checks": {
+    "pdf_sha256": "985badadb2c8d84c119546638e3919a126bae9ccc5192e6fb5570c610596c208",
+    "pages": 3,
+    "rows_by_page": [
+      [
+        "ROW-01",
+        "ROW-02",
+        "ROW-03",
+        "ROW-04",
+        "ROW-05",
+        "ROW-06",
+        "ROW-07",
+        "ROW-08",
+        "ROW-09",
+        "ROW-10",
+        "ROW-11",
+        "ROW-12"
+      ],
+      [
+        "ROW-13",
+        "ROW-14",
+        "ROW-15",
+        "ROW-16",
+        "ROW-17",
+        "ROW-18",
+        "ROW-19",
+        "ROW-20",
+        "ROW-21",
+        "ROW-22",
+        "ROW-23",
+        "ROW-24"
+      ],
+      [
+        "ROW-25",
+        "ROW-26",
+        "ROW-27",
+        "ROW-28",
+        "ROW-29",
+        "ROW-30",
+        "ROW-31",
+        "ROW-32",
+        "ROW-33",
+        "ROW-34",
+        "ROW-35",
+        "ROW-36"
+      ]
+    ],
+    "all_108_cells_match": true,
+    "bilingual_title_preamble_closing_and_headers": true,
+    "bounds_outside": [
+      0,
+      0,
+      0
+    ],
+    "pdfium_independent_text_pass": true,
+    "odd_CMap_hex_tokens_unique_streams": 0,
+    "parser_warning_lines": 0,
+    "strict_current_compatibility_pass": true,
+    "actual_Poppler_page_review": "Root actually opened all current complete Poppler pages; independent reviewer separately reviews actor pages."
+  },
+  "original_render_pixels": [
+    {
+      "page": 1,
+      "identical_pixels": true,
+      "old_png_sha256": "b05d721cb5d6c424ab2423371c20a6575aed990204cd3f92f4c6d1bfd00f1962",
+      "new_png_sha256": "b05d721cb5d6c424ab2423371c20a6575aed990204cd3f92f4c6d1bfd00f1962"
+    },
+    {
+      "page": 2,
+      "identical_pixels": true,
+      "old_png_sha256": "d4e2fd42836e1d3d67b8d77ebfe48ed999385bf5fa54271f50219c22e82f7f42",
+      "new_png_sha256": "d4e2fd42836e1d3d67b8d77ebfe48ed999385bf5fa54271f50219c22e82f7f42"
+    },
+    {
+      "page": 3,
+      "identical_pixels": true,
+      "old_png_sha256": "bb3dccc03ccfcadb700d8832e335c13c4d377bbe235b50b229bd027296607c5b",
+      "new_png_sha256": "bb3dccc03ccfcadb700d8832e335c13c4d377bbe235b50b229bd027296607c5b"
+    }
+  ],
+  "other_attempts_retained": [
+    {
+      "attempt": "native font subset",
+      "result": "MuPDF Index bounds error; compatibility not fixed"
+    },
+    {
+      "attempt": "FontTools font subset / dropped layout features",
+      "result": "selectable row/header checks failed; rejected"
+    },
+    {
+      "attempt": "initial scalar-encoding patch",
+      "result": "assertion detected remaining bfchar entries; no repaired PDF written"
+    }
+  ],
+  "scope": "Observed 5/6-hex scalar destinations rewritten as UTF-16BE using pypdf6.10.0. 44,310 mappings independently checked; page content/font streams and pixels unchanged. Not a general repair recipe, conformance guarantee, or autonomous Skill outcome."
+}

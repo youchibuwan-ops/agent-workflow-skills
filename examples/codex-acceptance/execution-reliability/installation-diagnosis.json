@@ -1,0 +1,367 @@
+{
+  "remote_probes": [
+    {
+      "case": "install-inherited-1",
+      "exit": null,
+      "profile": "inherited",
+      "complete_standalone_reports": {
+        "cli": "skills@1.7.4",
+        "node": "v22.22.1",
+        "mode": "project-copy",
+        "telemetry": false,
+        "skills": [
+          {
+            "name": "proactive-skill-discovery",
+            "result": "pass",
+            "referencesRead": [
+              "references/adapting-upstream-skills.md",
+              "references/learning-from-work.md",
+              "references/adapting-upstream-skills.md#来源与许可关卡",
+              "references/adapting-upstream-skills.md",
+              "references/learning-from-work.md"
+            ],
+            "files": {
+              "agents/openai.yaml": "7c25c200a0d5ed5eb59ba98910dd5471d1a3956a83570ada6d1b5797ca5fc067",
+              "LICENSE": "d1ba8b00007e2f5670cc0af48a9a8faa1885b502f186e574dee5c5fd7ecaf913",
+              "references/adapting-upstream-skills.md": "d49113db36a71de516f4863c79af47027429cca58d4f2680d3900cbe924d36d6",
+              "references/learning-from-work.md": "094f67f3eaf2176fff0c5c7fdbdfbfbab7b170c3bd7b2147126987e273ae71f0",
+              "SKILL.md": "8ab5364a0bab150676c447005914457705c4ea4c92c1161382092e93cc69d5fc"
+            }
+          },
+          {
+            "name": "crafting-reference-based-svg-assets",
+            "result": "pass",
+            "referencesRead": [
+              "references/project-profile-example.md",
+              "references/execution-record.md",
+              "references/visual-diagnosis.md"
+            ],
+            "files": {
+              "agents/openai.yaml": "c1737c325f700dca578a0093ab0ec476ccabc75beddaa842f1b9c7a87318965b",
+              "LICENSE": "d1ba8b00007e2f5670cc0af48a9a8faa1885b502f186e574dee5c5fd7ecaf913",
+              "references/execution-record.md": "e4c2d16ce8ac756a44bfc04a1fb45cb0ae9e4e1764bd9a031d85b10ed0a593f1",
+              "references/project-profile-example.md": "ae3c82b7ee3901c30b7cd271b0b98c83f85bea60e49a59243ec404847d170a84",
+              "references/visual-diagnosis.md": "28919d58fac8c7484cae05d533605eb5a21dd8fcc5b39dcbb07d0e56d94966a3",
+              "SKILL.md": "c81a1a8491cf2caed738b5dde9a3fe3ba716f84c0a53620a7138f350267e4288"
+            }
+          }
+        ]
+      },
+      "trace_sha256": "95bf2374e11bd47cb8e494c813da106bc3b988161c4ec133255feec2155d0d2d",
+      "trace_utf8_replacement_count": 8,
+      "limit": "First trace parser crashed after complete report; child exit was not persisted and is not inferred."
+    },
+    {
+      "case": "install-inherited-2",
+      "exit": 0,
+      "profile": "inherited",
+      "complete_standalone_reports": {
+        "cli": "skills@1.7.4",
+        "node": "v22.22.1",
+        "mode": "project-copy",
+        "telemetry": false,
+        "skills": [
+          {
+            "name": "proactive-skill-discovery",
+            "result": "pass",
+            "referencesRead": [
+              "references/adapting-upstream-skills.md",
+              "references/learning-from-work.md",
+              "references/adapting-upstream-skills.md#来源与许可关卡",
+              "references/adapting-upstream-skills.md",
+              "references/learning-from-work.md"
+            ],
+            "files": {
+              "agents/openai.yaml": "7c25c200a0d5ed5eb59ba98910dd5471d1a3956a83570ada6d1b5797ca5fc067",
+              "LICENSE": "d1ba8b00007e2f5670cc0af48a9a8faa1885b502f186e574dee5c5fd7ecaf913",
+              "references/adapting-upstream-skills.md": "d49113db36a71de516f4863c79af47027429cca58d4f2680d3900cbe924d36d6",
+              "references/learning-from-work.md": "094f67f3eaf2176fff0c5c7fdbdfbfbab7b170c3bd7b2147126987e273ae71f0",
+              "SKILL.md": "8ab5364a0bab150676c447005914457705c4ea4c92c1161382092e93cc69d5fc"
+            }
+          },
+          {
+            "name": "crafting-reference-based-svg-assets",
+            "result": "pass",
+            "referencesRead": [
+              "references/project-profile-example.md",
+              "references/execution-record.md",
+              "references/visual-diagnosis.md"
+            ],
+            "files": {
+              "agents/openai.yaml": "c1737c325f700dca578a0093ab0ec476ccabc75beddaa842f1b9c7a87318965b",
+              "LICENSE": "d1ba8b00007e2f5670cc0af48a9a8faa1885b502f186e574dee5c5fd7ecaf913",
+              "references/execution-record.md": "e4c2d16ce8ac756a44bfc04a1fb45cb0ae9e4e1764bd9a031d85b10ed0a593f1",
+              "references/project-profile-example.md": "ae3c82b7ee3901c30b7cd271b0b98c83f85bea60e49a59243ec404847d170a84",
+              "references/visual-diagnosis.md": "28919d58fac8c7484cae05d533605eb5a21dd8fcc5b39dcbb07d0e56d94966a3",
+              "SKILL.md": "c81a1a8491cf2caed738b5dde9a3fe3ba716f84c0a53620a7138f350267e4288"
+            }
+          }
+        ]
+      },
+      "trace_sha256": "647c2f29abe0480f94dc9b90b031c0ac4698a5e0d80545d2a4d71c20c9c3974b",
+      "trace_utf8_replacement_count": 8,
+      "limit": null
+    },
+    {
+      "case": "install-http1.1-1",
+      "exit": 0,
+      "profile": "http1.1",
+      "complete_standalone_reports": {
+        "cli": "skills@1.7.4",
+        "node": "v22.22.1",
+        "mode": "project-copy",
+        "telemetry": false,
+        "skills": [
+          {
+            "name": "proactive-skill-discovery",
+            "result": "pass",
+            "referencesRead": [
+              "references/adapting-upstream-skills.md",
+              "references/learning-from-work.md",
+              "references/adapting-upstream-skills.md#来源与许可关卡",
+              "references/adapting-upstream-skills.md",
+              "references/learning-from-work.md"
+            ],
+            "files": {
+              "agents/openai.yaml": "7c25c200a0d5ed5eb59ba98910dd5471d1a3956a83570ada6d1b5797ca5fc067",
+              "LICENSE": "d1ba8b00007e2f5670cc0af48a9a8faa1885b502f186e574dee5c5fd7ecaf913",
+              "references/adapting-upstream-skills.md": "d49113db36a71de516f4863c79af47027429cca58d4f2680d3900cbe924d36d6",
+              "references/learning-from-work.md": "094f67f3eaf2176fff0c5c7fdbdfbfbab7b170c3bd7b2147126987e273ae71f0",
+              "SKILL.md": "8ab5364a0bab150676c447005914457705c4ea4c92c1161382092e93cc69d5fc"
+            }
+          },
+          {
+            "name": "crafting-reference-based-svg-assets",
+            "result": "pass",
+            "referencesRead": [
+              "references/project-profile-example.md",
+              "references/execution-record.md",
+              "references/visual-diagnosis.md"
+            ],
+            "files": {
+              "agents/openai.yaml": "c1737c325f700dca578a0093ab0ec476ccabc75beddaa842f1b9c7a87318965b",
+              "LICENSE": "d1ba8b00007e2f5670cc0af48a9a8faa1885b502f186e574dee5c5fd7ecaf913",
+              "references/execution-record.md": "e4c2d16ce8ac756a44bfc04a1fb45cb0ae9e4e1764bd9a031d85b10ed0a593f1",
+              "references/project-profile-example.md": "ae3c82b7ee3901c30b7cd271b0b98c83f85bea60e49a59243ec404847d170a84",
+              "references/visual-diagnosis.md": "28919d58fac8c7484cae05d533605eb5a21dd8fcc5b39dcbb07d0e56d94966a3",
+              "SKILL.md": "c81a1a8491cf2caed738b5dde9a3fe3ba716f84c0a53620a7138f350267e4288"
+            }
+          }
+        ]
+      },
+      "trace_sha256": "8949dec33ed8113785ab4706d2a0c3cf05494b8337c9edf255f7f378d1c7c106",
+      "trace_utf8_replacement_count": 8,
+      "limit": null
+    },
+    {
+      "case": "install-http1.1-2",
+      "exit": 0,
+      "profile": "http1.1",
+      "complete_standalone_reports": {
+        "cli": "skills@1.7.4",
+        "node": "v22.22.1",
+        "mode": "project-copy",
+        "telemetry": false,
+        "skills": [
+          {
+            "name": "proactive-skill-discovery",
+            "result": "pass",
+            "referencesRead": [
+              "references/adapting-upstream-skills.md",
+              "references/learning-from-work.md",
+              "references/adapting-upstream-skills.md#来源与许可关卡",
+              "references/adapting-upstream-skills.md",
+              "references/learning-from-work.md"
+            ],
+            "files": {
+              "agents/openai.yaml": "7c25c200a0d5ed5eb59ba98910dd5471d1a3956a83570ada6d1b5797ca5fc067",
+              "LICENSE": "d1ba8b00007e2f5670cc0af48a9a8faa1885b502f186e574dee5c5fd7ecaf913",
+              "references/adapting-upstream-skills.md": "d49113db36a71de516f4863c79af47027429cca58d4f2680d3900cbe924d36d6",
+              "references/learning-from-work.md": "094f67f3eaf2176fff0c5c7fdbdfbfbab7b170c3bd7b2147126987e273ae71f0",
+              "SKILL.md": "8ab5364a0bab150676c447005914457705c4ea4c92c1161382092e93cc69d5fc"
+            }
+          },
+          {
+            "name": "crafting-reference-based-svg-assets",
+            "result": "pass",
+            "referencesRead": [
+              "references/project-profile-example.md",
+              "references/execution-record.md",
+              "references/visual-diagnosis.md"
+            ],
+            "files": {
+              "agents/openai.yaml": "c1737c325f700dca578a0093ab0ec476ccabc75beddaa842f1b9c7a87318965b",
+              "LICENSE": "d1ba8b00007e2f5670cc0af48a9a8faa1885b502f186e574dee5c5fd7ecaf913",
+              "references/execution-record.md": "e4c2d16ce8ac756a44bfc04a1fb45cb0ae9e4e1764bd9a031d85b10ed0a593f1",
+              "references/project-profile-example.md": "ae3c82b7ee3901c30b7cd271b0b98c83f85bea60e49a59243ec404847d170a84",
+              "references/visual-diagnosis.md": "28919d58fac8c7484cae05d533605eb5a21dd8fcc5b39dcbb07d0e56d94966a3",
+              "SKILL.md": "c81a1a8491cf2caed738b5dde9a3fe3ba716f84c0a53620a7138f350267e4288"
+            }
+          }
+        ]
+      },
+      "trace_sha256": "035170cfb16ec901343a34a15af8720f04115a1b514325eb3b53f3f602c9c01f",
+      "trace_utf8_replacement_count": 8,
+      "limit": null
+    }
+  ],
+  "pinned_fetch_then_local_install": {
+    "source_commit": "9dd9d3ce83170daf12e0039ff74182fce960afae",
+    "fresh_home_and_cache": true,
+    "credential_free_proxy_declared": true,
+    "six_step_exits": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "report": {
+      "cli": "skills@1.7.4",
+      "node": "v22.22.1",
+      "mode": "project-copy",
+      "telemetry": false,
+      "skills": [
+        {
+          "name": "proactive-skill-discovery",
+          "result": "pass",
+          "referencesRead": [
+            "references/adapting-upstream-skills.md",
+            "references/learning-from-work.md",
+            "references/adapting-upstream-skills.md#来源与许可关卡",
+            "references/adapting-upstream-skills.md",
+            "references/learning-from-work.md"
+          ],
+          "files": {
+            "agents/openai.yaml": "7c25c200a0d5ed5eb59ba98910dd5471d1a3956a83570ada6d1b5797ca5fc067",
+            "LICENSE": "d1ba8b00007e2f5670cc0af48a9a8faa1885b502f186e574dee5c5fd7ecaf913",
+            "references/adapting-upstream-skills.md": "d49113db36a71de516f4863c79af47027429cca58d4f2680d3900cbe924d36d6",
+            "references/learning-from-work.md": "094f67f3eaf2176fff0c5c7fdbdfbfbab7b170c3bd7b2147126987e273ae71f0",
+            "SKILL.md": "7deb3079975b22696f1058001b4ffe44197a597c64da6f13d25fda0a206ad26a"
+          }
+        },
+        {
+          "name": "crafting-reference-based-svg-assets",
+          "result": "pass",
+          "referencesRead": [
+            "references/project-profile-example.md",
+            "references/execution-record.md",
+            "references/visual-diagnosis.md"
+          ],
+          "files": {
+            "agents/openai.yaml": "c1737c325f700dca578a0093ab0ec476ccabc75beddaa842f1b9c7a87318965b",
+            "LICENSE": "d1ba8b00007e2f5670cc0af48a9a8faa1885b502f186e574dee5c5fd7ecaf913",
+            "references/execution-record.md": "e4c2d16ce8ac756a44bfc04a1fb45cb0ae9e4e1764bd9a031d85b10ed0a593f1",
+            "references/project-profile-example.md": "ae3c82b7ee3901c30b7cd271b0b98c83f85bea60e49a59243ec404847d170a84",
+            "references/visual-diagnosis.md": "28919d58fac8c7484cae05d533605eb5a21dd8fcc5b39dcbb07d0e56d94966a3",
+            "SKILL.md": "a9ca79ffb6923a4b5d733076975d2fa26da30d79aed448313d1857022f0d9014"
+          }
+        }
+      ]
+    }
+  },
+  "controlled_mask_probe": {
+    "synthetic_failure": true,
+    "model_called": false,
+    "exit": 1,
+    "fetch_invoked": true,
+    "outer_missing_ref_reported": true,
+    "injected_fetch_failure_disclosed": false,
+    "scope": "Actual pinned skills1.7.4 with controlled Git errors; does not identify original transient transport cause."
+  },
+  "original_transient_cause": "unresolved; neither localized-error issue nor a specific transport error is asserted as its cause",
+  "no_global_execution_policy_or_git_config_changed": true,
+  "current_candidate_verification": {
+    "frozen_skill_commit": "6aaedb39545b3f60892b824862396951c8147b81",
+    "fresh_home_and_cache": true,
+    "all_seven_steps_exit_zero": true,
+    "local_pinned_fallback": {
+      "cli": "skills@1.7.4",
+      "node": "v22.22.1",
+      "mode": "project-copy",
+      "telemetry": false,
+      "skills": [
+        {
+          "name": "proactive-skill-discovery",
+          "result": "pass",
+          "referencesRead": [
+            "references/adapting-upstream-skills.md",
+            "references/learning-from-work.md",
+            "references/adapting-upstream-skills.md#来源与许可关卡",
+            "references/adapting-upstream-skills.md",
+            "references/learning-from-work.md"
+          ],
+          "files": {
+            "agents/openai.yaml": "7c25c200a0d5ed5eb59ba98910dd5471d1a3956a83570ada6d1b5797ca5fc067",
+            "LICENSE": "d1ba8b00007e2f5670cc0af48a9a8faa1885b502f186e574dee5c5fd7ecaf913",
+            "references/adapting-upstream-skills.md": "d49113db36a71de516f4863c79af47027429cca58d4f2680d3900cbe924d36d6",
+            "references/learning-from-work.md": "094f67f3eaf2176fff0c5c7fdbdfbfbab7b170c3bd7b2147126987e273ae71f0",
+            "SKILL.md": "ca4ac91c2dca44886154c7945f986c39a0294f9914ac6cf5e5d91026cc465bcd"
+          }
+        },
+        {
+          "name": "crafting-reference-based-svg-assets",
+          "result": "pass",
+          "referencesRead": [
+            "references/project-profile-example.md",
+            "references/execution-record.md",
+            "references/visual-diagnosis.md"
+          ],
+          "files": {
+            "agents/openai.yaml": "c1737c325f700dca578a0093ab0ec476ccabc75beddaa842f1b9c7a87318965b",
+            "LICENSE": "d1ba8b00007e2f5670cc0af48a9a8faa1885b502f186e574dee5c5fd7ecaf913",
+            "references/execution-record.md": "e4c2d16ce8ac756a44bfc04a1fb45cb0ae9e4e1764bd9a031d85b10ed0a593f1",
+            "references/project-profile-example.md": "ae3c82b7ee3901c30b7cd271b0b98c83f85bea60e49a59243ec404847d170a84",
+            "references/visual-diagnosis.md": "28919d58fac8c7484cae05d533605eb5a21dd8fcc5b39dcbb07d0e56d94966a3",
+            "SKILL.md": "a9ca79ffb6923a4b5d733076975d2fa26da30d79aed448313d1857022f0d9014"
+          }
+        }
+      ]
+    },
+    "remote_single_skill_installations": {
+      "cli": "skills@1.7.4",
+      "node": "v22.22.1",
+      "mode": "project-copy",
+      "telemetry": false,
+      "skills": [
+        {
+          "name": "proactive-skill-discovery",
+          "result": "pass",
+          "referencesRead": [
+            "references/adapting-upstream-skills.md",
+            "references/learning-from-work.md",
+            "references/adapting-upstream-skills.md#来源与许可关卡",
+            "references/adapting-upstream-skills.md",
+            "references/learning-from-work.md"
+          ],
+          "files": {
+            "agents/openai.yaml": "7c25c200a0d5ed5eb59ba98910dd5471d1a3956a83570ada6d1b5797ca5fc067",
+            "LICENSE": "d1ba8b00007e2f5670cc0af48a9a8faa1885b502f186e574dee5c5fd7ecaf913",
+            "references/adapting-upstream-skills.md": "d49113db36a71de516f4863c79af47027429cca58d4f2680d3900cbe924d36d6",
+            "references/learning-from-work.md": "094f67f3eaf2176fff0c5c7fdbdfbfbab7b170c3bd7b2147126987e273ae71f0",
+            "SKILL.md": "ca4ac91c2dca44886154c7945f986c39a0294f9914ac6cf5e5d91026cc465bcd"
+          }
+        },
+        {
+          "name": "crafting-reference-based-svg-assets",
+          "result": "pass",
+          "referencesRead": [
+            "references/project-profile-example.md",
+            "references/execution-record.md",
+            "references/visual-diagnosis.md"
+          ],
+          "files": {
+            "agents/openai.yaml": "c1737c325f700dca578a0093ab0ec476ccabc75beddaa842f1b9c7a87318965b",
+            "LICENSE": "d1ba8b00007e2f5670cc0af48a9a8faa1885b502f186e574dee5c5fd7ecaf913",
+            "references/execution-record.md": "e4c2d16ce8ac756a44bfc04a1fb45cb0ae9e4e1764bd9a031d85b10ed0a593f1",
+            "references/project-profile-example.md": "ae3c82b7ee3901c30b7cd271b0b98c83f85bea60e49a59243ec404847d170a84",
+            "references/visual-diagnosis.md": "28919d58fac8c7484cae05d533605eb5a21dd8fcc5b39dcbb07d0e56d94966a3",
+            "SKILL.md": "a9ca79ffb6923a4b5d733076975d2fa26da30d79aed448313d1857022f0d9014"
+          }
+        }
+      ]
+    },
+    "scope": "Installation and resource integrity only; no host loading/trigger/task score inferred."
+  }
+}

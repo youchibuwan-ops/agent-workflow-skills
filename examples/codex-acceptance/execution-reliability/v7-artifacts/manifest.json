@@ -1,0 +1,28 @@
+{
+  "B01": {
+    "files": {
+      "page-1.png": "cb808bb4cf31b25dc67130d247fe320d70737d163b0a486ea9eadf6d3454fd03",
+      "page-2.png": "427aad66f2b046d2b02b15d46b98dbe6ca142b46a20c3ba528bae060eb499050",
+      "page-3.png": "6c2646cdb34e0cf87a0dfd02c7bc16b799c5f3adf55d1627a1c2b15c144ebb18",
+      "report.pdf": "5f2338e232b62fdd716049e381a880cfe756fae9821e9ba5655b04fcc12374f3",
+      "verification.txt": "7a52446403e0f467010880dbc948f960d8d99e959285609c0a7699bbba87fb6a"
+    },
+    "source": "Actual unmodified actor PDF/verification note; root Poppler page renders.",
+    "fixture": "evals/codex/tasks/discovery/report.html, root MIT",
+    "font": "Noto Sans CJK SC Regular, SIL OFL 1.1; same license SHA256 6a73f9541c2de74158c0e7cf6b0a58ef774f5a780bf191f2d7ec9cc53efe2bf2",
+    "font_license": "../../review-gates/full-chain-preview/Noto-LICENSE.txt"
+  },
+  "B02": {
+    "files": {
+      "page-1.png": "c18420ee9c273591ac5d104faa43702582a9a8e3c2acfb240549d38e034b34d6",
+      "page-2.png": "818f5d454e3b794d89c9d97b071b13c1bad78ed4f4897bd79e5a8945f64f59c5",
+      "page-3.png": "dc46ab028f6f2ffe8d7545afea0fafdca9237c982feb59c239484ad5021e5606",
+      "report.pdf": "5dc766f1baf3f3cf4b4594e9363bbaed0b2280cc65796a2c936d67706f7b9240",
+      "verification.txt": "a106d01dc731d79df6c11f6b486d11019a0e59d13b5baa8a638da16ba82fd88a"
+    },
+    "source": "Actual unmodified actor PDF/verification note; root Poppler page renders.",
+    "fixture": "evals/codex/tasks/discovery/report.html, root MIT",
+    "font": "Noto Sans CJK SC Regular, SIL OFL 1.1; same license SHA256 6a73f9541c2de74158c0e7cf6b0a58ef774f5a780bf191f2d7ec9cc53efe2bf2",
+    "font_license": "../../review-gates/full-chain-preview/Noto-LICENSE.txt"
+  }
+}
