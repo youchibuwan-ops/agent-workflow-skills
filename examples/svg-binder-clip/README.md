@@ -88,3 +88,12 @@ general agent-reliability improvement is claimed.
 中文：先厘清同一片材的六处卷折和两根完整手柄，再在共同基准中逐局部制作、
 核材质与邻接、原样回装，最后重新审核整件。照片、模型多视图、格式检查和用户
 审美认可各有不同作用，不能互相冒充。当前 r08 已获用户同意作为公开案例展示。
+
+## Native-file metadata cleanup — 2026-10-23
+
+The optional construction model was sanitized to remove authoring paths and weak
+library provenance. Native Blender inspection and an independent geometry/camera
+fingerprint comparison found unchanged evaluated geometry; all four public case
+render PNGs regenerated identically. The manifest retains the original reviewed
+hash and the sanitized delivery hash. This does not add engineering/dynamic claims,
+and earlier commits containing the old metadata were not rewritten.

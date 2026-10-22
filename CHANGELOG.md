@@ -2,6 +2,16 @@
 
 ## Unreleased
 
+- Codex acceptance protocol frozen before authenticated author pilots; installation
+  and local catalogs verified, resource reads blocked and account MCP contamination
+  retained. Explicit/implicit success remains unverified: NO-GO under the frozen rule.
+- Isolated friend A/B tasks, scoring/raw-record templates and native Codex wrapper;
+  actual payload/version guards and credential-cleanup regressions tested. Container
+  recipe supplied but not locally executed; no friend results or effect-size claim.
+- Sanitized optional binder native-file authoring metadata; geometry/cameras and four
+  public render outputs preserved. Earlier Git history is retained, not privacy-purged.
+- Reviewed-commit install commands and honest pre-release promotion/status links.
+
 - Proactive output checks, mechanism-based Skill matching, actual-use verification,
   conditional lesson promotion, counterexamples and revalidation/withdrawal guidance.
 - Current binder r08: complete six-curl/two-wire construction, eleven reviewed local

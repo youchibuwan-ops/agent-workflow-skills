@@ -3,6 +3,11 @@
 Checked 2026-10-23. Drafts only: no form submitted, account connected, paid placement,
 formal Release or mass outreach authorized. Recheck destination rules before submission.
 
+**Current decision: NO-GO for a behaviorally accepted launch.** The following copy
+is a review/testing invitation draft. [Actual Codex pilots](codex-acceptance.md) did
+not pass resource loading/full implicit reuse; the friend experiment has no results.
+Do not post these drafts as a validated autonomous-performance announcement.
+
 ## Directory requirements
 
 | Destination | Current first-party evidence | Prepared / remaining |
@@ -13,7 +18,12 @@ formal Release or mass outreach authorized. Recheck destination rules before sub
 | [AGNXI](https://agnxi.com/about) | Current About page describes a small hand-kept personal list; old search snippets still describe an open submission catalog | Do not rely on the stale submit instructions. No current public submission route confirmed; any personal outreach requires separate approval |
 
 “Agent Skills Directory” is an ambiguous name; the actual domains are listed to avoid
-confusing independent services. [agentskills.io](https://agentskills.io/specification)
+confusing independent services. In particular, `skillboard.dev` is a separate shared
+execution-trace service, not the `skillboard.lol` GitHub submission catalog above.
+The three catalog/FAQ/sign-in sources above were opened again on 2026-10-23. The
+skills.sh URL guessed for this repository was inaccessible to the research tool;
+no actual listing, rank or index status is confirmed. The FAQ describes a discovery
+mechanism, not evidence that this repository is already indexed. [agentskills.io](https://agentskills.io/specification)
 is the format specification, not an automatic community listing service.
 
 The optional [skills.sh packs flow](https://www.skills.sh/docs/packs) requires Vercel
@@ -53,16 +63,22 @@ failed reviews and corrections rather than presenting every iteration as success
 The current binder example was accepted by its user after a new whole review.
 A separate paired CSV execution probe tied; no performance improvement is inferred.
 
-Try one skill with:
+Native Codex pilots confirmed standalone installation/local discovery, but shell
+reads were policy-blocked; one exposed account MCP contamination. They establish no
+complete automatic-activation or task-success result. The repo now includes a frozen
+isolated A/B pack for independent testers, with explicit and implicit tests separated.
+
+Try the reviewed PR payload for testing (not yet merged) with:
 
 ```sh
-npx skills@1.7.4 add youchibuwan-ops/agent-workflow-skills --skill proactive-skill-discovery -a codex
+npx skills@1.7.4 add https://github.com/youchibuwan-ops/agent-workflow-skills/tree/c1434f04704938774eb359053aaafdf38ee90868 --skill proactive-skill-discovery -a codex
 ```
 
 [Source and examples](https://github.com/youchibuwan-ops/agent-workflow-skills).
 Instructions currently use Chinese. I would value reproducible reports of over-triggering,
 poor candidate selection or a task that still fails after installation. No benchmark
-improvement is claimed; controlled DSH comparisons can be added when actually run.
+improvement or proven automatic-trigger reliability is claimed. The independent
+Codex experiment is prepared, with its outcome fields empty.
 
 ## 中文技术社区草稿
 
@@ -79,16 +95,18 @@ improvement is claimed; controlled DSH comparisons can be added when actually ru
 
 源码、安装命令和案例在[GitHub 仓库](https://github.com/youchibuwan-ops/agent-workflow-skills)。
 欢迎反馈真实失败例，尤其是误触发、筛选不当、安装后仍不能完成任务的情况。
-后续 DSH 版与对照测试将单独记录，目前没有宣称成功率或效率提升。
+本轮 Codex 原生试跑只证实安装和本地发现；读取被策略拒绝，另出现账号 MCP 污染，
+完整自动触发链未通过。已准备冻结任务、评分和空白记录的隔离 A/B 测试包，邀请独立
+复现；尚无朋友结果，不宣称成功率或效率提升。当前只是待审测试邀请稿，未对外投稿。
 
 ## Short social drafts and follow-up
 
 EN: Find a skill, inspect it, use it, verify the task, retain the lesson. Agent Workflow
-Skills includes a real release-audit trace and an editable SVG review case. Try it
-and report a reproducible failure: [repository](https://github.com/youchibuwan-ops/agent-workflow-skills).
+Skills includes a real audit trace, editable SVG case and a frozen Codex study pack.
+Full implicit activation is not yet accepted; independent tests are pending: [repository](https://github.com/youchibuwan-ops/agent-workflow-skills).
 
 中文：找 Skill 只是开始，还要筛选、实际使用、验证与沉淀。两份开源工作流附真实安装
-和 SVG 案例，欢迎带着具体失败情况来反馈：[仓库](https://github.com/youchibuwan-ops/agent-workflow-skills)。
+和 SVG 案例及隔离 A/B 测试包。完整隐式触发尚未验收，欢迎独立复现：[仓库](https://github.com/youchibuwan-ops/agent-workflow-skills)。
 
 Choose one relevant developer community first; adapt language to its rules and disclose
 maintainership. Do not post identical copy everywhere or solicit votes. After any approved

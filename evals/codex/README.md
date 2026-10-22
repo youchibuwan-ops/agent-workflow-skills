@@ -5,6 +5,8 @@ The runnable wrapper uses native Skills CLI installation, Codex `skills/list` an
 `codex exec --json`; it does not emulate a model or use another host's trigger proxy.
 Skill instructions are unchanged by this pack. No DeepSeek Harness work is included.
 
+Guard repairs after the author pilots did not change frozen tasks, model, budgets,
+rubric or target payload. No behavioral rerun is claimed for the repaired wrapper.
 Read [protocol.json](protocol.json) and [the frozen rubric](RUBRIC.md) before running.
 The [record template](RESULT_TEMPLATE.json) intentionally contains no friend results.
 The HTML, text and three bracket reference PNGs are owned synthetic fixtures under
@@ -57,6 +59,17 @@ treatment difference. `HOME`/`USERPROFILE`/`CODEX_HOME` and caches are isolated,
 **separate directories on one OS user are not a security boundary**. Native author
 pilots must be labeled as such. Use the VM/container procedure for the friend study.
 
+## Environment health prerequisite
+
+Before any scored run, use a **separate** fresh environment to check an authenticated
+Codex task can read a fixture, create an output, access required network/tools, view
+an image and render/inspect its output. Inspect the real tool surface for account MCP
+or plugin contamination as well as the local catalog. A successful text-only `READY`
+reply does not establish shell/file access. Destroy the health environment afterward.
+If blocked, retain an environment failure record; do not score it as an efficacy loss
+or proceed until the declared study environment works. Never change the prompt/rubric
+to accommodate the resulting failure.
+
 ## Real Codex execution
 
 Authenticate separately in the disposable environment. An optional `--auth-file`
@@ -65,14 +78,23 @@ the isolated state and removes that copy afterward. Never commit/share credentia
 the home/state/cache folders, or unreviewed raw logs. The pack contains no credential.
 
 ```sh
-python evals/codex/run.py run --out /absolute/private/B1 --auth-file /private/auth.json
+python evals/codex/run.py run --out /absolute/private/B1 --auth-file /private/auth.json --isolation-boundary native-pilot
 ```
+
+The command above is an ineligible native rehearsal, not a friend study result.
+For a disposable VM, use `--isolation-boundary disposable-vm --boundary-id <FRESH_VM_ID>`.
+The declaration is a coordinator record, not automatic attestation. Destroy that VM
+(including its processes/home/cache) after each run. Windows process-tree cleanup is
+best-effort and cannot guarantee cleanup of orphan descendants.
 
 The same command operates A. Every `run` needs a freshly prepared directory. Raw
 `events.jsonl`, `stderr.log`, `prompt.txt`, `preparation.json`, `catalog.json`,
-`execution.json` and current `workspace` artifacts are retained. The wrapper records
+`execution.json` and current `workspace` artifacts are retained. The wrapper rechecks CLI and target/system payloads before execution, and target/system
+payloads after it. Unexpected MCP stops the run; any such event invalidates it. It records
 read candidates but **does not automatically award activation or task success**.
 Review the command, actual output and ordering against the rubric.
+Exit code 0 means only that a turn completed and needs review; known invalid/blocked
+or budget outcomes return 2. Never use process exit code as the task/trigger score.
 
 Separate explicit loading smokes use fresh B environments:
 
@@ -100,7 +122,7 @@ Use that ID in place of `<IMAGE_ID>`. Prepare a **new empty** host result direct
 then prepare and execute in one disposable container, mounting no host home/repo:
 
 ```sh
-docker run --rm --memory=4g --cpus=2 --pids-limit=256 --cap-drop=ALL --security-opt=no-new-privileges --mount type=bind,src=/absolute/empty/B1,dst=/results --mount type=bind,src=/private/auth.json,dst=/run/secrets/codex-auth.json,readonly --entrypoint sh <IMAGE_ID> -c 'python3 /opt/experiment/run.py prepare --task discovery --arm B --out /results/run && python3 /opt/experiment/run.py run --out /results/run --auth-file /run/secrets/codex-auth.json --sandbox danger-full-access'
+docker run --rm --memory=4g --cpus=2 --pids-limit=256 --cap-drop=ALL --security-opt=no-new-privileges --mount type=bind,src=/absolute/empty/B1,dst=/results --mount type=bind,src=/private/auth.json,dst=/run/secrets/codex-auth.json,readonly --entrypoint sh <IMAGE_ID> -c 'python3 /opt/experiment/run.py prepare --task discovery --arm B --out /results/run && python3 /opt/experiment/run.py run --out /results/run --auth-file /run/secrets/codex-auth.json --sandbox danger-full-access --isolation-boundary container --boundary-id <IMAGE_ID>'
 ```
 
 Change only arm and fresh result path for A. The container is the external isolation

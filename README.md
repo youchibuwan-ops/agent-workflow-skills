@@ -9,11 +9,18 @@ Start with **proactive-skill-discovery**: connect capability gaps to inspected w
 actual task results, and maintained reusable lessons.
 
 ```sh
-npx skills@1.7.4 add youchibuwan-ops/agent-workflow-skills --skill proactive-skill-discovery -a codex
+npx skills@1.7.4 add https://github.com/youchibuwan-ops/agent-workflow-skills/tree/c1434f04704938774eb359053aaafdf38ee90868 --skill proactive-skill-discovery -a codex
 ```
 
 Run from the intended project. Requires Git and Node ≥22.20.0 for this third-party CLI;
 the skills themselves have no Node/Python runtime.
+
+**Pre-release status (2026-10-23): NO-GO under the frozen acceptance rule.**
+Individual install and local Codex discovery were verified; explicit resource reading
+and the complete implicit reuse chain were blocked in native author pilots.
+Read the [actual evidence and remaining gates](docs/codex-acceptance.md) and
+[friend A/B pack](evals/codex/README.md). No measured performance gain is claimed.
+Commands above/below pin the reviewed PR payload; unmerged `main` has older content.
 
 ## Why proactive discovery?
 
@@ -61,7 +68,7 @@ and retain verified lessons. Work on a branch; do not release or submit external
 Install the SVG skill separately:
 
 ```sh
-npx skills@1.7.4 add youchibuwan-ops/agent-workflow-skills --skill crafting-reference-based-svg-assets -a codex
+npx skills@1.7.4 add https://github.com/youchibuwan-ops/agent-workflow-skills/tree/c1434f04704938774eb359053aaafdf38ee90868 --skill crafting-reference-based-svg-assets -a codex
 ```
 
 ```text

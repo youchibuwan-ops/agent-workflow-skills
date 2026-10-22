@@ -5,6 +5,11 @@
 让编码代理主动找到合适的 Skill，核查后实际使用，再把已验证的方法沉淀下来。
 本仓库提供两份可单独安装的工作流 Skill，重点是 **proactive-skill-discovery**。
 
+**发布前状态（2026-10-23）：按预先固定标准判定 NO-GO。** 单项安装与本地宿主发现
+已验证；显式资源读取及完整隐式复用链在本机试跑中受环境阻塞，不能称为已验收。
+见[真实结果与未关闭关卡](docs/codex-acceptance.md)及[朋友 A/B 测试包](evals/codex/README.md)。
+下面命令固定到已审 PR 的 Skill 内容；尚未合并的 main 内容较早。
+
 ## 两份 Skill 的区别
 
 | Skill | 解决什么问题 | 交付什么 |
@@ -27,8 +32,8 @@
 需要 Git 和 Node ≥22.20.0。在目标项目目录执行，任选一份：
 
 ```sh
-npx skills@1.7.4 add youchibuwan-ops/agent-workflow-skills --skill proactive-skill-discovery -a codex
-npx skills@1.7.4 add youchibuwan-ops/agent-workflow-skills --skill crafting-reference-based-svg-assets -a codex
+npx skills@1.7.4 add https://github.com/youchibuwan-ops/agent-workflow-skills/tree/c1434f04704938774eb359053aaafdf38ee90868 --skill proactive-skill-discovery -a codex
+npx skills@1.7.4 add https://github.com/youchibuwan-ops/agent-workflow-skills/tree/c1434f04704938774eb359053aaafdf38ee90868 --skill crafting-reference-based-svg-assets -a codex
 ```
 
 CLI 1.7.4 的 Codex 项目安装目录是 `.agents/skills/`；加 `-g` 为个人安装。

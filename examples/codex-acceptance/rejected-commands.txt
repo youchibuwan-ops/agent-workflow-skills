@@ -1,0 +1,10 @@
+explicit-discovery-frozen (native executable path omitted)
+2026-10-22T21:09:46.081792Z ERROR codex_core::tools::router: error=exec_command failed: CreateProcess { message: "Rejected([PRIVATE_EXECUTABLE] -Command \\\"Get-Content -LiteralPath '.agents/skills/proactive-skill-discovery/SKILL.md'; rg --files --hidden -g '\\\"'!.git'\\\"'\\\"` rejected: blocked by policy\")" }
+2026-10-22T21:09:51.213843Z ERROR codex_core::tools::router: error=exec_command failed: CreateProcess { message: "Rejected([PRIVATE_EXECUTABLE] -Command \\\"Get-Content -LiteralPath '.agents/skills/proactive-skill-discovery/SKILL.md'\\\"` rejected: blocked by policy\")" }
+explicit-svg (native executable path omitted)
+2026-10-22T21:09:59.368702Z ERROR codex_core::tools::router: error=exec_command failed: CreateProcess { message: "Rejected([PRIVATE_EXECUTABLE] -Command \\\"Get-Content .agents/skills/crafting-reference-based-svg-assets/SKILL.md; rg --files -g '\\\"'!node_modules'\\\"' -g '\\\"'!'\\\"\\\\\\\\.git'\\\"` rejected: blocked by policy\")" }
+2026-10-22T21:10:05.436677Z ERROR codex_core::tools::router: error=exec_command failed: CreateProcess { message: "Rejected([PRIVATE_EXECUTABLE] -NoProfile -Command 'rg --files'` rejected: blocked by policy\")" }
+2026-10-22T21:10:13.242989Z ERROR codex_core::tools::router: error=exec_command failed: CreateProcess { message: "Rejected([PRIVATE_EXECUTABLE] -NoProfile -Command 'Get-ChildItem -Recurse -File | Select-Object -ExpandProperty FullName'` rejected: blocked by policy\")" }
+discovery-B-pilot (native executable path omitted)
+2026-10-22T21:12:20.696379Z ERROR codex_core::tools::router: error=exec_command failed: CreateProcess { message: "Rejected([PRIVATE_EXECUTABLE] -Command 'Get-Content .agents/skills/proactive-skill-discovery/SKILL.md; Get-ChildItem -Force | Select-Object Name,Length'` rejected: blocked by policy\")" }
+2026-10-22T21:12:27.827879Z ERROR codex_core::tools::router: error=exec_command failed: CreateProcess { message: "Rejected([PRIVATE_EXECUTABLE] -NoProfile -Command 'Get-Content -LiteralPath report.html'` rejected: blocked by policy\")" }

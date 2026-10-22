@@ -4,6 +4,7 @@ No model judge, trigger simulator, credential exporter or custom agent loop.
 Run outside the source repository; results remain private until manually redacted.
 """
 import argparse
+from contextlib import contextmanager
 import hashlib
 import json
 import os
@@ -13,6 +14,7 @@ import re
 import shutil
 import signal
 import subprocess
+import sys
 import threading
 import time
 
@@ -48,6 +50,49 @@ def check_frozen(root, preparation):
                if not p.startswith('.agents/') and p != 'skills-lock.json'}
     if current != preparation['input_sha256'] or package_hashes() != preparation['package_sha256']:
         raise ValueError('Task inputs or evaluation package changed after preparation')
+
+
+def expected_payload(target):
+    return json.loads((PACKAGE / 'payloads.json').read_text(encoding='utf8'))[target]
+
+
+def check_payloads(root, preparation, skills):
+    base = root / 'workspace/.agents/skills'
+    expected_names = [preparation['target']] if preparation['arm'] == 'B' else []
+    actual_names = sorted(p.name for p in base.iterdir()) if base.exists() else []
+    if actual_names != expected_names:
+        raise ValueError('Unexpected/missing installed Skill directories')
+    if preparation['arm'] == 'B' and hashes(base / preparation['target']) != expected_payload(preparation['target']):
+        raise ValueError('Frozen target payload changed')
+    current = {s['name']: hashes(Path(s['path']).parent) for s in skills if s.get('scope') == 'system'}
+    if current != preparation['system_sha256']:
+        raise ValueError('Built-in system Skill payloads changed')
+
+
+@contextmanager
+def temporary_auth(source, destination):
+    if source and destination.exists():
+        raise ValueError('Refusing to overwrite existing isolated credentials')
+    try:
+        if source:
+            shutil.copy2(source, destination)
+            destination.chmod(0o600)
+        yield
+    finally:
+        if source:
+            destination.unlink(missing_ok=True)
+
+
+def check_boundary(boundary, identifier, sandbox):
+    if boundary == 'disposable-vm' and not identifier:
+        raise ValueError('A disposable VM needs a fresh coordinator-assigned --boundary-id')
+    if boundary == 'container' and not (Path('/.dockerenv').exists() or Path('/run/.containerenv').exists()):
+        raise ValueError('Container marker absent; use a real disposable container')
+    if sandbox == 'danger-full-access' and boundary == 'native-pilot':
+        raise ValueError('Full access requires the external disposable container/VM boundary')
+    return {'isolation_boundary': boundary, 'boundary_id': identifier,
+            'study_eligible_boundary': boundary != 'native-pilot',
+            'boundary_attested_by': 'coordinator declaration; not hardware attestation'}
 
 
 def isolated_env(root, original=None):
@@ -127,6 +172,14 @@ def successful_read(item, target):
             and bool(re.search(r'\b(Get-Content|cat|read_text|readFileSync|readFile)\b', command)))
 
 
+def runtime_status(status, stderr, mcp_seen):
+    if mcp_seen:
+        return 'invalid_contamination'
+    if 'blocked by policy' in stderr or 'model is not supported' in stderr:
+        return 'environment_blocked'
+    return status
+
+
 def prepare(args):
     root = fresh_root(Path(args.out))
     env = isolated_env(root)
@@ -158,12 +211,14 @@ def prepare(args):
 
 
 def stop(process):
-    if process.poll() is not None:
-        return
     if os.name == 'nt':
-        subprocess.run(['taskkill', '/PID', str(process.pid), '/T', '/F'], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        if process.poll() is None:
+            subprocess.run(['taskkill', '/PID', str(process.pid), '/T', '/F'], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     else:
-        os.killpg(process.pid, signal.SIGKILL)
+        try:
+            os.killpg(process.pid, signal.SIGKILL)
+        except ProcessLookupError:
+            pass
     process.wait(timeout=10)
 
 
@@ -176,7 +231,13 @@ def run(args):
         raise ValueError('Protocol changed after preparation')
     check_frozen(root, preparation)
     env = isolated_env(root)
-    check_catalog(catalog(preparation['command'], root, env), preparation['arm'], preparation['target'])
+    version = subprocess.check_output(preparation['command'] + ['--version'], env=env, encoding='utf8').strip()
+    if version != 'codex-cli ' + PROTOCOL['cli_version']:
+        raise ValueError('Actual Codex version changed after preparation')
+    observed = catalog(preparation['command'], root, env)
+    check_catalog(observed, preparation['arm'], preparation['target'])
+    check_payloads(root, preparation, observed)
+    boundary = check_boundary(args.isolation_boundary, args.boundary_id, args.sandbox)
     prompt_file = PACKAGE / 'tasks' / preparation['task'] / 'prompt.txt'
     if args.explicit:
         if preparation['arm'] != 'B':
@@ -185,11 +246,6 @@ def run(args):
     prompt = prompt_file.read_text(encoding='utf8')
     (root / 'prompt.txt').write_text(prompt, encoding='utf8')
     auth = root / 'state/auth.json'
-    if args.auth_file:
-        if auth.exists():
-            raise ValueError('Refusing to overwrite existing isolated credentials')
-        shutil.copy2(args.auth_file, auth)
-        auth.chmod(0o600)
     flags = ['exec', '--ignore-user-config', '--ignore-rules', '--skip-git-repo-check', '--ephemeral', '--json',
              '-m', PROTOCOL['model'], '-c', 'model_reasoning_effort="' + PROTOCOL['reasoning_effort'] + '"',
              '-c', 'approval_policy="never"', '-c', 'web_search="live"',
@@ -197,57 +253,70 @@ def run(args):
              '-C', str(root / 'workspace'), '-']
     started = time.monotonic()
     status, tools, usage, reads = 'environment_blocked', 0, None, []
+    mcp_seen = False
     process = None
-    try:
-        with (root / 'events.jsonl').open('w', encoding='utf8') as log, (root / 'stderr.log').open('w', encoding='utf8') as error:
-            process = subprocess.Popen(preparation['command'] + flags, stdin=subprocess.PIPE, stdout=subprocess.PIPE,
-                                       stderr=error, env=env, text=True, encoding='utf8', cwd=root / 'workspace',
-                                       start_new_session=os.name != 'nt')
-            output = queue.Queue()
-            def read():
-                for line in process.stdout:
-                    output.put(line)
-                output.put(None)
-            threading.Thread(target=read, daemon=True).start()
-            process.stdin.write(prompt)
-            process.stdin.close()
-            while True:
-                if time.monotonic() - started >= PROTOCOL['wall_seconds'] or tools >= PROTOCOL['max_tool_calls']:
-                    status = 'budget_exhausted'
-                    stop(process)
-                    break
-                try:
-                    line = output.get(timeout=.2)
-                except queue.Empty:
-                    continue
-                if line is None:
-                    break
-                log.write(line)
-                log.flush()
-                event = json.loads(line)
-                item = event.get('item', {})
-                if event['type'] == 'item.started' and item.get('type') in {'command_execution', 'web_search', 'mcp_tool_call'}:
-                    tools += 1
-                if event['type'] == 'item.completed' and successful_read(item, preparation['target']):
-                    reads.append(item['id'])
-                if event['type'] == 'turn.completed':
-                    status, usage = 'completed_needs_review', event.get('usage')
-                elif event['type'] == 'turn.failed':
-                    status = 'environment_or_task_failure_needs_review'
-            process.wait(timeout=10)
-    finally:
-        if process is not None:
-            stop(process)
-        if args.auth_file:
-            auth.unlink(missing_ok=True)
-        write_json(root / 'execution.json', {'mode': 'explicit_smoke' if args.explicit else 'implicit_task',
-                   'model': PROTOCOL['model'], 'effort': PROTOCOL['reasoning_effort'], 'sandbox': args.sandbox,
-                   'elapsed_seconds': round(time.monotonic() - started, 2), 'tool_calls': tools,
-                   'usage': usage, 'status': status, 'instruction_read_candidates': reads,
-                   'prompt_sha256': hashlib.sha256(prompt.encode()).hexdigest(),
-                   'automatic_pass': None, 'task_pass': None, 'review_required': True,
-                   'artifact_sha256': hashes(root / 'workspace')})
+    with temporary_auth(args.auth_file, auth):
+        try:
+            with (root / 'events.jsonl').open('w', encoding='utf8') as log, (root / 'stderr.log').open('w', encoding='utf8') as error:
+                process = subprocess.Popen(preparation['command'] + flags, stdin=subprocess.PIPE, stdout=subprocess.PIPE,
+                                           stderr=error, env=env, text=True, encoding='utf8', cwd=root / 'workspace',
+                                           start_new_session=os.name != 'nt')
+                output = queue.Queue()
+                def read():
+                    for line in process.stdout:
+                        output.put(line)
+                    output.put(None)
+                threading.Thread(target=read, daemon=True).start()
+                process.stdin.write(prompt)
+                process.stdin.close()
+                while True:
+                    if time.monotonic() - started >= PROTOCOL['wall_seconds'] or tools >= PROTOCOL['max_tool_calls']:
+                        status = 'budget_exhausted'
+                        stop(process)
+                        break
+                    try:
+                        line = output.get(timeout=.2)
+                    except queue.Empty:
+                        continue
+                    if line is None:
+                        break
+                    log.write(line)
+                    log.flush()
+                    event = json.loads(line)
+                    item = event.get('item', {})
+                    if item.get('type') == 'mcp_tool_call':
+                        mcp_seen = True
+                        stop(process)
+                        break
+                    if event['type'] == 'item.started' and item.get('type') in {'command_execution', 'web_search', 'mcp_tool_call'}:
+                        tools += 1
+                    if event['type'] == 'item.completed' and successful_read(item, preparation['target']):
+                        reads.append(item['id'])
+                    if event['type'] == 'turn.completed':
+                        status, usage = 'completed_needs_review', event.get('usage')
+                    elif event['type'] == 'turn.failed':
+                        status = 'environment_or_task_failure_needs_review'
+                process.wait(timeout=10)
+        finally:
+            if process is not None:
+                stop(process)
+            error_text = (root / 'stderr.log').read_text(encoding='utf8') if (root / 'stderr.log').exists() else ''
+            status = runtime_status(status, error_text, mcp_seen)
+            try:
+                check_payloads(root, preparation, observed)
+            except ValueError:
+                status = 'invalid_contamination'
+            write_json(root / 'execution.json', {'mode': 'explicit_smoke' if args.explicit else 'implicit_task',
+                       **boundary,
+                       'model': PROTOCOL['model'], 'effort': PROTOCOL['reasoning_effort'], 'sandbox': args.sandbox,
+                       'elapsed_seconds': round(time.monotonic() - started, 2), 'tool_calls': tools,
+                       'usage': usage, 'status': status, 'instruction_read_candidates': reads,
+                       'unexpected_mcp_observed': mcp_seen,
+                       'prompt_sha256': hashlib.sha256(prompt.encode()).hexdigest(),
+                       'automatic_pass': None, 'task_pass': None, 'review_required': True,
+                       'artifact_sha256': hashes(root / 'workspace')})
     print('Actual run: ' + status + '; manual evidence/artifact review required')
+    return 0 if status == 'completed_needs_review' else 2
 
 
 if __name__ == '__main__':
@@ -262,6 +331,11 @@ if __name__ == '__main__':
     execute.add_argument('--out', required=True)
     execute.add_argument('--auth-file', help='PRIVATE account file; copied transiently, never logged or bundled')
     execute.add_argument('--explicit', action='store_true')
+    execute.add_argument('--isolation-boundary', choices=['native-pilot', 'container', 'disposable-vm'], default='native-pilot')
+    execute.add_argument('--boundary-id', help='Coordinator-assigned fresh VM ID or immutable container image ID')
     execute.add_argument('--sandbox', choices=['workspace-write', 'danger-full-access'], default='workspace-write')
     arguments = parser.parse_args()
-    prepare(arguments) if arguments.action == 'prepare' else run(arguments)
+    if arguments.action == 'prepare':
+        prepare(arguments)
+    else:
+        sys.exit(run(arguments))

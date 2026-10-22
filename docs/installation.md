@@ -5,11 +5,12 @@
 Requires Git and Node ≥22.20.0 (CLI 1.7.4's declared minimum). Run from the project:
 
 ```sh
-npx skills@1.7.4 add youchibuwan-ops/agent-workflow-skills --skill proactive-skill-discovery -a codex
-npx skills@1.7.4 add youchibuwan-ops/agent-workflow-skills --skill crafting-reference-based-svg-assets -a codex
+npx skills@1.7.4 add https://github.com/youchibuwan-ops/agent-workflow-skills/tree/c1434f04704938774eb359053aaafdf38ee90868 --skill proactive-skill-discovery -a codex
+npx skills@1.7.4 add https://github.com/youchibuwan-ops/agent-workflow-skills/tree/c1434f04704938774eb359053aaafdf38ee90868 --skill crafting-reference-based-svg-assets -a codex
 ```
 
-Each command selects one skill. Add `--copy -y` for unattended project installs;
+These commands pin the reviewed PR payload at `c1434f0`; the PR is not merged.
+The Skill files are unchanged in this acceptance round. Each command selects one skill. Add `--copy -y` for unattended project installs;
 copy mode avoids symlink permissions on Windows. PowerShell users can use `npx.cmd`
 if `npx.ps1` is blocked, without changing execution policy.
 
@@ -43,7 +44,7 @@ host and installer. The verified installer version here is 1.7.4.
 ## User-wide install
 
 ```sh
-npx skills@1.7.4 add youchibuwan-ops/agent-workflow-skills --skill proactive-skill-discovery -a codex -g
+npx skills@1.7.4 add https://github.com/youchibuwan-ops/agent-workflow-skills/tree/c1434f04704938774eb359053aaafdf38ee90868 --skill proactive-skill-discovery -a codex -g
 ```
 
 CLI 1.7.4 targets `~/.agents/skills/`. This global path was checked in upstream source;
@@ -70,7 +71,8 @@ and UI metadata; copying only `SKILL.md` breaks the package.
 
 For an immutable source, check out a reviewed Git commit. The CLI can also select a
 GitHub `tree/<commit>/skills/<name>` URL; verify that exact URL before using it.
-README default-branch commands track the live public version, not unpublished edits.
+An unpinned `owner/repo` command tracks the older public default branch until PR #1
+is merged; the commands here pin the actual reviewed payload.
 
 ## Dependencies, privacy and compatibility
 
@@ -85,4 +87,6 @@ with `DISABLE_TELEMETRY=1`; PowerShell can set `$env:DISABLE_TELEMETRY='1'` for 
 Verification installs are not promotional traffic.
 
 Codex package discovery/resource integrity was tested. Other Agent Skills hosts are
-format-compatible candidates; cross-host behavior and automatic activation are untested.
+format-compatible candidates. Actual native automatic/explicit pilots were blocked;
+resource loading and the full automatic chain have not passed. See
+[Codex acceptance](codex-acceptance.md); do not treat listing as successful loading.

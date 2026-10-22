@@ -1,6 +1,6 @@
 {
   "reviewed_whole_sha256": "9f95c9196869ed7598826d72300621342f4ee3036943b92a515445b35b80b412",
-  "source_blend_sha256": "8b9a027591e89caf7eed5426c69ce17f5acbf1962c3766bcb91225083f61da00",
+  "source_blend_sha256": "94bffffe725c88e0c8855bf45e6d38769c50a8b112e3f1cfcde162fbf4cca53a",
   "frame": [
     200,
     8,
@@ -115,5 +115,10 @@
       "width": 440,
       "height": 440
     }
+  },
+  "reviewed_blend_sha256": "8b9a027591e89caf7eed5426c69ce17f5acbf1962c3766bcb91225083f61da00",
+  "native_metadata_sanitization": {
+    "scope": "Remove authoring paths, weak library provenance and file-browser buffers without changing object geometry/cameras",
+    "geometry_camera_fingerprint": "5c047b24b3a318bbcfa7e8c29889d5451833c4ec80a91a5d3b362dbd41768815"
   }
 }

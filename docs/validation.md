@@ -1,5 +1,8 @@
 # Validation and comparison protocol
 
+Latest behavioral acceptance is separate: [2026-10-23 Codex pilots and NO-GO](codex-acceptance.md).
+The historical package/render checks below do not establish implicit activation.
+
 Evidence dates: 2026-10-22–23. Baseline repository: `b33ac6e`.
 Checks distinguish package integrity, reference research and actual task quality.
 
