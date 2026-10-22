@@ -12,8 +12,12 @@ flowchart TD
     C -- "否 / No" --> D["定位偏差与最早失效步骤 / Locate cause"]
     D --> G{"缺的是方法能力？ / Missing method?"}
     G -- "是 / Yes" --> Q["按输入、机制、输出和验证搜索 / Search by capability contract"]
-    Q --> R["读源码、资源、许可、宿主与边界 / Inspect actual candidate"]
-    R --> A["选择最小适配并实际使用 / Apply the smallest suitable method"]
+    Q --> R["按生成、验证、预览逐项读取实际方法与许可 / Read actual adopted items"]
+    R --> RG{"S/L：返回正文完整、相关且适用？ / Evidence complete and applicable?"}
+    RG -- "否：补读或换已审方法 / Resolve missing evidence" --> R
+    RG -- "是 / Yes" --> RD["R：执行前写采用判断 / Record pre-use decision"]
+    RD --> A["选择最小适配并实际使用 / Apply the smallest suitable method"]
+    A -. "换方案或新增实质依赖 / Reopen changed item" .-> R
     A --> E
     G -- "资料、环境或漏执行 / Evidence, environment or omission" --> F["补证据、修调用或补执行 / Resolve that cause"]
     F --> E
@@ -40,6 +44,15 @@ pass closes the gap. User stopping points remain authoritative.
 已经有检查步骤却没有执行，就补执行、修正并重验。资料/环境/方法缺口分别处理，
 查到或装上不等于用上，用上也不等于原任务完成。经验记录区分事实、解释和规则；
 同一测试两版都通过就记平局，不把换一种写法说成提升。
+
+Source review covers the method content actually returned, not a nominal URL/title.
+License downloads, identifiers and complete internal stdout cannot establish that
+the actor read the required body. Recover truncated ranges; record the relevant
+source, license/use scope and adoption decision before production, validation or
+preview use. A fallback or newly added substantive dependency reopens its gate.
+Same-version/same-use reviews may be reused; routine work does not need another search.
+The [actual regressions](../examples/codex-acceptance/review-gates/README.md) include
+both a completed chain and failed inspection claims; instruction wording is not proof.
 
 ## Research and reuse decisions — 2026-10-23
 

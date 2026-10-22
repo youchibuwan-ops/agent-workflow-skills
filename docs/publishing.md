@@ -3,11 +3,12 @@
 Checked 2026-10-23. Drafts only: no form submitted, account connected, paid placement,
 formal Release or mass outreach authorized. Recheck destination rules before submission.
 
-**Current decision: NO-GO for a behaviorally accepted launch.** The following copy
-is a review/testing invitation draft. [Actual follow-up](codex-acceptance.md) passes
-both resource loads, with qualified discovery evidence and retained task failures;
-overall acceptance is incomplete and the friend experiment has no results.
-Do not post these drafts as a validated autonomous-performance announcement.
+**Current decision: GO for a limited Codex testing preview under the registered rule.**
+The following copy remains an unpublished testing invitation draft.
+[Actual versioned retests](codex-acceptance.md) pass both complete explicit smokes
+and one full implicit discovery chain; the latest sibling misses source-review
+evidence. PDF compatibility warnings and absent friend results remain explicit.
+Do not present this as proven reliability, performance improvement or production readiness.
 
 ## Directory requirements
 
@@ -64,19 +65,21 @@ failed reviews and corrections rather than presenting every iteration as success
 The current binder example was accepted by its user after a new whole review.
 A separate paired CSV execution probe tied; no performance improvement is inferred.
 
-Repaired Codex runs now verify both standalone instruction/resource loads. A Windows
-RPC pilot meets the frozen five discovery conditions and produces an independently
-checked PDF; its external candidate Skill was rejected, not adopted. An isolated
-Linux run produces a valid PDF but misses complete inspection evidence. A separate
-SVG preparation run misread four holes as three; that failure remains visible.
-Acceptance is incomplete, including an underspecified explicit-edit fixture. The
-frozen isolated friend pack keeps explicit/implicit outcomes separate; no friend
-results or measured reliability/performance gains are claimed.
+Versioned clean Linux retests now pass both complete explicit smokes, including an
+exact edit and three-image SVG preparation. In the latest two implicit author trials,
+one actually inspects the adopted method and license bodies, records its decision
+before use, reuses the library/font and independently verifies the PDF. The other
+still lacks returned method evidence. No external Skill was adopted in those trials.
+Earlier failures remain visible; a corrected explicit fixture has a separate version.
+All four new PDFs pass the original content/page checks, but font compatibility
+warnings remain, including malformed unused character-map entries in the full-chain
+result. The registered limited testing-preview minimum is met; these diagnostics
+do not estimate reliability. The isolated friend pack has blank outcome fields.
 
 Try the reviewed PR payload for testing (not yet merged) with:
 
 ```sh
-npx skills@1.7.4 add https://github.com/youchibuwan-ops/agent-workflow-skills/tree/c1434f04704938774eb359053aaafdf38ee90868 --skill proactive-skill-discovery -a codex
+npx skills@1.7.4 add https://github.com/youchibuwan-ops/agent-workflow-skills/tree/675a2cc18e2e477045ad55bcb54ca5b7b3560dba --skill proactive-skill-discovery -a codex
 ```
 
 [Source and examples](https://github.com/youchibuwan-ops/agent-workflow-skills).
@@ -100,20 +103,25 @@ Codex experiment is prepared, with its outcome fields empty.
 
 源码、安装命令和案例在[GitHub 仓库](https://github.com/youchibuwan-ops/agent-workflow-skills)。
 欢迎反馈真实失败例，尤其是误触发、筛选不当、安装后仍不能完成任务的情况。
-后续已修复环境并实际验证两份 Skill 的主体/资源读取；Windows RPC 试跑满足原五条条件，
-PDF 独立通过，但外部候选 Skill 未采用。隔离 Linux 试跑仍缺完整审阅证据，另保留 SVG
-孔数误判和显式编辑测试欠指定问题，整体未验收。已准备冻结任务、评分和空白记录的隔离 A/B 测试包，邀请独立
-复现；尚无朋友结果，不宣称成功率或效率提升。当前只是待审测试邀请稿，未对外投稿。
+新版干净 Linux 测试已完成两份显式冒烟：精确编辑和三视角 SVG 研究均通过。最新两次
+隐式试跑中，一次实际读完采用方法和许可正文、先记录采用判断再执行，并完成库／字体
+复用与 PDF 独立核验；另一次仍缺方法正文证据，保留失败。没有采用外部 Skill，不能把库
+复用宣传成外部 Skill 复用。旧失败和欠指定的旧测试保留，新编辑测试单独版本化。
+四份新 PDF 通过原定内容和逐页检查，但字体兼容性警告仍在，包括完整链成品的未使用
+字符映射异常。已达到原定有限测试预览门槛，不能宣称稳定可靠。隔离 A/B 包的朋友结果
+仍为空，不宣称成功率或效率提升。当前只是未投稿的测试邀请草稿。
 
 ## Short social drafts and follow-up
 
 EN: Find a skill, inspect it, use it, verify the task, retain the lesson. Agent Workflow
 Skills includes a real audit trace, editable SVG case and a frozen Codex study pack.
-Actual loading and bounded discovery evidence are published, with failures; overall
-acceptance and independent tests remain pending: [repository](https://github.com/youchibuwan-ops/agent-workflow-skills).
+Both explicit smokes and one complete implicit chain pass the limited-preview gate;
+a failed sibling, PDF compatibility warnings and pending independent tests remain
+visible: [repository](https://github.com/youchibuwan-ops/agent-workflow-skills).
 
 中文：找 Skill 只是开始，还要筛选、实际使用、验证与沉淀。两份开源工作流附真实安装
-和 SVG 案例及隔离 A/B 测试包。已公开实际加载/发现证据及失败，整体仍待验收，欢迎独立复现：[仓库](https://github.com/youchibuwan-ops/agent-workflow-skills)。
+和 SVG 案例及隔离 A/B 测试包。两份显式测试和一例隐式完整链通过有限预览门槛，失败例、
+PDF 兼容性警告和待完成的朋友实验均保留，欢迎独立复现：[仓库](https://github.com/youchibuwan-ops/agent-workflow-skills)。
 
 Choose one relevant developer community first; adapt language to its rules and disclose
 maintainership. Do not post identical copy everywhere or solicit votes. After any approved

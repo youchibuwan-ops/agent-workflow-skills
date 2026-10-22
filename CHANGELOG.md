@@ -2,6 +2,17 @@
 
 ## Unreleased
 
+- Separate corrected explicit-edit v2 fixture, preserving v1's missing-information
+  outcome. Versioned candidates/protocols are committed before model calls, with
+  unchanged implicit inputs, rubric, CLI/model/effort and resource caps.
+- Adopted-source/license gates now include producer, validator, preview and fallback
+  components, actual returned method/body content and visible decisions before use.
+  Twelve actual v2/v3 runs retain three failed inspection chains and one valid v3
+  chain; both complete explicit smokes pass. Limited testing-preview minimum met,
+  with failed sibling, PDF compatibility warnings and blank friend results retained.
+- Reference-install checker now handles Markdown fragments; study version selection
+  and protocol-resume guards are tested. No new mandatory Skill runtime is introduced.
+
 - Actual clean-runtime follow-up: repaired Windows execution/App/MCP guards; exercised
   Bubblewrap isolation and both standalone resource loads. One Windows RPC discovery
   pilot meets frozen primary conditions; isolated Linux misses inspection evidence.

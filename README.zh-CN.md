@@ -5,10 +5,10 @@
 让编码代理主动找到合适的 Skill，核查后实际使用，再把已验证的方法沉淀下来。
 本仓库提供两份可单独安装的工作流 Skill，重点是 **proactive-skill-discovery**。
 
-**发布前状态（2026-10-23）：整体按预先固定标准仍为 NO-GO。** 两份 Skill 的显式
-主体/资源加载已通过；Windows RPC 隐式试跑满足原五条条件并交付独立核验的 PDF。
-隔离 Linux 试跑仍缺完整来源/许可审阅，显式编辑原提示还缺替换内容；失败均保留，
-不能称整体验收通过，也没有外部候选 Skill 采用或效果提升结论。
+**Codex 测试预览（2026-10-23）：达到预先固定的有限预览门槛。** 新版精确编辑和
+SVG 显式准备均通过；v3 两次隐式试跑中，一次完成真实来源/方法/许可审阅、执行前判断、
+实际复用及独立产物检查，另一次仍缺审阅证据，失败保留。PDF 兼容性警告和朋友测试
+仍未关闭；不能据此声称稳定自治或生产就绪，也未发布正式 Release。
 见[真实结果与未关闭关卡](docs/codex-acceptance.md)及[朋友 A/B 测试包](evals/codex/README.md)。
 下面命令固定到已审 PR 的 Skill 内容；尚未合并的 main 内容较早。
 
@@ -34,8 +34,8 @@
 需要 Git 和 Node ≥22.20.0。在目标项目目录执行，任选一份：
 
 ```sh
-npx skills@1.7.4 add https://github.com/youchibuwan-ops/agent-workflow-skills/tree/c1434f04704938774eb359053aaafdf38ee90868 --skill proactive-skill-discovery -a codex
-npx skills@1.7.4 add https://github.com/youchibuwan-ops/agent-workflow-skills/tree/c1434f04704938774eb359053aaafdf38ee90868 --skill crafting-reference-based-svg-assets -a codex
+npx skills@1.7.4 add https://github.com/youchibuwan-ops/agent-workflow-skills/tree/675a2cc18e2e477045ad55bcb54ca5b7b3560dba --skill proactive-skill-discovery -a codex
+npx skills@1.7.4 add https://github.com/youchibuwan-ops/agent-workflow-skills/tree/675a2cc18e2e477045ad55bcb54ca5b7b3560dba --skill crafting-reference-based-svg-assets -a codex
 ```
 
 CLI 1.7.4 的 Codex 项目安装目录是 `.agents/skills/`；加 `-g` 为个人安装。

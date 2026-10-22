@@ -5,12 +5,13 @@
 Requires Git and Node ≥22.20.0 (CLI 1.7.4's declared minimum). Run from the project:
 
 ```sh
-npx skills@1.7.4 add https://github.com/youchibuwan-ops/agent-workflow-skills/tree/c1434f04704938774eb359053aaafdf38ee90868 --skill proactive-skill-discovery -a codex
-npx skills@1.7.4 add https://github.com/youchibuwan-ops/agent-workflow-skills/tree/c1434f04704938774eb359053aaafdf38ee90868 --skill crafting-reference-based-svg-assets -a codex
+npx skills@1.7.4 add https://github.com/youchibuwan-ops/agent-workflow-skills/tree/675a2cc18e2e477045ad55bcb54ca5b7b3560dba --skill proactive-skill-discovery -a codex
+npx skills@1.7.4 add https://github.com/youchibuwan-ops/agent-workflow-skills/tree/675a2cc18e2e477045ad55bcb54ca5b7b3560dba --skill crafting-reference-based-svg-assets -a codex
 ```
 
-These commands pin the reviewed PR payload at `c1434f0`; the PR is not merged.
-The Skill files are unchanged in this acceptance round. Each command selects one skill. Add `--copy -y` for unattended project installs;
+These commands pin the tested v3 PR payload at `675a2cc`; the PR is not merged.
+The discovery instructions were revised in versioned, preregistered candidates;
+the SVG payload is unchanged. Each command selects one skill. Add `--copy -y` for unattended project installs;
 copy mode avoids symlink permissions on Windows. PowerShell users can use `npx.cmd`
 if `npx.ps1` is blocked, without changing execution policy.
 
@@ -44,7 +45,7 @@ host and installer. The verified installer version here is 1.7.4.
 ## User-wide install
 
 ```sh
-npx skills@1.7.4 add https://github.com/youchibuwan-ops/agent-workflow-skills/tree/c1434f04704938774eb359053aaafdf38ee90868 --skill proactive-skill-discovery -a codex -g
+npx skills@1.7.4 add https://github.com/youchibuwan-ops/agent-workflow-skills/tree/675a2cc18e2e477045ad55bcb54ca5b7b3560dba --skill proactive-skill-discovery -a codex -g
 ```
 
 CLI 1.7.4 targets `~/.agents/skills/`. This global path was checked in upstream source;
@@ -73,6 +74,15 @@ For an immutable source, check out a reviewed Git commit. The CLI can also selec
 GitHub `tree/<commit>/skills/<name>` URL; verify that exact URL before using it.
 An unpinned `owner/repo` command tracks the older public default branch until PR #1
 is merged; the commands here pin the actual reviewed payload.
+
+The final remote check of `675a2cc` installed discovery successfully, then the SVG
+clone failed with a missing-ref message. Both standalone commands passed on a fresh
+retry, with exact bytes, license and reference reads verified. CLI 1.7.4 tries a
+SHA-fetch fallback but suppresses its inner error; the first message does not prove
+that this published commit is absent. The underlying transient failure is unresolved.
+If it recurs, preserve the error and use a new local checkout at the exact commit
+with `npx skills@1.7.4 add /absolute/checkout --skill <name> -a codex --copy -y`.
+Do not silently substitute an unpinned branch. See the [install check record](../examples/codex-acceptance/review-gates/installation.json).
 
 ## Dependencies, privacy and compatibility
 

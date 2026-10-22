@@ -1,17 +1,21 @@
 # Codex acceptance and friend A/B pack / Codex 验收与朋友测试包
 
-The target payload is frozen at `c1434f04704938774eb359053aaafdf38ee90868`.
+The current v3 target payload is frozen at `675a2cc18e2e477045ad55bcb54ca5b7b3560dba`.
 The runnable wrapper uses native Skills CLI installation, Codex `skills/list` and
 `codex exec --json`, plus an optional native app-server diagnostic recorder; it does
 not emulate a model or use another host's trigger proxy.
-Skill instructions are unchanged by this pack. No DeepSeek Harness work is included.
+Versioned manifests preserve the earlier candidates. No DeepSeek Harness work is included.
 
-Guard repairs after the author pilots did not change frozen tasks, model, budgets,
-rubric or target payload. Actual repaired-environment author runs are recorded in
-[the follow-up](../../examples/codex-acceptance/followup/README.md), including failures.
-Final evidence-preservation guard changes did not receive another model rerun.
-Read [protocol.json](protocol.json) and [the frozen rubric](RUBRIC.md) before running.
-The [record template](RESULT_TEMPLATE.json) intentionally contains no friend results.
+The original root protocol remains v1, targeting `c1434f0`; omitting
+`--study-version` deliberately reproduces that historical protocol. V2 and v3
+preregister separate discovery candidates and a complete explicit-edit fixture.
+Implicit tasks, model, effort, budgets and the original rubric remain unchanged.
+Read the [v1 follow-up](../../examples/codex-acceptance/followup/README.md) and
+[actual v2/v3 regressions](../../examples/codex-acceptance/review-gates/README.md)
+separately; neither contains friend results. Evidence-preservation guard repairs
+in the earlier follow-up were not model reruns by themselves.
+Read [v3/protocol.json](v3/protocol.json) and [the unchanged rubric](RUBRIC.md) before running.
+The [current record template](v3/RESULT_TEMPLATE.json) intentionally contains no friend results.
 The HTML, text and three bracket reference PNGs are owned synthetic fixtures under
 the root MIT license. The bracket is a controlled construction, not a new photographic
 reconstruction benchmark. Its original vector source is withheld from actors.
@@ -47,8 +51,8 @@ Codex CLI with `npm install -g @openai/codex@0.155.1` in a disposable environmen
 Run from the repository; output must be a new directory outside it:
 
 ```sh
-python evals/codex/run.py prepare --task discovery --arm A --out /absolute/private/A1
-python evals/codex/run.py prepare --task discovery --arm B --out /absolute/private/B1
+python evals/codex/run.py prepare --study-version 3 --task discovery --arm A --out /absolute/private/A1
+python evals/codex/run.py prepare --study-version 3 --task discovery --arm B --out /absolute/private/B1
 ```
 
 Replace `discovery` with `svg` or `control` for the other tasks. B is actually installed
@@ -102,9 +106,9 @@ or budget outcomes return 2. Never use process exit code as the task/trigger sco
 Separate explicit loading smokes use fresh B environments:
 
 ```sh
-python evals/codex/run.py prepare --task control --arm B --out /absolute/private/explicit-discovery
+python evals/codex/run.py prepare --study-version 3 --task control --arm B --out /absolute/private/explicit-discovery
 python evals/codex/run.py run --out /absolute/private/explicit-discovery --explicit --auth-file /private/auth.json
-python evals/codex/run.py prepare --task svg --arm B --out /absolute/private/explicit-svg
+python evals/codex/run.py prepare --study-version 3 --task svg --arm B --out /absolute/private/explicit-svg
 python evals/codex/run.py run --out /absolute/private/explicit-svg --explicit --auth-file /private/auth.json
 ```
 
@@ -112,11 +116,12 @@ The SVG smoke is read-only R/B research. It cannot count as authoring/assembly o
 final visual acceptance. PDF success requires actual text and page-image checks;
 SVG success requires actual editable sources and image inspection.
 
-**Known frozen fixture limitation:** `explicit-discovery.txt` requests an exact edit
+**Historical v1 fixture limitation:** `explicit-discovery.txt` requests an exact edit
 but does not specify the replacement. Actual actors correctly asked for it. Retain
 successful loading separately from the uncompleted edit; do not invent an edit or
 silently add the control prompt. Repairing that fixture needs a newly preregistered
-version, preserving v1 outcomes. Do not expose this coordinator note to actors.
+version, preserving v1 outcomes. The registered v2/v3 prompt now supplies the exact
+replacement and its actual byte-edit smokes pass. Do not expose this coordinator note to actors.
 
 ## Native observability and transport
 
@@ -166,7 +171,7 @@ Use that ID in place of `<IMAGE_ID>`. Prepare a **new empty** host result direct
 then prepare and execute in one disposable container, mounting no host home/repo:
 
 ```sh
-docker run --rm --memory=4g --cpus=2 --pids-limit=256 --cap-drop=ALL --security-opt=no-new-privileges --mount type=bind,src=/absolute/empty/B1,dst=/results --mount type=bind,src=/private/auth.json,dst=/run/secrets/codex-auth.json,readonly --entrypoint sh <IMAGE_ID> -c 'python3 /opt/experiment/run.py prepare --task discovery --arm B --out /results/run && python3 /opt/experiment/run.py run --out /results/run --auth-file /run/secrets/codex-auth.json --sandbox danger-full-access --isolation-boundary container --boundary-id <IMAGE_ID>'
+docker run --rm --memory=4g --cpus=2 --pids-limit=256 --cap-drop=ALL --security-opt=no-new-privileges --mount type=bind,src=/absolute/empty/B1,dst=/results --mount type=bind,src=/private/auth.json,dst=/run/secrets/codex-auth.json,readonly --entrypoint sh <IMAGE_ID> -c 'python3 /opt/experiment/run.py prepare --study-version 3 --task discovery --arm B --out /results/run && python3 /opt/experiment/run.py run --out /results/run --auth-file /run/secrets/codex-auth.json --sandbox danger-full-access --isolation-boundary container --boundary-id <IMAGE_ID>'
 ```
 
 Change only arm and fresh result path for A. The container is the external isolation

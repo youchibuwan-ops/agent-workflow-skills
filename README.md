@@ -9,17 +9,18 @@ Start with **proactive-skill-discovery**: connect capability gaps to inspected w
 actual task results, and maintained reusable lessons.
 
 ```sh
-npx skills@1.7.4 add https://github.com/youchibuwan-ops/agent-workflow-skills/tree/c1434f04704938774eb359053aaafdf38ee90868 --skill proactive-skill-discovery -a codex
+npx skills@1.7.4 add https://github.com/youchibuwan-ops/agent-workflow-skills/tree/675a2cc18e2e477045ad55bcb54ca5b7b3560dba --skill proactive-skill-discovery -a codex
 ```
 
 Run from the intended project. Requires Git and Node ≥22.20.0 for this third-party CLI;
 the skills themselves have no Node/Python runtime.
 
-**Pre-release status (2026-10-23): NO-GO under the frozen acceptance rule.**
-Both standalone instruction/resource loads now pass. Actual follow-up runs include a
-verified PDF and one Windows RPC pilot meeting the frozen five discovery conditions;
-the isolated Linux pilot still misses source/license inspection. The explicit edit
-fixture also lacks replacement text. Failures remain recorded; acceptance is incomplete.
+**Codex testing preview (2026-10-23): limited-preview gate met.**
+Both corrected explicit smokes pass. One of two preregistered v3 implicit pilots
+completed actual source/method/license review, a pre-use decision, real library reuse
+and independent output checks; the other missed review evidence. PDF compatibility
+warnings and independent friend results remain open. This is not reliable-autonomy
+or production-readiness evidence, and no formal Release has been published.
 Read the [actual evidence and remaining gates](docs/codex-acceptance.md) and
 [friend A/B pack](evals/codex/README.md). No measured performance gain is claimed.
 Commands above/below pin the reviewed PR payload; unmerged `main` has older content.
@@ -70,7 +71,7 @@ and retain verified lessons. Work on a branch; do not release or submit external
 Install the SVG skill separately:
 
 ```sh
-npx skills@1.7.4 add https://github.com/youchibuwan-ops/agent-workflow-skills/tree/c1434f04704938774eb359053aaafdf38ee90868 --skill crafting-reference-based-svg-assets -a codex
+npx skills@1.7.4 add https://github.com/youchibuwan-ops/agent-workflow-skills/tree/675a2cc18e2e477045ad55bcb54ca5b7b3560dba --skill crafting-reference-based-svg-assets -a codex
 ```
 
 ```text
