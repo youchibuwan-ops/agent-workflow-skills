@@ -159,9 +159,12 @@ logs outside skill payloads; publish only redacted evidence that others can repr
 The two exact clothespin research pages on eBay and Jumbo return 403 to lychee.
 Their URLs remain in the research record, and `.lychee.toml` excludes only those
 exact resources from automated checking; this is not evidence that they passed.
-Manual source access must be checked again before reuse. A Commons image also
-returned 429 during one run; per-host request pacing is enabled rather than treating
-429 as success. Other links and local targets remain subject to the checker.
+Manual source access must be checked again before reuse. Two Commons original-image
+URLs also returned 429 across local/hosted runs. Their citation links now use the
+verified Commons file descriptions, which supply provenance, licenses and access
+to the originals; the original inspected URLs remain in the research record.
+Per-host request pacing remains enabled, and 429 is not accepted as success.
+Other links and local targets remain subject to the checker.
 
 ## Auxiliary workflow review — 2026-10-23
 
