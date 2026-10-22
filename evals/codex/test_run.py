@@ -16,10 +16,13 @@ class IsolationTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
             (root / 'v2').mkdir()
-            for prefix, version in [('', 1), ('v2/', 2)]:
+            (root / 'v3').mkdir()
+            for prefix, version in [('', 1), ('v2/', 2), ('v3/', 3)]:
                 (root / (prefix + 'protocol.json')).write_text(json.dumps({'version': version}), encoding='utf8')
                 (root / (prefix + 'payloads.json')).write_text(json.dumps({'target': {'SKILL.md': str(version)}}), encoding='utf8')
             with patch.object(experiment, 'PACKAGE', root):
+                experiment.configure_study(3)
+                self.assertEqual(experiment.expected_payload('target'), {'SKILL.md': '3'})
                 experiment.configure_study(2)
                 self.assertEqual(experiment.expected_payload('target'), {'SKILL.md': '2'})
                 experiment.configure_study(1)

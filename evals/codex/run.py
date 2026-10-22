@@ -28,9 +28,9 @@ SYSTEM = {'imagegen', 'openai-docs', 'plugin-creator', 'review-agent', 'skill-cr
 
 def configure_study(version):
     global PROTOCOL, PROTOCOL_FILE, PAYLOADS_FILE
-    if version not in {1, 2}:
+    if version not in {1, 2, 3}:
         raise ValueError('Unknown preregistered study version')
-    folder = PACKAGE if version == 1 else PACKAGE / 'v2'
+    folder = PACKAGE if version == 1 else PACKAGE / ('v' + str(version))
     PROTOCOL_FILE, PAYLOADS_FILE = folder / 'protocol.json', folder / 'payloads.json'
     PROTOCOL = json.loads(PROTOCOL_FILE.read_text(encoding='utf8'))
     if PROTOCOL['version'] != version:
@@ -413,7 +413,7 @@ if __name__ == '__main__':
     setup.add_argument('--out', required=True)
     setup.add_argument('--task', choices=sorted(PROTOCOL['target_skills']), required=True)
     setup.add_argument('--arm', choices=['A', 'B'], required=True)
-    setup.add_argument('--study-version', type=int, choices=[1, 2], default=1)
+    setup.add_argument('--study-version', type=int, choices=[1, 2, 3], default=1)
     setup.add_argument('--codex')
     setup.add_argument('--network-proxy', help='Optional credential-free HTTP(S) proxy origin; fixed for both arms')
     execute = commands.add_parser('run')

@@ -1,0 +1,64 @@
+{
+  "version": 3,
+  "frozen_skill_commit": "675a2cc18e2e477045ad55bcb54ca5b7b3560dba",
+  "cli_version": "0.155.1",
+  "model": "gpt-6-astra",
+  "reasoning_effort": "medium",
+  "wall_seconds": 300,
+  "max_tool_calls": 40,
+  "repetitions_per_arm": 3,
+  "seeded_order": [
+    "B",
+    "A",
+    "A",
+    "B",
+    "B",
+    "A"
+  ],
+  "target_skills": {
+    "discovery": "proactive-skill-discovery",
+    "svg": "crafting-reference-based-svg-assets",
+    "control": "proactive-skill-discovery"
+  },
+  "primary_discovery_pass": [
+    "Host catalog contains the exact enabled target; no personal/project/plugin contamination",
+    "Prompt contains no target name, explicit skill invocation or request to search for skills",
+    "A successful observable read of the target SKILL.md, or host skill-use event, occurs before the relevant method decision",
+    "Actual search for a reusable external skill/workflow and actual source/resource/license inspection",
+    "A suitable method is actually applied to the task and its output independently checked"
+  ],
+  "outcome_classes": [
+    "pass",
+    "fail",
+    "environment_blocked",
+    "budget_exhausted",
+    "invalid_contamination",
+    "unobservable"
+  ],
+  "separate_measures": [
+    "installation",
+    "host_discovery",
+    "instruction_load",
+    "implicit_trigger",
+    "external_reuse",
+    "task_success"
+  ],
+  "go_rule": "GO for a limited Codex preview requires intact legal/package checks, both explicit smokes and one valid implicit full-chain pilot. Broad reliability or performance claims require the independent friend study; no paired result is prefilled. Otherwise NO-GO for that unsupported claim, with precise blockers.",
+  "do_not_change_after_execution": [
+    "prompts",
+    "input_files",
+    "rubrics",
+    "budgets",
+    "skill_payload",
+    "model",
+    "effort"
+  ],
+  "limits": "CLI token usage is reported, not a hard token/dollar cap. Wall/tool caps are equal. A local author pilot is not a friend's A/B result or a desktop activation test. A folder is not an OS security boundary. Use separate disposable containers/VMs for the friend study.",
+  "explicit_discovery_prompt": "tasks/explicit-discovery-v2.txt",
+  "parent_protocol_commit": "5d054328ae5cee8cec51e336228107a0d725fd37",
+  "additional_adopted_review_gate": [
+    "Actual source/method and applicable license-body inspection for each newly adopted substantive workflow/tool/resource, with version and use-scope decision",
+    "Search snippets, SPDX-only metadata or download/save alone do not establish inspection",
+    "Review evidence must precede adoption/use; fallback and added resources reopen their corresponding gate; no backdating"
+  ]
+}
