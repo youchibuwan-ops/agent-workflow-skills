@@ -1,0 +1,100 @@
+{
+  "v3_B01_license_erratum": {
+    "old_missing_lines": [
+      135,
+      174,
+      210,
+      215,
+      220,
+      227
+    ],
+    "cause": "outer tool warning prefix prevents whole JSON decoding; quotes stay JSON-escaped in visible intact parts",
+    "raw_return_lines": [
+      231,
+      244,
+      257
+    ],
+    "license_total_lines": 230,
+    "license_nonblank_lines": 193,
+    "literal_only_missing_count": 6,
+    "literal_or_JSONescaped_missing_count": 0,
+    "result": "withdraw six-line license gap claim; do not change original raw records or full-chain non-pass",
+    "original_rpc_sha256": "57af37335819e7e83c9af4188415b76171e369ecd5f85e190ec750a8b14266c2",
+    "receipt_event_sha256": [
+      {
+        "line": 231,
+        "sha256": "e2f08e735feed5e2c8233dbdeb6b2206046428b963607a7d93c527973f52cc08"
+      },
+      {
+        "line": 244,
+        "sha256": "02b67a333fbfd24d67f5f89ca3bfab82c6d2b08c4d84c90f57f0cfff2ab8f074"
+      },
+      {
+        "line": 257,
+        "sha256": "17b0530dd413b95a4d5eb8fdaf07534b6a2ba9701e74c02d8b6783287090bf10"
+      }
+    ]
+  },
+  "v2_B01_recheck": {
+    "raw_return_lines": [
+      301,
+      313
+    ],
+    "license_total_lines": 230,
+    "license_nonblank_lines": 193,
+    "still_unobserved_nonblank_lines": [
+      70,
+      71,
+      72,
+      73,
+      74,
+      75,
+      77,
+      78,
+      79,
+      80,
+      81,
+      82,
+      83,
+      84,
+      85,
+      86,
+      87,
+      88,
+      89,
+      91,
+      92,
+      93,
+      95,
+      96,
+      97,
+      98,
+      99,
+      100,
+      102,
+      103,
+      104,
+      105,
+      106,
+      107,
+      108,
+      109
+    ]
+  },
+  "v2_B02_recheck": {
+    "observed_license_action_lines": [
+      156,
+      266
+    ],
+    "new_PyMuPDF_or_native_library_review_before_use": "not established"
+  },
+  "v3_B01_method_probe": {
+    "requested_lookup": "class TTFont(",
+    "reproduced_index": -1,
+    "actual_declaration": "class TTFont:",
+    "actual_declaration_index": 45531,
+    "native_command_event_line": 358,
+    "actual_relevant_doc_return_line": 257,
+    "doc_opened_range": "initial navigation range only; no needed API mechanism"
+  }
+}

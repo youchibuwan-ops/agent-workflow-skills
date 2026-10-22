@@ -7,13 +7,16 @@ searches, installations, logs or rules.
 ```mermaid
 flowchart TD
     S["当前要求 → 可观察交付条件 / Observable task contract"] --> I["匹配已安装能力 / Match installed workflows"]
-    I --> E["执行当前步骤或首个样例 / Execute a real sample"]
-    E --> C{"当前结果符合要求？ / Actual result fits?"}
+    I --> H{"已有足够且已核的流程？ / Established suitable workflow?"}
+    H -- "是 / Yes" --> E["执行当前步骤或首个样例 / Execute a real sample"]
+    H -- "否；曾失败或准备复杂格式实现 / Gap or prior failure" --> Q
+    E --> VC["按故障覆盖核内容、结构/版面与实图 / Validate actual coverage"]
+    VC --> C{"当前结果与执行证据符合要求？ / Result and process fit?"}
     C -- "否 / No" --> D["定位偏差与最早失效步骤 / Locate cause"]
     D --> G{"缺的是方法能力？ / Missing method?"}
     G -- "是 / Yes" --> Q["按输入、机制、输出和验证搜索 / Search by capability contract"]
     Q --> R["按生成、验证、预览逐项读取实际方法与许可 / Read actual adopted items"]
-    R --> RG{"S/L：返回正文完整、相关且适用？ / Evidence complete and applicable?"}
+    R --> RG{"S/L：实际返回支持行为及许可范围？ / Returned evidence supports use?"}
     RG -- "否：补读或换已审方法 / Resolve missing evidence" --> R
     RG -- "是 / Yes" --> RD["R：执行前写采用判断 / Record pre-use decision"]
     RD --> A["选择最小适配并实际使用 / Apply the smallest suitable method"]
@@ -51,8 +54,24 @@ the actor read the required body. Recover truncated ranges; record the relevant
 source, license/use scope and adoption decision before production, validation or
 preview use. A fallback or newly added substantive dependency reopens its gate.
 Same-version/same-use reviews may be reused; routine work does not need another search.
-The [actual regressions](../examples/codex-acceptance/review-gates/README.md) include
-both a completed chain and failed inspection claims; instruction wording is not proof.
+Update each actual item to unreviewed, needs evidence or usable after reading its
+returned content. A navigation page, empty method lookup or truncated license
+remains unresolved. Reuse the existing task record; no parallel logging system is needed.
+
+Before hand implementation of nontrivial standard-format work, match mature methods
+even when the language is familiar. For delivery gaps, inspect a production/check
+Skill or maintainer workflow, then map required checks to evidence. An alternative
+library alone does not prove independent coverage: text extraction, structural/layout
+diagnostics and current-page visual review answer different questions. Keep warnings,
+fix their cause or the output, then repeat the affected checks. Do not suppress a
+warning to turn an unmet acceptance condition into a pass.
+
+读到正文后逐项判断“未核／待补／可用”，不能把网址正确、命令成功或保存文件当作已审。
+非平凡格式实现先查成熟流程；交付验收按故障选检查，分别落实到内容、结构/版面和当前
+实图。纯指令不能硬拦住宿主的任意调用；是否执行须用真实轨迹和产物核对。
+The [versioned regressions](../examples/codex-acceptance/execution-reliability/README.md)
+retain missed loads, search omissions, wrong visual counts and compatibility warnings;
+instruction wording is not proof.
 
 ## Research and reuse decisions — 2026-10-23
 

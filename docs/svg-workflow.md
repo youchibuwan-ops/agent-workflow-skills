@@ -35,6 +35,12 @@ searching when the current delivery is supported. If a critical ambiguity remain
 and evidence is unavailable, record the minimum missing input or assumption choice;
 continue independent work. This records a blocker, never a passed R gate.
 
+R/B also applies to read-only research: number repeated instances by face and spatial
+position, record what each actual view reveals or hides, then reconcile face and whole
+counts. Similar projected shapes are not interchangeable instances. Zoom or seek a
+discriminating view when counts conflict; listing three viewed images is not that check.
+只读研究也须逐面逐位置编号、核每张实图的可见/遮挡关系，再汇总局部和整件数量。
+
 Before each transition, inspect the actual current artifacts and record:
 **version/local → action and output → reference position and observation → remaining
 required corrections → next action**. A missing prerequisite blocks that arrow.

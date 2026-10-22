@@ -1,6 +1,6 @@
 # Validation and comparison protocol
 
-Latest behavioral acceptance is separate: [2026-10-23 versioned Codex tests and limited-preview scope](codex-acceptance.md).
+Latest behavioral acceptance is separate: [2026-10-23 strict Codex repair regressions and independent-test scope](codex-acceptance.md).
 The historical package/render checks below do not establish implicit activation.
 
 Evidence dates: 2026-10-22–23. Baseline repository: `b33ac6e`.

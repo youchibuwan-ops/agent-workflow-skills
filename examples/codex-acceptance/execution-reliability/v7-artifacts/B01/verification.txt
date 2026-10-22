@@ -1,0 +1,15 @@
+Verification of report.pdf
+
+Generated from the unchanged report.html using WeasyPrint 68.0, print CSS, and embedded Noto Sans CJK SC. Output: 3 A4 pages.
+
+Checks actually run:
+- pdfplumber extracted all 36 rows and compared every ID, Chinese/English description, and amount exactly against the HTML, in order, with no missing or duplicated rows.
+- Verified the full table heading on every page. Page ranges: ROW-01–16, ROW-17–34, ROW-35–36.
+- Verified title, currency paragraph, and bilingual closing text. Confirmed embedded font data and Unicode mappings; the PDF contains text, not rasterized page images.
+- Checked every character against page boundaries and every table character against its cell boundaries. All passed after correcting cell padding/width sizing.
+- pypdf 6.6.0 opened the final PDF in strict mode and read all 21 indirect objects and decoded streams. Final generation and verification emitted no warnings or errors.
+- Rendered all three final pages with PDFium (via pdfplumber) at 130 dpi and visually inspected each: Chinese glyphs are visible, headings repeat, and rows are complete without clipping or overlapping content.
+
+Remaining limitation: interactive selection was not manually tested in a desktop PDF viewer; selectability is supported by successful Unicode text extraction and embedded fonts. Physical printing and other viewers were not tested.
+
+Build script, print CSS, verification script, logs, previews, and tool/license records are retained in .delivery/.

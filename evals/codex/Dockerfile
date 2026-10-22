@@ -8,5 +8,9 @@ COPY evals/codex/run.py evals/codex/record_rpc.py evals/codex/protocol.json eval
 COPY evals/codex/tasks/ /opt/experiment/tasks/
 COPY evals/codex/v2/protocol.json evals/codex/v2/payloads.json /opt/experiment/v2/
 COPY evals/codex/v3/protocol.json evals/codex/v3/payloads.json /opt/experiment/v3/
+COPY evals/codex/v4/protocol.json evals/codex/v4/payloads.json /opt/experiment/v4/
+COPY evals/codex/v5/protocol.json evals/codex/v5/payloads.json /opt/experiment/v5/
+COPY evals/codex/v6/protocol.json evals/codex/v6/payloads.json /opt/experiment/v6/
+COPY evals/codex/v7/protocol.json evals/codex/v7/payloads.json /opt/experiment/v7/
 WORKDIR /work
 ENTRYPOINT ["python3", "/opt/experiment/run.py"]

@@ -3,12 +3,13 @@
 Checked 2026-10-23. Drafts only: no form submitted, account connected, paid placement,
 formal Release or mass outreach authorized. Recheck destination rules before submission.
 
-**Current decision: GO for a limited Codex testing preview under the registered rule.**
-The following copy remains an unpublished testing invitation draft.
-[Actual versioned retests](codex-acceptance.md) pass both complete explicit smokes
-and one full implicit discovery chain; the latest sibling misses source-review
-evidence. PDF compatibility warnings and absent friend results remain explicit.
-Do not present this as proven reliability, performance improvement or production readiness.
+**Current evidence: v7 meets the registered strict author repair suite.**
+The copy below is an unpublished independent-testing invitation. The
+[actual results](codex-acceptance.md) include all three scheduled implicit B chains,
+both explicit smokes, adjacent controls and two independently checked zero-warning
+PDFs. All older failures remain visible. Known-task regressions do not establish
+general reliability, performance improvement or production readiness. Friend
+outcomes are blank; formal publication still requires maintainer approval.
 
 ## Directory requirements
 
@@ -65,21 +66,24 @@ failed reviews and corrections rather than presenting every iteration as success
 The current binder example was accepted by its user after a new whole review.
 A separate paired CSV execution probe tied; no performance improvement is inferred.
 
-Versioned clean Linux retests now pass both complete explicit smokes, including an
-exact edit and three-image SVG preparation. In the latest two implicit author trials,
-one actually inspects the adopted method and license bodies, records its decision
-before use, reuses the library/font and independently verifies the PDF. The other
-still lacks returned method evidence. No external Skill was adopted in those trials.
-Earlier failures remain visible; a corrected explicit fixture has a separate version.
-All four new PDFs pass the original content/page checks, but font compatibility
-warnings remain, including malformed unused character-map entries in the full-chain
-result. The registered limited testing-preview minimum is met; these diagnostics
-do not estimate reliability. The isolated friend pack has blank outcome fields.
+Versioned clean Linux regressions now pass the registered strict repair gate:
+both explicit smokes, all three scheduled implicit discovery chains and the adjacent
+A/B controls. The tasks include a bilingual HTML-to-PDF repair and a typed-data
+workbook. Actual source/license returns and pre-use decisions are checked separately
+from output quality. Both current PDFs pass full content, structure/layout and actual
+page review with zero observed independent warnings. One trace adapts an inspected
+OpenAI PDF workflow; another rejects a differently licensed candidate and follows
+maintainer guidance instead. Library reuse is recorded separately from Skill adoption.
 
-Try the reviewed PR payload for testing (not yet merged) with:
+All 32 v4-v7 outcomes remain public, including missing loads/searches, an incorrect
+SVG instance count and PDF warnings in earlier versions. These are author repairs of
+known tasks, not a success-rate estimate, a measured gain or the independent friend's
+study. The isolated A/B pack contains identical tasks, budgets and blank result fields.
+
+Try the exact reviewed payload for testing with:
 
 ```sh
-npx skills@1.7.4 add https://github.com/youchibuwan-ops/agent-workflow-skills/tree/675a2cc18e2e477045ad55bcb54ca5b7b3560dba --skill proactive-skill-discovery -a codex
+npx skills@1.7.4 add https://github.com/youchibuwan-ops/agent-workflow-skills/tree/6aaedb39545b3f60892b824862396951c8147b81 --skill proactive-skill-discovery -a codex
 ```
 
 [Source and examples](https://github.com/youchibuwan-ops/agent-workflow-skills).
@@ -103,25 +107,27 @@ Codex experiment is prepared, with its outcome fields empty.
 
 源码、安装命令和案例在[GitHub 仓库](https://github.com/youchibuwan-ops/agent-workflow-skills)。
 欢迎反馈真实失败例，尤其是误触发、筛选不当、安装后仍不能完成任务的情况。
-新版干净 Linux 测试已完成两份显式冒烟：精确编辑和三视角 SVG 研究均通过。最新两次
-隐式试跑中，一次实际读完采用方法和许可正文、先记录采用判断再执行，并完成库／字体
-复用与 PDF 独立核验；另一次仍缺方法正文证据，保留失败。没有采用外部 Skill，不能把库
-复用宣传成外部 Skill 复用。旧失败和欠指定的旧测试保留，新编辑测试单独版本化。
-四份新 PDF 通过原定内容和逐页检查，但字体兼容性警告仍在，包括完整链成品的未使用
-字符映射异常。已达到原定有限测试预览门槛，不能宣称稳定可靠。隔离 A/B 包的朋友结果
-仍为空，不宣称成功率或效率提升。当前只是未投稿的测试邀请草稿。
+v7 干净 Linux 回归已通过预注册的严格修复门槛：两份显式测试、三条预定隐式发现
+完整链和 A/B 负对照通过。任务包含双语 HTML 转 PDF 修复和带类型/公式的表格。
+实际返回的方法、许可正文和执行前判断，与最终产物分别核查；两份当前 PDF 的内容、
+结构/版面和全部页面实看通过，独立检查零警告。一例适配已审的 OpenAI PDF 工作流，
+另一例拒绝不同许可的候选、改用维护者指南；不把库复用混称安装了外部 Skill。
+
+v4-v7 全部 32 个结果保留，包括旧版漏加载、未检索、SVG 数量判断错误和 PDF 警告。
+这是已知任务的作者回归，不能宣传成功率或效率提升。朋友 A/B 包已备好相同任务、
+预算和空白原始记录模板，独立效果尚未验证。文案未投稿，也未发布正式 Release。
 
 ## Short social drafts and follow-up
 
 EN: Find a skill, inspect it, use it, verify the task, retain the lesson. Agent Workflow
-Skills includes a real audit trace, editable SVG case and a frozen Codex study pack.
-Both explicit smokes and one complete implicit chain pass the limited-preview gate;
-a failed sibling, PDF compatibility warnings and pending independent tests remain
-visible: [repository](https://github.com/youchibuwan-ops/agent-workflow-skills).
+Skills includes real install/SVG cases and a frozen Codex A/B pack. The strict v7
+author regression suite passes; earlier failures and blank independent-study outcomes
+remain visible. No measured gain or general reliability claim:
+[repository](https://github.com/youchibuwan-ops/agent-workflow-skills).
 
-中文：找 Skill 只是开始，还要筛选、实际使用、验证与沉淀。两份开源工作流附真实安装
-和 SVG 案例及隔离 A/B 测试包。两份显式测试和一例隐式完整链通过有限预览门槛，失败例、
-PDF 兼容性警告和待完成的朋友实验均保留，欢迎独立复现：[仓库](https://github.com/youchibuwan-ops/agent-workflow-skills)。
+中文：找 Skill 只是开始，还要筛选、实际使用、验证与沉淀。两份开源工作流附真实安装、
+SVG 案例和 Codex A/B 包。v7 严格作者回归通过，旧失败和待完成的独立实验均保留，
+不宣称性能提升或普遍可靠：[仓库](https://github.com/youchibuwan-ops/agent-workflow-skills)。
 
 Choose one relevant developer community first; adapt language to its rules and disclose
 maintainership. Do not post identical copy everywhere or solicit votes. After any approved

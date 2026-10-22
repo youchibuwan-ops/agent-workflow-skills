@@ -2,13 +2,24 @@
 
 ## Unreleased
 
+- V4-v7 retain all 32 scheduled clean-runtime cases; the unchanged strict repair
+  closure passes at v7, including three implicit chains and both zero-warning PDFs.
+  Earlier missed loads/searches, SVG count error and warning failures remain visible.
+- Discovery entry routing, actual-return S/L/R state and complete verification
+  coverage; SVG repeated-instance inventory applies to read-only R/B as well.
+  No host enforcement hook, library-specific route or new mandatory runtime.
+- Exact-current-pin remote and local fallback installs; separate synthetic installer
+  error-masking proof and bounded old-PDF copy repair. Original transport cause unknown.
+- Separate license-audit erratum for escaped text; old reports/results retained.
+  V7 friend template/manifests, actual PDF artifacts and bilingual unpublished drafts.
+
 - Separate corrected explicit-edit v2 fixture, preserving v1's missing-information
   outcome. Versioned candidates/protocols are committed before model calls, with
   unchanged implicit inputs, rubric, CLI/model/effort and resource caps.
 - Adopted-source/license gates now include producer, validator, preview and fallback
   components, actual returned method/body content and visible decisions before use.
-  Twelve actual v2/v3 runs retain three failed inspection chains and one valid v3
-  chain; both complete explicit smokes pass. Limited testing-preview minimum met,
+  Historical v2/v3: twelve actual runs retain three failed inspection chains and one valid v3
+  chain; both complete explicit smokes pass. The historical limited testing-preview minimum was met,
   with failed sibling, PDF compatibility warnings and blank friend results retained.
 - Reference-install checker now handles Markdown fragments; study version selection
   and protocol-resume guards are tested. No new mandatory Skill runtime is introduced.

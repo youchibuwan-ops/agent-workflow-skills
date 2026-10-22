@@ -5,13 +5,13 @@
 Requires Git and Node ≥22.20.0 (CLI 1.7.4's declared minimum). Run from the project:
 
 ```sh
-npx skills@1.7.4 add https://github.com/youchibuwan-ops/agent-workflow-skills/tree/675a2cc18e2e477045ad55bcb54ca5b7b3560dba --skill proactive-skill-discovery -a codex
-npx skills@1.7.4 add https://github.com/youchibuwan-ops/agent-workflow-skills/tree/675a2cc18e2e477045ad55bcb54ca5b7b3560dba --skill crafting-reference-based-svg-assets -a codex
+npx skills@1.7.4 add https://github.com/youchibuwan-ops/agent-workflow-skills/tree/6aaedb39545b3f60892b824862396951c8147b81 --skill proactive-skill-discovery -a codex
+npx skills@1.7.4 add https://github.com/youchibuwan-ops/agent-workflow-skills/tree/6aaedb39545b3f60892b824862396951c8147b81 --skill crafting-reference-based-svg-assets -a codex
 ```
 
-These commands pin the tested v3 PR payload at `675a2cc`; the PR is not merged.
-The discovery instructions were revised in versioned, preregistered candidates;
-the SVG payload is unchanged. Each command selects one skill. Add `--copy -y` for unattended project installs;
+These commands pin candidate v7 at `6aaedb3`; see [integration status](https://github.com/youchibuwan-ops/agent-workflow-skills/pull/1).
+Both standalone remote installs and the pinned-fetch/local-install fallback were
+actually verified for these exact bytes. Installation does not establish task success. Each command selects one skill. Add `--copy -y` for unattended project installs;
 copy mode avoids symlink permissions on Windows. PowerShell users can use `npx.cmd`
 if `npx.ps1` is blocked, without changing execution policy.
 
@@ -45,7 +45,7 @@ host and installer. The verified installer version here is 1.7.4.
 ## User-wide install
 
 ```sh
-npx skills@1.7.4 add https://github.com/youchibuwan-ops/agent-workflow-skills/tree/675a2cc18e2e477045ad55bcb54ca5b7b3560dba --skill proactive-skill-discovery -a codex -g
+npx skills@1.7.4 add https://github.com/youchibuwan-ops/agent-workflow-skills/tree/6aaedb39545b3f60892b824862396951c8147b81 --skill proactive-skill-discovery -a codex -g
 ```
 
 CLI 1.7.4 targets `~/.agents/skills/`. This global path was checked in upstream source;
@@ -72,17 +72,56 @@ and UI metadata; copying only `SKILL.md` breaks the package.
 
 For an immutable source, check out a reviewed Git commit. The CLI can also select a
 GitHub `tree/<commit>/skills/<name>` URL; verify that exact URL before using it.
-An unpinned `owner/repo` command tracks the older public default branch until PR #1
-is merged; the commands here pin the actual reviewed payload.
+An unpinned `owner/repo` command follows the public default branch. The commands
+here preserve the actual tested payload regardless of later default-branch changes.
 
-The final remote check of `675a2cc` installed discovery successfully, then the SVG
-clone failed with a missing-ref message. Both standalone commands passed on a fresh
-retry, with exact bytes, license and reference reads verified. CLI 1.7.4 tries a
-SHA-fetch fallback but suppresses its inner error; the first message does not prove
-that this published commit is absent. The underlying transient failure is unresolved.
-If it recurs, preserve the error and use a new local checkout at the exact commit
-with `npx skills@1.7.4 add /absolute/checkout --skill <name> -a codex --copy -y`.
-Do not silently substitute an unpinned branch. See the [install check record](../examples/codex-acceptance/review-gates/installation.json).
+A prior immutable remote install intermittently failed with a misleading missing-ref
+message. The original transport failure has not been reproduced or diagnosed.
+The pinned 1.7.4 installer source and a **synthetic** Git-failure experiment show
+that its SHA-fetch fallback can hide the inner error; that experiment does not
+identify the earlier network cause. All four subsequent real reports have complete
+payloads; three exits are recorded as zero, one exit was lost in trace decoding.
+The current candidate's two remote single-skill installs also pass.
+See [separate installation diagnostics](../examples/codex-acceptance/execution-reliability/installation-diagnosis.json).
+
+If immutable remote installation fails, retain the error and use a fresh exact
+checkout. This path was actually tested for candidate v7. Bash:
+
+```sh
+commit=6aaedb39545b3f60892b824862396951c8147b81
+skill_source=$(mktemp -d)
+git -C "$skill_source" init
+git -C "$skill_source" remote add origin https://github.com/youchibuwan-ops/agent-workflow-skills.git
+git -c http.version=HTTP/1.1 -C "$skill_source" fetch --depth 1 origin "$commit"
+git -C "$skill_source" checkout --detach FETCH_HEAD
+test "$(git -C "$skill_source" rev-parse HEAD)" = "$commit" || exit 1
+npx skills@1.7.4 add "$skill_source" --skill proactive-skill-discovery -a codex --copy -y
+```
+
+PowerShell (run in the destination project):
+
+```powershell
+$commit = '6aaedb39545b3f60892b824862396951c8147b81'
+$skillSource = Join-Path ([IO.Path]::GetTempPath()) ('workflow-skills-' + [guid]::NewGuid())
+git init $skillSource
+if ($LASTEXITCODE) { throw 'git init failed' }
+git -C $skillSource remote add origin https://github.com/youchibuwan-ops/agent-workflow-skills.git
+if ($LASTEXITCODE) { throw 'remote setup failed' }
+git -c http.version=HTTP/1.1 -C $skillSource fetch --depth 1 origin $commit
+if ($LASTEXITCODE) { throw 'pinned fetch failed' }
+git -C $skillSource checkout --detach FETCH_HEAD
+if ($LASTEXITCODE) { throw 'checkout failed' }
+$actualCommit = git -C $skillSource rev-parse HEAD
+if ($LASTEXITCODE -or $actualCommit -ne $commit) { throw 'unexpected commit' }
+npx.cmd skills@1.7.4 add $skillSource --skill proactive-skill-discovery -a codex --copy -y
+```
+
+Select `crafting-reference-based-svg-assets` instead for the other standalone skill.
+These commands preserve the pin, avoid changing PowerShell execution policy, and
+scope HTTP/1.1 to one Git command. They do not prove HTTP/1.1 universally fixes
+transport errors. Never silently substitute an unpinned branch or alter global Git
+configuration. An optional proxy must be supplied for the current environment;
+the commands contain no account credentials.
 
 ## Dependencies, privacy and compatibility
 
