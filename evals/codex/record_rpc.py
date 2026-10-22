@@ -44,6 +44,7 @@ def main():
     args = parser.parse_args()
     root = Path(args.out).resolve()
     prep = json.loads((root / 'preparation.json').read_text(encoding='utf8'))
+    runner.resume_study(prep)
     if (root / 'rpc.jsonl').exists() or (root / 'events.jsonl').exists():
         raise ValueError('Fresh runs only; never replace an earlier observation')
     runner.check_frozen(root, prep)
@@ -54,11 +55,10 @@ def main():
     if subprocess.check_output(prep['command'] + ['--version'], env=env, encoding='utf8').strip() != prep['cli']:
         raise ValueError('CLI changed after preparation')
     boundary = runner.check_boundary(args.isolation_boundary, args.boundary_id, args.sandbox)
-    prompt_file = runner.PACKAGE / 'tasks' / prep['task'] / 'prompt.txt'
     if args.explicit:
         if prep['arm'] != 'B':
             raise ValueError('Explicit smoke requires treatment B')
-        prompt_file = runner.PACKAGE / 'tasks' / ('explicit-svg.txt' if prep['task'] == 'svg' else 'explicit-discovery.txt')
+    prompt_file = runner.task_prompt(prep['task'], args.explicit)
     prompt = prompt_file.read_text(encoding='utf8')
     (root / 'prompt.txt').write_text(prompt, encoding='utf8')
     command = prep['command'] + ['app-server'] + runner.runtime_flags() + ['-c', 'approval_policy="never"',
@@ -152,6 +152,7 @@ def main():
             except (OSError, subprocess.SubprocessError):
                 status = 'environment_blocked'
             status = save_result(root, prep, observed, {'mode': 'explicit' if args.explicit else 'implicit',
+                'protocol_version': runner.PROTOCOL['version'], 'frozen_skill_commit': runner.PROTOCOL['frozen_skill_commit'],
                 'transport': 'native app-server diagnostic', 'experimental_raw_events': args.experimental_raw_events,
                 'model': runner.PROTOCOL['model'], 'effort': runner.PROTOCOL['reasoning_effort'], 'sandbox': args.sandbox,
                 **boundary, 'runtime_flags': runner.runtime_flags(), 'network_proxy_sha256': proxy_hash,

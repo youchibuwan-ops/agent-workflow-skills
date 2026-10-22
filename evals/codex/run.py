@@ -20,8 +20,34 @@ import time
 from urllib.parse import urlsplit
 
 PACKAGE = Path(__file__).resolve().parent
-PROTOCOL = json.loads((PACKAGE / 'protocol.json').read_text(encoding='utf8'))
+PROTOCOL_FILE = PACKAGE / 'protocol.json'
+PAYLOADS_FILE = PACKAGE / 'payloads.json'
+PROTOCOL = json.loads(PROTOCOL_FILE.read_text(encoding='utf8'))
 SYSTEM = {'imagegen', 'openai-docs', 'plugin-creator', 'review-agent', 'skill-creator', 'skill-installer'}
+
+
+def configure_study(version):
+    global PROTOCOL, PROTOCOL_FILE, PAYLOADS_FILE
+    if version not in {1, 2}:
+        raise ValueError('Unknown preregistered study version')
+    folder = PACKAGE if version == 1 else PACKAGE / 'v2'
+    PROTOCOL_FILE, PAYLOADS_FILE = folder / 'protocol.json', folder / 'payloads.json'
+    PROTOCOL = json.loads(PROTOCOL_FILE.read_text(encoding='utf8'))
+    if PROTOCOL['version'] != version:
+        raise ValueError('Study version mismatch')
+
+
+def resume_study(preparation):
+    configure_study(preparation.get('protocol_version', 1))
+    if preparation['protocol_sha256'] != hashlib.sha256(PROTOCOL_FILE.read_bytes()).hexdigest():
+        raise ValueError('Protocol changed after preparation')
+
+
+def task_prompt(task, explicit):
+    if not explicit:
+        return PACKAGE / 'tasks' / task / 'prompt.txt'
+    name = 'tasks/explicit-svg.txt' if task == 'svg' else PROTOCOL.get('explicit_discovery_prompt', 'tasks/explicit-discovery.txt')
+    return PACKAGE / name
 
 
 def write_json(path, value):
@@ -55,7 +81,7 @@ def check_frozen(root, preparation):
 
 
 def expected_payload(target):
-    return json.loads((PACKAGE / 'payloads.json').read_text(encoding='utf8'))[target]
+    return json.loads(PAYLOADS_FILE.read_text(encoding='utf8'))[target]
 
 
 def check_payloads(root, preparation, skills):
@@ -226,6 +252,7 @@ def network_env(env, proxy):
 
 
 def prepare(args):
+    configure_study(args.study_version)
     root = fresh_root(Path(args.out))
     env = network_env(isolated_env(root), args.network_proxy)
     shutil.copytree(PACKAGE / 'tasks' / args.task, root / 'workspace')
@@ -242,13 +269,15 @@ def prepare(args):
             subprocess.run(executable('npm') + ['exec', '--yes', '--package=skills@1.7.4', '--', 'skills', 'add',
                            source, '--skill', target, '-a', 'codex', '--copy', '-y'], cwd=root / 'workspace',
                            env=env, stdout=log, stderr=log, check=True, timeout=180)
-        expected = json.loads((PACKAGE / 'payloads.json').read_text(encoding='utf8'))[target]
+        expected = expected_payload(target)
         if hashes(root / 'workspace/.agents/skills' / target) != expected:
             raise ValueError('Installed payload mismatch')
     observed = catalog(command, root, env)
     check_catalog(observed, args.arm, target)
     write_json(root / 'preparation.json', {'arm': args.arm, 'task': args.task, 'cli': version, 'command': command,
-               'input_sha256': before, 'target': target, 'protocol_sha256': hashlib.sha256((PACKAGE / 'protocol.json').read_bytes()).hexdigest(),
+               'frozen_skill_commit': PROTOCOL['frozen_skill_commit'],
+               'input_sha256': before, 'target': target, 'protocol_version': PROTOCOL['version'],
+               'protocol_sha256': hashlib.sha256(PROTOCOL_FILE.read_bytes()).hexdigest(),
                'package_sha256': package_hashes(),
                'system_sha256': {s['name']: hashes(Path(s['path']).parent) for s in observed if s.get('scope') == 'system'},
                'runtime_flags': runtime_flags(),
@@ -274,8 +303,7 @@ def run(args):
     preparation = json.loads((root / 'preparation.json').read_text(encoding='utf8'))
     if (root / 'events.jsonl').exists():
         raise ValueError('Never reuse a behavioral environment; prepare a fresh one')
-    if preparation['protocol_sha256'] != hashlib.sha256((PACKAGE / 'protocol.json').read_bytes()).hexdigest():
-        raise ValueError('Protocol changed after preparation')
+    resume_study(preparation)
     check_frozen(root, preparation)
     env = network_env(isolated_env(root), args.network_proxy)
     proxy_hash = hashlib.sha256(args.network_proxy.encode()).hexdigest() if args.network_proxy else None
@@ -288,11 +316,10 @@ def run(args):
     check_catalog(observed, preparation['arm'], preparation['target'])
     check_payloads(root, preparation, observed)
     boundary = check_boundary(args.isolation_boundary, args.boundary_id, args.sandbox)
-    prompt_file = PACKAGE / 'tasks' / preparation['task'] / 'prompt.txt'
     if args.explicit:
         if preparation['arm'] != 'B':
             raise ValueError('Explicit smoke is separate from A/B and needs target B')
-        prompt_file = PACKAGE / 'tasks' / ('explicit-svg.txt' if preparation['task'] == 'svg' else 'explicit-discovery.txt')
+    prompt_file = task_prompt(preparation['task'], args.explicit)
     prompt = prompt_file.read_text(encoding='utf8')
     (root / 'prompt.txt').write_text(prompt, encoding='utf8')
     auth = root / 'state/auth.json'
@@ -386,6 +413,7 @@ if __name__ == '__main__':
     setup.add_argument('--out', required=True)
     setup.add_argument('--task', choices=sorted(PROTOCOL['target_skills']), required=True)
     setup.add_argument('--arm', choices=['A', 'B'], required=True)
+    setup.add_argument('--study-version', type=int, choices=[1, 2], default=1)
     setup.add_argument('--codex')
     setup.add_argument('--network-proxy', help='Optional credential-free HTTP(S) proxy origin; fixed for both arms')
     execute = commands.add_parser('run')

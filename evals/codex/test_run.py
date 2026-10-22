@@ -11,6 +11,38 @@ SPEC.loader.exec_module(experiment)
 
 
 class IsolationTests(unittest.TestCase):
+    def test_study_versions_select_distinct_payloads_and_preserve_v1(self):
+        self.addCleanup(experiment.configure_study, 1)
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            (root / 'v2').mkdir()
+            for prefix, version in [('', 1), ('v2/', 2)]:
+                (root / (prefix + 'protocol.json')).write_text(json.dumps({'version': version}), encoding='utf8')
+                (root / (prefix + 'payloads.json')).write_text(json.dumps({'target': {'SKILL.md': str(version)}}), encoding='utf8')
+            with patch.object(experiment, 'PACKAGE', root):
+                experiment.configure_study(2)
+                self.assertEqual(experiment.expected_payload('target'), {'SKILL.md': '2'})
+                experiment.configure_study(1)
+                self.assertEqual(experiment.expected_payload('target'), {'SKILL.md': '1'})
+                with self.assertRaises(ValueError):
+                    experiment.configure_study(99)
+
+    def test_resumed_run_rejects_changed_protocol_before_model_call(self):
+        import hashlib
+        preparation = {'protocol_version': 1, 'protocol_sha256': hashlib.sha256((Path(__file__).parent / 'protocol.json').read_bytes()).hexdigest()}
+        experiment.resume_study(preparation)
+        with self.assertRaises(ValueError):
+            experiment.resume_study({**preparation, 'protocol_sha256': 'wrong'})
+
+    def test_explicit_v2_uses_a_separate_self_contained_prompt(self):
+        # Selection is independent of candidate payload; never overwrite the old task.
+        with patch.object(experiment, 'PROTOCOL', {'version': 2, 'explicit_discovery_prompt': 'tasks/explicit-discovery-v2.txt'}):
+            chosen = experiment.task_prompt('control', True)
+            self.assertEqual(chosen.name, 'explicit-discovery-v2.txt')
+            self.assertIn('New release title', chosen.read_text(encoding='utf8'))
+        with patch.object(experiment, 'PROTOCOL', {'version': 1}):
+            self.assertEqual(experiment.task_prompt('control', True).name, 'explicit-discovery.txt')
+
     def test_refuse_existing_output_and_repository_descendant(self):
         with tempfile.TemporaryDirectory() as temporary:
             with self.assertRaises(ValueError):

@@ -43,7 +43,7 @@ try {
     const entry = readFileSync(join(target, 'SKILL.md'), 'utf8');
     const references = [...entry.matchAll(/\]\((references\/[^)]+)\)/g)].map((match) => match[1]);
     assert(references.length > 0);
-    for (const ref of references) assert(readFileSync(resolve(target, ref), 'utf8').trim(), `Empty reference ${ref}`);
+    for (const ref of references) assert(readFileSync(resolve(target, ref.split('#')[0]), 'utf8').trim(), `Empty reference ${ref}`);
     assert(readFileSync(join(target, 'agents', 'openai.yaml'), 'utf8').includes(`$${name}`));
     const listing = execFileSync(process.execPath, [process.env.npm_execpath, 'exec', '--yes', '--package=skills@1.7.4', '--',
       'skills', 'list', '-a', 'codex', '--json'], {
