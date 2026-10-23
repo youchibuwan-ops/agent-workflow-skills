@@ -1,0 +1,359 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Coast Along — a pelican's promenade</title>
+<style>
+  :root { color-scheme: light; background: #e5dfcc; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; width: 100%; height: 100%; overflow: hidden; }
+  body { display: grid; place-items: center; }
+  svg { display: block; width: min(100vw, 133.333333vh); height: auto; max-height: 100vh; }
+  .ink { stroke: #193f49; stroke-linecap: round; stroke-linejoin: round; }
+  .label { font-family: 'Trebuchet MS', 'DejaVu Sans', sans-serif; fill: #193f49; }
+  .small { font-size: 12px; font-weight: 600; letter-spacing: 2.6px; }
+  .fine { fill: none; stroke: #193f49; stroke-width: 2; stroke-linecap: round; }
+  #pause { cursor: pointer; outline: none; }
+  #pause:hover .button-disc, #pause:focus-visible .button-disc { fill: #eebc59; }
+  #pause:focus-visible .button-disc { stroke-width: 3; }
+</style>
+</head>
+<body>
+<!-- All artwork is editable vector geometry. See the script's CONFIG for motion. -->
+<svg id="scene" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" width="1200" height="900" role="img" aria-labelledby="scene-title scene-description">
+<title id="scene-title">Coast Along</title>
+<desc id="scene-description">An ivory pelican with a golden bill and a coral scarf pedals a teal bicycle beside a calm sea. Its webbed feet stay on opposite pedals, its knees bend, and one wing holds the handlebar. A seamless six-second loop.</desc>
+<defs>
+  <pattern id="paper-speckle" width="53" height="47" patternUnits="userSpaceOnUse">
+    <circle cx="6" cy="12" r=".7" fill="#193f49" opacity=".065"/>
+    <circle cx="38" cy="32" r=".8" fill="#193f49" opacity=".04"/>
+    <path d="M19 39h2M44 9h1" stroke="#fffaf0" stroke-width="1.4" opacity=".55"/>
+  </pattern>
+  <pattern id="road-pattern" width="259.7049926967562" height="42" patternUnits="userSpaceOnUse">
+    <path d="M15 15h41M139 30h15" stroke="#b99575" stroke-width="2" stroke-linecap="round" opacity=".45"/>
+    <circle cx="92" cy="24" r="1.8" fill="#b99575" opacity=".45"/>
+  </pattern>
+  <clipPath id="art-clip"><rect x="31" y="31" width="1138" height="838" rx="2"/></clipPath>
+  <g id="wheel-static">
+    <circle r="116" fill="#f8f0dc" fill-opacity=".62" stroke="#193f49" stroke-width="16"/>
+    <circle r="108" fill="none" stroke="#fbf4e3" stroke-width="6"/>
+    <circle r="104" fill="none" stroke="#6b9697" stroke-width="1.8"/>
+  </g>
+  <g id="wheel-rotating">
+    <!-- A complete spoke set is generated below, once, as editable SVG lines. -->
+    <g id="spoke-template" stroke="#37626a" stroke-width="1.65" opacity=".63"/>
+    <path d="M-12-110A111 111 0 0 1 12-110" fill="none" stroke="#eab85b" stroke-width="4" stroke-linecap="round"/>
+    <rect x="-4" y="-95" width="8" height="20" rx="3" fill="#e9aa58" stroke="#193f49" stroke-width="1.2"/>
+    <path d="M0 102v6" stroke="#193f49" stroke-width="3"/>
+    <circle r="12" fill="#193f49"/>
+    <circle r="5" fill="#f6e9c9"/>
+  </g>
+  <g id="pedal">
+    <rect x="-24" y="-4" width="48" height="9" rx="3" fill="#193f49"/>
+    <path d="M-18-1h10M8-1h10" stroke="#eab85b" stroke-width="2.5" stroke-linecap="round"/>
+    <circle r="3" fill="#8daead"/>
+  </g>
+  <g id="webbed-foot" class="ink" stroke-width="2.8">
+    <path d="M-16-23Q-7-27-3-18L22-10Q28-7 23-5H-20Q-26-7-21-13Z"/>
+    <path d="M-4-17 10-6M-11-17-2-6" fill="none" stroke-width="1.6" opacity=".65"/>
+  </g>
+</defs>
+
+<g clip-path="url(#art-clip)">
+  <!-- Paper, horizon, and the quiet seaside. -->
+  <path fill="#f8f0dc" d="M0 0H1200V900H0Z"/>
+  <circle cx="990" cy="205" r="79" fill="#e99872"/>
+  <circle cx="990" cy="205" r="91" fill="none" stroke="#e99872" stroke-width="1" opacity=".65"/>
+  <path d="M1060 296h-57m77 13h-35" stroke="#f8f0dc" stroke-width="5" stroke-linecap="round"/>
+  <g fill="none" stroke="#658e92" stroke-width="2.5" stroke-linecap="round">
+    <path d="M906 117q10-10 20 0q10-10 20 0"/>
+    <path d="M1038 105q7-7 14 0q7-7 14 0"/>
+  </g>
+  <path d="M0 514Q131 493 233 510T449 510T687 510T932 507T1200 511V750H0Z" fill="#bbd6d3"/>
+  <path d="M0 516Q123 498 228 511T450 511" fill="none" stroke="#83b2b3" stroke-width="2"/>
+  <path d="M31 560Q109 539 177 551T314 553L348 569H31Z" fill="#88b0ad"/>
+  <path d="M31 572Q141 550 266 567L304 582H31Z" fill="#5f9294"/>
+  <!-- A tiny lighthouse on the distant point. -->
+  <g class="ink" stroke-width="2">
+    <path d="M127 547l9-85h18l9 85Z" fill="#faf2dc"/>
+    <path d="M134 482h22l3 26h-28Z" fill="#de8a67" stroke="none"/>
+    <path d="M132 462v-17h26v17Z" fill="#e8bb69"/>
+    <path d="M127 445l18-14 18 14Z" fill="#193f49"/>
+    <path d="M129 464h32M140 447v11m10-11v11" fill="none"/>
+    <path d="M141 535v-10q4-6 8 0v10" fill="#193f49" stroke="none"/>
+  </g>
+  <g id="sea-lines" fill="none" stroke="#6a9fa3" stroke-width="2" stroke-linecap="round" opacity=".64">
+    <path d="M75 611h105m25 0h29M61 646h72m69-49h90M930 560h112m21 0h43M994 584h56m-98 40h159M80 696h114m768-13h110"/>
+    <path d="M308 531h53m440 1h78"/>
+  </g>
+  <g id="sailboat" transform="translate(1050 487)" stroke="#638e92" stroke-linejoin="round">
+    <path d="M-23 5h49l-9 9h-30Z" fill="#638e92" stroke-width="2"/>
+    <path d="M1 2v-53L-24 0Z" fill="#fff7e6" stroke-width="1.5"/>
+    <path d="M6-41V0h18Z" fill="#df9470" stroke="none"/>
+    <path d="M-30 21h63" fill="none" stroke-width="2"/>
+  </g>
+  <path d="M0 731Q254 716 486 732T957 728T1200 733V900H0Z" fill="#e8ceb0"/>
+  <path d="M31 743Q246 729 449 741M981 742q84-6 188 0" fill="none" stroke="#f8f0dc" stroke-width="4"/>
+  <path d="M31 774H1169" stroke="#193f49" stroke-width="2.4"/>
+  <path d="M31 783H1169V824H31Z" fill="url(#road-pattern)"/>
+  <ellipse cx="590" cy="776" rx="369" ry="10" fill="#193f49" opacity=".09"/>
+
+  <!-- The composition is a seaside travel print, with live vector artwork. -->
+  <g class="label">
+    <text x="77" y="76" class="small">THE WANDERING PELICAN</text>
+    <path d="M78 91h248" stroke="#193f49" stroke-width="1"/>
+    <g font-family="Georgia, 'DejaVu Serif', serif" font-style="italic" font-weight="bold" font-size="76" letter-spacing="-4">
+      <text x="72" y="167">Coast</text>
+      <text x="72" y="242">along.</text>
+    </g>
+    <text x="79" y="280" font-size="14" letter-spacing="1">A little less hurry. A little more sea.</text>
+    <text x="1120" y="76" text-anchor="end" class="small">VOL. 06 / SEASIDE</text>
+  </g>
+  <g transform="translate(79 315)" class="fine">
+    <path d="M0 0h71m-7-6 7 6-7 6"/>
+    <circle cx="90" r="3" fill="#193f49" stroke="none"/>
+  </g>
+
+  <!-- Far leg and far crank go behind the diamond frame. -->
+  <g id="far-leg" class="ink">
+    <path id="far-leg-outline" fill="none" stroke="#193f49" stroke-width="19"/>
+    <path id="far-leg-color" fill="none" stroke="#bf8556" stroke-width="13"/>
+    <circle id="far-knee" r="6.6" fill="#c58b59" stroke="none"/>
+  </g>
+  <path id="far-crank" class="ink" stroke-width="9" fill="none"/>
+  <g id="far-pedal"><use href="#pedal"/></g>
+  <g id="far-foot" fill="#cc945b"><use href="#webbed-foot"/></g>
+
+  <!-- Wheels: only spokes, reflectors and valves rotate; tyres stay round. -->
+  <g transform="translate(350 650)">
+    <use href="#wheel-static"/>
+    <g id="rear-spin"><use href="#wheel-rotating"/></g>
+  </g>
+  <g transform="translate(820 650)">
+    <use href="#wheel-static"/>
+    <g id="front-spin"><use href="#wheel-rotating"/></g>
+  </g>
+
+  <!-- Curved mudguards sit outside the rotating tyres. -->
+  <g fill="none" class="ink">
+    <path d="M226 619A128 128 0 0 1 462 584M701 600A128 128 0 0 1 943 613" stroke-width="8"/>
+    <path d="M226 619A128 128 0 0 1 462 584M701 600A128 128 0 0 1 943 613" stroke="#d8aa63" stroke-width="4"/>
+    <path d="M350 650 260 565M820 650 909 558" stroke="#63888b" stroke-width="2.3"/>
+  </g>
+  <!-- A real diamond frame and fork, outlined first, enamel second. -->
+  <g fill="none" class="ink" stroke-width="15">
+    <path d="M350 650 510 510 578 630 350 650M510 510 742 510 758 552 578 630M758 552 820 650"/>
+    <path d="M350 650 510 510 578 630 350 650M510 510 742 510 758 552 578 630M758 552 820 650" stroke="#33868a" stroke-width="9"/>
+    <path d="M510 510 497 482" stroke-width="9"/>
+    <path d="M510 510 497 482" stroke="#8cb2b0" stroke-width="4"/>
+    <path d="M752 526 727 460Q725 448 740 446L773 446" stroke-width="9"/>
+    <path d="M752 526 727 460Q725 448 740 446L773 446" stroke="#8cb2b0" stroke-width="4"/>
+  </g>
+  <path d="M512 516 556 614M593 620 743 555" fill="none" stroke="#a2ccbf" stroke-width="2.2" stroke-linecap="round"/>
+  <path d="M360 646 508 517" fill="none" stroke="#8dbab2" stroke-width="1.8"/>
+  <path d="M772 452Q787 478 771 511Q767 525 774 553" fill="none" stroke="#193f49" stroke-width="2.3"/>
+  <path d="M766 446h20" fill="none" class="ink" stroke-width="12"/>
+  <path d="M777 454l-9 18" class="ink" stroke-width="3.5"/>
+  <g transform="translate(749 436)" class="ink" stroke-width="2">
+    <path d="M-10 4a10 10 0 0 1 20 0Z" fill="#e8b65a"/>
+    <path d="M-3-6h6"/>
+  </g>
+  <!-- Saddle and clamp remain fixed under the bird's pelvis. -->
+  <path d="M466 482Q488 478 512 482L537 486Q543 493 530 498L481 496Q468 494 466 482Z" class="ink" fill="#a56a50" stroke-width="4"/>
+  <path d="M477 486q23 0 49 5" fill="none" stroke="#e6ae7e" stroke-width="2"/>
+  <path d="M488 499h26" stroke="#193f49" stroke-width="4" stroke-linecap="round"/>
+  <text x="622" y="505" class="label" font-size="10" letter-spacing="2.5" font-weight="bold" fill="#eaf0d7">TIDELINE</text>
+
+  <!-- A 2:1 chain drive: radius 30 at the crank, radius 15 at the rear. -->
+  <circle cx="350" cy="650" r="15" fill="#e8bc70" stroke="#193f49" stroke-width="3"/>
+  <g id="chainring" transform="translate(578 630)">
+    <circle r="30" fill="#f3dfb4" stroke="#193f49" stroke-width="4"/>
+    <g id="chainring-spin" fill="none" stroke="#193f49" stroke-width="6">
+      <circle r="21" stroke="#a5b4a0" stroke-width="2"/>
+      <path d="M0-21V21M-21 0H21"/>
+    </g>
+  </g>
+  <path id="chain" d="M347.71276 635.17541L573.42551 600.35082A30 30 0 1 1 578.65726 659.99280L350.32863 664.99640A15 15 0 0 1 347.71276 635.17541Z" fill="none" stroke="#193f49" stroke-width="5"/>
+  <path id="chain-links" d="M347.71276 635.17541L573.42551 600.35082A30 30 0 1 1 578.65726 659.99280L350.32863 664.99640A15 15 0 0 1 347.71276 635.17541Z" fill="none" stroke="#bac6b1" stroke-width="1.6" stroke-dasharray="2.35619449 7.06858347"/>
+  <path id="near-crank" class="ink" fill="none" stroke-width="10"/>
+  <path id="near-crank-shine" fill="none" stroke="#b6cbc1" stroke-width="4" stroke-linecap="round"/>
+  <circle cx="578" cy="630" r="8" fill="#193f49"/>
+  <circle cx="578" cy="630" r="3" fill="#f8f0dc"/>
+
+  <!-- Near leg is in front of the frame, but its hip is under the belly. -->
+  <g id="near-leg" class="ink">
+    <path id="near-leg-outline" fill="none" stroke="#193f49" stroke-width="20"/>
+    <path id="near-leg-color" fill="none" stroke="#e7ac61" stroke-width="14"/>
+    <circle id="near-knee" r="7" fill="#edb566" stroke="none"/>
+    <path id="near-shin-highlight" fill="none" stroke="#f6cc80" stroke-width="3"/>
+  </g>
+  <g id="near-pedal"><use href="#pedal"/></g>
+  <g id="near-foot" fill="#efb765"><use href="#webbed-foot"/></g>
+
+  <!-- Tail, body, long recurved neck, head, and unmistakable throat pouch. -->
+  <g class="ink" stroke-width="3.8">
+    <path d="M470 416Q426 399 399 369L406 404 389 396Q402 423 446 449Z" fill="#193f49"/>
+    <path d="M424 410 413 394M438 420 428 402" fill="none" stroke="#6f9292" stroke-width="2"/>
+    <path d="M441 394Q470 361 535 374Q576 382 603 414
+      C625 393 629 370 622 344
+      C609 308 626 269 651 247
+      C677 223 713 223 735 248
+      Q746 262 740 281
+      C735 309 710 320 686 331
+      C672 338 673 359 679 382
+      C693 427 661 466 610 482
+      Q583 496 555 494L541 502 528 495 512 500 500 493
+      Q450 485 432 453Q413 421 441 394Z" fill="#fff8e6"/>
+    <!-- A cool cream shadow distinguishes the neck's return from the belly. -->
+    <path d="M714 304Q691 321 674 327C651 342 658 365 662 387Q673 432 621 459Q570 489 507 482Q551 509 611 481C664 464 692 425 679 382C672 359 674 338 686 331Q704 322 714 304Z" fill="#d7dfcc" stroke="none"/>
+    <path d="M451 394Q473 385 494 390M442 405q17-11 31-10" fill="none" stroke="#e2e6d3" stroke-width="4"/>
+    <path d="M650 247q-9-11-17-10 8 10 15 12M662 238q-5-11-13-12 0 10 9 15" fill="#fff8e6"/>
+    <!-- A bill over two hundred units long, with a deep elastic pouch below. -->
+    <path d="M724 279L959 297Q948 317 915 328L776 367Q747 374 729 348Q714 326 711 302Z" fill="#e6ac50"/>
+    <path d="M732 301Q751 337 784 346L918 318 776 367Q747 374 729 348Q717 328 714 308Z" fill="#df9661" stroke="none"/>
+    <path d="M726 279Q817 279 959 297Q966 300 961 307L951 315 950 304 728 307Q715 296 726 279Z" fill="#f4c763"/>
+    <path d="M739 288Q844 287 937 299" fill="none" stroke="#ffe49b" stroke-width="3"/>
+    <path d="M730 307 944 304" fill="none" stroke-width="2.2"/>
+    <path d="M744 320q6 21 25 28" fill="none" stroke="#ba7955" stroke-width="2"/>
+    <path d="M741 293h10" stroke="#9b813b" stroke-width="2.5"/>
+    <!-- Eye and soft, amused eyebrow. -->
+    <path d="M690 257q10-6 18 0" fill="none" stroke-width="2.6"/>
+    <g id="eye" transform="translate(701 271)">
+      <ellipse rx="9.5" ry="11" fill="#eabb58" stroke-width="2.4"/>
+      <ellipse cx="1.5" cy=".5" rx="4.5" ry="6" fill="#193f49" stroke="none"/>
+      <circle cx="3" cy="-2" r="1.8" fill="#fff8e6" stroke="none"/>
+    </g>
+    <path d="M684 295q-6 7-13 7" fill="none" stroke="#c2cdb9" stroke-width="2.2"/>
+  </g>
+  <!-- Coral neckerchief: knot is attached; only the loose ends catch the wind. -->
+  <g class="ink" stroke-width="3">
+    <path id="scarf-tail-back" d="M632 353Q606 332 568 348L580 360 562 368Q599 374 635 365Z" fill="#b86652"/>
+    <path id="scarf-tail-front" d="M634 354Q608 350 591 368T545 374L556 391Q606 394 639 366Z" fill="#e98d6b"/>
+    <path d="M620 346Q642 357 670 347L675 365Q649 378 625 363Z" fill="#e98d6b"/>
+    <path d="M626 355q20 9 39 2" fill="none" stroke="#f7ba87" stroke-width="2.2"/>
+    <path d="M625 352q11-4 15 8l-8 12q-13-3-7-20Z" fill="#e6a071"/>
+  </g>
+  <!-- The near wing forms a single continuous shoulder–wrist–grip silhouette. -->
+  <g class="ink" stroke-width="3.5">
+    <path d="M482 398Q511 382 539 400
+      Q582 416 620 432L728 433
+      Q739 427 750 435L778 438Q785 442 781 448
+      Q787 455 777 458L744 454
+      Q726 460 706 459L617 464
+      Q576 466 543 449Q531 469 512 460
+      L497 451Q478 454 472 443L462 430Q455 414 482 398Z" fill="#f7f1de"/>
+    <path d="M477 425Q501 431 519 447L531 454Q531 463 519 462L499 452Q479 454 472 443L462 430Q458 424 460 419Z" fill="#193f49" stroke="none"/>
+    <path d="M491 403Q518 400 543 419L611 446Q632 450 650 448" fill="none" stroke="#d2ddca" stroke-width="7"/>
+    <path d="M480 415q17 3 31 14M479 430l20 14M497 434l18 13" fill="none" stroke="#759391" stroke-width="2.2"/>
+    <path d="M740 439q9 0 9 13m11-13q7 3 5 15m11-14q5 3 2 12" fill="none" stroke-width="2.2"/>
+  </g>
+
+  <!-- A few restrained movement strokes keep the silhouette readable. -->
+  <g id="breeze" fill="none" stroke="#5e8e92" stroke-width="2.2" stroke-linecap="round">
+    <path d="M360 437h-40m27 13h-51M449 322h-23m9 12h-47"/>
+  </g>
+  <rect x="31" y="31" width="1138" height="838" rx="2" fill="url(#paper-speckle)" pointer-events="none"/>
+  <!-- Quiet footer and a keyboard-accessible pause control. -->
+  <g class="label">
+    <text x="78" y="850" class="small">SALT AIR. SOFT TYRES. NO APPOINTMENTS.</text>
+    <text x="1044" y="851" text-anchor="end" font-size="11" letter-spacing="2">A SIX-SECOND ESCAPE</text>
+  </g>
+  <g id="pause" role="button" aria-label="Pause animation" tabindex="0" transform="translate(1100 846)">
+    <circle class="button-disc" r="17" fill="#f8f0dc" stroke="#193f49" stroke-width="1.5"/>
+    <path id="pause-glyph" d="M-4-5V5M4-5V5" fill="none" stroke="#193f49" stroke-width="2.6"/>
+  </g>
+</g>
+<rect x="31" y="31" width="1138" height="838" rx="2" fill="none" stroke="#193f49" stroke-width="1.3" pointer-events="none"/>
+</svg>
+<script>
+(() => {
+  'use strict';
+  // Shared phase: every animated quantity is periodic at exactly 6000 ms.
+  // All units are SVG viewBox units; change these values to edit the mechanism.
+  const CONFIG = Object.freeze({ duration: 6000, crank: { x: 578, y: 630, radius: 48 },
+    hip: { near: {x: 545, y: 477}, far: {x: 530, y: 474} },
+    upperLeg: 102, lowerLeg: 113, wheelRadius: 124, gearRatio: 2, phaseOffset: -.55 });
+  const $ = id => document.getElementById(id);
+  const TAU = Math.PI * 2;
+  const f = n => Number(n.toFixed(4));
+  const attr = (el, name, value) => el.setAttribute(name, value);
+  const P = p => `${f(p.x)} ${f(p.y)}`;
+  // Generate crossed spokes as SVG lines, keeping the document vector-editable.
+  for (let i = 0; i < 20; i++) {
+    const a = i * TAU / 20, b = a + (i % 2 ? .22 : -.22);
+    const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+    for (const [key, value] of Object.entries({x1: 10 * Math.cos(b), y1: 10 * Math.sin(b), x2: 103 * Math.cos(a), y2: 103 * Math.sin(a)})) attr(line, key, f(value));
+    $('spoke-template').appendChild(line);
+  }
+  // Two-link inverse kinematics, fixed lengths, always the forward knee branch.
+  function solveLeg(hip, ankle) {
+    const dx = ankle.x - hip.x, dy = ankle.y - hip.y;
+    const d = Math.hypot(dx, dy), a = CONFIG.upperLeg, b = CONFIG.lowerLeg;
+    const along = (a*a - b*b + d*d) / (2*d);
+    const height = Math.sqrt(Math.max(0, a*a - along*along));
+    return { x: hip.x + along*dx/d + height*dy/d,
+      y: hip.y + along*dy/d - height*dx/d };
+  }
+  function legPose(side, angle) {
+    const c = CONFIG.crank, hip = CONFIG.hip[side];
+    const pedal = { x: c.x + c.radius*Math.cos(angle), y: c.y + c.radius*Math.sin(angle) };
+    // Horizontal feet and freely pivoting level pedals: the sole is at pedal y−4.
+    const ankle = { x: pedal.x-10, y: pedal.y-20 }, knee = solveLeg(hip, ankle);
+    const d = `M${P(hip)}L${P(knee)}L${P(ankle)}`;
+    attr($(side+'-leg-outline'), 'd', d); attr($(side+'-leg-color'), 'd', d);
+    attr($(side+'-knee'), 'cx', f(knee.x)); attr($(side+'-knee'), 'cy', f(knee.y));
+    attr($(side+'-pedal'), 'transform', `translate(${P(pedal)})`);
+    attr($(side+'-foot'), 'transform', `translate(${P(pedal)})`);
+    attr($(side+'-crank'), 'd', `M${c.x} ${c.y}L${P(pedal)}`);
+    if (side === 'near') {
+      attr($('near-crank-shine'), 'd', `M${c.x} ${c.y}L${P(pedal)}`);
+      attr($('near-shin-highlight'), 'd', `M${f(knee.x+2)} ${f(knee.y+8)}L${f(ankle.x+2)} ${f(ankle.y-9)}`);
+    }
+    return { hip, knee, ankle, pedal };
+  }
+  function render(milliseconds) {
+    const phase = ((milliseconds % CONFIG.duration) + CONFIG.duration) % CONFIG.duration / CONFIG.duration;
+    const angle = phase*TAU + CONFIG.phaseOffset;
+    const near = legPose('near', angle), far = legPose('far', angle+Math.PI);
+    const wheelDegrees = f(phase*360*CONFIG.gearRatio);
+    for (const id of ['rear-spin', 'front-spin']) attr($(id), 'transform', `rotate(${wheelDegrees})`);
+    attr($('chainring-spin'), 'transform', `rotate(${f(angle*180/Math.PI)})`);
+    attr($('chain-links'), 'stroke-dashoffset', f(-phase*TAU*30));
+    // Rolling without slipping: road translates by the wheels' travelled arc.
+    const roadTravel = phase*TAU*CONFIG.wheelRadius*CONFIG.gearRatio;
+    attr($('road-pattern'), 'patternTransform', `translate(${f(-roadTravel)} 0)`);
+    // Air and water move gently. Their sine functions share the same loop seam.
+    attr($('sea-lines'), 'transform', `translate(${f(5*Math.sin(phase*TAU))} 0)`);
+    attr($('sailboat'), 'transform', `translate(1050 ${f(487+1.6*Math.sin(phase*TAU))})`);
+    attr($('breeze'), 'opacity', f(.55+.18*Math.sin(phase*TAU)));
+    const flutter = Math.sin(phase*TAU*2), flutter2 = Math.sin(phase*TAU*2+.7);
+    attr($('scarf-tail-back'), 'd', `M632 353Q606 ${f(332+flutter2*4)} 568 ${f(348+flutter2*6)}L580 ${f(360+flutter2*5)} 562 ${f(368+flutter2*6)}Q599 ${f(374+flutter2*3)} 635 365Z`);
+    attr($('scarf-tail-front'), 'd', `M634 354Q608 ${f(350+flutter*3)} 591 ${f(368+flutter*5)}T545 ${f(374+flutter*7)}L556 ${f(391+flutter*7)}Q606 ${f(394+flutter*4)} 639 366Z`);
+    const blink = Math.max(0, 1-Math.abs(phase-.82)/.018);
+    attr($('eye'), 'transform', `translate(701 271) scale(1 ${f(1-.94*blink)})`);
+    // Read-only pose metadata is useful for checking contacts and exact closure.
+    return {phase, near, far, wheelDegrees, roadTravel};
+  }
+  let elapsed = 0, previous = null, paused = false, pose = render(0);
+  function frame(now) {
+    if (previous !== null && !paused) elapsed += now-previous;
+    previous = now; pose = render(elapsed); requestAnimationFrame(frame);
+  }
+  function toggle() {
+    paused = !paused;
+    attr($('pause'), 'aria-label', paused ? 'Play animation' : 'Pause animation');
+    attr($('pause-glyph'), 'd', paused ? 'M-3-6L6 0-3 6Z' : 'M-4-5V5M4-5V5');
+    attr($('pause-glyph'), 'fill', paused ? '#193f49' : 'none');
+  }
+  $('pause').addEventListener('click', toggle);
+  $('pause').addEventListener('keydown', event => {
+    if (event.key === ' ' || event.key === 'Enter') {event.preventDefault(); toggle();}
+  });
+  // An explicit hook for deterministic verification; playback always auto-starts.
+  window.pelicanScene = {config: CONFIG, render, get pose(){return pose;}, get elapsed(){return elapsed;}, get paused(){return paused;}};
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
