@@ -1,0 +1,5 @@
+Generate an SVG of a pelican riding a bicycle.
+
+Create one original, finished, editable illustration on a 1200 by 900 canvas. Save the final self-contained vector artwork as output.svg and a rendered preview as output.png. The bird must be recognizable as a pelican, the bicycle and riding pose must be coherent, and the image should work as a complete composition. Choose your own style; no required project palette.
+
+You may use the available shell, Python, Node, web search, image viewing, and the installed SVG renderer described in TOOLS.md. You may research real pelicans and bicycles; do not look up or copy existing pelican-on-bicycle benchmark drawings, generated compositions or finished SVGs. Do not use image generation or embed raster pictures in the final SVG. Keep intermediate drafts, references/source notes, checks and failures in this workspace. Work autonomously within the available budget, save the best current output before stopping, and state any remaining shortcomings honestly. Do not ask for human feedback or modify installed skills.
