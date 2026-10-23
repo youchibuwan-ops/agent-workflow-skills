@@ -21,38 +21,36 @@ compatibility: Requires file access, actual image inspection and an SVG renderer
 
 ## 制作循环：下一动作由当前证据决定
 
-制作前读[结构、参考、颜色和审核判据](references/construction-and-review.md)；执行时按当前阶段定位章节，不用记忆代替回查。Python 检查器只检查顺序、文件版本和依赖；实际看图与判断仍由代理完成，真实执行应由宿主工具记录核对。
+制作前读[结构、参考、颜色和审核判据](references/construction-and-review.md)及[分层图审与 v2 回执](references/inspection-evidence.md)。**每层都实际对照参考、比例和细节：完整范围 → 逐区域放大 → 用途尺寸；整图缩略图不能放行。** 有必改或关键证据缺失就继续补证据/返工，不向下推进。检查器核登记层级、顺序、文件版本与证据覆盖，实际看图和判断仍须由操作记录核对。
 
 **按“集体 → 个体（整体）→ 局部”展开，按“局部 → 个体（整体）→ 集体”复核。** 集体是所有物体及其关系，个体整体是某一完整物体的外形、比例和内部布局，局部是它的具体部位；复杂物体不能整体挂一个局部 ID 就算拆分。多物体任务先走[多物体组合流程](references/construction-and-review.md#多物体组合先清点对象再逐物体完成最后审关系)：粗构图确定集体关系，再对当前个体执行下面的循环；全部个体通过后才精修组合并审核关系。单物体任务保留个体整体与局部两层。
 
 1. **参考 → 个体整体基准。** 实际打开适用参考，先用无装饰的完整轮廓/构造图核当前个体的长宽比、轮廓转折、负空间、部件大小和相对位置；依据、端点和具体差异记入[比例对照](references/execution-record.md#个体整体基准与局部拆分)。自行设定坐标、接点对齐或参考/成品各自撑满框都不能证明比例正确。个体整体未成立先修基准，不开始局部精绘；成立后按结构与可独立出错的部位列全局部及重复实例，保留共用尺度和连续关系。已有参考充分就复用，不凑图数。
-2. **初始化一次。** 在项目创建流程目录，用完整局部清单运行下方 `init`。写短 `plan.md`，包含上述判读、参考位置和清单；把已实际查看的参考/粗构造图作为 `plan` 证据。目录已存在就用 `next` 恢复，不能新建空目录抹掉失败。
+2. **初始化层级。** 按下方规范写集体中的个体/局部 `hierarchy.json` 和短 `plan.md`，初始化 v2。实际核集体构图并记录 `plan`，再为当前个体输出无装饰完整构造 SVG、实际对照并记录 `basis`；之后才进入它的局部循环。已有目录用 `next` 恢复；v1 只保留历史，不能当作 v2 通过。修订层级要保留旧失败并明确关联新修订，不能抹掉记录。
 3. **只制作当前局部。** 输出共同坐标下的独立 `geometry.svg` 和渲染 PNG，实际打开、核结构，再记录 `geometry`。随后另存本局部材质源 `part.svg`，渲染、看图、记录 `material`。保留几何稿，不能改写它。
 4. **审当前局部和邻接。** 对当前 `part.svg` 实际看独立图、邻接、同比参考与用途尺寸浅/深底；给出具体观察。无必改才记录 `review`，再取 `next` 的下一局部。有必改就 `rewind` 到最早受影响阶段，修源、重导、重看；旧回执保留而不再有效。
 5. **全部局部后才回装。** 保持共同尺寸、颜色、坐标和实体连续，输出当前整件并实际看图，记录 `assembly`。回装改了局部就退回它，不用旧通过放行。动画再核关键相位的接触、遮挡与运动；页面按钮和排版不能取代局部制作。
-6. **新整件审核 → 交付。** 完整周界、所有局部、接点、跨局部连续、材质和用途视图重新核查；有可用且获准的独立复审时执行。修后重新核受影响项及整件，无必改才记录 `whole`，运行 `check`。结论同时说明回执结果、真实看图范围和未验证项。
+6. **个体复审 → 集体复审 → 交付。** 个体回装后重新核完整周界、比例、全部局部、接点与用途视图，无必改才记录 `whole`、进入下一个体。全部个体通过后记录组合 `compose`，逐对象/接口核集体比例、细节和动画，再记录 `final`、运行 v2 `check`。有可用且获准的独立复审时执行；结论同时说明回执结果、真实看图范围和未验证项。
 
 首次写精修整图前，应已有 `plan` 和当前局部动作；首次写回装整件前，应已有每个局部的 `review`。**先画完再拆成局部、事后批量填记录，不能恢复正确的制作顺序。** 发现已走错时保留旧稿为失败草稿，从最早缺失阶段实际重做，不能补签。
 
 ## 检查器的用法
 
-以下 `SCRIPT` 指安装目录下的 `scripts/workflow.py`，不要假定当前目录就是 Skill 目录。只对本任务新建的流程目录使用，所有源图放在其外，避免把回执当成制作源。
+以下 `SCRIPT` 指安装目录下的 `scripts/workflow.py`。每阶段都需要包含真实参考/完整图/细节图/用途尺寸图、比例及细节逐项比较的 inspection JSON；字段、阶段和覆盖要求见[完整规范](references/inspection-evidence.md)。所有制作源、层级和报告放在回执目录外。
 
 ```sh
-python SCRIPT init review/workflow --parts base lever
-python SCRIPT record review/workflow --stage plan --source plan.md --image reference.png --note "具体的参考判读、基准与实例清单"
-python SCRIPT next review/workflow
-python SCRIPT record review/workflow --stage geometry --part base --source parts/base/geometry.svg --image parts/base/geometry.png --note "已打开结构图，具体轮廓与连接观察"
-python SCRIPT record review/workflow --stage material --part base --source parts/base/part.svg --image parts/base/material.png --note "实际材料与几何的对应"
-python SCRIPT record review/workflow --stage review --part base --source parts/base/part.svg --image parts/base/light.png --image parts/base/dark.png --note "局部、邻接和参考实际对照的结论"
-python SCRIPT next review/workflow
+python SCRIPT init review/workflow-v2 --manifest hierarchy.json
+python SCRIPT record review/workflow-v2 --stage plan --source plan.md --inspection review/scene-plan.json --note "实际集体参考、比例和接口对照"
+python SCRIPT next review/workflow-v2
+python SCRIPT record review/workflow-v2 --stage basis --item sign --source sign/basis.svg --inspection review/sign-basis.json --note "实际个体整体轮廓、比例和内部布局对照"
+python SCRIPT next review/workflow-v2
 ```
 
-按返回的 `next` 做下一项；第二局部同样经过 geometry/material/review 后，才记录 assembly/whole。后两项也使用 `--source`、一个或多个 `--image` 和具体 `--note`，不带 `--part`。whole 的 source 必须是当前 assembly 的 source。
+按 `next` 对当前个体的各局部执行 geometry/material/review，再 assembly/whole；前者 item 指局部，后者指个体。所有个体结束才 compose/final，不带 item。whole 必须使用对应 assembly 的源，final 必须使用 compose 的源。每阶段都传当前源、独立的 inspection 报告和具体 note，不补签。
 
 ```sh
-python SCRIPT rewind review/workflow --stage geometry --part base --reason "具体缺陷及其影响"
-python SCRIPT check review/workflow
+python SCRIPT rewind review/workflow-v2 --stage geometry --item sign-face --reason "具体缺陷及其影响"
+python SCRIPT check review/workflow-v2 --require-profile hierarchy-v2
 ```
 
 `check` 在缺步骤或源/证据变更时返回非零，并给出最早缺口；回执历史与内容快照保留。它不启动联网、安装、模型调用或修改源文件；初始化会创建指定目录，record/rewind 只写该目录。

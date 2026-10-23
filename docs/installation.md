@@ -168,7 +168,9 @@ network/tool access when searching externally; SVG work needs actual image viewi
 and a renderer supplied by the host. `find-skills` is optional.
 
 The **unreleased SVG workflow candidate** adds `scripts/workflow.py` and
-`references/construction-and-review.md`. Its full-production mode needs Python ≥3.10
+`references/construction-and-review.md` and `references/inspection-evidence.md`.
+The current v2 helper and its new mechanical cases are untested; earlier v1 checks
+do not validate this revision. Its full-production mode needs Python ≥3.10
 (standard library only); exact edits and read-only review do not start that tracker.
 The helper reads selected evidence files and writes only the selected journal and
 snapshots. It makes no network/model calls and does not install a global host hook.

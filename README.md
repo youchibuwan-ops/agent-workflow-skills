@@ -19,7 +19,9 @@ SVG Skill but skipped independent local production. The [preserved incident and
 candidate](evals/svg-workflow/README.md) add executable receipts and a shorter
 next-action entrypoint. Twelve local mechanical tests passed before the maintainer
 stopped further testing; **no new-session behavior test ran**. The frozen preview
-below is unchanged. This candidate is not a verified fix or a new Release.
+below is unchanged. Those twelve checks cover the earlier v1 helper. The subsequent
+v2 hierarchy/evidence gate and eight added mechanical regressions have **not been run**;
+they do not inherit that result. This candidate is not a verified fix or a new Release.
 
 ```sh
 npx skills@1.7.4 add https://github.com/youchibuwan-ops/agent-workflow-skills/tree/v0.1.0-codex-preview.1 --skill proactive-skill-discovery -a codex --copy -y

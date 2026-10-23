@@ -7,6 +7,15 @@ and fixtures are retained as unrun preparation, not results. No further local or
 model tests were started after that stop. Ordinary repository CI on upload is
 separate from model inference. See [execution status](v1/status.json).
 
+**Later v2 implementation, still untested:** the current helper registers scene,
+object and local IDs; orders each object's basis/local/whole reviews; and requires
+reference, overview, detail and native-size evidence plus proportion/detail
+observations covering the current gate. Eight new mechanical regressions are in
+`evals/codex/test_svg_hierarchy.py`, unrun and not added to the existing CI command.
+The earlier twelve v1 checks do not validate this code. Frozen v1 payloads, criteria
+and results remain unchanged. No new model session was started. The tool cannot
+judge pixels, attest genuine viewing or prevent an agent bypassing the helper.
+
 This suite follows an actual failure: a fresh author task read the SVG Skill and
 its execution-record resource, wrote a polished combined SVG/HTML first, then
 reviewed whole frames without completing independent local P/M/V production and

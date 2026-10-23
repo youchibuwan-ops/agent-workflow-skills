@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+- Implement untested v2 hierarchical receipts and per-stage inspection reports:
+  require reference/overview/detail/native views, proportion and detail comparisons,
+  complete declared coverage and no unresolved findings before advancing. Preserve
+  v1 journals; require the v2 profile for new acceptance. Add eight unrun mechanical
+  regressions without changing historical results or starting model tests. These
+  checks cannot establish image quality, actual viewing or prevent host-level bypass.
 - Define scene → whole individual object → local detail, with reverse review after
   assembly. Require an unshaded whole-object proportion comparison before local
   refinement, and meaningful local decomposition instead of whole-object part IDs.

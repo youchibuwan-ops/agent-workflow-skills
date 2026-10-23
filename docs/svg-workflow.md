@@ -5,8 +5,9 @@ This diagram explains its stage order; arrows represent evidence-based decisions
 not permission to mark unchecked stages complete.
 
 The unreleased candidate makes these transitions explicit through
-`scripts/workflow.py`: `init → plan → (geometry → material → review) per local →
-assembly → whole → check`. `next` identifies the next incomplete step; `rewind`
+`scripts/workflow.py` v2: `init → scene plan → [object basis →
+(geometry → material → review) per local → object assembly → object whole] per object →
+scene compose → scene final → check`. `next` identifies the next incomplete step; `rewind`
 invalidates affected downstream receipts while retaining history and snapshots.
 Missing prerequisites or changed source bytes prevent a mechanical completion
 result. The checker cannot attest actual viewing or stop an agent bypassing it;
@@ -42,9 +43,11 @@ Use the hierarchy **scene → whole individual object → local detail**, then r
 back up from details to the whole object and scene. Before refining details, compare
 the current object's unshaded full silhouette, proportions and internal layout with
 applicable references. Whole-object IDs are not a substitute for meaningful local
-decomposition. Keep separate instance IDs even when sources are reused. The existing
-checker has one journal per object; it does not judge decomposition, proportions,
-scene coverage or inter-object relationships. This instruction update is untested.
+decomposition. Keep separate instance IDs even when sources are reused. The v2
+checker registers the hierarchy and requires reference/overview/detail/native-size
+evidence, proportions and detail observations for every covered item before advancing.
+It cannot judge decomposition or visual correctness, attest genuine viewing or reject
+plausible but false observations. The v2 implementation and added tests are unrun.
 
 层级为 **集体 → 个体（整体）→ 局部**。先定集体关系，再核当前个体完整外形和比例，
 才逐局部精绘；回装后反向复核个体与集体。不能把完整手柄或整只鸟当成一个局部，
