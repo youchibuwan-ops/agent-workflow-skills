@@ -8,6 +8,12 @@ Two MIT-licensed Agent Skills for developers using Codex or another Agent Skills
 Start with **proactive-skill-discovery**: connect capability gaps to inspected workflows,
 actual task results, and maintained reusable lessons.
 
+**For developers who value carefully finished work and less step-by-step supervision.**
+See the [static and animated pelican A/B cases](evals/pelican/README.md): original
+outputs, visible self-correction, time/tool costs and retained failures. B's animation
+is playable but reached its time cap; neither final pair has independent blind scores
+or a measured reduction in human reminders. These pairs test the SVG Skill only.
+
 ```sh
 npx skills@1.7.4 add https://github.com/youchibuwan-ops/agent-workflow-skills/tree/v0.1.0-codex-preview.1 --skill proactive-skill-discovery -a codex --copy -y
 ```
@@ -91,6 +97,15 @@ activation depends on the host; explicit invocation is the reproducible starting
 
 ## Real examples
 
+- [Pelican bicycle A/B: static and animated](evals/pelican/README.md): same model,
+  xhigh, tools and upper caps within each pair; exact sources and an offline demo.
+  Quality observations, user feedback, completion and costs are reported separately.
+
+![Actual animated A/B browser recording](evals/pelican/animated-v1/results/comparison.gif)
+
+A left, B right. **B exhausted its 900-second budget before primary completion.**
+[Full video, originals and boundaries](evals/pelican/README.md#animated-svg).
+
 - [Release audit and discovery](examples/discovery-release-audit/README.md): actual
   selection, OSS tool reuse, a license packaging finding, installation checks and retained learning.
 - [Binder clip](examples/svg-binder-clip/README.md): licensed photographs, complementary
@@ -104,8 +119,8 @@ activation depends on the host; explicit invocation is the reproducible starting
 ![Reference pose and accepted editable SVG](examples/svg-binder-clip/comparison.png)
 
 Photo and artwork: CC BY-SA 3.0; [credits and exceptions](examples/svg-binder-clip/ATTRIBUTION.md).
-These are work examples, not no-skill/with-skill benchmarks. Future DSH variants can
-use the [comparison protocol](docs/validation.md).
+The binder clip, bracket and clothespin are work examples, not no-skill/with-skill
+benchmarks. The pelican pairs above have their own frozen protocols and limitations.
 
 ## Installation and compatibility
 

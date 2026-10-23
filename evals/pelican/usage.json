@@ -1,0 +1,38 @@
+{
+  "scope": "Final displayed actors only. Excludes interrupted static B, its two historical judges, setup and coordinator work. Not total project spend.",
+  "interpretation": "Native cumulative token counters include repeated and cached inputs. Cached input is a subset of input; reasoning output is a subset of output. These are not billed dollars or context-window sizes.",
+  "runs": {
+    "static-A": {
+      "totalTokens": 256955,
+      "inputTokens": 243183,
+      "cachedInputTokens": 196992,
+      "cacheWriteInputTokens": 0,
+      "outputTokens": 13772,
+      "reasoningOutputTokens": 4455
+    },
+    "animated-A": {
+      "totalTokens": 416118,
+      "inputTokens": 398054,
+      "cachedInputTokens": 353536,
+      "cacheWriteInputTokens": 0,
+      "outputTokens": 18064,
+      "reasoningOutputTokens": 4925
+    },
+    "static-B": {
+      "totalTokens": 850041,
+      "inputTokens": 831174,
+      "cachedInputTokens": 762880,
+      "cacheWriteInputTokens": 0,
+      "outputTokens": 18867,
+      "reasoningOutputTokens": 4656
+    },
+    "animated-B": {
+      "totalTokens": 1136256,
+      "inputTokens": 1112715,
+      "cachedInputTokens": 1068160,
+      "cacheWriteInputTokens": 0,
+      "outputTokens": 23541,
+      "reasoningOutputTokens": 7061
+    }
+  }
+}

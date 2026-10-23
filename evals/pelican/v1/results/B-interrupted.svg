@@ -1,0 +1,399 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" width="1200" height="900" viewBox="0 0 1200 900" fill="none" stroke-linecap="round" stroke-linejoin="round">
+<title>A fine day for a ride</title><desc>An original illustration of a white pelican pedaling a coral city bicycle along the coast. Editable vector paths and shapes.</desc>
+<defs>
+<clipPath id="body-clip"><path d="M324 424
+ C347 408 370 380 410 358
+ C459 330 516 337 554 343
+ C591 332 609 311 608 276
+ C605 253 605 223 619 200
+ C629 181 646 174 663 176
+ L650 161Q676 164 688 180
+ Q716 190 716 218
+ C716 235 706 249 692 260
+ C680 280 680 303 693 325
+ C712 353 726 379 719 411
+ C709 463 671 499 620 513
+ C571 526 508 513 466 497
+ C427 482 396 467 373 451
+ L330 450L344 438L313 441Z"/></clipPath>
+<clipPath id="wing-clip"><path d="M468 373C498 349 532 352 560 367
+ C588 382 611 413 643 432
+ C669 447 706 451 743 448
+ Q761 447 760 455
+ Q761 462 750 466
+ Q741 476 725 474
+ Q699 484 668 474
+ C628 475 599 459 572 446
+ C539 449 505 435 483 415
+ Q463 397 468 373Z"/></clipPath>
+<clipPath id="sky-clip"><path d="M112 605V341C112 196 274 108 442 108H845C991 108 1090 203 1090 349V606Z"/></clipPath>
+<clipPath id="sun-clip"><circle cx="878" cy="248" r="128"/></clipPath>
+</defs>
+<g id="coastal-sky" inkscape:label="coastal sky" >
+
+<rect width="1200" height="900" fill="#f8f1df"/>
+<g clip-path="url(#sky-clip)">
+ <path d="M112 108H1090V608H112Z" fill="#d9e8dc"/>
+ <path d="M112 423C311 403 491 430 666 411S967 387 1090 414V608H112Z" fill="#cde2d9"/>
+ <circle cx="878" cy="248" r="128" fill="#edba60"/>
+ <g clip-path="url(#sun-clip)" stroke="#f3d18b" stroke-width="3">
+  <path d="M777 196C820 132 929 135 976 201M770 181C825 114 939 125 982 182M799 163C844 126 906 132 944 153"/>
+  <path d="M796 337C842 363 913 358 955 321M784 344C839 384 928 374 973 328"/>
+ </g>
+ <path d="M112 501C258 491 375 497 505 502C683 511 907 496 1090 502V647H112Z" fill="#90b9b1"/>
+ <path d="M112 546C322 529 495 552 668 541S963 536 1090 547V646H112Z" fill="#a8c9bc"/>
+ <path d="M112 592C314 564 450 591 608 579C795 565 961 588 1090 575V647H112Z" fill="#c0d7c5"/>
+ <g stroke="#edf0d9" stroke-width="3">
+  <path d="M159 516H229M244 516H267M922 520H1001M1020 520H1053M136 558H189M967 561H1065M248 575H299"/>
+ </g>
+</g>
+<!-- Three quiet clouds balance the bird's long bill. -->
+<path d="M188 246H331C338 246 341 237 333 233L316 231C313 209 284 204 270 220C259 205 235 211 232 230H199Q185 231 188 246Z" fill="#fff9e8"/>
+<path d="M352 175H436Q446 169 436 163H425Q416 145 400 155Q390 145 378 158H366Q352 158 352 175Z" fill="#f4f2df"/>
+<path d="M961 405H1034Q1043 401 1037 396L1021 393Q1011 377 998 390Q979 381 974 395H964Z" fill="#edf1dd"/>
+<g stroke="#73968e" stroke-width="3.5">
+ <path d="M294 293Q310 282 322 296Q330 282 346 285"/>
+ <path d="M384 245Q396 237 406 248Q414 238 425 240"/>
+</g>
+
+</g><g id="shore-and-ground" inkscape:label="shore and ground" >
+
+<path d="M99 610C264 590 412 610 593 600C818 587 948 610 1101 592L1099 639C897 661 727 633 545 654C357 665 228 640 102 657Z" fill="#eee1c5"/>
+<path d="M96 795C214 775 340 784 454 790C628 799 782 772 929 784Q1058 785 1120 807C957 838 809 821 646 831C426 845 235 826 96 819Z" fill="#eadbbd"/>
+<ellipse cx="602" cy="801" rx="397" ry="13" fill="#caba99" opacity=".65"/>
+<path d="M199 800H511M746 800H1002" stroke="#bdad8c" stroke-width="2.5"/>
+<!-- A distant small sailboat, drawn as simple shapes. -->
+<g stroke="#7a9b91" stroke-width="2.2">
+ <path d="M1017 474V510"/>
+ <path d="M1012 478L991 502H1012Z" fill="#f8f1df" stroke="none"/>
+ <path d="M1022 486V502H1036Z" fill="#ecdbb3" stroke="none"/>
+ <path d="M991 509H1040L1033 516H1001Z" fill="#759a91" stroke="none"/>
+</g>
+<g stroke="#bdccba" stroke-width="2.5">
+ <path d="M139 680H181M1016 668H1060M1029 678H1085M142 701H159"/>
+</g>
+
+</g><g id="bicycle-wheels" inkscape:label="bicycle wheels" >
+<g id="rear-wheel" inkscape:label="rear wheel" >
+<circle cx="350" cy="650" r="143" fill="none" stroke="#263f43" stroke-width="13"/>
+<circle cx="350" cy="650" r="134" stroke="#e3cda8" stroke-width="9"/>
+<circle cx="350" cy="650" r="127" stroke="#263f43" stroke-width="3"/>
+<path d="M361.27 645.89L475.00 650.00" stroke="#789295" stroke-width="1.65"/>
+<path d="M360.07 656.52L471.87 677.82" stroke="#789295" stroke-width="1.65"/>
+<path d="M361.94 651.18L462.62 704.24" stroke="#789295" stroke-width="1.65"/>
+<path d="M356.25 660.25L447.73 727.94" stroke="#789295" stroke-width="1.65"/>
+<path d="M360.25 656.25L427.94 747.73" stroke="#789295" stroke-width="1.65"/>
+<path d="M351.18 661.94L404.24 762.62" stroke="#789295" stroke-width="1.65"/>
+<path d="M356.52 660.07L377.82 771.87" stroke="#789295" stroke-width="1.65"/>
+<path d="M345.89 661.27L350.00 775.00" stroke="#789295" stroke-width="1.65"/>
+<path d="M351.50 661.91L322.18 771.87" stroke="#789295" stroke-width="1.65"/>
+<path d="M341.40 658.37L295.76 762.62" stroke="#789295" stroke-width="1.65"/>
+<path d="M346.19 661.38L272.06 747.73" stroke="#789295" stroke-width="1.65"/>
+<path d="M338.62 653.81L252.27 727.94" stroke="#789295" stroke-width="1.65"/>
+<path d="M341.63 658.60L237.38 704.24" stroke="#789295" stroke-width="1.65"/>
+<path d="M338.09 648.50L228.13 677.82" stroke="#789295" stroke-width="1.65"/>
+<path d="M338.73 654.11L225.00 650.00" stroke="#789295" stroke-width="1.65"/>
+<path d="M339.93 643.48L228.13 622.18" stroke="#789295" stroke-width="1.65"/>
+<path d="M338.06 648.82L237.38 595.76" stroke="#789295" stroke-width="1.65"/>
+<path d="M343.75 639.75L252.27 572.06" stroke="#789295" stroke-width="1.65"/>
+<path d="M339.75 643.75L272.06 552.27" stroke="#789295" stroke-width="1.65"/>
+<path d="M348.82 638.06L295.76 537.38" stroke="#789295" stroke-width="1.65"/>
+<path d="M343.48 639.93L322.18 528.13" stroke="#789295" stroke-width="1.65"/>
+<path d="M354.11 638.73L350.00 525.00" stroke="#789295" stroke-width="1.65"/>
+<path d="M348.50 638.09L377.82 528.13" stroke="#789295" stroke-width="1.65"/>
+<path d="M358.60 641.63L404.24 537.38" stroke="#789295" stroke-width="1.65"/>
+<path d="M353.81 638.62L427.94 552.27" stroke="#789295" stroke-width="1.65"/>
+<path d="M361.38 646.19L447.73 572.06" stroke="#789295" stroke-width="1.65"/>
+<path d="M358.37 641.40L462.62 595.76" stroke="#789295" stroke-width="1.65"/>
+<path d="M361.91 651.50L471.87 622.18" stroke="#789295" stroke-width="1.65"/>
+<circle cx="350" cy="650" r="13" fill="#d1dfd9" stroke="#263f43" stroke-width="3"/>
+<path d="M230 594 A132 132 0 0 1 320 522" stroke="#fff9eb" stroke-width="3"/>
+<path d="M445 742l-7 -8" stroke="#263f43" stroke-width="3"/>
+</g><g id="front-wheel" inkscape:label="front wheel" >
+<circle cx="850" cy="650" r="143" fill="none" stroke="#263f43" stroke-width="13"/>
+<circle cx="850" cy="650" r="134" stroke="#e3cda8" stroke-width="9"/>
+<circle cx="850" cy="650" r="127" stroke="#263f43" stroke-width="3"/>
+<path d="M861.27 645.89L975.00 650.00" stroke="#789295" stroke-width="1.65"/>
+<path d="M860.07 656.52L971.87 677.82" stroke="#789295" stroke-width="1.65"/>
+<path d="M861.94 651.18L962.62 704.24" stroke="#789295" stroke-width="1.65"/>
+<path d="M856.25 660.25L947.73 727.94" stroke="#789295" stroke-width="1.65"/>
+<path d="M860.25 656.25L927.94 747.73" stroke="#789295" stroke-width="1.65"/>
+<path d="M851.18 661.94L904.24 762.62" stroke="#789295" stroke-width="1.65"/>
+<path d="M856.52 660.07L877.82 771.87" stroke="#789295" stroke-width="1.65"/>
+<path d="M845.89 661.27L850.00 775.00" stroke="#789295" stroke-width="1.65"/>
+<path d="M851.50 661.91L822.18 771.87" stroke="#789295" stroke-width="1.65"/>
+<path d="M841.40 658.37L795.76 762.62" stroke="#789295" stroke-width="1.65"/>
+<path d="M846.19 661.38L772.06 747.73" stroke="#789295" stroke-width="1.65"/>
+<path d="M838.62 653.81L752.27 727.94" stroke="#789295" stroke-width="1.65"/>
+<path d="M841.63 658.60L737.38 704.24" stroke="#789295" stroke-width="1.65"/>
+<path d="M838.09 648.50L728.13 677.82" stroke="#789295" stroke-width="1.65"/>
+<path d="M838.73 654.11L725.00 650.00" stroke="#789295" stroke-width="1.65"/>
+<path d="M839.93 643.48L728.13 622.18" stroke="#789295" stroke-width="1.65"/>
+<path d="M838.06 648.82L737.38 595.76" stroke="#789295" stroke-width="1.65"/>
+<path d="M843.75 639.75L752.27 572.06" stroke="#789295" stroke-width="1.65"/>
+<path d="M839.75 643.75L772.06 552.27" stroke="#789295" stroke-width="1.65"/>
+<path d="M848.82 638.06L795.76 537.38" stroke="#789295" stroke-width="1.65"/>
+<path d="M843.48 639.93L822.18 528.13" stroke="#789295" stroke-width="1.65"/>
+<path d="M854.11 638.73L850.00 525.00" stroke="#789295" stroke-width="1.65"/>
+<path d="M848.50 638.09L877.82 528.13" stroke="#789295" stroke-width="1.65"/>
+<path d="M858.60 641.63L904.24 537.38" stroke="#789295" stroke-width="1.65"/>
+<path d="M853.81 638.62L927.94 552.27" stroke="#789295" stroke-width="1.65"/>
+<path d="M861.38 646.19L947.73 572.06" stroke="#789295" stroke-width="1.65"/>
+<path d="M858.37 641.40L962.62 595.76" stroke="#789295" stroke-width="1.65"/>
+<path d="M861.91 651.50L971.87 622.18" stroke="#789295" stroke-width="1.65"/>
+<circle cx="850" cy="650" r="13" fill="#d1dfd9" stroke="#263f43" stroke-width="3"/>
+<path d="M730 594 A132 132 0 0 1 820 522" stroke="#fff9eb" stroke-width="3"/>
+<path d="M945 742l-7 -8" stroke="#263f43" stroke-width="3"/>
+</g>
+</g><g id="far-crank" inkscape:label="far crank" >
+
+<path d="M565 650L515 592" stroke="#263f43" stroke-width="10"/>
+<path d="M565 650L515 592" stroke="#7c9692" stroke-width="4"/>
+<rect x="490" y="591" width="50" height="10" rx="3" fill="#263f43"/>
+<path d="M496 597H534" stroke="#a8b6a6" stroke-width="2"/>
+
+</g><g id="pelican-far-leg" inkscape:label="pelican far leg" >
+
+<path d="M532 487L558 538Q565 550 555 559L518 580" stroke="#263f43" stroke-width="19"/>
+<path d="M532 487L558 538Q565 550 555 559L518 580" stroke="#c98445" stroke-width="12"/>
+<path d="M515 574Q521 576 526 581L549 587Q556 590 551 594L492 594Q486 591 494 586Z" fill="#d9984d" stroke="#263f43" stroke-width="3.5"/>
+<path d="M516 583L504 590M521 584L533 590" stroke="#a86b3e" stroke-width="2"/>
+
+</g><g id="bicycle-frame" inkscape:label="bicycle frame" >
+
+<!-- Mudguards sit clear of the tire circumference. -->
+<g stroke="#263f43" stroke-width="10">
+ <path d="M199 653 A153 153 0 0 1 481 568"/>
+ <path d="M701 689 A154 154 0 0 1 949 532"/>
+</g>
+<g stroke="#d75d48" stroke-width="5">
+ <path d="M199 653 A153 153 0 0 1 481 568"/>
+ <path d="M701 689 A154 154 0 0 1 949 532"/>
+</g>
+<g stroke="#728c8c" stroke-width="3">
+ <path d="M350 650L210 590M350 650L432 522"/>
+ <path d="M850 650L703 662M850 650L929 520"/>
+</g>
+<!-- Rear triangle, seat tube, down tube, and curved top tube. -->
+<g stroke="#263f43" stroke-width="15">
+ <path d="M350 650L507 541L565 650Z"/>
+ <path d="M507 541L565 650L773 556"/>
+ <path d="M537 598C641 597 703 558 751 497"/>
+</g>
+<g stroke="#d75d48" stroke-width="9">
+ <path d="M350 650L507 541L565 650Z"/>
+ <path d="M507 541L565 650L773 556"/>
+ <path d="M537 598C641 597 703 558 751 497"/>
+</g>
+<g stroke="#f69a72" stroke-width="2.5">
+ <path d="M368 636L506 542M553 616L568 645L754 559"/>
+ <path d="M552 594C638 591 703 552 741 507"/>
+</g>
+<!-- Steering axis and a single visible fork blade in side projection. -->
+<path d="M751 496L773 556" stroke="#263f43" stroke-width="22"/>
+<path d="M751 496L773 556" stroke="#d75d48" stroke-width="15"/>
+<path d="M773 556Q804 629 850 650" stroke="#263f43" stroke-width="16"/>
+<path d="M773 556Q804 629 850 650" stroke="#d75d48" stroke-width="10"/>
+<path d="M775 561Q808 630 846 645" stroke="#f69a72" stroke-width="3"/>
+<path d="M744 495L759 490M766 558L781 553" stroke="#263f43" stroke-width="7"/>
+<path d="M745 494L758 490M767 557L780 553" stroke="#bed0cb" stroke-width="3"/>
+<!-- Seatpost, clamp and leather saddle. -->
+<path d="M507 541L491 505" stroke="#263f43" stroke-width="11"/>
+<path d="M507 541L491 505" stroke="#b8ceca" stroke-width="5"/>
+<path d="M497 536L513 530" stroke="#263f43" stroke-width="6"/>
+<path d="M467 511Q491 530 518 510" stroke="#263f43" stroke-width="5"/>
+<path d="M455 494C472 492 488 497 511 495L537 495Q548 497 539 505C521 511 487 518 465 511Q449 507 455 494Z" fill="#87533f" stroke="#263f43" stroke-width="4"/>
+<path d="M460 498Q480 502 510 499L533 498" stroke="#c18b66" stroke-width="3"/>
+<!-- Stem and swept handlebar, with far grip above and forward. -->
+<path d="M750 492L737 455Q735 449 741 442L766 419" stroke="#263f43" stroke-width="11"/>
+<path d="M750 492L737 455Q735 449 741 442L766 419" stroke="#c5d6ce" stroke-width="5"/>
+<path d="M766 419Q784 420 785 433Q787 449 757 455L728 455" stroke="#263f43" stroke-width="10"/>
+<path d="M766 419Q784 420 785 433Q787 449 757 455L728 455" stroke="#c5d6ce" stroke-width="5"/>
+<path d="M747 418L769 418" stroke="#263f43" stroke-width="12"/>
+<path d="M748 418L766 418" stroke="#a56d4c" stroke-width="7"/>
+<path d="M726 455L754 455" stroke="#263f43" stroke-width="14"/>
+<path d="M728 454L751 454" stroke="#a56d4c" stroke-width="8"/>
+<path d="M734 451L734 457M741 451L741 457M748 451L748 457" stroke="#d4a578" stroke-width="1.8"/>
+<!-- Brake lever, cable and rim caliper. -->
+<path d="M759 461L739 470" stroke="#263f43" stroke-width="4"/>
+<path d="M760 465C834 481 826 528 786 551" stroke="#263f43" stroke-width="2.6"/>
+<path d="M779 548Q797 543 803 564" stroke="#263f43" stroke-width="5"/>
+<path d="M796 563L802 567" stroke="#263f43" stroke-width="8"/>
+<!-- Small brass bell. -->
+<path d="M777 429L780 438" stroke="#263f43" stroke-width="4"/>
+<path d="M765 429Q763 414 776 413Q789 412 791 426Z" fill="#d6a54b" stroke="#263f43" stroke-width="3"/>
+<path d="M770 421Q773 417 778 418" stroke="#fff0bb" stroke-width="3"/>
+<path d="M789 418L796 415" stroke="#263f43" stroke-width="3"/>
+
+</g><g id="chain-and-cranks" inkscape:label="chain and cranks" >
+
+<!-- A real closed chain loop follows the two sprockets. -->
+<path d="M350 632L560 614C609 611 619 679 571 687L350 666C330 663 329 636 350 632Z" stroke="#263f43" stroke-width="7"/>
+<path d="M350 632L560 614C609 611 619 679 571 687L350 666C330 663 329 636 350 632Z" stroke="#b5b7a4" stroke-width="2.5" stroke-dasharray="2 5"/>
+<circle cx="350" cy="650" r="18" fill="#72938e" stroke="#263f43" stroke-width="3"/>
+<circle cx="565" cy="650" r="38" fill="#dce3d6" stroke="#263f43" stroke-width="4"/>
+<circle cx="565" cy="650" r="27" fill="#507e80" stroke="#263f43" stroke-width="3"/>
+<path d="M565 625V675M540 650H590" stroke="#dce3d6" stroke-width="9"/>
+<circle cx="565" cy="650" r="10" fill="#263f43"/>
+<!-- A modest upper chain guard keeps the chain readable. -->
+<path d="M349 625L558 606Q585 605 596 625L582 629Q575 619 560 621L349 637Z" fill="#d75d48" stroke="#263f43" stroke-width="3"/>
+<path d="M361 629L551 613" stroke="#f69a72" stroke-width="2.5"/>
+<path d="M565 650L615 708" stroke="#263f43" stroke-width="12"/>
+<path d="M565 650L615 708" stroke="#c9d8ce" stroke-width="6"/>
+<circle cx="565" cy="650" r="6" fill="#ecd6ab" stroke="#263f43" stroke-width="3"/>
+<rect x="591" y="707" width="51" height="10" rx="3" fill="#263f43"/>
+<path d="M599 713H634" stroke="#d0c3a6" stroke-width="2"/>
+<circle cx="350" cy="650" r="5" fill="#e8ddbf" stroke="#263f43" stroke-width="2"/>
+<circle cx="850" cy="650" r="7" fill="#c5d6ce" stroke="#263f43" stroke-width="3"/>
+<circle cx="850" cy="650" r="2.5" fill="#263f43"/>
+
+</g><g id="pelican-near-leg" inkscape:label="pelican near leg" >
+
+<path d="M575 489Q603 518 620 546Q625 554 620 572L599 677" stroke="#263f43" stroke-width="21"/>
+<path d="M575 489Q603 518 620 546Q625 554 620 572L599 677" stroke="#eaa94f" stroke-width="14"/>
+<path d="M575 489Q603 518 620 546" stroke="#f7c777" stroke-width="6"/>
+<path d="M596 670Q606 671 606 683L612 690Q630 691 654 699Q665 703 659 708L591 708Q584 706 589 695Z" fill="#edb15b" stroke="#263f43" stroke-width="4"/>
+<path d="M601 689L597 701M608 695L624 704M612 693L646 703" stroke="#bf7c3e" stroke-width="2.3"/>
+<path d="M604 646L612 648M601 657L609 659M598 668L606 670" stroke="#ba793a" stroke-width="2"/>
+
+</g><g id="pelican-far-wing" inkscape:label="pelican far wing" >
+
+<path d="M624 356C658 361 696 384 716 398Q740 413 756 412L766 412Q774 416 770 422Q743 430 715 420L653 398Z" fill="#c4d5ce" stroke="#263f43" stroke-width="3.5"/>
+<path d="M714 404Q737 420 762 418" stroke="#90aba5" stroke-width="3"/>
+
+</g><g id="pelican-body" inkscape:label="pelican body" >
+<path d="M324 424
+ C347 408 370 380 410 358
+ C459 330 516 337 554 343
+ C591 332 609 311 608 276
+ C605 253 605 223 619 200
+ C629 181 646 174 663 176
+ L650 161Q676 164 688 180
+ Q716 190 716 218
+ C716 235 706 249 692 260
+ C680 280 680 303 693 325
+ C712 353 726 379 719 411
+ C709 463 671 499 620 513
+ C571 526 508 513 466 497
+ C427 482 396 467 373 451
+ L330 450L344 438L313 441Z" fill="#fffcf0" stroke="#263f43" stroke-width="4.5"/>
+</g><g id="plumage-shadows" inkscape:label="plumage shadows" >
+
+<g clip-path="url(#body-clip)">
+ <path d="M343 435C387 435 416 445 454 465C512 493 587 505 641 482C685 463 702 427 717 396L736 449L665 532L469 538Z" fill="#d7e3da"/>
+ <path d="M656 246C645 282 654 310 674 340C700 377 695 415 676 444C711 427 725 399 717 374L691 310L697 258Z" fill="#e4ebe0"/>
+ <path d="M331 430L395 409C417 433 441 448 477 458C435 461 388 450 346 447Z" fill="#334e52"/>
+ <path d="M337 434Q393 431 436 451M358 422Q406 427 453 452" stroke="#779392" stroke-width="3"/>
+ <path d="M391 393Q421 380 445 380M407 400Q430 391 450 393" stroke="#d5e1d7" stroke-width="4"/>
+ <path d="M448 470Q455 476 464 477M467 479Q473 484 483 485M487 486Q497 491 507 490" stroke="#a9c0b8" stroke-width="2.5"/>
+ <path d="M619 251Q617 218 635 200" stroke="#ffffff" stroke-width="7"/>
+ <path d="M636 270Q629 295 641 314M642 275Q638 294 649 309" stroke="#d5e1d7" stroke-width="2.5"/>
+ <path d="M671 352Q686 374 682 393M677 402L674 411" stroke="#c0d3c9" stroke-width="2.5"/>
+</g>
+
+</g><g id="pelican-throat-pouch" inkscape:label="pelican throat pouch" >
+
+<path d="M697 238L995 273C964 290 906 315 851 330C807 343 774 344 747 330C718 314 703 287 689 257Z" fill="#e9aa66" stroke="#263f43" stroke-width="4"/>
+
+</g><g id="pelican-upper-bill" inkscape:label="pelican upper bill" >
+
+<path d="M705 211C775 225 896 246 999 268Q1008 270 1001 279L989 287L990 277C888 272 782 256 696 244Z" fill="#f3bd5d" stroke="#263f43" stroke-width="4"/>
+
+</g><g id="bill-and-pouch-details" inkscape:label="bill and pouch details" >
+
+<!-- Long lower mandible and stretched pouch folds. -->
+<path d="M708 258C747 314 789 328 848 316C900 307 941 291 979 278C932 303 888 322 849 333C800 345 766 338 747 327C728 314 714 289 708 258Z" fill="#d99055"/>
+<path d="M724 264C769 309 827 321 938 288M747 269C788 302 846 307 942 286M778 274C825 294 878 293 951 282" stroke="#edbc81" stroke-width="2.4"/>
+<path d="M714 219C788 234 898 252 982 267" stroke="#ffdb8b" stroke-width="4"/>
+<path d="M702 244Q838 265 988 276" stroke="#ae7440" stroke-width="2.3"/>
+<path d="M731 232L741 234" stroke="#b7813e" stroke-width="2.8"/>
+<path d="M989 277L996 273" stroke="#f8dd9a" stroke-width="2"/>
+
+</g><g id="pelican-face" inkscape:label="pelican face" >
+
+<path d="M677 204Q694 197 705 213L700 239L680 244Q670 224 677 204Z" fill="#e9b24f"/>
+<ellipse cx="689" cy="219" rx="9.5" ry="11" fill="#fffcf0" stroke="#263f43" stroke-width="2.7"/>
+<ellipse cx="692" cy="220" rx="4.8" ry="6.4" fill="#263f43"/>
+<circle cx="693" cy="217" r="1.7" fill="#fffdf1"/>
+<path d="M674 200Q687 192 699 202" stroke="#263f43" stroke-width="3"/>
+
+</g><g id="windblown-neckerchief" inkscape:label="windblown neckerchief" >
+
+<!-- Two separate cloth tails, connected at the same knot. -->
+<path d="M604 321C570 310 548 278 510 283L519 299L501 309C536 311 557 340 600 336Z" fill="#396c70" stroke="#263f43" stroke-width="3.5"/>
+<path d="M597 328C556 311 516 328 475 308L484 329L471 337C514 352 557 336 599 340Z" fill="#53898a" stroke="#263f43" stroke-width="3.5"/>
+<path d="M516 289L524 298L512 304M489 316L497 332L485 339" stroke="#e8dbb7" stroke-width="5"/>
+<path d="M530 334Q554 329 582 335" stroke="#8ab2a9" stroke-width="2.5"/>
+<path d="M603 307C626 325 656 328 685 310L695 327C667 349 625 346 593 326Z" fill="#53898a" stroke="#263f43" stroke-width="3.5"/>
+<path d="M610 321C633 334 664 334 687 319" stroke="#8ab2a9" stroke-width="3"/>
+<path d="M598 316Q608 310 615 324Q615 336 604 337Q593 336 594 327Z" fill="#396c70" stroke="#263f43" stroke-width="3"/>
+<path d="M599 322L605 332" stroke="#8ab2a9" stroke-width="2.5"/>
+
+</g><g id="pelican-near-wing" inkscape:label="pelican near wing" >
+<path d="M468 373C498 349 532 352 560 367
+ C588 382 611 413 643 432
+ C669 447 706 451 743 448
+ Q761 447 760 455
+ Q761 462 750 466
+ Q741 476 725 474
+ Q699 484 668 474
+ C628 475 599 459 572 446
+ C539 449 505 435 483 415
+ Q463 397 468 373Z" fill="#e6ede2" stroke="#263f43" stroke-width="4"/>
+</g><g id="layered-wing-feathers" inkscape:label="layered wing feathers" >
+
+<g clip-path="url(#wing-clip)">
+ <path d="M486 400C522 420 553 422 581 421C621 452 663 464 707 465L757 457L751 477L704 493L619 476L560 449L508 437Z" fill="#2d484e"/>
+ <path d="M574 423C610 450 650 465 690 472M595 421C625 449 668 460 712 468M620 431C653 451 697 461 733 464" stroke="#759598" stroke-width="3"/>
+ <path d="M477 375C511 356 540 367 567 389C589 410 605 426 632 439C606 438 589 433 574 422Q551 428 536 414Q518 414 504 403Q486 401 477 388Z" fill="#f5f5e9"/>
+ <path d="M498 389Q507 400 520 402M520 384Q532 401 550 407M543 391Q554 405 569 409M566 408Q576 418 588 420" stroke="#b5cbc1" stroke-width="2.7"/>
+ <path d="M492 377Q515 366 538 378" stroke="#ffffff" stroke-width="4"/>
+ <path d="M637 443Q670 454 703 455M713 455L739 454" stroke="#f9f9ed" stroke-width="3"/>
+ <path d="M726 467L740 464M738 469L748 464" stroke="#b4c9bf" stroke-width="2"/>
+</g>
+
+</g><g id="leg-feather-transition" inkscape:label="leg feather transition" >
+
+<path d="M553 483C568 480 585 490 596 505L603 520L594 517L594 526L584 519L580 522Q569 509 557 504" fill="#fffcf0"/>
+<path d="M603 520L594 517L594 526L584 519L580 522" stroke="#263f43" stroke-width="3.5"/>
+<path d="M565 492Q579 495 584 505M558 499L570 506" stroke="#c6d9ce" stroke-width="2.5"/>
+
+</g><g id="dune-grasses-and-shells" inkscape:label="dune grasses and shells" >
+
+<!-- Left sea grass fans out from a single rooted clump. -->
+<g stroke="#507e80" stroke-width="3.5">
+ <path d="M142 792Q151 751 121 714M143 789Q135 739 145 690M143 792Q164 764 172 734M140 791Q130 768 110 760"/>
+</g>
+<g fill="#739990">
+ <path d="M123 741Q103 730 107 706Q126 715 123 741Z"/>
+ <path d="M135 752Q117 744 120 728Q137 733 135 752Z"/>
+ <path d="M143 724Q130 707 143 683Q152 705 143 724Z"/>
+ <path d="M146 750Q147 729 163 722Q167 739 146 750Z"/>
+ <path d="M161 764Q160 742 178 730Q180 752 161 764Z"/>
+ <path d="M128 780Q107 779 101 761Q118 759 128 780Z"/>
+</g>
+<g stroke="#507e80" stroke-width="3.5">
+ <path d="M1052 800Q1041 767 1062 724M1054 799Q1081 777 1095 747M1050 798Q1025 776 1024 751"/>
+</g>
+<g fill="#86a297">
+ <path d="M1050 762Q1042 738 1064 715Q1070 742 1050 762Z"/>
+ <path d="M1057 780Q1061 755 1082 751Q1079 770 1057 780Z"/>
+ <path d="M1079 776Q1078 751 1100 740Q1099 764 1079 776Z"/>
+ <path d="M1037 784Q1015 779 1016 752Q1038 760 1037 784Z"/>
+</g>
+<path d="M1039 805Q1053 796 1066 805" stroke="#557e77" stroke-width="3"/>
+<path d="M130 797Q143 790 153 797" stroke="#557e77" stroke-width="3"/>
+<!-- A small scallop and a few wind-smoothed pebbles. -->
+<path d="M945 831Q934 817 939 813Q943 807 948 813Q946 802 954 804Q959 802 961 812Q969 806 974 814Q979 820 963 831Z" fill="#e7b28b" stroke="#98785c" stroke-width="2"/>
+<path d="M955 829L954 811M949 826L944 817M960 828L968 816" stroke="#b88a68" stroke-width="1.8"/>
+<path d="M240 830Q246 821 255 829Z" fill="#b8b99d"/>
+<path d="M278 813Q284 807 291 813Z" fill="#b8b99d"/>
+<path d="M1009 817Q1015 811 1020 817Z" fill="#b8b99d"/>
+<g fill="#c2b295">
+ <circle cx="184" cy="813" r="2.5"/><circle cx="194" cy="819" r="1.7"/><circle cx="177" cy="821" r="1.7"/>
+ <circle cx="910" cy="829" r="2"/><circle cx="918" cy="835" r="1.5"/><circle cx="1010" cy="835" r="2"/>
+ <circle cx="294" cy="837" r="1.7"/><circle cx="303" cy="834" r="2"/>
+</g>
+
+</g>
+</svg>

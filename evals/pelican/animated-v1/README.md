@@ -1,5 +1,9 @@
 # Animated pelican A/B, version 1
 
+**Execution update:** [original outputs and actual outcomes](results/README.md) are
+retained. A completed; B saved playable HTML but reached the time cap.
+[Combined bilingual case and offline demo](../README.md).
+
 This is a new experiment, separate from the preserved static SVG runs. A has no target Skill; B installs only the six-file released `crafting-reference-based-svg-assets` payload from `d8a81d9f0c46c94f2c8ccb904da0514377a8573c`. Neither prompt forces Skill invocation. The task is an animation extension of the SVG exercise; transfer of the Skill's methods to animation is unverified.
 
 Both conditions use Codex CLI 0.155.1, gpt-6-astra/xhigh, identical tools and task text, and upper caps of 900 seconds/80 registered primitive tool starts. There is no hard token or monetary cap; equal caps do not imply equal consumption. Order is fixed A then B. Run once each, retain failures, and do not select the best of retries.

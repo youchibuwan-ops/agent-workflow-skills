@@ -1,0 +1,122 @@
+{
+  "date": "2026-10-23",
+  "model": "gpt-6-astra",
+  "effort": "xhigh",
+  "cli": "0.155.1",
+  "actual_order": [
+    "B-interrupted",
+    "A",
+    "B-replacement"
+  ],
+  "upper_caps": {
+    "wall_seconds": 900,
+    "registered_primitive_tool_starts": 80
+  },
+  "treatment": "Only released crafting-reference-based-svg-assets in B; no explicit invocation",
+  "independent_blind_review_of_final_pair_performed": false,
+  "arms": {
+    "A": {
+      "run": "r02-A",
+      "execution_status": "completed_needs_review",
+      "elapsed_seconds": 458.16,
+      "registered_tool_calls": 12,
+      "payload_integrity": true,
+      "coordinator_artwork_edits": false,
+      "failed_commands": [
+        {
+          "raw_line": 132,
+          "exit_code": 1,
+          "command_sha256": "18b1d7d94d35945d01b6608784c8e4fffcd579e039927310eb811291d5896e9f"
+        },
+        {
+          "raw_line": 232,
+          "exit_code": 1,
+          "command_sha256": "3e34bed8413dffe649ae9486e67c67e93f4f699a08dc6f5bef03ecd0cf441527"
+        }
+      ],
+      "skill_read_commands": [],
+      "web_searches": 0,
+      "image_views": 3,
+      "svg_sha256": "bef6c176c14d9fdd46a3417ff90b5b3cc590c9c12f04e572f31f2f3540342a34",
+      "technical_pass": true,
+      "actor_png_matches_independent_render": true,
+      "raw_rpc_sha256": "a6165fc7a828020701b5346936caf2f65bcdab7364469c5e83614a5518f8ea31",
+      "tool_surface": {
+        "apps_enabled": false,
+        "remote_plugin_enabled": false,
+        "mcp_servers": 0,
+        "apps": 0
+      },
+      "primary_completion_events": [
+        "completed"
+      ],
+      "primary_reported_usage": {
+        "totalTokens": 256955,
+        "inputTokens": 243183,
+        "cachedInputTokens": 196992,
+        "cacheWriteInputTokens": 0,
+        "outputTokens": 13772,
+        "reasoningOutputTokens": 4455
+      },
+      "internal_review_launch_failed": false
+    },
+    "B": {
+      "run": "r03-B",
+      "execution_status": "completed_needs_review",
+      "elapsed_seconds": 567.76,
+      "registered_tool_calls": 34,
+      "payload_integrity": true,
+      "coordinator_artwork_edits": false,
+      "failed_commands": [
+        {
+          "raw_line": 350,
+          "exit_code": 1,
+          "command_sha256": "b1948d2cc85b84a4d3ccea2374f3d238c37e974aa891cfa9c8a87f41dc5f06c3"
+        },
+        {
+          "raw_line": 419,
+          "exit_code": 134,
+          "command_sha256": "3840c4f4856daa9eab89333dc00944367f754237299704012a5a6d7e6b63320c"
+        }
+      ],
+      "skill_read_commands": [
+        60
+      ],
+      "web_searches": 2,
+      "image_views": 14,
+      "svg_sha256": "b40dfb94b9766a7c67ce29356ae3f1da730295ebc288bf69752754bc8996f8ef",
+      "technical_pass": true,
+      "actor_png_matches_independent_render": true,
+      "raw_rpc_sha256": "0bcf3bae59dd86f7d6f53966c2106c0257044cf0751df62370e43403d4caeca8",
+      "tool_surface": {
+        "apps_enabled": false,
+        "remote_plugin_enabled": false,
+        "mcp_servers": 0,
+        "apps": 0
+      },
+      "primary_completion_events": [
+        "completed"
+      ],
+      "primary_reported_usage": {
+        "totalTokens": 850041,
+        "inputTokens": 831174,
+        "cachedInputTokens": 762880,
+        "cacheWriteInputTokens": 0,
+        "outputTokens": 18867,
+        "reasoningOutputTokens": 4656
+      },
+      "internal_review_launch_failed": true
+    }
+  },
+  "excluded_B": {
+    "status": "infrastructure_truncated",
+    "incorrect_original_recorder_status": "completed_needs_review",
+    "elapsed_seconds": 711.26,
+    "registered_tool_calls": 33,
+    "primary_completion_observed": false,
+    "reason": "Collector mistook child completion for primary completion. Retained; not an artwork-quality retry.",
+    "svg_sha256": "d3a517576d3b31edde5f4bc37811d6908fd44c2d5678b18135bb24f5b85e8d18",
+    "old_usage_reliable": false,
+    "old_blind_reviews_apply_to": "interrupted B only; excluded from final-pair claims"
+  }
+}

@@ -1,0 +1,121 @@
+{
+  "input": "B.html",
+  "viewport": {
+    "width": 1200,
+    "height": 900
+  },
+  "pageErrors": [],
+  "consoleErrors": [],
+  "blockedRequests": [],
+  "frames": [
+    {
+      "file": "frame-00.png",
+      "targetMilliseconds": 0,
+      "actualMilliseconds": 84.79883700000005,
+      "pageTime": 67.19999999995343,
+      "svgCount": 1,
+      "animations": []
+    },
+    {
+      "file": "frame-01.png",
+      "targetMilliseconds": 500,
+      "actualMilliseconds": 563.1933909999999,
+      "pageTime": 561.6999999999534,
+      "svgCount": 1,
+      "animations": []
+    },
+    {
+      "file": "frame-02.png",
+      "targetMilliseconds": 1000,
+      "actualMilliseconds": 1062.2805669999998,
+      "pageTime": 1060.8999999999069,
+      "svgCount": 1,
+      "animations": []
+    },
+    {
+      "file": "frame-03.png",
+      "targetMilliseconds": 1500,
+      "actualMilliseconds": 1564.0803930000002,
+      "pageTime": 1560.6999999999534,
+      "svgCount": 1,
+      "animations": []
+    },
+    {
+      "file": "frame-04.png",
+      "targetMilliseconds": 2000,
+      "actualMilliseconds": 2061.109832,
+      "pageTime": 2060.6999999999534,
+      "svgCount": 1,
+      "animations": []
+    },
+    {
+      "file": "frame-05.png",
+      "targetMilliseconds": 2500,
+      "actualMilliseconds": 2564.916583,
+      "pageTime": 2560.899999999907,
+      "svgCount": 1,
+      "animations": []
+    },
+    {
+      "file": "frame-06.png",
+      "targetMilliseconds": 3000,
+      "actualMilliseconds": 3063.507255,
+      "pageTime": 3061.6999999999534,
+      "svgCount": 1,
+      "animations": []
+    },
+    {
+      "file": "frame-07.png",
+      "targetMilliseconds": 3500,
+      "actualMilliseconds": 3562.151064,
+      "pageTime": 3560.600000000093,
+      "svgCount": 1,
+      "animations": []
+    },
+    {
+      "file": "frame-08.png",
+      "targetMilliseconds": 4000,
+      "actualMilliseconds": 4064.4266680000005,
+      "pageTime": 4061.1999999999534,
+      "svgCount": 1,
+      "animations": []
+    },
+    {
+      "file": "frame-09.png",
+      "targetMilliseconds": 4500,
+      "actualMilliseconds": 4567.003572,
+      "pageTime": 4560.899999999907,
+      "svgCount": 1,
+      "animations": []
+    },
+    {
+      "file": "frame-10.png",
+      "targetMilliseconds": 5000,
+      "actualMilliseconds": 5063.749097999999,
+      "pageTime": 5060.600000000093,
+      "svgCount": 1,
+      "animations": []
+    },
+    {
+      "file": "frame-11.png",
+      "targetMilliseconds": 5500,
+      "actualMilliseconds": 5564.303814,
+      "pageTime": 5562.100000000093,
+      "svgCount": 1,
+      "animations": []
+    },
+    {
+      "file": "frame-12.png",
+      "targetMilliseconds": 6000,
+      "actualMilliseconds": 6062.525304999999,
+      "pageTime": 6061.199999999953,
+      "svgCount": 1,
+      "animations": []
+    }
+  ],
+  "clock": "real browser wall time; no seeking or retiming",
+  "timeOrigin": 64.19999999995343,
+  "actualRecordedMilliseconds": 12499.320979,
+  "browserVersion": "141.0.7390.37",
+  "frames_retention": "Original phase PNGs retained privately; public contact montage is a subset."
+}

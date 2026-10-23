@@ -1,5 +1,10 @@
 # Pelican SVG: one frozen A/B pair
 
+**Execution update:** [actual results and technical replacement](results/README.md)
+are now recorded. The checklist below is the preserved original plan, not a claim
+that final-pair blind review was completed. See the amendment for the recorder fault,
+one authorized replacement B and exclusion of the old blind judgments.
+
 Requested 2026-10-23. This is an actual workflow comparison to execute, not an
 effectiveness claim. It extends the one-line pelican prompt with equal deliverable,
 tool and provenance requirements, so it is not a raw single-reply model leaderboard.

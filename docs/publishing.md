@@ -15,6 +15,13 @@ general reliability, performance improvement or production readiness. Friend
 outcomes are blank; the pre-release does not establish an independent effect.
 The maintainer authorized this GitHub preview; third-party submissions remain separate.
 
+**New case evidence:** [two actual pelican pairs](../evals/pelican/README.md) now show
+the released SVG Skill's static and animated outputs, visible self-correction and
+actual costs. This is separate from discovery-chain acceptance and the still-blank
+friend study. Animation B reached its time cap; neither final pair has independent
+blind scores. Directory rules below retain their dated research; this case update
+does not claim a new directory submission or a fresh platform-rules audit.
+
 ## Directory requirements
 
 | Destination | Current first-party evidence | Prepared / remaining |
@@ -48,96 +55,107 @@ Use the tagged preview for reproducible trials; do not promise index placement o
 
 ## Project descriptions
 
-**English:** Agent Workflow Skills helps coding agents find, inspect and adapt suitable
-skills, verify real task outputs, and retain proven lessons in maintained workflows.
-A companion skill covers reference-based editable SVG props and visual review.
+**English:** Agent Workflow Skills helps coding agents find and inspect suitable
+workflows, verify real outputs and retain tested lessons. A companion SVG workflow
+focuses on references, structure, local detail and whole-object review. For developers
+who value careful results and less step-by-step supervision; real cases expose both
+the work and its cost.
 
-**中文：** Agent Workflow Skills 让编码代理在能力有缺口时主动发现、筛选并使用合适的
-Skill，用真实任务验证结果，再维护已证实的经验。另提供实物 SVG 逐件制作与复审流程。
+**中文：** 面向重视成品质量、希望减少逐步监督负担的开发者。Agent Workflow Skills
+让代理主动匹配、审阅和使用合适的工作流，核验真实产物并沉淀经验；另有实物 SVG 的
+参考、结构、局部和整件审查流程。公开作品、过程、成本及失败，不把流程承诺当作效果证明。
 
 ## English technical community draft
 
-**Title:** Agent Workflow Skills: discovery that continues through verification and learning
+**Title:** Can a workflow Skill help Codex produce more carefully reviewed SVGs? Two real pelican comparisons
 
-I maintain two instruction-based Agent Skills. The main one, proactive-skill-discovery,
-starts with installed capabilities, inspects external candidates and licenses when needed,
-then keeps going through task verification and maintaining reusable lessons.
+I maintain Agent Workflow Skills, two MIT-licensed workflows for Codex. The main
+Skill, proactive-skill-discovery, connects capability gaps to inspected sources,
+actual reuse, output checks and maintained lessons. The companion SVG Skill focuses
+on reference research, physical structure, detailed parts and a fresh whole-object review.
 
-The repo includes an actual release-audit trace: individual installation worked, but
-the root MIT notice was missing from both standalone payloads. The updated check
-compares installed files and opens reference resources. The SVG example also retains
-failed reviews and corrections rather than presenting every iteration as success.
-The current binder example was accepted by its user after a new whole review.
-A separate paired CSV execution probe tied; no performance improvement is inferred.
+We ran static and animated pelican-on-a-bicycle comparisons using gpt-6-astra / xhigh,
+fresh isolated sessions, identical prompts/tools within each pair and the same
+900-second / 80-tool-start caps. Only B had the released SVG Skill. Neither prompt
+explicitly invoked it; both B runs read it. Original sources and real animation
+recordings are available in the [case report](../evals/pelican/README.md).
 
-Versioned clean Linux regressions now pass the registered strict repair gate:
-both explicit smokes, all three scheduled implicit discovery chains and the adjacent
-A/B controls. The tasks include a bilingual HTML-to-PDF repair and a typed-data
-workbook. Actual source/license returns and pre-use decisions are checked separately
-from output quality. Both current PDFs pass full content, structure/layout and actual
-page review with zero observed independent warnings. One trace adapts an inspected
-OpenAI PDF workflow; another rejects a differently licensed candidate and follows
-maintainer guidance instead. Library reuse is recorded separately from Skill adoption.
+The interesting signal is quality-oriented work without step-by-step correction:
+B researched references, reviewed parts and recorded its own connection/occlusion
+fixes. Its outputs show more explicit transmission and material detail in the
+coordinator's unblinded comparison. The user liked the quality. A also self-corrected
+and produced coherent work; both arms received zero corrective human reminders, so
+we cannot claim a measured reduction in reminders or a general quality gain.
 
-All 32 v4-v7 outcomes remain public, including missing loads/searches, an incorrect
-SVG instance count and PDF warnings in earlier versions. These are author repairs of
-known tasks, not a success-rate estimate, a measured gain or the independent friend's
-study. The isolated A/B pack contains identical tasks, budgets and blank result fields.
+The cost matters: static A/B took 458/568 seconds and 12/34 tool starts. Animated
+A took 519 seconds / 22 starts; B saved a playable animation but exhausted its
+900-second budget / 55 starts before primary completion. Equal caps did not mean
+equal token usage. We retain a static recorder fault, the authorized replacement B,
+failed commands and incomplete reviews. The old blind judgments do not apply to
+the replacement; neither final pair has independent blind scores.
 
-The [Codex pre-release](https://github.com/youchibuwan-ops/agent-workflow-skills/releases/tag/v0.1.0-codex-preview.1) contains both standalone Skill ZIPs and
-the blank A/B pack. Try its fixed payload with:
+These are two descriptive author-run examples, not a leaderboard, a discovery-Skill
+effect test or a completed independent friend's study. We are looking for reproducible
+quality and autonomy reports, including cases where extra process costs more than it helps.
 
-```sh
-npx skills@1.7.4 add https://github.com/youchibuwan-ops/agent-workflow-skills/tree/v0.1.0-codex-preview.1 --skill proactive-skill-discovery -a codex --copy -y
-```
-
-[Source and examples](https://github.com/youchibuwan-ops/agent-workflow-skills).
-Instructions currently use Chinese. I would value reproducible reports of over-triggering,
-poor candidate selection or a task that still fails after installation. No benchmark
-improvement or proven automatic-trigger reliability is claimed. The independent
-Codex experiment is prepared, with its outcome fields empty.
+[Install the Codex preview](installation.md) · [Originals, video and limitations](../evals/pelican/README.md) ·
+[Source](https://github.com/youchibuwan-ops/agent-workflow-skills).
+Detailed Skill instructions currently use Chinese. This is an unposted draft;
+replace relative evidence links with the reviewed public branch or merged page URL
+before submission. Do not link a release tag that predates these results.
 
 ## 中文技术社区草稿
 
-**标题：** 不止“帮我找个 Skill”：把筛选、实际使用和经验维护连起来
+**标题：** 让 Codex 自己查参考、审局部、改遮挡：两轮鹈鹕 SVG 实测，作品与成本一起公开
 
-我在维护两份开源 Skill，重点是 proactive-skill-discovery。它先匹配本地能力，
-有真实缺口才查外部方案，实际读内容、依赖和许可证，然后验证原任务，最后把
-已证实的可复用决策补进已有 Skill。
+我在维护 Agent Workflow Skills，两份 MIT 开源工作流。重点是主动发现 Skill：
+遇到能力缺口先匹配和审阅成熟方案，实际复用、验证，再沉淀经验；另有一份 SVG Skill，
+把查参考、理解结构、逐局部刻画和整件复审连起来。
 
-这次仓库准备发现了一个实际问题：单项安装成功，但根目录 MIT 正文没跟着安装。
-因此补了每项的许可文件，并用隔离目录安装、内容比对和引用读取验证。SVG 案例
-保留了漏查结构、用户纠正和返工过程，不把审阅者同意当作质量证明。当前长尾夹版本
-已获用户同意公开展示；另有两版均通过的 CSV 执行测试，如实记为平局。
+这次实际做了静态和动画两轮鹈鹕骑车 A/B。每轮同模型 gpt-6-astra、极高思考强度，
+全新隔离会话、相同提示词和工具、每组 900 秒 / 80 次工具启动上限；只有 B 安装
+已发布的 SVG Skill，没有显式点名调用，两轮 B 均实际读取。
 
-源码、安装命令和案例在[GitHub 仓库](https://github.com/youchibuwan-ops/agent-workflow-skills)。
-欢迎反馈真实失败例，尤其是误触发、筛选不当、安装后仍不能完成任务的情况。
-v7 干净 Linux 回归已通过预注册的严格修复门槛：两份显式测试、三条预定隐式发现
-完整链和 A/B 负对照通过。任务包含双语 HTML 转 PDF 修复和带类型/公式的表格。
-实际返回的方法、许可正文和执行前判断，与最终产物分别核查；两份当前 PDF 的内容、
-结构/版面和全部页面实看通过，独立检查零警告。一例适配已审的 OpenAI PDF 工作流，
-另一例拒绝不同许可的候选、改用维护者指南；不把库复用混称安装了外部 Skill。
+我想展示的价值是更细致的产物和自主检查：B 自己查参考、看局部和整体，并记录了
+坐垫、脚踏遮挡、膝部和制动连接等纠错；非盲对照里传动和材质细节更明确，用户也认可
+作品质量。A 同样有自主修正和完整作品。双方运行中都没有人工纠正，因此这轮不能说
+已经测出“少提醒了多少次”，也不能把单例偏好宣传成普遍质量提升。
 
-v4-v7 全部 32 个结果保留，包括旧版漏加载、未检索、SVG 数量判断错误和 PDF 警告。
-这是已知任务的作者回归，不能宣传成功率或效率提升。朋友 A/B 包已备好相同任务、
-预算和空白原始记录模板，独立效果尚未验证。
-[Codex 预发布版](https://github.com/youchibuwan-ops/agent-workflow-skills/releases/tag/v0.1.0-codex-preview.1) 已提供单份安装包、校验和及 A/B 包；
-仅供独立试用，尚无稳定版。本文案仍未向社区或第三方目录投稿。
+时间与额度也摊开：静态 A/B 约 458/568 秒，工具启动 12/34 次；动画 A 为 519 秒、
+22 次，B 到 900 秒上限、55 次，已保存可播放作品但没有正常收尾。相同上限不等于
+相同 token 消耗。静态旧 B 曾被测试器误停，只按授权补跑一次 B，旧稿和错误保留；
+旧盲评不能套用到新 B，最终两组都没有完成独立盲评。
 
-## Short social drafts and follow-up
+原始 SVG/HTML、实际录像、脱敏事件索引、失败与成本在[完整案例](../evals/pelican/README.zh-CN.md)。
+这是 SVG 工作流的两轮作者案例，不是主动发现 Skill 的效果证明，也不是朋友实验结果。
+欢迎按自己的任务复现，尤其反馈“检查做多了，但质量没变好”的情况。
 
-EN: Find a skill, inspect it, use it, verify the task, retain the lesson. Agent Workflow
-Skills includes real install/SVG cases and a frozen Codex A/B pack. The strict v7
-author regression suite passes; earlier failures and blank independent-study outcomes
-remain visible. No measured gain or general reliability claim:
-[repository](https://github.com/youchibuwan-ops/agent-workflow-skills).
+[安装预发布版](installation.md) · [源码](https://github.com/youchibuwan-ops/agent-workflow-skills)。
+文案仍未投稿；正式提交时将相对证据链接改成经审核的公开分支或合并页面地址，
+不要指向尚不含这些新结果的旧发布标签。
 
-中文：找 Skill 只是开始，还要筛选、实际使用、验证与沉淀。两份开源工作流附真实安装、
-SVG 案例和 Codex A/B 包。v7 严格作者回归通过，旧失败和待完成的独立实验均保留，
-不宣称性能提升或普遍可靠：[仓库](https://github.com/youchibuwan-ops/agent-workflow-skills)。
+## Short social drafts
 
-Choose one relevant developer community first; adapt language to its rules and disclose
-maintainership. Do not post identical copy everywhere or solicit votes. After any approved
-post, triage reports into install, activation, reference-selection or task-quality issues;
-request a redacted reproducer, fix verified defects and update the evidence. No response
-deadline is promised on the maintainer's behalf.
+EN: More careful work, with agents doing their own reference checks and corrections.
+Two real Codex SVG-Skill A/B cases include editable pelicans and animation recordings.
+Static B took longer; animated B hit its 15-minute cap. No independent final-pair
+blind scores or measured reminder savings. [See both outputs and costs](../evals/pelican/README.md).
+
+中文：希望代理自己查参考、审细节、发现并改错。两轮 Codex SVG Skill A/B 公开原件与
+动画录像，也公开代价：静态 B 更慢，动画 B 到 15 分钟上限未正常收尾。最终配对无独立
+盲评分，未量化减少提醒。[作品、过程与成本](../evals/pelican/README.zh-CN.md)。
+
+## Media and claim checklist
+
+- Share both arms and keep the nearby cutoff caption; do not crop to B-only and call it a win.
+- Use the [real GIF](../evals/pelican/animated-v1/results/comparison.gif) or
+  [recorded MP4](../evals/pelican/animated-v1/results/comparison.mp4), not a reconstructed demo.
+- Say “observed detail / user preference / autonomous review in these runs,” not
+  “proven quality increase,” “saves X reminders,” “faster” or “passed blind evaluation.”
+- Keep SVG-pair observations separate from discovery acceptance and independent friend testing.
+- No release, account authorization or community submission is part of this documentation update.
+
+Choose one relevant developer community first; recheck its rules and disclose
+maintainership before an authorized submission. Do not solicit votes. Triage reports
+into installation, activation, source selection and output-quality failures. Retain
+negative results and use a redacted reproducer; no maintainer response deadline is promised.
