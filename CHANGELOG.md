@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Define scene → whole individual object → local detail, with reverse review after
+  assembly. Require an unshaded whole-object proportion comparison before local
+  refinement, and meaningful local decomposition instead of whole-object part IDs.
+  These instruction changes are untested; no new behavioral or mechanical test was run.
 - Add multi-object composition guidance: inventory every object instance, complete
   each object's local and whole review, then inspect scene relationships and motion.
   This is an untested instruction update; the checker does not enforce inter-object

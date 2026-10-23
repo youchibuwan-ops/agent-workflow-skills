@@ -38,30 +38,39 @@ flowchart TD
     F -- "新能力缺口或重复失败 / Capability gap or repeated failure" --> K
 ```
 
-For a multi-object composition, apply the local-to-whole loop **to each object**,
-then review the assembled scene and every required relationship. Keep separate
-instance IDs even when references or source groups are reused. The existing checker
-has one journal per object; it does not enforce scene coverage or inter-object
-relationships. This instruction update has not been behavior-tested.
+Use the hierarchy **scene → whole individual object → local detail**, then review
+back up from details to the whole object and scene. Before refining details, compare
+the current object's unshaded full silhouette, proportions and internal layout with
+applicable references. Whole-object IDs are not a substitute for meaningful local
+decomposition. Keep separate instance IDs even when sources are reused. The existing
+checker has one journal per object; it does not judge decomposition, proportions,
+scene coverage or inter-object relationships. This instruction update is untested.
 
-多个不同物体组成一幅作品时，流程扩展如下。组合基准先确定，精修整幅后置；
-不能只完成一个主角，也不能把每个物体分别通过当成组合通过。
+层级为 **集体 → 个体（整体）→ 局部**。先定集体关系，再核当前个体完整外形和比例，
+才逐局部精绘；回装后反向复核个体与集体。不能把完整手柄或整只鸟当成一个局部，
+也不能把个体通过当成集体通过。单物体仍须先整体基准、后局部、再整体复审。
 
 ```mermaid
 flowchart TD
-    O["列全物体实例与关系"] --> B["粗构图：共同投影、相对尺度、接口与运动范围"]
-    B --> R["当前物体的参考、结构与局部清单"]
-    R --> P["逐局部几何、材质、实际审核；失败留在本项"]
-    P --> W{"当前物体回装后整件审核通过？"}
-    W -- "否：回最早缺口" --> R
+    O["集体：列全个体实例与关系"] --> B["集体粗构图：投影、相对尺度、接口与运动范围"]
+    B --> R["当前个体：参考与无装饰完整构造图"]
+    R --> G{"个体整体外形、比例、负空间与内部布局成立？"}
+    G -- "否：修基准、重新对照" --> R
+    G -- "是" --> L["划分具体局部；核覆盖与衔接，不能以整物代局部"]
+    L --> P["逐局部几何、材质、实际审核；失败留在本项"]
+    P --> W{"回装后个体整体重新审核通过？"}
+    W -- "否：定位受影响基准或局部" --> E
     W -- "是" --> N{"还有物体？"}
     N -- "有" --> R
     N -- "无" --> A["组合全部物体；逐关系核接触、承托、遮挡、比例"]
     A --> M["有动画时：关键相位、极限姿态和循环接缝"]
     M --> F{"整幅对象与关系全部满足任务？"}
     F -- "是" --> D["交付当前源、实际证据及验证边界"]
-    F -- "否" --> E["定位物体内部、接口或组合基准；撤回相关结论"]
-    E --> B
+    F -- "否" --> E["定位最早缺口；撤回受影响结论"]
+    E -- "集体基准" --> B
+    E -- "个体整体基准" --> R
+    E -- "局部" --> P
+    E -- "仅组合接口" --> A
 ```
 
 Within R, sparse evidence follows **observations → competing explanations → test
