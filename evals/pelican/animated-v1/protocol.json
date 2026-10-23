@@ -1,0 +1,40 @@
+{
+  "study_id": "pelican-animated-ab-v1-20261023",
+  "version": 1,
+  "frozen_skill_commit": "d8a81d9f0c46c94f2c8ccb904da0514377a8573c",
+  "frozen_release": "v0.1.0-codex-preview.1",
+  "cli_version": "0.155.1",
+  "model": "gpt-6-astra",
+  "reasoning_effort": "xhigh",
+  "wall_seconds": 900,
+  "max_tool_calls": 80,
+  "tool_counting": "Stop at observed threshold 80 native item/started commandExecution/webSearch/imageView/mcpToolCall/fileChange, or 900s; drain already queued raw events after stop and report any overrun separately. No hard token/dollar cap.",
+  "repetitions_per_arm": 1,
+  "order": [
+    "A",
+    "B"
+  ],
+  "order_rule": "fixed A then B before model calls; one attempt per arm; no outcome-based retries",
+  "target_skills": {
+    "svg": "crafting-reference-based-svg-assets"
+  },
+  "treatment": "B installs exactly the released SVG Skill; A has no target Skill. No forced skill invocation or extra workflow reminder in either prompt.",
+  "common_tools": "same native shell/web/image tools, Python/Node, resvg2.6.2 and Playwright1.56.1/Chromium141 headless, no MCP/apps/remote_plugin/imagegen",
+  "isolation": "external control-plane recorder; fresh Bubblewrap mount/PID namespace with clearenv and workspace/home/state/cache per actor; only verified B payload copied in, no installer cache. No host home/Windows mount/control-plane files/other arm/rubric/history; shared network/proxy/provider caches not controlled",
+  "delivery": "output.html; untouched animation capture video and phase PNGs; no coordinator artwork repair",
+  "judges": {
+    "count": 0,
+    "note": "No extra paid model judges in this cost-bounded round; coordinator review is unblinded; neutral packet can be prepared for later independent review"
+  },
+  "limits": "One pair, nondeterministic generations, no statistical/general reliability claim; exact tool starts/wall/usage reported. Prior failures and all setup/run failures retained. No new Skill changes during this experiment.",
+  "animation": {
+    "loop_seconds": 6,
+    "capture_seconds": 12.5,
+    "phase_samples": 13,
+    "viewport": [
+      1200,
+      900
+    ]
+  },
+  "thread_persistence": "persist only inside fresh isolated CODEX_HOME, to permit recovery; no restored history"
+}

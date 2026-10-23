@@ -1,0 +1,7 @@
+Create a self-contained HTML file with a 2D SVG animation of a pelican riding a bicycle.
+
+Make one original, finished, editable scene on a 1200 by 900 canvas. Save it as output.html, with the SVG, CSS and any JavaScript inline. It must play automatically when opened locally, without network resources or installation. Choose your own visual style.
+
+Show a continuous six-second repeating riding cycle: both wheels rotate, the crank and pedals move coherently, and the bird's legs articulate with its feet staying on their pedals. The pelican must remain recognizable, supported on the bicycle, with a wing or wings reaching the handlebar. Keep connections, proportions and front/back occlusion coherent throughout the motion. Make the loop join smoothly. The scene should remain readable at half size.
+
+Use the available shell, Python, Node, web search, native image viewing and browser capture tool described in TOOLS.md. You may research real pelicans, bicycles and animation techniques; do not search for or copy finished pelican-on-bicycle benchmark artwork or animations. Do not use image generation or embed raster pictures. Keep intermediate versions, source notes, checks and failures. Save the best current output before the budget ends and state remaining shortcomings honestly. Work autonomously; do not ask for human feedback or modify installed skills.
