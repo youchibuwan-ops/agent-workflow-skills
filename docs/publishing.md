@@ -2,9 +2,11 @@
 
 Checked 2026-10-23. [Codex pre-release v0.1.0-codex-preview.1](https://github.com/youchibuwan-ops/agent-workflow-skills/releases/tag/v0.1.0-codex-preview.1) is public with
 bilingual setup, standalone ZIPs, checksums, real cases and explicit limits. The
-community copy below remains an **unposted draft**. No directory form, account
-connection, paid placement, stable Release or mass outreach was performed.
-Recheck destination rules and obtain the applicable authorization before submission.
+generic community copy below remains an **unposted draft**. Under the maintainer's
+subsequent promotion authorization, two tailored Chinese submissions and both
+Skillboard directory forms were submitted on 2026-10-23. See the
+[submission ledger and exact copy](promotion/README.md). Submission is not editorial
+acceptance or indexing. No new accounts, paid placement or stable Release were created.
 
 **Current evidence: v7 meets the registered strict author repair suite.**
 The copy below is an unposted independent-testing invitation linking the public preview. The
@@ -13,21 +15,22 @@ both explicit smokes, adjacent controls and two independently checked zero-warni
 PDFs. All older failures remain visible. Known-task regressions do not establish
 general reliability, performance improvement or production readiness. Friend
 outcomes are blank; the pre-release does not establish an independent effect.
-The maintainer authorized this GitHub preview; third-party submissions remain separate.
+The maintainer authorized this GitHub preview and subsequently authorized relevant
+community promotion; the ledger distinguishes each external submission's status.
 
 **New case evidence:** [two actual pelican pairs](../evals/pelican/README.md) now show
 the released SVG Skill's static and animated outputs, visible self-correction and
 actual costs. This is separate from discovery-chain acceptance and the still-blank
 friend study. Animation B reached its time cap; neither final pair has independent
-blind scores. Directory rules below retain their dated research; this case update
-does not claim a new directory submission or a fresh platform-rules audit.
+blind scores. Directory rules below retain their dated research; the launch ledger
+records the later form checks and actual submissions separately.
 
 ## Directory requirements
 
 | Destination | Current first-party evidence | Prepared / remaining |
 | --- | --- | --- |
 | [skills.sh FAQ](https://www.skills.sh/docs/faq) | Lists skills through real CLI installation telemetry; no separate submission form required for that route | Public GitHub layout and commands ready. Tests disable telemetry; do not manufacture installs or promise ranking/index timing. Optional packs require Vercel/GitHub account connection |
-| [Skillboard submission](https://www.skillboard.lol/submit) | Public GitHub repository or skill directory, valid `name`/`description`, license permitting indexing/attribution; normalized, checked and deduplicated | Two skill-directory URLs and MIT supplied. Human submits after branch review; account requirements beyond the visible form not established |
+| [Skillboard submission](https://www.skillboard.lol/submit) | Public GitHub repository or skill directory, valid `name`/`description`, license permitting indexing/attribution; normalized, checked and deduplicated | Both individual URLs submitted on 2026-10-23; each returned “Thanks – submitted for review.” No sign-in required in this flow. Review/indexing remain unconfirmed |
 | [Agent Skills Directory](https://www.skillsdirectory.com/) | Following its live Submit link reaches [sign-in](https://app.skillsdirectory.com/sign-in?returnTo=/submit), offering GitHub, Google or an emailed sign-in link; the same flow creates an account | Sign-in is required before the submission form. Authenticated fields, OAuth scopes, fees and approval timing remain unverified; no account action performed |
 | [AGNXI](https://agnxi.com/about) | Current About page describes a small hand-kept personal list; old search snippets still describe an open submission catalog | Do not rely on the stale submit instructions. No current public submission route confirmed; any personal outreach requires separate approval |
 
@@ -46,7 +49,7 @@ binary files and individual files over 2 MB. Packs are optional and unlisted;
 creating one does not establish leaderboard placement. This repository's installable
 payloads contain text resources; its image examples live outside those payloads.
 
-Reviewed submission sources (already on `main`; no form submitted):
+Submitted Skillboard sources (already on `main`; pending review):
 
 - `https://github.com/youchibuwan-ops/agent-workflow-skills/tree/main/skills/proactive-skill-discovery`
 - `https://github.com/youchibuwan-ops/agent-workflow-skills/tree/main/skills/crafting-reference-based-svg-assets`
@@ -153,7 +156,7 @@ blind scores or measured reminder savings. [See both outputs and costs](../evals
 - Say “observed detail / user preference / autonomous review in these runs,” not
   “proven quality increase,” “saves X reminders,” “faster” or “passed blind evaluation.”
 - Keep SVG-pair observations separate from discovery acceptance and independent friend testing.
-- No release, account authorization or community submission is part of this documentation update.
+- Generic drafts are not posted automatically; use the ledger for actual submissions.
 
 Choose one relevant developer community first; recheck its rules and disclose
 maintainership before an authorized submission. Do not solicit votes. Triage reports
