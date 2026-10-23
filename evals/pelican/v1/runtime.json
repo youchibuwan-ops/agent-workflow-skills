@@ -1,0 +1,27 @@
+{
+  "versions": {
+    "codex": "0.155.1",
+    "node": "22.22.1",
+    "resvg-js": "2.6.2"
+  },
+  "sha256": {
+    "codex": "0753dfe1d8b87a52436deb13eb1c549661ef4c84fee2c5aa688385eebeccb761",
+    "node": "243fd8938011479f41b3de101842150fa990f33fbbb3f7aabd330857f2d79e1d",
+    "python": "e50d468e8b0adfb05733f5b87b3cff34829c4a8c1aea50c865aa8bdfe4bb150f",
+    "render.mjs": "79abcd859602442c345f1828a76085d6aa954084ae6107da79f427822812f286",
+    "renderer-lock": "45832b8a13a4b14ddd5093315e861bbf9b593cda5ac6006956db66ebfdac3002"
+  },
+  "renderer_payload": {
+    "node_modules/.package-lock.json": "b4dcc75334c20b049c5824e6b39e8ce86bc5405cc9bd8410d3efbe9d9ea62162",
+    "node_modules/@resvg/resvg-js/LICENSE": "4b89d4518bd135ab4ee154a7bce722246b57a98c3d7efc1a09409898160c2bd1",
+    "node_modules/@resvg/resvg-js/README.md": "26e1e747532706012aa7a870a2aa0ab5d427bc82658e7c8dbf496e99a6574361",
+    "node_modules/@resvg/resvg-js/index.d.ts": "83875b6b9b3c21945803a77f2ccaf09064099f50f53603d3ae64815ef313e255",
+    "node_modules/@resvg/resvg-js/index.js": "b670803d88b380b0610edf743d8b74dcc132d9e2aa6aaa04cfaa06b2fcad397d",
+    "node_modules/@resvg/resvg-js/js-binding.d.ts": "70cfbbe03a8cb1df607fbe1d0eb5343455ba4dce86f02ed0060d2dba9396f1f2",
+    "node_modules/@resvg/resvg-js/js-binding.js": "d5fbe3b7450d1e393ea9856e86e16465d25be8743cae7db03e2f3249aed61e56",
+    "node_modules/@resvg/resvg-js/package.json": "2669617af27d91b0dfc0828cc2190ba87b8d8ea6e4cf08619a23784a2f1d8c95",
+    "node_modules/@resvg/resvg-js-linux-x64-gnu/README.md": "f3ce81b076600fb376707f60569e366b7a97c30d8bb999a3e23aa8a181a634f6",
+    "node_modules/@resvg/resvg-js-linux-x64-gnu/package.json": "061ed749ead730a1f2c70c633a8107b0c9066a3d7a7bf284aa08984a1bdfd0a8",
+    "node_modules/@resvg/resvg-js-linux-x64-gnu/resvgjs.linux-x64-gnu.node": "56c967fa1e26484021a1a32d5b4e6b75cfe789ce396d58ec1bb87f4d7e7d39b8"
+  }
+}

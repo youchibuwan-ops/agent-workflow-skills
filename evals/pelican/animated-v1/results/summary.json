@@ -1,0 +1,67 @@
+{
+  "date": "2026-10-23",
+  "source_protocol_commit": "a028455",
+  "model": "gpt-6-astra",
+  "effort": "xhigh",
+  "upper_caps": {
+    "wall_seconds": 900,
+    "registered_primitive_tool_starts": 80
+  },
+  "static_round_unchanged": true,
+  "preflight_zero_generation_calls": true,
+  "attempts_per_arm": 1,
+  "arms": {
+    "A": {
+      "status": "completed_needs_review",
+      "primary_completion_events": [
+        "completed"
+      ],
+      "elapsed_seconds": 519.18,
+      "registered_tool_starts": 22,
+      "target_read_raw_lines": [],
+      "html_sha256": "f1c7061d68e52d3dad4a1c4879f3b75f24b744dc28bbf1fae2734e962675a990",
+      "technical_pass": true,
+      "failed_commands": [],
+      "raw_stream_complete": true,
+      "tool_overrun": 0
+    },
+    "B": {
+      "status": "budget_exhausted",
+      "primary_completion_events": [],
+      "elapsed_seconds": 900.09,
+      "registered_tool_starts": 55,
+      "target_read_raw_lines": [
+        55
+      ],
+      "html_sha256": "80b2399d02f8243da02fa93c2914ba872f37d4c05d49b05843293a3439af1252",
+      "technical_pass": true,
+      "failed_commands": [],
+      "raw_stream_complete": true,
+      "tool_overrun": 0
+    }
+  },
+  "independent_blind_review_performed": false,
+  "no_winner_or_general_effectiveness_claim": true,
+  "unblinded_review": {
+    "reviewer": "coordinator; unblinded",
+    "basis": [
+      "13 phase PNGs per arm covering approximately 0..6s of natural browser playback",
+      "12-phase whole-scene montages at half/thumbnail sizes",
+      "six enlarged leg/pedal/handlebar contact crops per arm",
+      "0s/6s endpoint comparison; actual screenshot timing jitter retained"
+    ],
+    "observations": [
+      "Both outputs show rotating wheel markers, changing crank/pedal positions and articulated legs in the inspected phases.",
+      "In the six inspected contact crops per arm, feet remain visually seated on pedal rectangles and the wing-to-handlebar contact remains connected. This is sampled visual evidence, not an exhaustive proof.",
+      "The sampled start/end compositions are visually close; no exact pixel-equality or formal loop-continuity claim is made because capture is real-time and has timing jitter.",
+      "B depicts more explicit chainring/chain and fork-brake detail; this is an unblinded descriptive observation, not a winning score.",
+      "A reached primary completion; B saved a playable artifact but exhausted its fixed time budget before primary completion."
+    ],
+    "limits": [
+      "No numeric score or winner issued.",
+      "No new independent blind review was performed; a neutral video packet is prepared only.",
+      "The models own claimed geometry checks are retained in raw/visible logs and are not relabeled independent validation.",
+      "Chromium 141.0.7390.37 was tested; cross-browser playback and exhaustive continuous contact verification remain untested."
+    ]
+  }
+}

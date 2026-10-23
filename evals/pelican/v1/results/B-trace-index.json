@@ -1,0 +1,265 @@
+{
+  "source_visible_trace_sha256": "4e859c3585c600dcfc246818c2216cd310b7da9092343fbdb7e96fbeaf93d0da",
+  "scope": "Metadata-only index of visible actor events; not a full transcript or independently replayable proof.",
+  "events": [
+    {
+      "raw_line": 43,
+      "type": "agentMessage",
+      "raw_event_sha256": "cd46c80db04256c4ebde6204b98a194900d31e54840227d552a8133482f9a9f6"
+    },
+    {
+      "raw_line": 49,
+      "type": "commandExecution",
+      "raw_event_sha256": "5a447b0df486afd41db92ba7524ca1036b02acdd8c2184bc2a8ee47dd1e4b432",
+      "output_sha256": "7da421ab779186a86da73c80756982815066bea2a5716b9d3a8af5311903580e",
+      "command_sha256": "8ff201ebff6535e8b6557e9e923c696bf68560d839a3dd3bad988a201734bb0c",
+      "exit_code": 0
+    },
+    {
+      "raw_line": 58,
+      "type": "commandExecution",
+      "raw_event_sha256": "fa5a7fa60ab33fbf6510484c21d5e48af93121622e8d610e8b846a61e4e29166",
+      "output_sha256": "2d35eda26c2acc957ddc4d8a1b28dd8ff43681f33bb91dfc9c1029df9afc7d7d",
+      "command_sha256": "0555b1bbd0081be9f2d4f045ad57dfcba86e26f61cf7baca497267368c90b24e",
+      "exit_code": 0
+    },
+    {
+      "raw_line": 60,
+      "type": "commandExecution",
+      "raw_event_sha256": "86ca9b71999aba9bee03f5295129359b4446af33910f54a353f238b78293d6d4",
+      "output_sha256": "83147c42a803688f79943efdde45efb314e3f626572111fff8a16ffbf966cd3e",
+      "command_sha256": "77d2a2b888c1b8637a44a8caacff08d0e5a97ddab19e1eb5b79dcacac21f4bc5",
+      "exit_code": 0
+    },
+    {
+      "raw_line": 120,
+      "type": "agentMessage",
+      "raw_event_sha256": "fc64009394707f6816781cad19283b9a7cdbd6c4c3d966e52970babdae611af8"
+    },
+    {
+      "raw_line": 125,
+      "type": "commandExecution",
+      "raw_event_sha256": "3275c2c42db768947ca4c2e2de319d4cf799665ce58e6e0d105f3555ac3bded8",
+      "output_sha256": "e4c2d16ce8ac756a44bfc04a1fb45cb0ae9e4e1764bd9a031d85b10ed0a593f1",
+      "command_sha256": "d32188734cff189a53c36c3daa642e0a279688cba85dd04322a6a5ed9780a07a",
+      "exit_code": 0
+    },
+    {
+      "raw_line": 128,
+      "type": "webSearch",
+      "raw_event_sha256": "6a0a7f6c2db6efbc49351a1200761d91f471d2d5c5422fc5caccae5af66461b9"
+    },
+    {
+      "raw_line": 139,
+      "type": "webSearch",
+      "raw_event_sha256": "ee03c055f011b35f719da9b5713edfc01e44cb74b7540527c322ff9ff0d6ab19"
+    },
+    {
+      "raw_line": 142,
+      "type": "commandExecution",
+      "raw_event_sha256": "16b291532d89acc28103bcdbc7d66ad36021cd234fec845270d71f308e2b454e",
+      "output_sha256": "821a9b9cb8b6218c026fe44e58607c4fa639f472f2de8c0d66880de20d2c9748",
+      "command_sha256": "9fd834b0900b74acd390c01613225fed086347a0839dd6f6ddde408a574c9ffc",
+      "exit_code": 0
+    },
+    {
+      "raw_line": 148,
+      "type": "imageView",
+      "raw_event_sha256": "0c4bf5311ae736dbfd6eed274763c2a68a88bffbd1e688f18c9a7048f96a15b2"
+    },
+    {
+      "raw_line": 150,
+      "type": "imageView",
+      "raw_event_sha256": "08b81743e2c17511f895079956a882547fd6d26ba0718b0ae143560d3c97614f"
+    },
+    {
+      "raw_line": 155,
+      "type": "commandExecution",
+      "raw_event_sha256": "0f890a2180419eed1c896f661eb4ddaca360bd9aac713f89236b6636e95f7d03",
+      "output_sha256": "b6b256118640314062e67b90804e159f264142d49fba6b2db4e2ccbb55de74e2",
+      "command_sha256": "5233fedc46a52b33928465295ff54c2bb76fcc8d07d80db5e6e7215158b1b06b",
+      "exit_code": 0
+    },
+    {
+      "raw_line": 166,
+      "type": "imageView",
+      "raw_event_sha256": "a4d9213e9e64168b6285f6ee59ea773c478fd63b6f6782e5716e405e2c007304"
+    },
+    {
+      "raw_line": 168,
+      "type": "commandExecution",
+      "raw_event_sha256": "a8b97b0ce83c7e877cd194d642740cfcabbb45395d98199301438fa03055382a",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "command_sha256": "f0dd63686ce3060cac7b8db9fba6fa770126a229eab87ed117f2a0aa57e35652",
+      "exit_code": 0
+    },
+    {
+      "raw_line": 224,
+      "type": "agentMessage",
+      "raw_event_sha256": "c4ab607ada3d82aa2602d2d2d234c593c199db1b3f28eef49c616a7404503d21"
+    },
+    {
+      "raw_line": 231,
+      "type": "commandExecution",
+      "raw_event_sha256": "56b68061a750486906e6a017ffd6ae6b59ed2f6122cad67886db3fd1221759cd",
+      "output_sha256": "7b90d13fe52c0857c51523e00a203b87bd958995c3539e172b1af8bbe4599803",
+      "command_sha256": "8282b0047fd6a57b010c9eb8ee2492dd448ffd31b9f149c7ab26132343799383",
+      "exit_code": 0
+    },
+    {
+      "raw_line": 240,
+      "type": "imageView",
+      "raw_event_sha256": "79bf2e24327cc96f9cfedaa1516b2e148e0c93ae8aac655dffa6511882b5d7cc"
+    },
+    {
+      "raw_line": 242,
+      "type": "commandExecution",
+      "raw_event_sha256": "8e0fd0768e8351e789247c38cdd2d19fed26217d49baedeb94d2577b449412c0",
+      "output_sha256": "c1a17b3e83b55fe51f51595bafaa0875e2a4b5ffc589d1f1bfbbff6aafc55fef",
+      "command_sha256": "45075e48e6be4320f68e9720123db97095ee3e56f8f2bd9a3d3a995b49cb98ea",
+      "exit_code": 0
+    },
+    {
+      "raw_line": 253,
+      "type": "imageView",
+      "raw_event_sha256": "0d4a36ec618e87daf8e6a8a8dfb2c8594b1ae13e456f4122f418845922d863ac"
+    },
+    {
+      "raw_line": 257,
+      "type": "commandExecution",
+      "raw_event_sha256": "bd07356ddfeeaa0f68f3f206b26c33b41845fee67d85f62783ddbf470f25386f",
+      "output_sha256": "912db7413cc415690f3f774212a9fd99dfdc7049f42ca2d7bf2eff1e4582009a",
+      "command_sha256": "1eb985c8ccbf532dcb85b644dd2d54676c2ab119368ee8cea16d1f58a7c37e38",
+      "exit_code": 0
+    },
+    {
+      "raw_line": 266,
+      "type": "imageView",
+      "raw_event_sha256": "8d028828cf840333a58e72075b6aa78e2c103219af73f5ec218bcd1898e39ffd"
+    },
+    {
+      "raw_line": 268,
+      "type": "imageView",
+      "raw_event_sha256": "f8aa3f8c94e91a101692a4660a8a19f6f71a3449e6a424c29dbb816569644601"
+    },
+    {
+      "raw_line": 271,
+      "type": "commandExecution",
+      "raw_event_sha256": "6bf5941536f292f892a927d8563636130e59426d6b0c8d48d23145df775500c0",
+      "output_sha256": "2a7d27d85ee2d9f545e5cff004b55c8a16511e8438f3a28bfd2d5cb54971edeb",
+      "command_sha256": "6f27fc2a8d0c0903a193a4f1dab525424ad44647f6e80292bc9bdbb750a8513c",
+      "exit_code": 0
+    },
+    {
+      "raw_line": 316,
+      "type": "agentMessage",
+      "raw_event_sha256": "55652cd4ea49f255d422e5c52f51305f60c73df8335345f6edebd0c02a05438e"
+    },
+    {
+      "raw_line": 320,
+      "type": "imageView",
+      "raw_event_sha256": "a4f376c139ca29b11ea9e0964c7315a04046620566e4d912a2332ecbf1b7a0eb"
+    },
+    {
+      "raw_line": 323,
+      "type": "commandExecution",
+      "raw_event_sha256": "0a477fb67e5cb4c337412c125b1bd0be38811efb8c4b79c601f55c0a487e930b",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "command_sha256": "421124219ac9a28ebf2ed9d999424366e77ce2d930709575fc398b358bed5569",
+      "exit_code": 0
+    },
+    {
+      "raw_line": 338,
+      "type": "commandExecution",
+      "raw_event_sha256": "abb4f57c1706479828ec868f9758aab681004085015600b2e8f536942dd9dffa",
+      "output_sha256": "6a63d13fafe33db5bd4277a096251898113967ec49ebf861f2d25b235fc09242",
+      "command_sha256": "b1c978b9a9d03d95b1db80c8fb976d728b74e78aba9a2679f4e7aa904896beba",
+      "exit_code": 0
+    },
+    {
+      "raw_line": 347,
+      "type": "imageView",
+      "raw_event_sha256": "31115702d7da59678fdeee06f427f198ad10923d01e4224be2d8ad47d421f78c"
+    },
+    {
+      "raw_line": 350,
+      "type": "commandExecution",
+      "raw_event_sha256": "bf2404cce1636ac17c44e2f0b667990f7755e6b781e89cd6e8440206c4d3edb4",
+      "output_sha256": "bf8d6db26c178912a03a7b3786b2e8571df168ca54b23e18936188dc0f27fcf4",
+      "command_sha256": "b1948d2cc85b84a4d3ccea2374f3d238c37e974aa891cfa9c8a87f41dc5f06c3",
+      "exit_code": 1
+    },
+    {
+      "raw_line": 401,
+      "type": "agentMessage",
+      "raw_event_sha256": "5011c4588e96a22f4b0cbbee469ed142b42aa860105d7a8ccdeafdba66d489d6"
+    },
+    {
+      "raw_line": 419,
+      "type": "commandExecution",
+      "raw_event_sha256": "460859dfcea5791b0cac27005b5b8824c18922cd6a45d641d949e78faf7567ce",
+      "output_sha256": "729853f14673b9174bb1faf0c5a419ffe5b341677979677ad1a5f1f9ccf6993a",
+      "command_sha256": "3840c4f4856daa9eab89333dc00944367f754237299704012a5a6d7e6b63320c",
+      "exit_code": 134
+    },
+    {
+      "raw_line": 428,
+      "type": "imageView",
+      "raw_event_sha256": "757f9b241736507131e5ff1465418fec9c855db44f6d4b4772ff09906d9d20d0"
+    },
+    {
+      "raw_line": 430,
+      "type": "imageView",
+      "raw_event_sha256": "72a6ab2550a5e068b846cab2d44a85f378e77316f3ccb22d05708515805b52dc"
+    },
+    {
+      "raw_line": 432,
+      "type": "commandExecution",
+      "raw_event_sha256": "f03a9833873a87abab1aa22c71d8e8ca44a8b2cadecfb163e5de9db870d5fe45",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "command_sha256": "9aecf0464204c137affa3854d8177122e722e10a65e887bb2594636957c5d272",
+      "exit_code": 0
+    },
+    {
+      "raw_line": 484,
+      "type": "agentMessage",
+      "raw_event_sha256": "dc81b0c3631ed5fa31d05fd77c6d801d8108ba582a375f0e0a6514b933765bce"
+    },
+    {
+      "raw_line": 492,
+      "type": "commandExecution",
+      "raw_event_sha256": "b99b03ab494d8747604d9ccbd2f36eaf24d492743a76ca770228d7d0424d3c67",
+      "output_sha256": "40fd42d448a0db0f7432cd55c24632e8f29daca7e35d817f65747e5efce188f0",
+      "command_sha256": "493a2e1a3c6560adb6173455e69e2caebf153ad7a3d1b241cc91f675af14c77f",
+      "exit_code": 0
+    },
+    {
+      "raw_line": 501,
+      "type": "imageView",
+      "raw_event_sha256": "71bf8b3102a2869b316f1a68918bfbc9cd4f2d1ad39d3582b4d250c24d11461c"
+    },
+    {
+      "raw_line": 503,
+      "type": "imageView",
+      "raw_event_sha256": "54ab04877ac78ec5f346aef72e80bea11f7f74927133f0810c387afde26e6298"
+    },
+    {
+      "raw_line": 505,
+      "type": "imageView",
+      "raw_event_sha256": "c3050304d56c66f1f1666afadc42884d748915f33e9341751decab78a7e26f9f"
+    },
+    {
+      "raw_line": 518,
+      "type": "commandExecution",
+      "raw_event_sha256": "327059709954381593ea7233348f662e7dfd378ad4d6cb291c960cffb1fbee3f",
+      "output_sha256": "0121916f4a7acf0e31948141b1723ee6cf786aa5d1fba73c9b60160d382a0023",
+      "command_sha256": "8cac9725515dbd4e4a18294eb7e335cd050552785eacc831787d05876debcd49",
+      "exit_code": 0
+    },
+    {
+      "raw_line": 586,
+      "type": "agentMessage",
+      "raw_event_sha256": "835b5c62f705ea0e796da4f70bbe828335891388b42e3c31ae65b078e42575d7"
+    }
+  ]
+}

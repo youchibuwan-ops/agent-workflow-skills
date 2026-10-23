@@ -1,0 +1,67 @@
+{
+  "created_utc": "2026-10-23T04:48:53.245860+00:00",
+  "reason": "Collector falsely treated a child completion as primary B completion; not an artwork-quality retry. User explicitly authorized one fresh B replacement, retaining A.",
+  "old_B_disposition": "infrastructure_truncated; retained, excluded from arm outcome",
+  "A_retained_sha256": "bef6c176c14d9fdd46a3417ff90b5b3cc590c9c12f04e572f31f2f3540342a34",
+  "replacement_count": 1,
+  "no_new_model_judges": true,
+  "unchanged_protocol": {
+    "study_id": "pelican-svg-ab-v1-20261023",
+    "version": 1,
+    "frozen_skill_commit": "d8a81d9f0c46c94f2c8ccb904da0514377a8573c",
+    "frozen_release": "v0.1.0-codex-preview.1",
+    "cli_version": "0.155.1",
+    "model": "gpt-6-astra",
+    "reasoning_effort": "xhigh",
+    "wall_seconds": 900,
+    "max_tool_calls": 80,
+    "tool_counting": "Stop at observed threshold 80 native item/started commandExecution/webSearch/imageView/mcpToolCall/fileChange, or 900s; drain already queued raw events after stop and report any overrun separately. No hard token/dollar cap.",
+    "repetitions_per_arm": 1,
+    "order": [
+      "B",
+      "A"
+    ],
+    "order_rule": "fixed before model calls; sequential to avoid concurrent drawing/resource contention; no outcome-based reorder",
+    "target_skills": {
+      "svg": "crafting-reference-based-svg-assets"
+    },
+    "treatment": "B installs exactly the released SVG Skill; A has no target Skill. No forced skill invocation or extra workflow reminder in either prompt.",
+    "common_tools": "same native shell/web/image tools, Python/Node, pinned read-only resvg-js2.6.2; no MCP/apps/remote plugins or image generation",
+    "isolation": "external control-plane recorder; fresh Bubblewrap mount/PID namespace with clearenv and workspace/home/state/cache per actor; only verified B payload copied in, no installer cache. No host home/Windows mount/control-plane files/other arm/rubric/history; shared network/proxy/provider caches not controlled",
+    "delivery": "output.svg + output.png and retained intermediate files/notes; no coordinator artwork edits",
+    "judges": {
+      "count": 2,
+      "model": "gpt-6-astra",
+      "effort": "xhigh",
+      "wall_seconds_each": 600,
+      "max_tool_calls_each": 30,
+      "access": "only neutral PNGs and frozen rubric, in fresh isolated sessions; reverse order; no mapping/process/source"
+    },
+    "limits": "One pair, nondeterministic generations, no statistical/general reliability claim; exact tool starts/wall/usage reported. Prior failures and all setup/run failures retained. No new Skill changes during this experiment."
+  },
+  "changes": [
+    "Filter completion by exact primary thread and turn IDs",
+    "Attribute usage per thread; primary usage cannot be overwritten by child",
+    "Fresh B home/state/workspace/cache, same mount/tool/runtime/config policy as original A/B"
+  ],
+  "limits": [
+    "Amended technical replacement; actual order B-truncated, A, B-replacement differs from original fixed B,A order",
+    "Shared network/provider caches uncontrolled",
+    "Background account plugin files may download despite disabled apps/remote_plugin; runtime catalogs and actual usage separately audited",
+    "Equal upper time/tool caps do not mean equal token consumption; no hard token/dollar cap"
+  ],
+  "no_model_regression": {
+    "A": {
+      "old_any_completion": 1,
+      "fixed_primary_completion": 1
+    },
+    "B": {
+      "old_any_completion": 1,
+      "fixed_primary_completion": 0
+    }
+  },
+  "source_sha256": {
+    "replacement_driver": "981eec1e8b63c343d9782be2066ac5636f777937ba902b8628fc861dc1c7fc48",
+    "completion_filter": "e83d8e787f80fcf0cd51892cfeda6c8e39fbc799435ef711677e9845dddd3171"
+  }
+}

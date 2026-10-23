@@ -1,0 +1,14 @@
+{
+  "synthetic_cases": 5,
+  "passed": true,
+  "original_raw_replay": {
+    "A": {
+      "old_any_completion": 1,
+      "fixed_primary_completion": 1
+    },
+    "B": {
+      "old_any_completion": 1,
+      "fixed_primary_completion": 0
+    }
+  }
+}

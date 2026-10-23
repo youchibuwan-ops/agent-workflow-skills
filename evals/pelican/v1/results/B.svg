@@ -1,0 +1,179 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900" viewBox="0 0 1200 900" role="img" aria-labelledby="title desc">
+<title id="title">The coastal commute</title>
+<desc id="desc">An original vector illustration of an ivory pelican pedaling a coral-red bicycle along a quiet coast, with a golden sun and sea grasses.</desc>
+<g stroke-linecap="round" stroke-linejoin="round"><g id="coastal-setting">
+<rect width="1200" height="900" fill="#f7efdf"/>
+<!-- The sun is a flat vector disc; the coast keeps the center quiet. -->
+<circle cx="663" cy="353" r="259" fill="#efd18c"/>
+<circle cx="663" cy="353" r="240" fill="none" stroke="#f6dfa9" stroke-width="1.5"/>
+<path d="M135 526 C247 511 344 521 441 527 C604 538 807 505 1064 520 L1064 655 C855 674 673 641 490 657 C327 671 228 649 135 658 Z" fill="#b8d6cf"/>
+<path d="M135 526 C247 511 344 521 441 527 M827 516 Q954 509 1064 520" fill="none" stroke="#75a8a4" stroke-width="3"/>
+<path d="M157 571 H249 M182 582 H219 M894 556 H1027 M964 568 H1064 M142 620 H234 M910 610 H1013 M481 552 H555 M659 577 H711" fill="none" stroke="#e8f0dc" stroke-width="3"/>
+<path d="M135 667 C300 638 459 666 587 658 C758 647 911 644 1064 671 L1081 792 C791 832 415 826 118 797 Z" fill="#e9ddbc"/>
+<path d="M139 664 C303 637 451 660 551 659 M924 655 Q999 658 1055 670" fill="none" stroke="#fff7e5" stroke-width="7"/>
+<!-- Small cloud shapes, drawn as continuous editable paths. -->
+<path d="M176 256 Q163 239 180 232 Q180 210 202 214 Q218 194 238 214 Q267 204 274 231 Q295 229 302 247 Q287 255 260 256 Z" fill="#fffaf0"/>
+<path d="M177 256 H304 M203 268 H267" fill="none" stroke="#dfd9bf" stroke-width="2.5"/>
+<path d="M921 359 Q917 346 936 342 Q938 324 956 329 Q975 309 993 331 Q1013 329 1019 346 Q1038 341 1048 359 Z" fill="#fffaf0"/>
+<path d="M928 370 H1021" fill="none" stroke="#dfd9bf" stroke-width="2.5"/>
+<!-- Two distant, deliberately understated gull silhouettes. -->
+<path d="M309 180 q15 -15 29 0 q14 -15 29 0 M951 155 q11 -11 22 0 q11 -11 22 0" fill="none" stroke="#749892" stroke-width="3"/>
+<!-- Tiny sailboat establishes the sea without competing with the rider. -->
+<g id="distant-sailboat" stroke="#699894" stroke-width="2" stroke-linejoin="round">
+<path d="M999 470 v44" fill="none"/>
+<path d="M994 477 L971 504 H994 Z" fill="#fff7e8" stroke="none"/>
+<path d="M1004 483 L1019 504 H1004 Z" fill="#e7bc79" stroke="none"/>
+<path d="M966 510 H1025 L1017 517 H975 Z" fill="#699894" stroke="none"/>
+<path d="M956 523 H1024" fill="none" stroke="#e8f0dc"/>
+</g>
+<ellipse cx="609" cy="800" rx="425" ry="15" fill="#c9cbb0" opacity=".58"/>
+<path d="M124 805 H1080" fill="none" stroke="#a3ad93" stroke-width="2.5"/>
+<!-- Wind and wheel-level movement marks. -->
+<g fill="none" stroke="#789c94" stroke-width="3">
+<path d="M199 387 H255 M168 398 H232 M215 411 H247"/>
+<path d="M134 734 H183 M149 748 H177"/>
+</g>
+</g><g id="wheels"><g id="rear-wheel"><circle cx="350" cy="650" r="142.5" fill="none" stroke="#243f43" stroke-width="17"/><circle cx="350" cy="650" r="139" fill="none" stroke="#e5bd82" stroke-width="7"/><circle cx="350" cy="650" r="131.5" fill="none" stroke="#243f43" stroke-width="2.6"/><path d="M356.60 642.49 L480.00 650.00" fill="none" stroke="#74908d" stroke-width="1.6"/><path d="M354.43 658.96 L475.57 683.65" fill="none" stroke="#74908d" stroke-width="1.6"/><path d="M359.47 646.79 L462.58 715.00" fill="none" stroke="#74908d" stroke-width="1.6"/><path d="M349.35 659.98 L441.92 741.92" fill="none" stroke="#74908d" stroke-width="1.6"/><path d="M359.81 651.96 L415.00 762.58" fill="none" stroke="#74908d" stroke-width="1.6"/><path d="M344.45 658.32 L383.65 775.57" fill="none" stroke="#74908d" stroke-width="1.6"/><path d="M357.51 656.60 L350.00 780.00" fill="none" stroke="#74908d" stroke-width="1.6"/><path d="M341.04 654.43 L316.35 775.57" fill="none" stroke="#74908d" stroke-width="1.6"/><path d="M353.21 659.47 L285.00 762.58" fill="none" stroke="#74908d" stroke-width="1.6"/><path d="M340.02 649.35 L258.08 741.92" fill="none" stroke="#74908d" stroke-width="1.6"/><path d="M348.04 659.81 L237.42 715.00" fill="none" stroke="#74908d" stroke-width="1.6"/><path d="M341.68 644.45 L224.43 683.65" fill="none" stroke="#74908d" stroke-width="1.6"/><path d="M343.40 657.51 L220.00 650.00" fill="none" stroke="#74908d" stroke-width="1.6"/><path d="M345.57 641.04 L224.43 616.35" fill="none" stroke="#74908d" stroke-width="1.6"/><path d="M340.53 653.21 L237.42 585.00" fill="none" stroke="#74908d" stroke-width="1.6"/><path d="M350.65 640.02 L258.08 558.08" fill="none" stroke="#74908d" stroke-width="1.6"/><path d="M340.19 648.04 L285.00 537.42" fill="none" stroke="#74908d" stroke-width="1.6"/><path d="M355.55 641.68 L316.35 524.43" fill="none" stroke="#74908d" stroke-width="1.6"/><path d="M342.49 643.40 L350.00 520.00" fill="none" stroke="#74908d" stroke-width="1.6"/><path d="M358.96 645.57 L383.65 524.43" fill="none" stroke="#74908d" stroke-width="1.6"/><path d="M346.79 640.53 L415.00 537.42" fill="none" stroke="#74908d" stroke-width="1.6"/><path d="M359.98 650.65 L441.92 558.08" fill="none" stroke="#74908d" stroke-width="1.6"/><path d="M351.96 640.19 L462.58 585.00" fill="none" stroke="#74908d" stroke-width="1.6"/><path d="M358.32 655.55 L475.57 616.35" fill="none" stroke="#74908d" stroke-width="1.6"/><circle cx="350" cy="650" r="12" fill="#fff9ed" stroke="#243f43" stroke-width="3"/><circle cx="350" cy="650" r="4" fill="#243f43"/><path d="M414 764 l-4 -8" stroke="#243f43" stroke-width="3"/><rect x="422" y="567" width="9" height="28" rx="3" transform="rotate(42 427 581)" fill="#fff9ed" stroke="#74908d" stroke-width="1.6"/></g><g id="front-wheel"><circle cx="865" cy="650" r="142.5" fill="none" stroke="#243f43" stroke-width="17"/><circle cx="865" cy="650" r="139" fill="none" stroke="#e5bd82" stroke-width="7"/><circle cx="865" cy="650" r="131.5" fill="none" stroke="#243f43" stroke-width="2.6"/><path d="M871.60 642.49 L995.00 650.00" fill="none" stroke="#74908d" stroke-width="1.6"/><path d="M869.43 658.96 L990.57 683.65" fill="none" stroke="#74908d" stroke-width="1.6"/><path d="M874.47 646.79 L977.58 715.00" fill="none" stroke="#74908d" stroke-width="1.6"/><path d="M864.35 659.98 L956.92 741.92" fill="none" stroke="#74908d" stroke-width="1.6"/><path d="M874.81 651.96 L930.00 762.58" fill="none" stroke="#74908d" stroke-width="1.6"/><path d="M859.45 658.32 L898.65 775.57" fill="none" stroke="#74908d" stroke-width="1.6"/><path d="M872.51 656.60 L865.00 780.00" fill="none" stroke="#74908d" stroke-width="1.6"/><path d="M856.04 654.43 L831.35 775.57" fill="none" stroke="#74908d" stroke-width="1.6"/><path d="M868.21 659.47 L800.00 762.58" fill="none" stroke="#74908d" stroke-width="1.6"/><path d="M855.02 649.35 L773.08 741.92" fill="none" stroke="#74908d" stroke-width="1.6"/><path d="M863.04 659.81 L752.42 715.00" fill="none" stroke="#74908d" stroke-width="1.6"/><path d="M856.68 644.45 L739.43 683.65" fill="none" stroke="#74908d" stroke-width="1.6"/><path d="M858.40 657.51 L735.00 650.00" fill="none" stroke="#74908d" stroke-width="1.6"/><path d="M860.57 641.04 L739.43 616.35" fill="none" stroke="#74908d" stroke-width="1.6"/><path d="M855.53 653.21 L752.42 585.00" fill="none" stroke="#74908d" stroke-width="1.6"/><path d="M865.65 640.02 L773.08 558.08" fill="none" stroke="#74908d" stroke-width="1.6"/><path d="M855.19 648.04 L800.00 537.42" fill="none" stroke="#74908d" stroke-width="1.6"/><path d="M870.55 641.68 L831.35 524.43" fill="none" stroke="#74908d" stroke-width="1.6"/><path d="M857.49 643.40 L865.00 520.00" fill="none" stroke="#74908d" stroke-width="1.6"/><path d="M873.96 645.57 L898.65 524.43" fill="none" stroke="#74908d" stroke-width="1.6"/><path d="M861.79 640.53 L930.00 537.42" fill="none" stroke="#74908d" stroke-width="1.6"/><path d="M874.98 650.65 L956.92 558.08" fill="none" stroke="#74908d" stroke-width="1.6"/><path d="M866.96 640.19 L977.58 585.00" fill="none" stroke="#74908d" stroke-width="1.6"/><path d="M873.32 655.55 L990.57 616.35" fill="none" stroke="#74908d" stroke-width="1.6"/><circle cx="865" cy="650" r="12" fill="#fff9ed" stroke="#243f43" stroke-width="3"/><circle cx="865" cy="650" r="4" fill="#243f43"/><path d="M929 764 l-4 -8" stroke="#243f43" stroke-width="3"/><rect x="937" y="567" width="9" height="28" rx="3" transform="rotate(42 942 581)" fill="#fff9ed" stroke="#74908d" stroke-width="1.6"/></g></g><g id="far-drivetrain" fill="none" stroke="#243f43"><!-- Far crank and pedal are behind the chainring. -->
+<path d="M590 641 L542 683" stroke-width="10"/>
+<path d="M590 641 L542 683" stroke="#8caba6" stroke-width="5"/>
+<g id="far-pedal"><rect x="519" y="681" width="47" height="10" rx="3" fill="#243f43" stroke-width="2"/><path d="M525 685 h34" stroke="#d7c299" stroke-width="2"/></g>
+</g><g id="pelican-far-leg" stroke="#243f43" stroke-width="3.5">
+<path d="M479 456 C473 490 480 521 496 547 L515 662 Q508 674 515 681 Q532 686 558 682 Q565 680 558 676 L539 665 L529 659 L513 543 C503 519 497 491 499 460 Z" fill="#c88248"/>
+<path d="M521 664 L539 679 M529 666 L550 679" fill="none" stroke="#865545" stroke-width="2"/>
+<path d="M489 481 Q486 513 505 544 L521 650" fill="none" stroke="#e7a962" stroke-width="3"/>
+</g><g id="bicycle-frame" fill="none" stroke="#243f43">
+<!-- Mudguards, with a small gap above the tires. -->
+<path d="M194 621 A159 159 0 0 1 473 544 M741 552 A159 159 0 0 1 1021 620" stroke-width="9"/>
+<path d="M194 621 A159 159 0 0 1 473 544 M741 552 A159 159 0 0 1 1021 620" stroke="#8eb7ad" stroke-width="5"/>
+<path d="M212 580 L350 650 M988 555 L865 650" stroke-width="2.5"/>
+<!-- Diamond frame: rear triangle plus main triangle. -->
+<path d="M350 650 L510 493 L590 641 Z M510 493 L751 481 L773 536 L590 641" stroke-width="16"/>
+<path d="M350 650 L510 493 L590 641 Z M510 493 L751 481 L773 536 L590 641" stroke="#db624d" stroke-width="10"/>
+<path d="M375 628 L501 504 M526 492 L736 483 M604 628 L760 538" stroke="#f49571" stroke-width="2.2"/>
+<!-- Single continuous fork, from the head tube to the front dropout. -->
+<path d="M773 536 C797 604 817 647 865 650" stroke-width="16"/>
+<path d="M773 536 C797 604 817 647 865 650" stroke="#db624d" stroke-width="10"/>
+<path d="M780 548 C804 611 824 643 856 646" stroke="#f49571" stroke-width="2.2"/>
+<path d="M747 478 l10 -4 M768 532 l10 -4" stroke="#f7d5ab" stroke-width="5"/>
+<!-- Seat post, leather saddle, and small saddle spring. -->
+<path d="M510 493 L495 480" stroke-width="10"/>
+<path d="M510 493 L495 480" stroke="#a6c2ba" stroke-width="5"/>
+<path d="M473 487 q5 10 13 0 q5 10 13 0" stroke-width="3"/>
+<path d="M449 473 C471 469 506 478 531 473 Q542 473 539 482 C518 490 478 492 455 485 Q446 482 449 473 Z" fill="#855549" stroke-width="4"/>
+<path d="M460 480 Q489 486 527 479" stroke="#d59c73" stroke-width="2.5"/>
+<!-- Stem, swept handlebar, grip and bell. -->
+<path d="M751 481 L737 447 L726 418 Q722 404 739 404 H784 Q800 404 800 420 V429" stroke-width="10"/>
+<path d="M751 481 L737 447 L726 418 Q722 404 739 404 H784 Q800 404 800 420 V429" stroke="#a6c2ba" stroke-width="5"/>
+<path d="M740 404 H767" stroke-width="13"/>
+<path d="M740 402 H767" stroke="#9a6250" stroke-width="7"/>
+<path d="M744 400 v7 M751 400 v7 M758 400 v7 M765 400 v7" stroke="#cf9970" stroke-width="1.3"/>
+<path d="M778 404 v-7" stroke-width="3"/>
+<path d="M767 397 A12 12 0 0 1 791 397 Z" fill="#e8b84f" stroke-width="2.5"/>
+<path d="M774 390 q4 -3 8 0" stroke="#fff2c9" stroke-width="2"/>
+<path d="M795 415 L782 436" stroke-width="3"/>
+<path d="M788 425 C847 446 826 491 790 550" stroke-width="2.4"/>
+<!-- Rim brake, cable attachment and pads. -->
+<path d="M781 541 l-15 16 M781 541 l20 9" stroke-width="4"/>
+<path d="M765 554 l4 7 M798 548 l4 7" stroke-width="5"/>
+<circle cx="781" cy="541" r="4" fill="#e5bd82" stroke-width="2"/>
+<!-- Rear rim brake. -->
+<path d="M465 538 l-16 -3 M465 538 l3 16" stroke-width="4"/>
+<path d="M450 532 l-5 7 M465 552 l7 3" stroke-width="4"/>
+<path d="M736 420 Q700 461 516 481 L465 538" stroke-width="1.8"/>
+<!-- Chain silhouette is an actual closed loop around both sprockets. -->
+<path d="M350 633 L585 609 A32 32 0 1 1 592 673 L350 667 A17 17 0 0 1 350 633 Z" stroke-width="6"/>
+<path d="M350 633 L585 609 A32 32 0 1 1 592 673 L350 667 A17 17 0 0 1 350 633 Z" stroke="#c5c8ad" stroke-width="2.5" stroke-dasharray="2 5"/>
+<circle cx="350" cy="650" r="15" fill="#7d9a94" stroke-width="3"/>
+<circle cx="350" cy="650" r="5" fill="#243f43" stroke="none"/>
+<circle cx="590" cy="641" r="34" fill="#e8e6ce" stroke-width="4"/>
+<circle cx="590" cy="641" r="26" stroke="#74908d" stroke-width="2"/>
+<path d="M590 621 L590 661 M570 641 L610 641 M576 627 L604 655 M604 627 L576 655" stroke-width="5"/>
+<circle cx="590" cy="641" r="11" fill="#d8ded0" stroke-width="3"/>
+<!-- Near crank is 180 degrees opposite the far crank. -->
+<path d="M590 641 L638 599" stroke-width="10"/>
+<path d="M590 641 L638 599" stroke="#b8ccc1" stroke-width="5"/>
+<circle cx="590" cy="641" r="4" fill="#243f43" stroke="none"/>
+<g id="near-pedal"><rect x="615" y="597" width="47" height="10" rx="3" fill="#243f43" stroke-width="2"/><path d="M622 602 h32" stroke="#e9bb6e" stroke-width="2.5"/></g>
+<circle cx="865" cy="650" r="8" fill="#d7dfca" stroke-width="3"/><circle cx="865" cy="650" r="3" fill="#243f43" stroke="none"/>
+<!-- A tiny painted head badge. -->
+<path d="M756 496 l6 -2 l6 16 l-6 2 Z" fill="#f5d9a0" stroke-width="1.5"/>
+</g><g id="pelican-body" stroke="#243f43" stroke-width="4.5">
+<!-- The tail and body/neck/head are one continuous outer silhouette. -->
+<path id="body-silhouette" d="M300 408 C332 392 346 345 398 327 C447 309 492 327 535 325 C576 322 599 292 594 251 C591 224 583 200 600 174 C615 151 635 146 658 151 C683 153 703 173 703 196 L694 226 C683 248 683 272 692 301 C708 351 682 411 634 447 C604 468 565 480 517 477 C460 481 402 465 357 444 L306 446 L326 432 L288 427 L313 415 Z" fill="#fff9ed"/>
+<!-- Broad shadow follows the lower neck into the breast and belly. -->
+<path d="M675 229 C664 263 677 286 677 319 C676 374 647 415 600 441 C535 477 458 458 398 447 C437 470 480 479 517 477 C565 480 604 468 634 447 C682 411 708 351 692 301 C683 272 683 248 694 226 Z" fill="#d7e1d5" stroke="none"/>
+<path d="M615 174 Q629 159 646 162" fill="none" stroke="#fffefa" stroke-width="7"/>
+<path d="M609 188 C600 207 608 226 610 241" fill="none" stroke="#e8e7d5" stroke-width="6"/>
+<!-- Short nape feathers and folded trailing feathers. -->
+<path d="M599 185 l-10 -1 M596 196 l-11 3 M598 208 l-9 6" fill="none" stroke-width="3"/>
+<path d="M318 424 Q354 417 379 398 M336 436 Q366 429 391 411 M358 444 Q385 437 402 422" fill="none" stroke="#839d95" stroke-width="2.5"/>
+<path d="M331 418 Q358 412 370 399 Q360 419 344 425 Z M348 431 Q380 419 388 410 Q377 433 360 437 Z" fill="#29484b" stroke="none"/>
+<!-- Plumage tufts at the leg roots. -->
+<path d="M470 464 l9 8 l7 -6 l10 9 l8 -5 M530 470 l10 8 l8 -8 l10 5 l8 -8" fill="#fff9ed" stroke="#839d95" stroke-width="2.3"/>
+</g><g id="pelican-bill-and-face" stroke="#243f43" stroke-width="4">
+<!-- Bare skin wraps the small eye and joins the bill base. -->
+<path d="M652 168 C670 159 692 172 700 188 L716 208 L690 225 Q665 219 657 199 Q648 184 652 168 Z" fill="#eaaa95" stroke-width="2.5"/>
+<!-- Relaxed gular pouch, continuous from bill tip back to throat. -->
+<path id="throat-pouch" d="M691 207 L984 251 C937 280 869 310 801 304 C742 301 704 280 683 241 L675 219 Z" fill="#e99d76"/>
+<path d="M697 225 C742 273 826 289 919 272 C876 295 837 301 800 296 C749 291 714 266 697 225 Z" fill="#f5b983" stroke="none"/>
+<path d="M714 234 Q795 288 904 274 M710 245 Q753 280 801 284" fill="none" stroke="#ce7d61" stroke-width="2.1"/>
+<!-- Long, slim upper bill with a hooked terminal nail. -->
+<path id="upper-bill" d="M697 185 C771 195 889 220 982 245 Q996 249 989 260 L983 267 L979 254 C885 245 785 231 691 216 Z" fill="#edb44f"/>
+<path d="M711 192 C788 203 884 223 968 245 C871 229 787 216 705 207 Z" fill="#f8d57e" stroke="none"/>
+<path d="M692 215 Q846 240 979 254" fill="none" stroke="#9b6849" stroke-width="2"/>
+<path d="M979 245 Q995 248 989 260 L983 267 L979 254 Z" fill="#bc6550" stroke="none"/>
+<path d="M716 199 l16 3" fill="none" stroke="#956e48" stroke-width="2.3"/>
+<!-- Eye, glint, and a slight brow supply an alert, easygoing expression. -->
+<ellipse cx="675" cy="184" rx="12" ry="13" fill="#f5d678" stroke="none"/>
+<ellipse cx="677" cy="184" rx="6.5" ry="8" fill="#243f43" stroke="none"/>
+<circle cx="679" cy="181" r="2.1" fill="#ffffff" stroke="none"/>
+<path d="M661 169 Q670 164 679 168" fill="none" stroke-width="2.6"/>
+<path d="M666 205 Q669 209 674 210" fill="none" stroke="#c67b6a" stroke-width="2"/>
+</g><g id="sea-green-scarf" stroke="#243f43" stroke-width="3.5">
+<!-- The scarf knot is at the rear of the neck; both tails trail left. -->
+<path d="M602 283 C564 278 531 247 492 251 L464 267 L492 267 L486 286 C523 272 559 310 600 304 Z" fill="#418f92"/>
+<path d="M599 295 C566 296 548 311 519 305 L498 323 Q547 336 600 310 Z" fill="#32787f"/>
+<path d="M491 258 l13 1 M489 275 l16 -2 M517 313 l13 4" fill="none" stroke="#c5ded0" stroke-width="4"/>
+<path d="M596 278 Q637 299 683 277 L688 298 Q641 321 596 299 Z" fill="#418f92"/>
+<path d="M606 286 Q642 301 678 287" fill="none" stroke="#9ecbc1" stroke-width="3"/>
+<path d="M591 280 Q608 279 609 293 Q607 305 595 306 Q584 300 591 280 Z" fill="#4d9b9b"/>
+<path d="M596 286 l3 12" fill="none" stroke="#b9dace" stroke-width="2.5"/>
+</g><g id="pelican-near-leg" stroke="#243f43" stroke-width="3.5">
+<path d="M537 466 C536 491 550 518 571 531 L613 582 Q609 591 615 597 Q635 602 658 598 Q665 596 658 591 L641 581 Q632 577 624 577 L589 520 C571 508 560 490 559 464 Z" fill="#e5a04f"/>
+<path d="M547 479 Q551 508 580 525 L619 577" fill="none" stroke="#f7c577" stroke-width="3.5"/>
+<!-- Three toe rays lie within the continuous webbed foot. -->
+<path d="M623 584 L631 596 M630 582 L645 596 M637 584 L655 595" fill="none" stroke="#a96f40" stroke-width="2"/>
+<path d="M538 466 l10 10 l8 -9 l6 2" fill="#fff9ed" stroke="#839d95" stroke-width="2.5"/>
+</g><g id="pelican-steering-wing" stroke="#243f43" stroke-width="4">
+<!-- A long wing bends forward; the free feathers curl over the leather grip. -->
+<path d="M417 358 C440 334 473 335 505 348 C548 368 565 390 611 401 C657 412 699 406 727 397 Q742 393 756 399 Q767 403 762 410 Q758 415 748 414 Q760 421 749 427 L729 427 Q737 435 723 436 C668 442 610 427 562 410 C538 435 509 448 478 439 C447 432 422 409 412 387 Q405 370 417 358 Z" fill="#e7ebde"/>
+<!-- Primary feather tips remain a connected fan, not fingers. -->
+<path d="M514 388 C579 422 659 441 722 436 Q737 435 729 427 L749 427 Q760 421 748 414 Q758 415 762 410 Q767 403 756 399 Q740 404 721 408 C650 425 581 402 534 379 Z" fill="#345659" stroke="none"/>
+<path d="M531 387 Q614 429 723 420 M537 399 Q621 437 716 429" fill="none" stroke="#78948e" stroke-width="2.4"/>
+<path d="M434 359 C461 347 492 361 513 377 C496 371 486 372 481 375 Q467 366 456 368 Q443 358 434 359 Z" fill="#fffaf0" stroke="none"/>
+<path d="M431 382 Q445 370 460 379 Q469 387 473 395 M449 397 Q466 384 481 395 Q490 404 492 411 M476 415 Q496 400 513 411 M504 429 Q520 417 535 423" fill="none" stroke="#95ada2" stroke-width="2.5"/>
+<path d="M432 391 Q436 411 454 420" fill="none" stroke="#c3d1c3" stroke-width="5"/>
+</g><g id="foreground-sea-grasses" stroke-linecap="round" stroke-linejoin="round">
+<!-- Left clump: cut-paper leaves with a shared root. -->
+<path d="M153 805 Q138 752 122 720 M152 805 Q158 748 175 706 M151 805 Q119 780 100 774" fill="none" stroke="#426c67" stroke-width="3"/>
+<path d="M145 781 Q111 762 114 733 Q138 739 145 781 Z" fill="#528780"/>
+<path d="M157 772 Q147 741 169 714 Q183 740 157 772 Z" fill="#76a89a"/>
+<path d="M148 796 Q114 798 103 777 Q129 772 148 796 Z" fill="#8db5a0"/>
+<path d="M146 765 Q124 745 125 720 Q143 728 146 765 Z" fill="#a7bda0"/>
+<path d="M161 798 Q161 775 180 764 Q188 790 161 798 Z" fill="#426c67"/>
+<!-- Right clump includes small ochre beach flowers. -->
+<path d="M1075 803 Q1070 751 1091 711 M1076 802 Q1100 771 1120 760 M1077 802 Q1057 769 1053 741" fill="none" stroke="#426c67" stroke-width="3"/>
+<path d="M1074 779 Q1055 750 1072 728 Q1091 751 1074 779 Z" fill="#81aa95"/>
+<path d="M1084 785 Q1082 758 1107 750 Q1114 772 1084 785 Z" fill="#528780"/>
+<path d="M1067 790 Q1037 778 1040 758 Q1065 759 1067 790 Z" fill="#9ab49b"/>
+<path d="M1082 799 Q1110 773 1127 786 Q1113 806 1082 799 Z" fill="#739b83"/>
+<g fill="#dfa853" stroke="#b78347" stroke-width="1.5">
+<ellipse cx="1091" cy="711" rx="6" ry="11" transform="rotate(20 1091 711)"/>
+<ellipse cx="1120" cy="760" rx="5" ry="9" transform="rotate(51 1120 760)"/>
+<ellipse cx="1053" cy="741" rx="5" ry="9" transform="rotate(-15 1053 741)"/>
+</g>
+</g>
+<g id="sand-and-road-details" fill="none" stroke="#baab83" stroke-width="2.3">
+<path d="M249 825 h22 M278 825 h4 M911 829 h41 M886 829 h7 M541 839 h30"/>
+<path d="M106 820 q9 -8 18 0 M1019 816 q6 -6 12 0"/>
+</g></g></svg>

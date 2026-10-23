@@ -5,6 +5,11 @@
 让编码代理主动找到合适的 Skill，核查后实际使用，再把已验证的方法沉淀下来。
 本仓库提供两份可单独安装的工作流 Skill，重点是 **proactive-skill-discovery**。
 
+**面向重视成品质量、希望减少逐步监督负担的开发者。**
+新增[鹈鹕骑自行车：静态与动画 A/B](evals/pelican/README.zh-CN.md)，公开原件、
+自主纠错过程、时间/工具成本和失败。动画 B 可播放，但预算截止未完成；
+最终两组均未完成独立盲评，未量化证明减少了人工提醒。该实验只测试 SVG Skill。
+
 **[Codex 预发布版 v0.1.0-codex-preview.1](https://github.com/youchibuwan-ops/agent-workflow-skills/releases/tag/v0.1.0-codex-preview.1) 已开放独立试用。**
 v7 已通过预注册的严格作者修复门槛（2026-10-23）。
 两份完整显式测试、三条预定隐式发现完整链及 A/B 负对照通过；两份当前 PDF 通过
@@ -64,13 +69,18 @@ SVG 依赖真实看图和可用渲染器，均由宿主提供。不要求生图�
 
 ## 实际证据
 
+![真实动画 A/B 浏览器录像](evals/pelican/animated-v1/results/comparison.gif)
+
+左 A、右 B。**B 在 900 秒预算截止前保存作品，主任务未正常结束。**
+[两轮完整结果、离线演示与原件](evals/pelican/README.zh-CN.md)。
+
 - [发现、筛选、验证与经验沉淀案例](examples/discovery-release-audit/README.md)。
 - [长尾夹参考、局部、回装、检查图与修订](examples/svg-binder-clip/README.md)。
 - [自有矢量折板的明确注入缺陷与修复](examples/controlled-bracket/README.md)，不冒充实物照片测试。
 - [未参与规则修改的木衣夹参考测试](examples/heldout-clothespin/README.md)。
 - [安装结果与验证边界](docs/validation.md)。
 
-案例展示实际工作，不声称模型成功率提升。后续可追加 DSH 版，须独立记录版本、
+案例展示实际工作，不声称模型成功率提升。鹈鹕 A/B 单独保留冻结协议、
 相同输入、基线、原始结果和失败项，不将安装检查混称行为效果对照。
 长尾夹当前 r08 已完成新的独立整件静态复审，用户已同意作为公开案例展示；
 旧失败和撤回意见仍保留，不据此声称普遍可靠或精密工程复原。

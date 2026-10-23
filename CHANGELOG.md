@@ -1,5 +1,17 @@
 # Changelog
 
+## Unreleased
+
+- Publish two descriptive pelican A/B case records: exact static SVGs, original
+  animated HTML, real browser GIF/MP4, bilingual findings, offline viewer, public
+  event indexes, token counters and artifact checksums.
+- Retain interrupted static B and its pre-call replacement amendment; disclose the
+  final animation B's time-budget cutoff and pending independent blind review.
+- Position quality and autonomous review as the value to explore, without claiming
+  quantified reminder savings, speed gains or general efficacy. Update bilingual
+  community drafts; no third-party submission or new Release accompanies this change.
+- Released Skill payloads and frozen evaluation standards remain unchanged.
+
 ## [v0.1.0-codex-preview.1](https://github.com/youchibuwan-ops/agent-workflow-skills/releases/tag/v0.1.0-codex-preview.1) — 2026-10-23
 
 First public Codex pre-release, targeted at `d8a81d9`; not a stable Release.
