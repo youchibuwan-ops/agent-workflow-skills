@@ -1,6 +1,17 @@
 # Changelog
 
-## Unreleased
+## [v0.1.0-codex-preview.1](https://github.com/youchibuwan-ops/agent-workflow-skills/releases/tag/v0.1.0-codex-preview.1) — 2026-10-23
+
+First public Codex pre-release, targeted at `d8a81d9`; not a stable Release.
+The frozen v7 Skill payloads and historical test standards/results are unchanged.
+
+- Publish two complete standalone Skill ZIPs, a blank v7 friend A/B pack and SHA256 checksums.
+- Verify tag-pinned remote and extracted-ZIP installs, complete payloads/resources/licenses,
+  schema checks, secret scans and byte-identical downloaded assets before publication.
+- Provide bilingual install/invocation instructions, actual cases, acceptance evidence and
+  explicit limits; no independent friend results, general reliability or performance claim.
+
+Included changes from the initial unversioned repository:
 
 - Pin official Node24-runtime checkout/setup actions and Ubuntu24.04 for Linux CI;
   retain explicit project Node22.22.1/Python3.13 and all existing checks/permissions.

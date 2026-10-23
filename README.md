@@ -9,21 +9,25 @@ Start with **proactive-skill-discovery**: connect capability gaps to inspected w
 actual task results, and maintained reusable lessons.
 
 ```sh
-npx skills@1.7.4 add https://github.com/youchibuwan-ops/agent-workflow-skills/tree/6aaedb39545b3f60892b824862396951c8147b81 --skill proactive-skill-discovery -a codex
+npx skills@1.7.4 add https://github.com/youchibuwan-ops/agent-workflow-skills/tree/v0.1.0-codex-preview.1 --skill proactive-skill-discovery -a codex --copy -y
 ```
 
 Run from the intended project. Requires Git and Node ≥22.20.0 for this third-party CLI;
 the skills themselves have no Node/Python runtime.
 
-**Codex candidate acceptance (2026-10-23): registered strict repair suite passed.**
+**[Codex pre-release v0.1.0-codex-preview.1](https://github.com/youchibuwan-ops/agent-workflow-skills/releases/tag/v0.1.0-codex-preview.1) is available for independent trials.**
+The registered strict author repair suite passed (2026-10-23).
 V7 passes both complete explicit smokes, all three scheduled implicit discovery
 chains and the adjacent A/B controls. Both current PDFs pass independent full-content,
 page and zero-warning checks. All v4-v6 failures remain public; these known-task
 author regressions do not establish general reliability or performance improvement.
 The [evidence and limits](docs/codex-acceptance.md) and [blank friend A/B pack](evals/codex/README.md)
 separate installation, loading, activation, source/license review and task quality.
-No formal Release has been published. Commands pin the reviewed candidate;
-see [PR #1](https://github.com/youchibuwan-ops/agent-workflow-skills/pull/1) for integration status.
+Commands pin this preview tag; its payloads equal the tested v7 candidate.
+The [release](https://github.com/youchibuwan-ops/agent-workflow-skills/releases/tag/v0.1.0-codex-preview.1) includes standalone Skill ZIPs, checksums,
+a [blank A/B ZIP](https://github.com/youchibuwan-ops/agent-workflow-skills/releases/download/v0.1.0-codex-preview.1/codex-ab-study-v7.zip), bilingual setup and validation limits.
+Tagged remote and extracted-ZIP installs were verified separately from behavior tests.
+This is a testing preview; no stable Release or independent friend results are claimed.
 
 ## Why proactive discovery?
 
@@ -71,7 +75,7 @@ and retain verified lessons. Work on a branch; do not release or submit external
 Install the SVG skill separately:
 
 ```sh
-npx skills@1.7.4 add https://github.com/youchibuwan-ops/agent-workflow-skills/tree/6aaedb39545b3f60892b824862396951c8147b81 --skill crafting-reference-based-svg-assets -a codex
+npx skills@1.7.4 add https://github.com/youchibuwan-ops/agent-workflow-skills/tree/v0.1.0-codex-preview.1 --skill crafting-reference-based-svg-assets -a codex --copy -y
 ```
 
 ```text

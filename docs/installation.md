@@ -5,14 +5,18 @@
 Requires Git and Node ≥22.20.0 (CLI 1.7.4's declared minimum). Run from the project:
 
 ```sh
-npx skills@1.7.4 add https://github.com/youchibuwan-ops/agent-workflow-skills/tree/6aaedb39545b3f60892b824862396951c8147b81 --skill proactive-skill-discovery -a codex
-npx skills@1.7.4 add https://github.com/youchibuwan-ops/agent-workflow-skills/tree/6aaedb39545b3f60892b824862396951c8147b81 --skill crafting-reference-based-svg-assets -a codex
+npx skills@1.7.4 add https://github.com/youchibuwan-ops/agent-workflow-skills/tree/v0.1.0-codex-preview.1 --skill proactive-skill-discovery -a codex --copy -y
+npx skills@1.7.4 add https://github.com/youchibuwan-ops/agent-workflow-skills/tree/v0.1.0-codex-preview.1 --skill crafting-reference-based-svg-assets -a codex --copy -y
 ```
 
-These commands pin candidate v7 at `6aaedb3`; see [integration status](https://github.com/youchibuwan-ops/agent-workflow-skills/pull/1).
-Both standalone remote installs and the pinned-fetch/local-install fallback were
-actually verified for these exact bytes. Installation does not establish task success. Each command selects one skill. Add `--copy -y` for unattended project installs;
-copy mode avoids symlink permissions on Windows. PowerShell users can use `npx.cmd`
+These commands pin [Codex preview v0.1.0-codex-preview.1](https://github.com/youchibuwan-ops/agent-workflow-skills/releases/tag/v0.1.0-codex-preview.1) at `d8a81d9`;
+both payloads are byte-identical to tested candidate v7 (`6aaedb3`). Both tagged
+standalone remote installs and both extracted-ZIP local CLI installs were actually
+verified on 2026-10-23 with fresh isolated home/cache directories and telemetry off.
+Every installed file, MIT text, reference read, UI prompt and CLI listing matched.
+Installation does not establish task success. Each command selects one Skill.
+`--copy -y` enables unattended project installation and avoids symlink permissions
+on Windows. PowerShell users can use `npx.cmd`
 if `npx.ps1` is blocked, without changing execution policy.
 
 ```text
@@ -30,7 +34,7 @@ The SVG skill has the same layout with `visual-diagnosis.md` and
 ## Confirm installation
 
 ```sh
-npx skills@1.7.4 add youchibuwan-ops/agent-workflow-skills --list
+npx skills@1.7.4 add https://github.com/youchibuwan-ops/agent-workflow-skills/tree/v0.1.0-codex-preview.1 --list
 npx skills@1.7.4 list -a codex
 ```
 
@@ -45,7 +49,7 @@ host and installer. The verified installer version here is 1.7.4.
 ## User-wide install
 
 ```sh
-npx skills@1.7.4 add https://github.com/youchibuwan-ops/agent-workflow-skills/tree/6aaedb39545b3f60892b824862396951c8147b81 --skill proactive-skill-discovery -a codex -g
+npx skills@1.7.4 add https://github.com/youchibuwan-ops/agent-workflow-skills/tree/v0.1.0-codex-preview.1 --skill proactive-skill-discovery -a codex -g
 ```
 
 CLI 1.7.4 targets `~/.agents/skills/`. This global path was checked in upstream source;
@@ -63,6 +67,38 @@ npx skills@1.7.4 remove proactive-skill-discovery -a codex -y
 
 For global installs replace `-p` with `-g` when updating, and add `-g` when removing.
 Avoid `--all` and unscoped bulk updates for a single-skill change.
+
+## Install a standalone release ZIP
+
+The [pre-release assets](https://github.com/youchibuwan-ops/agent-workflow-skills/releases/tag/v0.1.0-codex-preview.1) contain one complete directory per Skill, plus
+`SHA256SUMS.txt`. Download the desired ZIP and compare its checksum before extracting:
+
+```sh
+sha256sum -c SHA256SUMS.txt --ignore-missing
+mkdir -p .agents/skills
+unzip proactive-skill-discovery-v0.1.0-codex-preview.1.zip -d .agents/skills
+```
+
+PowerShell:
+
+```powershell
+Get-FileHash ./proactive-skill-discovery-v0.1.0-codex-preview.1.zip -Algorithm SHA256
+New-Item -ItemType Directory -Force .agents/skills
+Expand-Archive ./proactive-skill-discovery-v0.1.0-codex-preview.1.zip -DestinationPath .agents/skills
+```
+
+Compare the PowerShell hash with the matching line in `SHA256SUMS.txt`. Back up
+existing adaptations first. The ZIP already contains `<name>/`; the final file must
+be `.agents/skills/<name>/SKILL.md`, with `LICENSE`, `agents/` and `references/`
+beside it. Select the SVG ZIP for the other Skill. This manual path needs no Node.
+
+All four release attachments were downloaded and byte-checked against staging;
+the three ZIP checksums match. Both extracted Skill payloads also pass `skills-ref`.
+The downloadable [blank A/B study](https://github.com/youchibuwan-ops/agent-workflow-skills/releases/download/v0.1.0-codex-preview.1/codex-ab-study-v7.zip) is for a coordinator,
+not a Skill install: start at `evals/codex/README.md`. It uses source `20a0808`,
+protocol v7 and frozen payload `6aaedb3`, whose Skill bytes equal this release. The
+runner fetches its target at execution time; no friend outcomes are filled in.
+The Docker recipe remains unbuilt locally. See [behavior evidence and limits](codex-acceptance.md).
 
 ## Manual fallback and reviewed versions
 
@@ -85,7 +121,8 @@ The current candidate's two remote single-skill installs also pass.
 See [separate installation diagnostics](../examples/codex-acceptance/execution-reliability/installation-diagnosis.json).
 
 If immutable remote installation fails, retain the error and use a fresh exact
-checkout. This path was actually tested for candidate v7. Bash:
+checkout. This path was actually tested for frozen candidate v7 (`6aaedb3`),
+whose Skill bytes equal this pre-release. The historical pin below is intentional. Bash:
 
 ```sh
 commit=6aaedb39545b3f60892b824862396951c8147b81

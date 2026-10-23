@@ -5,13 +5,16 @@
 让编码代理主动找到合适的 Skill，核查后实际使用，再把已验证的方法沉淀下来。
 本仓库提供两份可单独安装的工作流 Skill，重点是 **proactive-skill-discovery**。
 
-**Codex 候选验收（2026-10-23）：v7 已通过预注册的严格修复门槛。**
+**[Codex 预发布版 v0.1.0-codex-preview.1](https://github.com/youchibuwan-ops/agent-workflow-skills/releases/tag/v0.1.0-codex-preview.1) 已开放独立试用。**
+v7 已通过预注册的严格作者修复门槛（2026-10-23）。
 两份完整显式测试、三条预定隐式发现完整链及 A/B 负对照通过；两份当前 PDF 通过
 独立内容、逐页实看和零警告检查。v4-v6 的失败全部保留，不以有限预览最低门槛关闭本轮。
 这些是已知任务的作者回归，不能宣称普遍可靠、性能提升或朋友测试已完成。
 见[真实结果与边界](docs/codex-acceptance.md)和[空白朋友 A/B 包](evals/codex/README.md)。
-安装、加载、触发、审阅与任务结果分别记录；没有发布正式 Release。
-下面命令固定到已审候选；合入状态见 [PR #1](https://github.com/youchibuwan-ops/agent-workflow-skills/pull/1)。
+安装、加载、触发、审阅与任务结果分别记录。下面命令固定到本次预发布标签，
+内容与已测 v7 候选一致。[发布页](https://github.com/youchibuwan-ops/agent-workflow-skills/releases/tag/v0.1.0-codex-preview.1) 包含单份 Skill ZIP、
+校验和、[空白 A/B ZIP](https://github.com/youchibuwan-ops/agent-workflow-skills/releases/download/v0.1.0-codex-preview.1/codex-ab-study-v7.zip)、双语安装说明及验证边界。
+带标签远程安装和 ZIP 本地安装均已另行实测；尚无稳定版，也未填写朋友实验结果。
 
 ## 两份 Skill 的区别
 
@@ -35,8 +38,8 @@
 需要 Git 和 Node ≥22.20.0。在目标项目目录执行，任选一份：
 
 ```sh
-npx skills@1.7.4 add https://github.com/youchibuwan-ops/agent-workflow-skills/tree/6aaedb39545b3f60892b824862396951c8147b81 --skill proactive-skill-discovery -a codex
-npx skills@1.7.4 add https://github.com/youchibuwan-ops/agent-workflow-skills/tree/6aaedb39545b3f60892b824862396951c8147b81 --skill crafting-reference-based-svg-assets -a codex
+npx skills@1.7.4 add https://github.com/youchibuwan-ops/agent-workflow-skills/tree/v0.1.0-codex-preview.1 --skill proactive-skill-discovery -a codex --copy -y
+npx skills@1.7.4 add https://github.com/youchibuwan-ops/agent-workflow-skills/tree/v0.1.0-codex-preview.1 --skill crafting-reference-based-svg-assets -a codex --copy -y
 ```
 
 CLI 1.7.4 的 Codex 项目安装目录是 `.agents/skills/`；加 `-g` 为个人安装。
