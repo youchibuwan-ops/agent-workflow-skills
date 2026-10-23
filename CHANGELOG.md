@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Add multi-object composition guidance: inventory every object instance, complete
+  each object's local and whole review, then inspect scene relationships and motion.
+  This is an untested instruction update; the checker does not enforce inter-object
+  coverage or relationships. Historical test payloads and results remain unchanged.
 - Preserve an actual read-but-skipped SVG workflow failure. Add an executable,
   standard-library Python ≥3.10 receipt checker for ordered local production,
   current-source checks, distinct local sources, common coordinates and rework history.
