@@ -1,0 +1,13 @@
+{
+  "status": "not_run_user_stopped_testing",
+  "date": "2026-10-23",
+  "candidate_commit": "df77c0a02f19ee2ae856894228c8a9d36cae28a9",
+  "new_model_sessions": 0,
+  "production_behavior": "not_run",
+  "exact_edit_control": "not_run",
+  "mechanical_checks_before_stop": {"tests": 12, "passed": 12, "failures": 0},
+  "markdown_before_stop": {"files": 57, "errors": 0},
+  "offline_preparation": "fresh isolated catalog/payload/boundary setup completed; no authenticated model turn started",
+  "retained_setup_failure": "initial adapter reused an existing setup path and exited with FileExistsError before inference; corrected to a unique path and reran setup only",
+  "conclusion": "No evidence yet that the candidate changes agent adherence. Do not call the failure fixed or reuse historical acceptance for this payload."
+}

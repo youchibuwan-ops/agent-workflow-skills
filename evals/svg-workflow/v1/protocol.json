@@ -1,0 +1,43 @@
+{
+  "study_id": "svg-workflow-adherence-v1-20261023",
+  "version": 1,
+  "frozen_skill_commit": "df77c0a02f19ee2ae856894228c8a9d36cae28a9",
+  "cli_version": "0.155.1",
+  "model": "gpt-6-astra",
+  "reasoning_effort": "medium",
+  "wall_seconds": 300,
+  "max_tool_calls": 48,
+  "target_skills": {
+    "svg": "crafting-reference-based-svg-assets"
+  },
+  "order": [
+    "production",
+    "control"
+  ],
+  "cases": {
+    "production": {
+      "wall_seconds": 300,
+      "max_tool_calls": 48
+    },
+    "control": {
+      "wall_seconds": 60,
+      "max_tool_calls": 12
+    }
+  },
+  "repetitions": 1,
+  "mode": "explicit invocation; workflow adherence, not automatic triggering",
+  "baseline": "actual preserved read-but-skipped incident; no paid baseline rerun",
+  "isolation": "fresh Bubblewrap home/state/cache/workspace/PID namespace per case; no personal configs or other task files; shared read-only toolchain and network/provider caches",
+  "tools": "native shell/web/image with read-only resvg and Playwright; no imagegen, subagents, MCP/apps/remote plugins",
+  "grading": "frozen README criteria plus actual trace/source/image audit; no model judge; no coordinator artwork edits or in-run reminders",
+  "retry_policy": "no automatic retries or extra sessions; failed/budget results retained",
+  "cost": "time and observed tool-start caps; no native hard token/dollar cap; report actual usage",
+  "mechanical_limits": "receipt checker is voluntarily invoked by actor, not a host hook; cannot attest actual viewing or prevent direct source edits",
+  "not_covered": "original five-entity artwork repair, general reliability, statistical A/B effects and implicit trigger rates",
+  "inputs": {
+    "tasks/control/input.svg": "3e3569ffe0f313fcd7c7f535cf6e61d2b351c374d578e6610edbe82d23e8de6f",
+    "tasks/control/prompt.txt": "00735ee43490a9e35f9287347e7183bf05ff517f36ccd6a6db272d15a8580896",
+    "tasks/production/prompt.txt": "5b9cc67f767387a4f4d6099fa9620a93132a23927b3cd9b5d180db97973542d9",
+    "tasks/production/reference.png": "9f1eecf32461817440fb9b291569f9f2a645267e62b0ad80cb26a4e0a8b258eb"
+  }
+}

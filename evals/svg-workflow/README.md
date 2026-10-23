@@ -1,5 +1,12 @@
 # SVG workflow adherence regression — 2026-10-23
 
+**Status: candidate implemented; behavior not verified.** The maintainer stopped
+testing before any new model session launched. Twelve local mechanical tests and
+the then-current Markdown check had already passed. The fresh-session protocol
+and fixtures are retained as unrun preparation, not results. No further local or
+model tests were started after that stop. Ordinary repository CI on upload is
+separate from model inference. See [execution status](v1/status.json).
+
 This suite follows an actual failure: a fresh author task read the SVG Skill and
 its execution-record resource, wrote a polished combined SVG/HTML first, then
 reviewed whole frames without completing independent local P/M/V production and

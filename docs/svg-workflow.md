@@ -4,6 +4,15 @@ Use the [Skill](../skills/crafting-reference-based-svg-assets/SKILL.md) for exec
 This diagram explains its stage order; arrows represent evidence-based decisions,
 not permission to mark unchecked stages complete.
 
+The unreleased candidate makes these transitions explicit through
+`scripts/workflow.py`: `init → plan → (geometry → material → review) per local →
+assembly → whole → check`. `next` identifies the next incomplete step; `rewind`
+invalidates affected downstream receipts while retaining history and snapshots.
+Missing prerequisites or changed source bytes prevent a mechanical completion
+result. The checker cannot attest actual viewing or stop an agent bypassing it;
+the [actual failure and unrun behavioral regression](../evals/svg-workflow/README.md)
+remain explicit. Twelve mechanical checks are not an adherence guarantee.
+
 ```mermaid
 flowchart TD
     S["定位 / Scope and feedback location"] --> K["能力匹配 / Reuse suitable Skills and tools"]

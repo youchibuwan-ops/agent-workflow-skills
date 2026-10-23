@@ -3,6 +3,11 @@
 Latest behavioral acceptance is separate: [2026-10-23 strict Codex repair regressions and independent-test scope](codex-acceptance.md).
 The historical package/render checks below do not establish implicit activation.
 
+The [later SVG read-but-skipped incident and candidate](../evals/svg-workflow/README.md)
+are separate from that historical suite. Its 12 local mechanical checks passed;
+fresh-session behavioral testing was stopped by the maintainer before inference.
+Do not transfer older acceptance to this revised payload.
+
 Evidence dates: 2026-10-22–23. Baseline repository: `b33ac6e`.
 Checks distinguish package integrity, reference research and actual task quality.
 

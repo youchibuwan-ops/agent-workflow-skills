@@ -2,6 +2,17 @@
 
 ## Unreleased
 
+- Preserve an actual read-but-skipped SVG workflow failure. Add an executable,
+  standard-library Python ≥3.10 receipt checker for ordered local production,
+  current-source checks, distinct local sources, common coordinates and rework history.
+- Keep detailed construction criteria in a linked resource; make the entrypoint
+  an actionable per-part sequence with exact-edit and read-only routing.
+- Twelve local mechanical regressions passed before the maintainer stopped testing.
+  Fresh-session behavioral tests were prepared but not run; no claim that the
+  candidate fixes adherence, and no replacement of the existing preview Release.
+- Record two actual Chinese community submissions and both Skillboard submissions
+  separately from editorial acceptance/indexing.
+
 - Publish two descriptive pelican A/B case records: exact static SVGs, original
   animated HTML, real browser GIF/MP4, bilingual findings, offline viewer, public
   event indexes, token counters and artifact checksums.
@@ -10,7 +21,8 @@
 - Position quality and autonomous review as the value to explore, without claiming
   quantified reminder savings, speed gains or general efficacy. Update bilingual
   community drafts; no third-party submission or new Release accompanies this change.
-- Released Skill payloads and frozen evaluation standards remain unchanged.
+- Released Skill payloads and historical frozen evaluation standards remain unchanged;
+  the unreleased SVG candidate above is a separate revision.
 
 ## [v0.1.0-codex-preview.1](https://github.com/youchibuwan-ops/agent-workflow-skills/releases/tag/v0.1.0-codex-preview.1) — 2026-10-23
 

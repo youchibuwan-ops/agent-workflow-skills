@@ -1,0 +1,19 @@
+{
+  "crafting-reference-based-svg-assets": {
+    "LICENSE": "d1ba8b00007e2f5670cc0af48a9a8faa1885b502f186e574dee5c5fd7ecaf913",
+    "SKILL.md": "21b743f41f372666a86f907367c098b2f1363143e2a46448aec4045c0bf3b9c1",
+    "agents/openai.yaml": "c1737c325f700dca578a0093ab0ec476ccabc75beddaa842f1b9c7a87318965b",
+    "references/construction-and-review.md": "96e023fdb676d078e828438035a442d1830d50ffef6470b504eb6ea7918e3d12",
+    "references/execution-record.md": "e28ef47524a2777f7bbc7ded0a68b16a7d62e5e66b8653e78e9d95a88756ab8b",
+    "references/project-profile-example.md": "ae3c82b7ee3901c30b7cd271b0b98c83f85bea60e49a59243ec404847d170a84",
+    "references/visual-diagnosis.md": "28919d58fac8c7484cae05d533605eb5a21dd8fcc5b39dcbb07d0e56d94966a3",
+    "scripts/workflow.py": "b8c70228821ee4150dea3c64bd9ec4e7c72fb61bc6b34a950f17dece2a230665"
+  },
+  "proactive-skill-discovery": {
+    "LICENSE": "d1ba8b00007e2f5670cc0af48a9a8faa1885b502f186e574dee5c5fd7ecaf913",
+    "SKILL.md": "ca4ac91c2dca44886154c7945f986c39a0294f9914ac6cf5e5d91026cc465bcd",
+    "agents/openai.yaml": "7c25c200a0d5ed5eb59ba98910dd5471d1a3956a83570ada6d1b5797ca5fc067",
+    "references/adapting-upstream-skills.md": "d49113db36a71de516f4863c79af47027429cca58d4f2680d3900cbe924d36d6",
+    "references/learning-from-work.md": "094f67f3eaf2176fff0c5c7fdbdfbfbab7b170c3bd7b2147126987e273ae71f0"
+  }
+}
