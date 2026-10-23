@@ -14,12 +14,22 @@ outputs, visible self-correction, time/tool costs and retained failures. B's ani
 is playable but reached its time cap; neither final pair has independent blind scores
 or a measured reduction in human reminders. These pairs test the SVG Skill only.
 
+**New known failure and development candidate (2026-10-23):** a later task read the
+SVG Skill but skipped independent local production. The [preserved incident and
+candidate](evals/svg-workflow/README.md) add executable receipts and a shorter
+next-action entrypoint. Twelve local mechanical tests passed before the maintainer
+stopped further testing; **no new-session behavior test ran**. The frozen preview
+below is unchanged. Those twelve checks cover the earlier v1 helper. The subsequent
+v2 hierarchy/evidence gate and eight added mechanical regressions have **not been run**;
+they do not inherit that result. This candidate is not a verified fix or a new Release.
+
 ```sh
 npx skills@1.7.4 add https://github.com/youchibuwan-ops/agent-workflow-skills/tree/v0.1.0-codex-preview.1 --skill proactive-skill-discovery -a codex --copy -y
 ```
 
 Run from the intended project. Requires Git and Node ≥22.20.0 for this third-party CLI;
-the skills themselves have no Node/Python runtime.
+the tagged preview skills themselves have no Node/Python runtime. The newer SVG
+development candidate requires Python ≥3.10 for its full-production receipt checker.
 
 **[Codex pre-release v0.1.0-codex-preview.1](https://github.com/youchibuwan-ops/agent-workflow-skills/releases/tag/v0.1.0-codex-preview.1) is available for independent trials.**
 The registered strict author repair suite passed (2026-10-23).

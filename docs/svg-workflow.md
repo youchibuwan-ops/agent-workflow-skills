@@ -4,6 +4,16 @@ Use the [Skill](../skills/crafting-reference-based-svg-assets/SKILL.md) for exec
 This diagram explains its stage order; arrows represent evidence-based decisions,
 not permission to mark unchecked stages complete.
 
+The unreleased candidate makes these transitions explicit through
+`scripts/workflow.py` v2: `init → scene plan → [object basis →
+(geometry → material → review) per local → object assembly → object whole] per object →
+scene compose → scene final → check`. `next` identifies the next incomplete step; `rewind`
+invalidates affected downstream receipts while retaining history and snapshots.
+Missing prerequisites or changed source bytes prevent a mechanical completion
+result. The checker cannot attest actual viewing or stop an agent bypassing it;
+the [actual failure and unrun behavioral regression](../evals/svg-workflow/README.md)
+remain explicit. Twelve mechanical checks are not an adherence guarantee.
+
 ```mermaid
 flowchart TD
     S["定位 / Scope and feedback location"] --> K["能力匹配 / Reuse suitable Skills and tools"]
@@ -27,6 +37,43 @@ flowchart TD
     F -- "几何 / Geometry" --> P
     F -- "材质 / Material" --> M
     F -- "新能力缺口或重复失败 / Capability gap or repeated failure" --> K
+```
+
+Use the hierarchy **scene → whole individual object → local detail**, then review
+back up from details to the whole object and scene. Before refining details, compare
+the current object's unshaded full silhouette, proportions and internal layout with
+applicable references. Whole-object IDs are not a substitute for meaningful local
+decomposition. Keep separate instance IDs even when sources are reused. The v2
+checker registers the hierarchy and requires reference/overview/detail/native-size
+evidence, proportions and detail observations for every covered item before advancing.
+It cannot judge decomposition or visual correctness, attest genuine viewing or reject
+plausible but false observations. The v2 implementation and added tests are unrun.
+
+层级为 **集体 → 个体（整体）→ 局部**。先定集体关系，再核当前个体完整外形和比例，
+才逐局部精绘；回装后反向复核个体与集体。不能把完整手柄或整只鸟当成一个局部，
+也不能把个体通过当成集体通过。单物体仍须先整体基准、后局部、再整体复审。
+
+```mermaid
+flowchart TD
+    O["集体：列全个体实例与关系"] --> B["集体粗构图：投影、相对尺度、接口与运动范围"]
+    B --> R["当前个体：参考与无装饰完整构造图"]
+    R --> G{"个体整体外形、比例、负空间与内部布局成立？"}
+    G -- "否：修基准、重新对照" --> R
+    G -- "是" --> L["划分具体局部；核覆盖与衔接，不能以整物代局部"]
+    L --> P["逐局部几何、材质、实际审核；失败留在本项"]
+    P --> W{"回装后个体整体重新审核通过？"}
+    W -- "否：定位受影响基准或局部" --> E
+    W -- "是" --> N{"还有物体？"}
+    N -- "有" --> R
+    N -- "无" --> A["组合全部物体；逐关系核接触、承托、遮挡、比例"]
+    A --> M["有动画时：关键相位、极限姿态和循环接缝"]
+    M --> F{"整幅对象与关系全部满足任务？"}
+    F -- "是" --> D["交付当前源、实际证据及验证边界"]
+    F -- "否" --> E["定位最早缺口；撤回受影响结论"]
+    E -- "集体基准" --> B
+    E -- "个体整体基准" --> R
+    E -- "局部" --> P
+    E -- "仅组合接口" --> A
 ```
 
 Within R, sparse evidence follows **observations → competing explanations → test

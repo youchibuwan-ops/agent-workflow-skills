@@ -162,10 +162,22 @@ the commands contain no account credentials.
 
 ## Dependencies, privacy and compatibility
 
-Both skills are instructions plus references. They bundle no executable, service,
-paid API, API key, game engine or required external review model. Discovery needs
+Both skills in the **tagged preview** are instructions plus references. They bundle
+no executable, service, paid API, API key, game engine or required external review model. Discovery needs
 network/tool access when searching externally; SVG work needs actual image viewing
 and a renderer supplied by the host. `find-skills` is optional.
+
+The **unreleased SVG workflow candidate** adds `scripts/workflow.py` and
+`references/construction-and-review.md` and `references/inspection-evidence.md`.
+The current v2 helper and its new mechanical cases are untested; earlier v1 checks
+do not validate this revision. Its full-production mode needs Python ≥3.10
+(standard library only); exact edits and read-only review do not start that tracker.
+The helper reads selected evidence files and writes only the selected journal and
+snapshots. It makes no network/model calls and does not install a global host hook.
+Its receipt checks do not prove visual quality or actual viewing. Candidate remote
+installation and new-session adherence have not been verified; the commands above
+still install the frozen preview, not the candidate. See the
+[candidate status](../evals/svg-workflow/README.md).
 
 The third-party installer sends telemetry by default. Its documented opt-outs are
 `DISABLE_TELEMETRY=1` and `DO_NOT_TRACK=1`; tests set both. Bash can prefix the install

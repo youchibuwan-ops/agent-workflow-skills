@@ -1,0 +1,1 @@
+请使用 $crafting-reference-based-svg-assets，把 input.svg 里唯一的 fill="#cc5522" 精确替换为 fill="#2277aa"，保存为 output.svg。其他字节不变。只需要完成并验证这一次改色，不做其他修改。
