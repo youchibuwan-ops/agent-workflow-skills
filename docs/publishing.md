@@ -1,15 +1,19 @@
 # Publishing research and launch copy
 
-Checked 2026-10-23. Drafts only: no form submitted, account connected, paid placement,
-formal Release or mass outreach authorized. Recheck destination rules before submission.
+Checked 2026-10-23. [Codex pre-release v0.1.0-codex-preview.1](https://github.com/youchibuwan-ops/agent-workflow-skills/releases/tag/v0.1.0-codex-preview.1) is public with
+bilingual setup, standalone ZIPs, checksums, real cases and explicit limits. The
+community copy below remains an **unposted draft**. No directory form, account
+connection, paid placement, stable Release or mass outreach was performed.
+Recheck destination rules and obtain the applicable authorization before submission.
 
 **Current evidence: v7 meets the registered strict author repair suite.**
-The copy below is an unpublished independent-testing invitation. The
+The copy below is an unposted independent-testing invitation linking the public preview. The
 [actual results](codex-acceptance.md) include all three scheduled implicit B chains,
 both explicit smokes, adjacent controls and two independently checked zero-warning
 PDFs. All older failures remain visible. Known-task regressions do not establish
 general reliability, performance improvement or production readiness. Friend
-outcomes are blank; formal publication still requires maintainer approval.
+outcomes are blank; the pre-release does not establish an independent effect.
+The maintainer authorized this GitHub preview; third-party submissions remain separate.
 
 ## Directory requirements
 
@@ -35,12 +39,12 @@ binary files and individual files over 2 MB. Packs are optional and unlisted;
 creating one does not establish leaderboard placement. This repository's installable
 payloads contain text resources; its image examples live outside those payloads.
 
-Submission sources after these changes are reviewed and merged:
+Reviewed submission sources (already on `main`; no form submitted):
 
 - `https://github.com/youchibuwan-ops/agent-workflow-skills/tree/main/skills/proactive-skill-discovery`
 - `https://github.com/youchibuwan-ops/agent-workflow-skills/tree/main/skills/crafting-reference-based-svg-assets`
 
-Do not submit the new descriptions as already live on `main` before merge.
+Use the tagged preview for reproducible trials; do not promise index placement or timing.
 
 ## Project descriptions
 
@@ -80,10 +84,11 @@ SVG instance count and PDF warnings in earlier versions. These are author repair
 known tasks, not a success-rate estimate, a measured gain or the independent friend's
 study. The isolated A/B pack contains identical tasks, budgets and blank result fields.
 
-Try the exact reviewed payload for testing with:
+The [Codex pre-release](https://github.com/youchibuwan-ops/agent-workflow-skills/releases/tag/v0.1.0-codex-preview.1) contains both standalone Skill ZIPs and
+the blank A/B pack. Try its fixed payload with:
 
 ```sh
-npx skills@1.7.4 add https://github.com/youchibuwan-ops/agent-workflow-skills/tree/6aaedb39545b3f60892b824862396951c8147b81 --skill proactive-skill-discovery -a codex
+npx skills@1.7.4 add https://github.com/youchibuwan-ops/agent-workflow-skills/tree/v0.1.0-codex-preview.1 --skill proactive-skill-discovery -a codex --copy -y
 ```
 
 [Source and examples](https://github.com/youchibuwan-ops/agent-workflow-skills).
@@ -115,7 +120,9 @@ v7 干净 Linux 回归已通过预注册的严格修复门槛：两份显式测�
 
 v4-v7 全部 32 个结果保留，包括旧版漏加载、未检索、SVG 数量判断错误和 PDF 警告。
 这是已知任务的作者回归，不能宣传成功率或效率提升。朋友 A/B 包已备好相同任务、
-预算和空白原始记录模板，独立效果尚未验证。文案未投稿，也未发布正式 Release。
+预算和空白原始记录模板，独立效果尚未验证。
+[Codex 预发布版](https://github.com/youchibuwan-ops/agent-workflow-skills/releases/tag/v0.1.0-codex-preview.1) 已提供单份安装包、校验和及 A/B 包；
+仅供独立试用，尚无稳定版。本文案仍未向社区或第三方目录投稿。
 
 ## Short social drafts and follow-up
 

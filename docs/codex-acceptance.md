@@ -4,8 +4,14 @@
 testing; NO-GO for claims of reliable autonomy, measured improvement or production
 readiness.** All eight scheduled cases pass their applicable criteria, including
 all three implicit B chains and both independent zero-warning PDF checks. This goes
-beyond the historical finite-preview minimum. No formal Release, external
-submission or DeepSeek Harness adaptation was performed.
+beyond the historical finite-preview minimum. These runs did not publish a Release,
+submit externally or adapt DeepSeek Harness.
+
+**Publication update (2026-10-23): [Codex preview v0.1.0-codex-preview.1](https://github.com/youchibuwan-ops/agent-workflow-skills/releases/tag/v0.1.0-codex-preview.1) is public.**
+Its target `d8a81d9` contains the exact v7 Skill bytes. Tagged remote and extracted-ZIP
+standalone installs were verified again for packaging; no new model-effect tests or
+friend outcomes are implied. [Installation and ZIP checks](installation.md) describe
+this additional release check. The behavioral evidence and boundaries below are unchanged.
 
 Candidate `6aaedb39545b3f60892b824862396951c8147b81` was frozen before protocol
 [`0074dd2`](https://github.com/youchibuwan-ops/agent-workflow-skills/commit/0074dd28bdc3bb375026f60c11644e1b8a185b14)
