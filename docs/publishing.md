@@ -1,5 +1,9 @@
 # Publishing research and launch copy
 
+**Archived SVG promotion, 2026-10-25:** the SVG Skill is withdrawn. Do not submit or
+reuse the SVG launch drafts below. Prior submissions and dated research remain
+historical records; only proactive discovery remains in the current catalog.
+
 Checked 2026-10-23. [Codex pre-release v0.1.0-codex-preview.1](https://github.com/youchibuwan-ops/agent-workflow-skills/releases/tag/v0.1.0-codex-preview.1) is public with
 bilingual setup, standalone ZIPs, checksums, real cases and explicit limits. The
 generic community copy below remains an **unposted draft**. Under the maintainer's
@@ -52,7 +56,7 @@ payloads contain text resources; its image examples live outside those payloads.
 Submitted Skillboard sources (already on `main`; pending review):
 
 - `https://github.com/youchibuwan-ops/agent-workflow-skills/tree/main/skills/proactive-skill-discovery`
-- `https://github.com/youchibuwan-ops/agent-workflow-skills/tree/main/skills/crafting-reference-based-svg-assets`
+- Withdrawn SVG source: `skills/crafting-reference-based-svg-assets` (removed from `main`).
 
 Use the tagged preview for reproducible trials; do not promise index placement or timing.
 

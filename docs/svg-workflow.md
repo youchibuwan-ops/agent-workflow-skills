@@ -1,7 +1,7 @@
 # SVG workflow / 实物 SVG 工作流程
 
-Use the [Skill](../skills/crafting-reference-based-svg-assets/SKILL.md) for execution.
-This diagram explains its stage order; arrows represent evidence-based decisions,
+**Archived 2026-10-25:** the SVG Skill is withdrawn and no longer installable from
+the current catalog. This historical diagram records its stage order; arrows represent evidence-based decisions,
 not permission to mark unchecked stages complete.
 
 ```mermaid

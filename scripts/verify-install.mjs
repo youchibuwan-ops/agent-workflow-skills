@@ -12,7 +12,8 @@ const input = process.argv[2] || root;
 const source = existsSync(input) ? resolve(input) : input;
 const output = process.argv[3];
 assert(process.env.npm_execpath, 'Run with npm run verify:install -- [source] [report.json]');
-const skills = ['proactive-skill-discovery', 'crafting-reference-based-svg-assets'];
+const skills = ['proactive-skill-discovery'];
+assert(!existsSync(join(root, 'skills', 'crafting-reference-based-svg-assets')), 'Retired SVG Skill reappeared');
 const sha = (data) => createHash('sha256').update(data).digest('hex');
 function inventory(directory) {
   return readdirSync(directory, { recursive: true, withFileTypes: true })

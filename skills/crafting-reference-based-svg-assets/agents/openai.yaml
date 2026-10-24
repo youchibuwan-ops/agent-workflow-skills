@@ -1,6 +1,0 @@
-interface:
-  display_name: "Reference-based SVG Assets"
-  short_description: "Refine SVG props with references and visual review"
-  default_prompt: "Use $crafting-reference-based-svg-assets to inspect the references, resolve unclear structure, finish difficult details, and visually review the complete editable SVG."
-policy:
-  allow_implicit_invocation: true

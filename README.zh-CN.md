@@ -2,91 +2,49 @@
 
 [English](README.md)
 
-让编码代理主动找到合适的 Skill，核查后实际使用，再把已验证的方法沉淀下来。
-本仓库提供两份可单独安装的工作流 Skill，重点是 **proactive-skill-discovery**。
+本仓库目前只维护 **proactive-skill-discovery**：先匹配已有能力，有缺口才搜索外部
+方案，实际阅读方法、资源与许可证，复用后核验真实产物，再沉淀已验证的经验。
+安装成功不等于任务成功；它不扩大任务授权，也不自动恢复暂停工作。
 
-**面向重视成品质量、希望减少逐步监督负担的开发者。**
-新增[鹈鹕骑自行车：静态与动画 A/B](evals/pelican/README.zh-CN.md)，公开原件、
-自主纠错过程、时间/工具成本和失败。动画 B 可播放，但预算截止未完成；
-最终两组均未完成独立盲评，未量化证明减少了人工提醒。该实验只测试 SVG Skill。
-
-**[Codex 预发布版 v0.1.0-codex-preview.1](https://github.com/youchibuwan-ops/agent-workflow-skills/releases/tag/v0.1.0-codex-preview.1) 已开放独立试用。**
-v7 已通过预注册的严格作者修复门槛（2026-10-23）。
-两份完整显式测试、三条预定隐式发现完整链及 A/B 负对照通过；两份当前 PDF 通过
-独立内容、逐页实看和零警告检查。v4-v6 的失败全部保留，不以有限预览最低门槛关闭本轮。
-这些是已知任务的作者回归，不能宣称普遍可靠、性能提升或朋友测试已完成。
-见[真实结果与边界](docs/codex-acceptance.md)和[空白朋友 A/B 包](evals/codex/README.md)。
-安装、加载、触发、审阅与任务结果分别记录。下面命令固定到本次预发布标签，
-内容与已测 v7 候选一致。[发布页](https://github.com/youchibuwan-ops/agent-workflow-skills/releases/tag/v0.1.0-codex-preview.1) 包含单份 Skill ZIP、
-校验和、[空白 A/B ZIP](https://github.com/youchibuwan-ops/agent-workflow-skills/releases/download/v0.1.0-codex-preview.1/codex-ab-study-v7.zip)、双语安装说明及验证边界。
-带标签远程安装和 ZIP 本地安装均已另行实测；尚无稳定版，也未填写朋友实验结果。
-
-## 两份 Skill 的区别
-
-| Skill | 解决什么问题 | 交付什么 |
-| --- | --- | --- |
-| [proactive-skill-discovery](skills/proactive-skill-discovery/SKILL.md) | 进入陌生领域、能力有缺口、工作反复失败、现成技能不完全合适 | 检索和筛选依据、适配方案、真实任务验证、已有 Skill 的经验维护 |
-| [crafting-reference-based-svg-assets](skills/crafting-reference-based-svg-assets/SKILL.md) | 实物 SVG 的轮廓、厚度、连接、遮挡或整件装配不清楚 | 互补参考、独立关键局部、可编辑整件、原尺寸与转向的实际图审 |
-
-发现 Skill 的目标是完成原任务，安装成功不算任务成功。SVG Skill 聚焦实物素材，
-不接管抽象图标、纯 UI 或玩法测试。自动匹配依赖宿主；明确调用最便于复现。
-
-[主动发现与学习流程](docs/discovery-workflow.md)在开始、首个样例、阶段交接和完成前
-主动核产物，分别处理证据、环境、方法与漏执行问题。经验晋升前测新任务与相邻反例，
-过时或引入退化的规则须收窄/撤回，不能只增加“下次认真”的提醒。
-
-新版 [SVG 工作流程示意](docs/svg-workflow.md)明确参考、整件基准、逐局部几何/材质/实图
-审核、原样回装和新整件复审的顺序；缺证据或存在必改时，退回最早失效关卡继续处理。
+**2026-10-25：SVG Skill 已撤下。**
+`crafting-reference-based-svg-assets` 已从当前可安装目录移除，单独的发布 ZIP 也撤下，
+不再推荐安装。历史案例、测试和 Git 历史保留作证据，不再作为当前 Skill 的推广入口。
+本次仓库变更不会修改使用者已安装的本地副本。
 
 ## 安装与调用
 
-需要 Git 和 Node ≥22.20.0。在目标项目目录执行，任选一份：
+需要 Git 和 Node ≥22.20.0。在目标项目目录执行：
 
 ```sh
-npx skills@1.7.4 add https://github.com/youchibuwan-ops/agent-workflow-skills/tree/v0.1.0-codex-preview.1 --skill proactive-skill-discovery -a codex --copy -y
-npx skills@1.7.4 add https://github.com/youchibuwan-ops/agent-workflow-skills/tree/v0.1.0-codex-preview.1 --skill crafting-reference-based-svg-assets -a codex --copy -y
+npx skills@1.7.4 add https://github.com/youchibuwan-ops/agent-workflow-skills/tree/main --skill proactive-skill-discovery -a codex --copy -y
 ```
 
-CLI 1.7.4 的 Codex 项目安装目录是 `.agents/skills/`；加 `-g` 为个人安装。
-Windows PowerShell 若限制脚本执行，可使用 `npx.cmd`。无需游戏项目和仓库开发依赖。
-完整目录与卸载方式见[安装说明](docs/installation.md)。
+此命令跟随当前分支；需要严格复现时应核查并固定具体提交。
+安装目录为 `.agents/skills/proactive-skill-discovery/`；加 `-g` 为个人安装。
+PowerShell 若限制脚本执行，可使用 `npx.cmd`。保留完整目录和许可证，
+更新与卸载见[安装说明](docs/installation.md)。
 
 ```text
 使用 $proactive-skill-discovery 完成这个仓库的发布质量检查。
-优先复用现成工具，实际审阅候选与许可证，验证安装及任务产物，
-把已证实的可复用决策补进合适的已有 Skill。独立分支工作，不发布正式版本或外部投稿。
+实际审阅候选方法与许可证，复用合适工具，验证安装和任务产物，
+保留已验证的经验。独立分支工作，不发布正式版本或外部投稿。
 ```
 
-```text
-使用 $crafting-reference-based-svg-assets 制作一件可编辑长尾夹素材。
-同一关键部位比较多个候选，用互补角度核轮廓、厚度和连接，
-先逐项做好困难局部，再回装并实际查看原尺寸浅深底与转向；不要接入游戏。
-```
+自动匹配依赖宿主，明确调用便于复现。当前流程和资源见
+[Skill 正文](skills/proactive-skill-discovery/SKILL.md)与[流程说明](docs/discovery-workflow.md)。
 
-两份 Skill 不扩大原任务授权，不自动恢复暂停队列。发现依赖联网/安装工具；
-SVG 依赖真实看图和可用渲染器，均由宿主提供。不要求生图、指定外部模型或 API 密钥。
-主体与详细参考目前为中文。
+## 保留的证据
 
-## 实际证据
+- [发现与发布检查案例](examples/discovery-release-audit/README.md)。
+- [历史 Codex 验收及边界](docs/codex-acceptance.md)：已知任务的作者回归，不能推广成普遍效果。
+- [历史 SVG 静态与动画 A/B](evals/pelican/README.zh-CN.md)：原件、成本、失败和未完成项保留。
+- [长尾夹](examples/svg-binder-clip/README.md)、[折板](examples/controlled-bracket/README.md)、
+  [木衣夹](examples/heldout-clothespin/README.md)：历史案例，不再推广对应的 SVG Skill。
 
-![真实动画 A/B 浏览器录像](evals/pelican/animated-v1/results/comparison.gif)
-
-左 A、右 B。**B 在 900 秒预算截止前保存作品，主任务未正常结束。**
-[两轮完整结果、离线演示与原件](evals/pelican/README.zh-CN.md)。
-
-- [发现、筛选、验证与经验沉淀案例](examples/discovery-release-audit/README.md)。
-- [长尾夹参考、局部、回装、检查图与修订](examples/svg-binder-clip/README.md)。
-- [自有矢量折板的明确注入缺陷与修复](examples/controlled-bracket/README.md)，不冒充实物照片测试。
-- [未参与规则修改的木衣夹参考测试](examples/heldout-clothespin/README.md)。
-- [安装结果与验证边界](docs/validation.md)。
-
-案例展示实际工作，不声称模型成功率提升。鹈鹕 A/B 单独保留冻结协议、
-相同输入、基线、原始结果和失败项，不将安装检查混称行为效果对照。
-长尾夹当前 r08 已完成新的独立整件静态复审，用户已同意作为公开案例展示；
-旧失败和撤回意见仍保留，不据此声称普遍可靠或精密工程复原。
+历史通过记录不代表撤下的 Skill 仍受推荐。当前包检查与历史行为证据分别见
+[验证说明](docs/validation.md)。
 
 ## 贡献与许可
 
 见[贡献指南](CONTRIBUTING.md)、[版本记录](CHANGELOG.md)、[安全说明](SECURITY.md)。
-Skill、文档与脚本为 [MIT](LICENSE)；示例照片和派生 SVG 的许可单独列于
-[素材署名](examples/svg-binder-clip/ATTRIBUTION.md)，不随 Skill 安装。
+Skill、文档与脚本为 [MIT](LICENSE)；示例照片和派生 SVG 的许可见各自署名文件。
