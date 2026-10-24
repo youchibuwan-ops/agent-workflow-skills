@@ -1,152 +1,79 @@
 # Agent Workflow Skills
 
-[中文说明](README.zh-CN.md) · [Examples](#real-examples) · [Install guide](docs/installation.md)
+[中文说明](README.zh-CN.md) · [Installation](docs/installation.md)
 
-**Find the right skills, verify that they work, and retain what you learn.**
+**Find suitable skills, verify actual results, and retain tested lessons.**
 
-Two MIT-licensed Agent Skills for developers using Codex or another Agent Skills host.
-Start with **proactive-skill-discovery**: connect capability gaps to inspected workflows,
-actual task results, and maintained reusable lessons.
+This repository maintains **proactive-skill-discovery**, an MIT-licensed workflow
+for matching capability gaps to inspected methods, using them on the actual task,
+checking outputs and maintaining reusable lessons. It grants no permission to
+publish, spend money or resume paused work.
 
-**For developers who value carefully finished work and less step-by-step supervision.**
-See the [static and animated pelican A/B cases](evals/pelican/README.md): original
-outputs, visible self-correction, time/tool costs and retained failures. B's animation
-is playable but reached its time cap; neither final pair has independent blind scores
-or a measured reduction in human reminders. These pairs test the SVG Skill only.
+**2026-10-25: the SVG Skill has been withdrawn.**
+`crafting-reference-based-svg-assets` is removed from the current installable
+catalog and its standalone release download is withdrawn. It is no longer
+recommended for installation. Historical examples, evaluations and Git history
+remain evidence, rather than an active Skill release. Existing local copies are
+not changed by this repository update.
+
+## Install and use
+
+Requires Git and Node ≥22.20.0 for the third-party CLI. Run in the target project:
 
 ```sh
-npx skills@1.7.4 add https://github.com/youchibuwan-ops/agent-workflow-skills/tree/v0.1.0-codex-preview.1 --skill proactive-skill-discovery -a codex --copy -y
+npx skills@1.7.4 add https://github.com/youchibuwan-ops/agent-workflow-skills/tree/main --skill proactive-skill-discovery -a codex --copy -y
 ```
 
-Run from the intended project. Requires Git and Node ≥22.20.0 for this third-party CLI;
-the skills themselves have no Node/Python runtime.
-
-**[Codex pre-release v0.1.0-codex-preview.1](https://github.com/youchibuwan-ops/agent-workflow-skills/releases/tag/v0.1.0-codex-preview.1) is available for independent trials.**
-The registered strict author repair suite passed (2026-10-23).
-V7 passes both complete explicit smokes, all three scheduled implicit discovery
-chains and the adjacent A/B controls. Both current PDFs pass independent full-content,
-page and zero-warning checks. All v4-v6 failures remain public; these known-task
-author regressions do not establish general reliability or performance improvement.
-The [evidence and limits](docs/codex-acceptance.md) and [blank friend A/B pack](evals/codex/README.md)
-separate installation, loading, activation, source/license review and task quality.
-Commands pin this preview tag; its payloads equal the tested v7 candidate.
-The [release](https://github.com/youchibuwan-ops/agent-workflow-skills/releases/tag/v0.1.0-codex-preview.1) includes standalone Skill ZIPs, checksums,
-a [blank A/B ZIP](https://github.com/youchibuwan-ops/agent-workflow-skills/releases/download/v0.1.0-codex-preview.1/codex-ab-study-v7.zip), bilingual setup and validation limits.
-Tagged remote and extracted-ZIP installs were verified separately from behavior tests.
-This is a testing preview; no stable Release or independent friend results are claimed.
-
-## Why proactive discovery?
-
-A search result is a candidate; installation is only setup. This skill keeps the actual task in view:
-
-1. Match installed capabilities before looking elsewhere.
-2. Search for a real gap; read instructions, resources and licenses.
-3. Select, thinly adapt or combine suitable workflows within the user's authorization.
-4. Verify the actual output, including relevant failure cases.
-5. Maintain verified decisions in an existing skill; create another only when needed.
-
-The [discovery and learning workflow](docs/discovery-workflow.md) adds actual
-artifact checks at entry, first sample, handoff and completion. Diagnose evidence,
-environment, method and execution gaps separately; use new-task tests and nearby
-counterexamples before promoting reusable rules.
-
-Use it for an unfamiliar stack, repeated workflow failures, overlapping skills, or a
-method worth retaining. It grants no permission to publish, spend money or resume paused work.
-
-## Choose a skill
-
-| Skill | Best for | Expected output |
-| --- | --- | --- |
-| [proactive-skill-discovery](skills/proactive-skill-discovery/SKILL.md) | Selecting, inspecting, adapting and using skills, then maintaining lessons | Chosen/rejected sources, reasons, task evidence and a scoped reusable update |
-| [crafting-reference-based-svg-assets](skills/crafting-reference-based-svg-assets/SKILL.md) | Real-object SVG props with unclear proportions, thickness, connections or assembly | Editable parts, assembled SVGs, reference comparisons and bounded visual judgments |
-
-Discovery can select the SVG workflow; SVG review does not replace discovery. Neither
-is an autonomous service or a guarantee of model performance. Detailed skill instructions
-currently use Chinese; this README and the usage prompts are English.
-
-The SVG skill follows an [ordered workflow with rework gates](docs/svg-workflow.md):
-references → shared structure/scale → each local's geometry, material and actual
-inspection → exact assembly → a fresh whole-object review.
-
-## Try it in Codex
-
-After installing, start a chat in that project. If the skill is absent, restart Codex.
+This follows the current branch. Review and pin an exact commit when reproducibility
+is required. Keep the complete installed folder and its license. See
+[installation](docs/installation.md) for Windows, updates and removal.
 
 ```text
 Use $proactive-skill-discovery for this repository's release-quality audit.
-Reuse existing tools, inspect candidates and licenses, verify the real install path,
-and retain verified lessons. Work on a branch; do not release or submit externally.
+Inspect candidate methods and licenses, reuse suitable tools, verify actual
+outputs and retain tested lessons. Work on a branch; do not publish externally.
 ```
 
-Install the SVG skill separately:
+Automatic activation depends on the host. Installation and explicit invocation
+do not establish task quality or general model performance.
 
-```sh
-npx skills@1.7.4 add https://github.com/youchibuwan-ops/agent-workflow-skills/tree/v0.1.0-codex-preview.1 --skill crafting-reference-based-svg-assets -a codex --copy -y
-```
+## Workflow and evidence
 
-```text
-Use $crafting-reference-based-svg-assets to make one editable binder-clip prop.
-Compare reference angles, resolve the rolled edges and wire connections, finish the
-difficult parts separately, then review the whole asset at its actual size.
-Do not integrate it into a game.
-```
+The [Skill](skills/proactive-skill-discovery/SKILL.md) and
+[discovery workflow](docs/discovery-workflow.md) cover installed capability matching,
+conditional external research, source/license inspection, scoped reuse, real output
+verification and experience maintenance.
 
-SVG work needs real image inspection and an SVG editor/renderer supplied by the host.
-No renderer, image generator, API key or required review model is bundled. Automatic
-activation depends on the host; explicit invocation is the reproducible starting point.
+- [Release audit example](examples/discovery-release-audit/README.md): source
+  inspection, tool reuse, license packaging findings and installation checks.
+- [Historical Codex acceptance](docs/codex-acceptance.md): known-task author
+  regressions and their limits, with no general reliability or independent friend result.
+- [Historical SVG comparisons](evals/pelican/README.md): original outputs, costs,
+  failures and incomplete runs from the withdrawn workflow.
+- [Archived binder clip](examples/svg-binder-clip/README.md),
+  [bracket](examples/controlled-bracket/README.md) and
+  [clothespin](examples/heldout-clothespin/README.md): retained artifacts and evidence.
 
-## Real examples
+Historical success records do not validate the withdrawn Skill or restore it to
+the current catalog. See [validation](docs/validation.md) for check scopes.
 
-- [Pelican bicycle A/B: static and animated](evals/pelican/README.md): same model,
-  xhigh, tools and upper caps within each pair; exact sources and an offline demo.
-  Quality observations, user feedback, completion and costs are reported separately.
-
-![Actual animated A/B browser recording](evals/pelican/animated-v1/results/comparison.gif)
-
-A left, B right. **B exhausted its 900-second budget before primary completion.**
-[Full video, originals and boundaries](evals/pelican/README.md#animated-svg).
-
-- [Release audit and discovery](examples/discovery-release-audit/README.md): actual
-  selection, OSS tool reuse, a license packaging finding, installation checks and retained learning.
-- [Binder clip](examples/svg-binder-clip/README.md): licensed photographs, complementary
-  angles, independent parts and native-size checks, including withdrawn approvals.
-  The current r08 whole was independently reviewed and accepted by the user for public display.
-- [Controlled bracket](examples/controlled-bracket/README.md): an owned vector with
-  explicit planted faults, separately repaired parts and exact-group assembly checks.
-- [Unseen clothespin test](examples/heldout-clothespin/README.md): actual reference
-  research on a new object, with unresolved dimensional evidence kept explicit.
-
-![Reference pose and accepted editable SVG](examples/svg-binder-clip/comparison.png)
-
-Photo and artwork: CC BY-SA 3.0; [credits and exceptions](examples/svg-binder-clip/ATTRIBUTION.md).
-The binder clip, bracket and clothespin are work examples, not no-skill/with-skill
-benchmarks. The pelican pairs above have their own frozen protocols and limitations.
-
-## Installation and compatibility
-
-CLI 1.7.4 installs Codex project skills to `.agents/skills/<name>/`. Add `-g` for
-user-wide installation. See [installation](docs/installation.md) for Windows, directory
-layout, manual fallback, updates and removal. Keep the complete folder, including its license.
-
-Codex is the install target tested here. Other Agent Skills hosts may read these
-folders; cross-host behavior has not been tested. See the [validation record](docs/validation.md).
-
-## Contribute and verify
+## Development
 
 ```sh
 npm ci --ignore-scripts
 npm run lint
 npm run verify:install
+npm run assemble:example
 npm run render:example
 ```
 
-Development dependencies serve checks/examples only. Consumers do not run `npm install`
-in this repo. Schema checks reuse upstream `skills-ref`; links use lychee. CI repeats
-installation on Windows and Linux. See [validation](docs/validation.md),
+Development dependencies serve checks and archived example reproducibility;
+consumers do not run `npm install` in this repository. CI validates the remaining
+Skill and verifies installation on Windows and Linux. See
 [contributing](CONTRIBUTING.md), [security](SECURITY.md) and [changelog](CHANGELOG.md).
 
 ## License
 
 Skills, scripts and documentation: [MIT](LICENSE), © 2026 youchibuwan-ops.
-Example photographs and derivative SVGs use the explicit licenses beside them.
-Optional upstream tools are not bundled; their licenses remain their own.
+Example photographs and derivative SVGs retain the explicit licenses beside them.
+Third-party tools retain their own licenses.

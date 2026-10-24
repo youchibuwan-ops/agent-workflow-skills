@@ -2,6 +2,15 @@
 
 ## Unreleased
 
+### SVG Skill withdrawal — 2026-10-25
+
+- Remove the SVG Skill from the current installable catalog and withdraw its standalone release ZIP.
+- Remove active installation and promotion entry points; retain dated examples, evaluations and Git history.
+- Keep proactive discovery unchanged; validate and installation-test that remaining Skill.
+- Existing personal installations and local art work are unaffected.
+
+### Earlier unreleased case records
+
 - Publish two descriptive pelican A/B case records: exact static SVGs, original
   animated HTML, real browser GIF/MP4, bilingual findings, offline viewer, public
   event indexes, token counters and artifact checksums.

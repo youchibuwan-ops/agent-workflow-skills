@@ -1,5 +1,9 @@
 # Validation and comparison protocol
 
+**2026-10-25:** the SVG Skill is withdrawn. Current installation/schema checks cover
+only proactive discovery. Dated SVG and two-Skill results below remain historical
+evidence, not current distribution or performance claims.
+
 Latest behavioral acceptance is separate: [2026-10-23 strict Codex repair regressions and independent-test scope](codex-acceptance.md).
 The historical package/render checks below do not establish implicit activation.
 
@@ -24,7 +28,6 @@ npm run assemble:example
 npm run render:example
 python -m pip install "skills-ref @ git+https://github.com/agentskills/agentskills.git@69ef37e9424c0a7ea9dd2293b559e43ec8176379#subdirectory=skills-ref"
 skills-ref validate skills/proactive-skill-discovery
-skills-ref validate skills/crafting-reference-based-svg-assets
 ```
 
 Use a virtual environment for the Python installation. On Windows set
