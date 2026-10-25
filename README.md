@@ -4,7 +4,8 @@
 
 **Research first, let the user choose, deliver, improve from feedback, and retain tested lessons.**
 
-This repository maintains **proactive-skill-discovery**, an MIT-licensed workflow
+This repository maintains **proactive-skill-discovery** and its **DeepSeek Harness
+(DSH) variant**, an MIT-licensed workflow
 that starts from unproven capability, actively researches professional skills and
 multiple relevant examples, presents supported options for user selection, then
 builds a draft, improves it from feedback and maintains reusable lessons. It grants no permission to
@@ -17,7 +18,15 @@ recommended for installation. Historical examples, evaluations and Git history
 remain evidence, rather than an active Skill release. Existing local copies are
 not changed by this repository update.
 
-## Install and use
+## DeepSeek Harness / DSH
+
+For classmates using DeepSeek Harness, follow the [Chinese quick start](docs/dsh.md).
+The separate package is [proactive-skill-discovery-dsh](skills/proactive-skill-discovery-dsh/SKILL.md).
+Install from this downloaded repository with `node scripts/install-dsh.mjs --project <your-project>`.
+No repository development dependencies are required by consumers. Real official-provider
+loading checks are distinct from a DeepSeek model task-quality test, which has not been run.
+
+## Install and use in Codex
 
 Requires Git and Node ≥22.20.0 for the third-party CLI. Run in the target project:
 
@@ -67,14 +76,14 @@ the current catalog. See [validation](docs/validation.md) for check scopes.
 ```sh
 npm ci --ignore-scripts
 npm run lint
+npm run test:dsh
 npm run verify:install
 npm run assemble:example
 npm run render:example
 ```
 
 Development dependencies serve checks and archived example reproducibility;
-consumers do not run `npm install` in this repository. CI validates the remaining
-Skill and verifies installation on Windows and Linux. See
+consumers do not run `npm install` in this repository. CI validates both Skill formats and checks installation/provider loading on Windows and Linux. See
 [contributing](CONTRIBUTING.md), [security](SECURITY.md) and [changelog](CHANGELOG.md).
 
 ## License

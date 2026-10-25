@@ -13,6 +13,7 @@ Respect the actual task authorization and stopping point.
 ```sh
 npm ci --ignore-scripts
 npm run lint
+npm run test:dsh
 npm run verify:install
 npm run assemble:example
 npm run render:example
@@ -30,12 +31,14 @@ Example edits require renewed inspection of affected parts and the current whole
 Update the case/group manifest deliberately after review, then regenerate images;
 do not drop a missing-part guard or update hashes to conceal a visual failure.
 
-## Future DSH variants and comparisons
+## DSH variant and comparisons
 
-Keep the existing two skills usable. Define what DSH means and which host/runtime it
-requires before adding a variant. Record separate versions and controlled results
-using the [comparison protocol](docs/validation.md). Link a compact case from the
-README only when real evidence exists. Planned results are not benchmarks.
+Keep the canonical Codex workflow and the separately named DSH variant usable.
+Run `npm run build:dsh` after canonical changes, then `npm run test:dsh`.
+The tests use official DSH 0.2.1-rc.2 packages in isolated project/user roots;
+no model credentials or real personal installation is used. Record behavioral
+model comparisons separately; provider loading is not task-quality acceptance.
+See the [DSH guide](docs/dsh.md) and [comparison protocol](docs/validation.md).
 
 ## License and releases
 

@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+### DeepSeek Harness variant — 2026-10-25
+
+- Add a separately named DSH Skill, Chinese classmate quick start and non-overwriting project/user installer.
+- Generate its core workflow and shared resources from the canonical Skill to prevent drift.
+- Verify discovery and full loading with official DSH 0.2.1-rc.2 filesystem-provider packages; no model-quality claim.
+- Pin the affected development-only Zod dependency to 4.6.6; rerun dependency audit and loader tests.
+
 ### Discovery, selection and visible learning — 2026-10-25
 
 - Default to unproven capability and research professional Skills and multiple relevant materials at task start.

@@ -1,7 +1,7 @@
 # Validation and comparison protocol
 
 **2026-10-25:** the SVG Skill is withdrawn. Current installation/schema checks cover
-only proactive discovery. Dated SVG and two-Skill results below remain historical
+the canonical discovery Skill and its DSH variant. Dated SVG and two-Skill results below remain historical
 evidence, not current distribution or performance claims.
 
 Latest behavioral acceptance is separate: [2026-10-23 strict Codex repair regressions and independent-test scope](codex-acceptance.md).
@@ -15,6 +15,20 @@ approved public display on 2026-10-23. Historical probes below retain their orig
 failures and limited scopes; their earlier “not accepted / under rework” states do
 not describe current r08 or restore any old approval.
 
+## DSH package checks — 2026-10-25
+
+`npm run test:dsh` uses official `@deepseek-ai/dsh-skill-filesystem` and
+`@deepseek-ai/dsh-skill` 0.2.1-rc.2 with native filesystem reads and isolated roots.
+It checks project discovery, invocation metadata, complete body and relative resources,
+user installation through an isolated `DSH_HOME`, non-overwrite behavior, invalid destinations
+and canonical/variant consistency. Watchers are disabled; no DSH model, API credentials,
+real user configuration or network task is launched. The inherited development-only
+Zod advisory is addressed by override 4.6.6, with actual loader tests and audit rerun.
+
+These checks do not establish implicit model activation, task quality or general learning
+performance. The [classmate guide](dsh.md) makes the same distinction. Historical
+acceptance below remains tied to its original dated payloads.
+
 ## Reproduce repository checks
 
 Requires Git, Node ≥22.20.0 and Python ≥3.11 for the optional reference validator:
@@ -23,6 +37,7 @@ Requires Git, Node ≥22.20.0 and Python ≥3.11 for the optional reference vali
 npm ci --ignore-scripts
 npm audit --audit-level=low
 npm run lint
+npm run test:dsh
 npm run verify:install
 npm run assemble:example
 npm run render:example

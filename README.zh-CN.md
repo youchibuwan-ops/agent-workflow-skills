@@ -2,7 +2,7 @@
 
 [English](README.md)
 
-本仓库维护 **proactive-skill-discovery**。默认当前能力尚不能满足任务目标，从任务开始
+本仓库维护 **proactive-skill-discovery** 及 **DeepSeek Harness（DSH）版**。默认当前能力尚不能满足任务目标，从任务开始
 主动寻找专业 Skill、多份相关资料和成熟实例，整理方案让用户先选，再制作初稿、根据
 反馈调整、完整交付，最后总结并实际维护或制作可复用 Skill。
 安装成功不等于任务成功；它不扩大任务授权，也不自动恢复暂停工作。
@@ -12,7 +12,14 @@
 不再推荐安装。历史案例、测试和 Git 历史保留作证据，不再作为当前 Skill 的推广入口。
 本次仓库变更不会修改使用者已安装的本地副本。
 
-## 安装与调用
+## 给使用 DeepSeek / DSH 的同学
+
+直接看[中文安装与使用说明](docs/dsh.md)。独立版本为
+[proactive-skill-discovery-dsh](skills/proactive-skill-discovery-dsh/SKILL.md)，
+下载仓库后可用安装脚本复制到项目的 `.dsh/skills/`，无需安装 Codex 或本仓库开发依赖。
+官方提供器的发现/加载已实际检查；这不是已完成 DeepSeek 模型任务质量验收。
+
+## Codex 安装与调用
 
 需要 Git 和 Node ≥22.20.0。在目标项目目录执行：
 

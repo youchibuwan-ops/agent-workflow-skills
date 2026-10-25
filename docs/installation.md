@@ -1,6 +1,7 @@
 # Installation and compatibility
 
-Only **proactive-skill-discovery** remains in the current catalog.
+The current catalog contains **proactive-skill-discovery** for Codex and the separate
+**proactive-skill-discovery-dsh** variant. For DSH use the [dedicated guide](dsh.md).
 The SVG Skill was withdrawn on 2026-10-25. Historical tags and evaluation records
 remain available as evidence; do not treat them as current installation advice.
 Existing local installations are not modified by repository changes.
@@ -83,4 +84,4 @@ search/tool access for the active discovery workflow. Explicit user network rest
 
 The third-party installer sends telemetry by default. Its opt-outs are
 `DISABLE_TELEMETRY=1` and `DO_NOT_TRACK=1`; verification uses both. Checks do not
-launch Codex or establish behavioral effectiveness. Other hosts are unverified.
+launch Codex or establish behavioral effectiveness. The DSH variant has separate official filesystem-provider loading checks; no DSH model task-quality result is claimed.
