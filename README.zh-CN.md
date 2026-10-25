@@ -11,6 +11,10 @@
 缺证据不能进入下一阶段；普通 Skill 指令与实际工具阻断明确区分。
 见[阶段检查、真实行为测试及失败边界](docs/discovery-gates.md)。
 
+新增[Codex / DSH 受控入口测试包](docs/host-preview.md)：真实工具拒绝、正文回执确认、
+宿主自动阶段记录及独立产物验证。它是独立测试入口，不替换日常 Codex 桌面，
+支持范围、未接入能力与保留的真实模型失败均单独说明。
+
 **2026-10-25：SVG Skill 已撤下。**
 `crafting-reference-based-svg-assets` 已从当前可安装目录移除，单独的发布 ZIP 也撤下，
 不再推荐安装。历史案例、测试和 Git 历史保留作证据，不再作为当前 Skill 的推广入口。
@@ -21,7 +25,7 @@
 直接看[中文安装与使用说明](docs/dsh.md)。独立版本为
 [proactive-skill-discovery-dsh](skills/proactive-skill-discovery-dsh/SKILL.md)，
 下载仓库后可用安装脚本复制到项目的 `.dsh/skills/`，无需安装 Codex 或本仓库开发依赖。
-官方提供器的发现/加载已实际检查；这不是已完成 DeepSeek 模型任务质量验收。
+官方提供器的发现/加载已实际检查，受控模型回归单列于预览文档；通用任务质量仍未验收。
 
 ## Codex 安装与调用
 

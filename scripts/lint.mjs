@@ -2,7 +2,7 @@ import { globSync, readFileSync } from 'node:fs';
 import { lint } from 'markdownlint/sync';
 
 const files = [...globSync('**/*.md', {
-  exclude: ['node_modules/**', '.agents/**', '.venv/**'],
+  exclude: ['**/node_modules/**', '.agents/**', '.venv/**'],
 })].sort();
 const results = lint({ files, config: JSON.parse(readFileSync('.markdownlint.json')) });
 const failures = Object.entries(results).flatMap(([file, errors]) =>

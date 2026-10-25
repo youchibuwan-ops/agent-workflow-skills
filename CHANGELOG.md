@@ -2,6 +2,16 @@
 
 ## Unreleased
 
+### Controlled Codex / DSH host preview — 2026-10-25
+
+- Add independently launched Codex WS and DSH native-root guarded task entries; retain the unchanged daily desktop and explicit capability limits.
+- Require actual returned one-use source challenges before inspection; reject same-response read/review, forged or stale confirmation and unknown reference handles.
+- Generate ordered stage reports from host-observed receipts, keeping real selection, feedback, independent validation and learning requirements without seven model-authored report forms.
+- Bind validator coverage to scoped requirements, hide frozen answers and invalidate old validation on revision.
+- Add a small Windows online test package with pinned verified Node fallback, lock-based shared dependencies, complete-payload checks and redacted support export.
+- Verify the actual Codex CLI and DeepSeek model chains against frozen source identities; retain the failed DSH budget run and native/bootstrap counterexamples separately.
+- Pin four DSH transitive fixes and verify a zero-finding dependency audit; synchronize both Skill variants and add Windows/Linux host CI.
+
 ### Observable checkpoints and executable stage gates — 2026-10-25
 
 - Require task cards, capability inspection tables, ordered checkpoint outputs and a terminal learning checkpoint.

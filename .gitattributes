@@ -3,3 +3,6 @@
 *.jpg binary
 *.blend binary
 *.pdf binary
+# Preserve the exact runtime bytes bound by the controlled-host model evidence.
+hosts/** -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+evidence/host-preview-20261025/summary.json -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol

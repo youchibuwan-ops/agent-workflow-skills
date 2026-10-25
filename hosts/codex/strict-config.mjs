@@ -1,0 +1,26 @@
+import {readFileSync} from 'node:fs';
+export function restrictCatalog(input){
+ const catalog=structuredClone(typeof input==='string'?JSON.parse(readFileSync(input,'utf8')):input);
+ if(!Array.isArray(catalog?.models)||!catalog.models.length)throw new Error('Nonempty model catalog required');
+ for(const model of catalog.models)Object.assign(model,{tool_mode:'direct',multi_agent_version:null,multi_agent_reasoning_effort:null,experimental_supported_tools:[],shell_type:'disabled',apply_patch_tool_type:null});
+ return validateStrictCatalog(catalog);
+}
+export function validateStrictCatalog(input){
+ const catalog=typeof input==='string'?JSON.parse(readFileSync(input,'utf8')):input;
+ if(!Array.isArray(catalog?.models)||!catalog.models.length)throw new Error('Nonempty strict catalog required');
+ const slugs=new Set();
+ for(const m of catalog.models){
+  if(typeof m.slug!=='string'||!m.slug||slugs.has(m.slug))throw new Error('Unique model slug required');slugs.add(m.slug);
+  if(m.tool_mode!=='direct'||m.multi_agent_version!==null||m.multi_agent_reasoning_effort!==null||m.shell_type!=='disabled'||m.apply_patch_tool_type!==null||!Array.isArray(m.experimental_supported_tools)||m.experimental_supported_tools.length)throw new Error(`Unsafe model catalog entry: ${m.slug}`);
+ }
+ return catalog;
+}
+export function strictConfig(catalogPath){return `model_catalog_json = ${JSON.stringify(catalogPath.replaceAll('\\','/'))}\nmodel_reasoning_effort = "low"\nweb_search = "disabled"\ntool_output_token_limit = 262144\nmodel_auto_compact_token_limit = 1000000000\nmodel_post_turn_compact_threshold_percent = 0\nnotify = []\n[cloud.skills]\nenabled = false\n[orchestrator.mcp]\nenabled = false\n[features]\n${['apps','plugins','remote_plugin','multi_agent','code_mode','code_mode_only','browser_use','computer_use','image_generation','tool_suggest','sleep_tool','shell_tool','view_image','goals','hooks','codex_hooks','plugin_hooks','async_compaction'].map(x=>`${x} = false`).join('\n')}\n[tools.update_plan]\nenabled = false\n[tools.experimental_request_user_input]\nenabled = false\n`;}
+
+// CLI overrides have higher precedence than workspace/user config layers.
+export function strictArguments(catalogPath){
+ const settings={model_catalog_json:catalogPath.replaceAll('\\','/'),model_reasoning_effort:'low',web_search:'disabled',notify:[],tool_output_token_limit:262144,model_auto_compact_token_limit:1000000000,model_post_turn_compact_threshold_percent:0,
+  'cloud.skills.enabled':false,'orchestrator.mcp.enabled':false,'tools.update_plan.enabled':false,'tools.experimental_request_user_input.enabled':false};
+ for(const name of ['apps','plugins','remote_plugin','multi_agent','code_mode','code_mode_only','browser_use','computer_use','image_generation','tool_suggest','sleep_tool','shell_tool','view_image','goals','hooks','codex_hooks','plugin_hooks','async_compaction'])settings['features.'+name]=false;
+ return Object.entries(settings).flatMap(([name,value])=>['-c',`${name}=${JSON.stringify(value)}`]);
+}

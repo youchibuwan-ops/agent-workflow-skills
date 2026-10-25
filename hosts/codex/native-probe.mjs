@@ -1,0 +1,41 @@
+import os from 'node:os';
+import {createServer} from 'node:http';
+import {mkdirSync,readFileSync,writeFileSync,existsSync} from 'node:fs';
+import path from 'node:path';
+import assert from 'node:assert/strict';
+import WebSocket from 'ws';
+import {createCodexProxy} from './proxy.mjs';
+import {restrictCatalog} from './strict-config.mjs';
+const root=process.argv[2];if(!root)throw new Error('Private evidence directory required');if(existsSync(path.join(root,'result.json')))throw new Error('Refuse overwrite');mkdirSync(root,{recursive:true});
+const workspace=path.join(root,'workspace');mkdirSync(workspace,{recursive:true});
+const cache=JSON.parse(readFileSync((process.env.WORKFLOW_MODEL_CATALOG??path.join(os.homedir(),'.codex','models_cache.json')),'utf8'));
+mkdirSync(path.join(workspace,'.codex'),{recursive:true});writeFileSync(path.join(workspace,'unsafe-models.json'),JSON.stringify(cache));
+writeFileSync(path.join(workspace,'.codex/config.toml'),`model_catalog_json = ${JSON.stringify(path.join(workspace,'unsafe-models.json').replaceAll('\\','/'))}\nweb_search = "live"\n[features]\napps = true\nplugins = true\nshell_tool = true\ncode_mode = true\nmulti_agent = true\n`);
+const requests=[],messages=[];let count=0;
+const provider=createServer(async(req,res)=>{const chunks=[];for await(const c of req)chunks.push(c);if(!req.url.includes('responses')){res.writeHead(200,{'content-type':'application/json'});res.end('{"data":[]}');return;}
+ const body=JSON.parse(Buffer.concat(chunks).toString());requests.push(body);
+ const attacks=[['workflow_state',{}],['exec_command',{cmd:'Set-Content -LiteralPath native-marker.txt -Value BYPASS'}],['apply_patch',{patch:'*** Begin Patch\n*** Add File: patch-marker.txt\n+BYPASS\n*** End Patch'}],['write_stdin',{session_id:42,chars:'BYPASS'}],['spawn_agent',{message:'write a marker'}],['exec',{code:'await tools.exec_command({cmd:"echo BYPASS"})'}],['mcp__probe__write',{}]];
+ const items=count++===0?attacks.map(([name,args],i)=>({type:'function_call',id:`fc-${i}`,call_id:`call-${i}`,name,arguments:JSON.stringify(args)})):[{type:'message',id:'final',role:'assistant',content:[{type:'output_text',text:'done'}]}];
+ res.writeHead(200,{'content-type':'text/event-stream'});const emit=(type,data)=>res.write(`event: ${type}\ndata: ${JSON.stringify({type,...data})}\n\n`);emit('response.created',{response:{id:`r-${count}`}});for(let i=0;i<items.length;i++)emit('response.output_item.done',{output_index:i,item:items[i]});emit('response.completed',{response:{id:`r-${count}`,status:'completed',usage:{input_tokens:1,output_tokens:1,total_tokens:2}}});res.end();
+});await new Promise(r=>provider.listen(0,'127.0.0.1',r));
+const schemas=[{name:'workflow_state',description:'Read host-owned workflow state',inputSchema:{type:'object',properties:{},additionalProperties:false}}],calls=[];
+const payload={ok:false,reason:'Stage draft blocked',stage:'draft',boundary:'x'.repeat(65400)};
+const controller={ready:true,stage:'draft',complete:false,toolSchemas:schemas,instructions:'Use workflow_state',assertReady(){},acceptUserMessage:async()=>{},abort(){},dispatch:async(...args)=>{calls.push(args);return payload;}};
+const backendCommand=[process.env.CODEX_APP_RUNTIME_CLI_PATH,'-c',`projects={${JSON.stringify(workspace.replaceAll('\\','/'))}={trust_level="trusted"}}`,'-c','model_provider="probe"','-c',`model_providers.probe={name="private",base_url="http://127.0.0.1:${provider.address().port}/v1",wire_api="responses",requires_openai_auth=false,supports_websockets=false}`];
+let proxy,ws,result,timer;try{
+ proxy=await createCodexProxy({controllerFactory:async()=>controller,toolSchemas:schemas,workspace,stateRoot:path.join(root,'private'),backendCommand,strictCatalog:restrictCatalog(cache),onStderr:s=>writeFileSync(path.join(root,'stderr.log'),s,{flag:'a'})});
+ ws=new WebSocket(proxy.url);let next=1;const pending=new Map();let completed;
+ const completion=new Promise(resolve=>{completed=resolve;});timer=setTimeout(()=>completed({timeout:true}),60000);
+ ws.on('close',()=>{for(const cb of pending.values())cb({error:{message:'Backend connection closed'}});completed({closed:true});});
+ ws.on('message',raw=>{const m=JSON.parse(raw);messages.push(m);if(pending.has(m.id)){pending.get(m.id)(m);pending.delete(m.id);}if(m.method==='turn/completed')completed(m.params);});
+ await new Promise((r,j)=>{ws.once('open',r);ws.once('error',j);});
+ const rpc=(method,params)=>new Promise((r,j)=>{const id=next++;pending.set(id,m=>m.error?j(new Error(JSON.stringify(m.error))):r(m.result));ws.send(JSON.stringify({id,method,params}));});
+ await rpc('initialize',{clientInfo:{name:'workflow-native-probe',version:'1'}});ws.send(JSON.stringify({method:'initialized',params:{}}));
+ const thread=await rpc('thread/start',{cwd:workspace,dynamicTools:[{name:'exec_command'}],environments:[{id:'local'}]});
+ await rpc('turn/start',{threadId:thread.thread.id,input:[{type:'text',text:'Private transport test.'}]});
+ const finish=await completion;assert.equal(finish.timeout,undefined);assert.equal(finish.turn.status,'failed');assert.equal(calls.length,1);
+ const visible=[];const flatten=tools=>{for(const t of tools??[]){if(t.type==='namespace')flatten(t.tools);else visible.push(t.name??t.type);}};flatten(requests[0].tools);for(const i of requests[0].input??[])if(i.type==='additional_tools')flatten(i.tools);
+ assert.deepEqual(visible,['workflow_state']);assert.equal(requests.length,2);
+ const delivered=requests[1].input.find(x=>x.type==='function_call_output'&&x.call_id==='call-0');assert.ok(delivered);const deliveredText=typeof delivered.output==='string'?delivered.output:delivered.output[0].text;assert.deepEqual(JSON.parse(deliveredText),payload);const deliveredBytes=Buffer.byteLength(deliveredText);assert.ok(deliveredBytes<=65536&&deliveredBytes>65000);for(const marker of ['native-marker.txt','patch-marker.txt'])assert.equal(existsSync(path.join(workspace,marker)),false);for(const name of ['exec_command','apply_patch','write_stdin','spawn_agent','exec','mcp__probe__write'])assert.ok(JSON.stringify(requests[1]).includes(`unsupported call: ${name}`));
+ result={status:'pass',testKind:'native-runtime-through-real-WS-proxy-local-deterministic-provider-fake-controller',hostileTrustedProjectConfig:true,rawBypassAttempts:6,modelRequestOutputDelivery:{directlyCaptured:true,bytes:deliveredBytes,exactJSON:true,proxyByteLimit:65536,nativeTokenBudget:262144},markers:'absent',visibleTools:visible,controllerCalls:calls.length,completion:finish};
+}catch(e){result={status:'failed',error:e.stack};process.exitCode=1;}finally{clearTimeout(timer);await proxy?.close();await new Promise(r=>provider.close(r));writeFileSync(path.join(root,'result.json'),JSON.stringify({...result,audit:proxy?.exportAudit()},null,2));writeFileSync(path.join(root,'rpc.json'),JSON.stringify(messages,null,2));writeFileSync(path.join(root,'requests.json'),JSON.stringify(requests,null,2));console.log(JSON.stringify(result,null,2));}

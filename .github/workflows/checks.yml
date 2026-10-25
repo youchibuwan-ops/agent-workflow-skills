@@ -49,3 +49,30 @@ jobs:
           lycheeVersion: v0.24.2
           args: --config .lychee.toml --no-progress --max-concurrency 4 --timeout 30 --max-retries 2 './**/*.md'
           fail: true
+  controlled-hosts:
+    strategy:
+      matrix:
+        os: [ubuntu-24.04, windows-latest]
+    runs-on: ${{ matrix.os }}
+    env:
+      DISABLE_TELEMETRY: '1'
+      DO_NOT_TRACK: '1'
+      PYTHONUTF8: '1'
+      DSH_RUNTIME_ROOT: ${{ github.workspace }}/hosts/dsh
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: '24.22.1'
+          cache: npm
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: '3.13'
+      - run: npm ci --ignore-scripts
+      - run: npm ci --prefix hosts/codex --ignore-scripts
+      - run: npm ci --prefix hosts/dsh --ignore-scripts --omit=dev
+      - run: npm audit --prefix hosts/codex --audit-level=low
+      - run: npm audit --prefix hosts/dsh --audit-level=low
+      - run: npm run test:hosts
+      - run: npm run test:host-native
+      - run: npm run test:host-preview

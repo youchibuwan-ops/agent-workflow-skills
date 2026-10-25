@@ -1,0 +1,170 @@
+{
+  "format": 1,
+  "date": "2026-10-25",
+  "release_scope": "controlled-host-preview; daily desktop and arbitrary professional tasks are not certified",
+  "source_sha256": {
+    "hosts/core/workflow-host.mjs": "627cc6f0291a8ca21aad5ecae773d40ad5b897171bccb19d72d250010d960ebf",
+    "hosts/core/tool-schemas.mjs": "5775a69b3339d13c7313129b79466d34e019f8bf5d1f064f0ea93e05e9c9af60",
+    "skills/proactive-skill-discovery/scripts/workflow-gate.mjs": "5b941b765cb88020febc74104f5d044b3d7276d3e56573ec607a50348e519f3a",
+    "hosts/codex/task-client.mjs": "a7e8b482da060ce30c737ed439da6457c75fdc82c0c444871e5a8bfcd71a5649",
+    "hosts/codex/proxy.mjs": "d136b7b2217335a64d21d811f7c74cb27dc45ff3cbc00371217d38ea38bc9872",
+    "hosts/codex/rpc-policy.mjs": "3b83d7a7bd0d40c1418f9ba83d2f51b54c2d65bef9826cc7fa6dd2015ebb03ba",
+    "hosts/codex/strict-config.mjs": "a40d3bcfa0e6402064324873f228e87abe7daa1a8f995482fbbdda301ff21eef",
+    "hosts/codex/package.json": "0695f3705efce409bd0402a2d0e17fb7eb843bdcff314adcf3a2d8556947b4f7",
+    "hosts/codex/package-lock.json": "e40c82cd894076304b98276d428a927d0553095bc98937b30de9ca95413c15da",
+    "hosts/dsh/index.mjs": "868a67e60415619c47b99e44f0507258c0d9ef1347350fe88e2cd1eff3a83742",
+    "hosts/dsh/binding.mjs": "27b4ab92312ed7d5c2060f92c5d1c5b6436f67aa7fe798305492d89e8c5acf41",
+    "hosts/dsh/runtime.mjs": "8cf4d5069e640d29531d9a10e961e98dd2bb4802ef5da3c8387d87cf4e6771f4",
+    "hosts/dsh/launcher.mjs": "c3befe9ea96b8e020d43c293f7d515da6d99993adccad571888232bf153e6594",
+    "hosts/dsh/install.mjs": "1b334021cb47330bd9a72403bab49e38fff617f3c1ec5ff6a1a31993b095682d",
+    "hosts/dsh/cordis.patch.yml": "7b77ec3947f15285523aa33413b84b71ce9cff6893b5d82d9bb0579828f2a53e",
+    "hosts/dsh/package.json": "e5333bdb1f4c6ceebb110a8c0a7a2f5cb888ce809fa9cc801fbe647d81899a16",
+    "hosts/dsh/package-lock.json": "0047ae6efbad56d5dbd8da744a2e93f70b406a8062d282a401a2f27add152868"
+  },
+  "root_verified_checks": {
+    "controlled_core_and_adapters": {
+      "passed": 62,
+      "failed": 0
+    },
+    "dsh_actual_loader_and_scheduler_no_http": {
+      "passed": 2,
+      "failed": 0
+    },
+    "existing_gate_regressions": {
+      "passed": 24,
+      "failed": 0
+    },
+    "dsh_skill_install_and_loading": {
+      "passed": 5,
+      "failed": 0
+    },
+    "python_legacy_runner": {
+      "passed": 18,
+      "failed": 0
+    },
+    "python_gate_oracle": {
+      "passed": 4,
+      "failed": 0
+    }
+  },
+  "codex_real_model": {
+    "result": "pass",
+    "model": "gpt-6-astra",
+    "runtime": "codex-cli 0.164.0-alpha.11.1",
+    "entry": "hosts/codex/task-client.mjs CLI with --run",
+    "tool_schemas": 15,
+    "tool_calls": 20,
+    "confirmed_read_ranges": 5,
+    "early_write_denied": true,
+    "host_stages": [
+      "scope",
+      "discovery",
+      "selection",
+      "draft",
+      "feedback",
+      "delivery",
+      "learning"
+    ],
+    "actor_checkpoint_calls": 0,
+    "independent_validation": true,
+    "input_unchanged": true,
+    "temporary_auth_removed": true,
+    "original_auth_unchanged": true,
+    "native_result_delivery": {
+      "exactMatches": 20,
+      "maxBytes": 2318,
+      "noCompaction": true
+    },
+    "run_source_before_equals_after": true,
+    "recorded_source_sha256": {
+      "task-client.mjs": "a7e8b482da060ce30c737ed439da6457c75fdc82c0c444871e5a8bfcd71a5649",
+      "proxy.mjs": "d136b7b2217335a64d21d811f7c74cb27dc45ff3cbc00371217d38ea38bc9872",
+      "rpc-policy.mjs": "3b83d7a7bd0d40c1418f9ba83d2f51b54c2d65bef9826cc7fa6dd2015ebb03ba",
+      "strict-config.mjs": "a40d3bcfa0e6402064324873f228e87abe7daa1a8f995482fbbdda301ff21eef",
+      "../core/workflow-host.mjs": "627cc6f0291a8ca21aad5ecae773d40ad5b897171bccb19d72d250010d960ebf",
+      "../core/tool-schemas.mjs": "5775a69b3339d13c7313129b79466d34e019f8bf5d1f064f0ea93e05e9c9af60",
+      "../../skills/proactive-skill-discovery/scripts/workflow-gate.mjs": "5b941b765cb88020febc74104f5d044b3d7276d3e56573ec607a50348e519f3a"
+    }
+  },
+  "dsh_real_model": {
+    "result": "complete",
+    "provider": "deepseek-official",
+    "model": "deepseek-flash",
+    "model_steps": 20,
+    "tool_calls": 25,
+    "confirmation_calls": 4,
+    "actor_checkpoint_calls": 0,
+    "host_stages": [
+      "scope",
+      "discovery",
+      "selection",
+      "draft",
+      "feedback",
+      "delivery",
+      "learning"
+    ],
+    "independent_validation": true,
+    "input_unchanged": true,
+    "run_source_before_equals_after": true,
+    "recorded_source_sha256": {
+      "hosts/core/workflow-host.mjs": "627cc6f0291a8ca21aad5ecae773d40ad5b897171bccb19d72d250010d960ebf",
+      "hosts/core/tool-schemas.mjs": "5775a69b3339d13c7313129b79466d34e019f8bf5d1f064f0ea93e05e9c9af60",
+      "hosts/dsh/index.mjs": "868a67e60415619c47b99e44f0507258c0d9ef1347350fe88e2cd1eff3a83742",
+      "hosts/dsh/launcher.mjs": "c3befe9ea96b8e020d43c293f7d515da6d99993adccad571888232bf153e6594",
+      "hosts/dsh/cordis.patch.yml": "7b77ec3947f15285523aa33413b84b71ce9cff6893b5d82d9bb0579828f2a53e",
+      "hosts/dsh/fullchain-model.test.mjs": "149b198c8d7e95e4978c7d7f48dfba091ebedf6b335792f7eb40dbc7562e30d3",
+      "hosts/dsh/package.json": "e5333bdb1f4c6ceebb110a8c0a7a2f5cb888ce809fa9cc801fbe647d81899a16",
+      "hosts/dsh/package-lock.json": "0047ae6efbad56d5dbd8da744a2e93f70b406a8062d282a401a2f27add152868"
+    },
+    "runtime_identity": [
+      {
+        "name": "@deepseek-ai/dsh",
+        "version": "0.2.1-rc.2",
+        "sha256": "bea4288aa88eb54efe829686553100a75fdf09d11c5e3bf6b329badb9a0368dd"
+      },
+      {
+        "name": "zod",
+        "version": "4.6.6",
+        "sha256": "cff7e142055a9dd9bc2947a71ca3fb5e3aacdfda966d7728993ff3656245b94a"
+      },
+      {
+        "name": "undici",
+        "version": "8.12.2",
+        "sha256": "16723528eaa06df7f3b29ea52584e9127608fd9e8de066c39339aa806ad9da84"
+      },
+      {
+        "name": "fflate",
+        "version": "0.8.3",
+        "sha256": "5922d8150b307bc0e4e441491c779c45379e9913d348848fca8d5cf02db4d134"
+      },
+      {
+        "name": "@modelcontextprotocol/client",
+        "version": "2.3.0",
+        "sha256": "ca67d8ea48046c8ff2298654222f21e698251717bd6107ec72b72270fd775957"
+      }
+    ]
+  },
+  "dsh_dependency_audit": {
+    "info": 0,
+    "low": 0,
+    "moderate": 0,
+    "high": 0,
+    "critical": 0,
+    "total": 0
+  },
+  "retained_failures": [
+    {
+      "kind": "same-response read/review or read/observe accepted before the model received results",
+      "result": "counterexamples failed on old code; corrected with one-use delivery challenges and native pipeline regression"
+    },
+    {
+      "kind": "DSH wrong reference handle and sum/total confusion",
+      "result": "final attempt before fix exhausted 48 model steps; preserved as failed, not counted as a pass"
+    },
+    {
+      "kind": "Windows bootstrap depended on inherited PowerShell modules",
+      "result": "fresh-directory native test failed, switched to .NET SHA/ZIP and passed"
+    }
+  ],
+  "evidence_policy": "Raw requests, exact bytes, native events, auth-related private state and full failures remain local; this public summary contains no credentials or private conversation bodies. The external 197-file/12-fixture report is not claimed as locally reproduced."
+}

@@ -13,7 +13,10 @@
     "render:example": "node scripts/render-example.mjs",
     "build:dsh": "node scripts/build-dsh-variant.mjs",
     "test:dsh": "node --test scripts/dsh.test.mjs",
-    "test:workflow": "node --test scripts/workflow-gate.test.mjs evals/discovery-gates/dsh-dispatch.test.mjs"
+    "test:workflow": "node --test scripts/workflow-gate.test.mjs evals/discovery-gates/dsh-dispatch.test.mjs",
+    "test:hosts": "node --test hosts/core/*.test.mjs hosts/codex/*.test.mjs hosts/dsh/native.test.mjs hosts/dsh/launcher.test.mjs hosts/dsh/cli.test.mjs",
+    "test:host-native": "node --test hosts/dsh/profile-loader.test.mjs hosts/dsh/source-confirmation.test.mjs",
+    "test:host-preview": "node --test scripts/host-preview.test.mjs"
   },
   "devDependencies": {
     "@deepseek-ai/dsh-skill": "0.2.1-rc.2",

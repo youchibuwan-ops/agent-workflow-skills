@@ -16,6 +16,11 @@ checks now make omissions visible. A host-owned executable gate rejects missing,
 stale or out-of-order evidence. See [actual behavioral tests and enforcement limits](docs/discovery-gates.md);
 installing the Skill alone does not install a tool-call firewall.
 
+A [controlled Codex / DSH host preview](docs/host-preview.md) supplies separate test
+entry points, source-delivery confirmation and automatic host-generated checkpoints.
+It does not switch the daily desktop or cover arbitrary tasks. Its supported scope,
+installation checks and retained real-model failures are stated separately.
+
 **2026-10-25: the SVG Skill has been withdrawn.**
 `crafting-reference-based-svg-assets` is removed from the current installable
 catalog and its standalone release download is withdrawn. It is no longer
@@ -28,8 +33,9 @@ not changed by this repository update.
 For classmates using DeepSeek Harness, follow the [Chinese quick start](docs/dsh.md).
 The separate package is [proactive-skill-discovery-dsh](skills/proactive-skill-discovery-dsh/SKILL.md).
 Install from this downloaded repository with `node scripts/install-dsh.mjs --project <your-project>`.
-No repository development dependencies are required by consumers. Real official-provider
-loading checks are distinct from a DeepSeek model task-quality test, which has not been run.
+No repository development dependencies are required by consumers. Official-provider
+loading checks and the limited real-model controlled-host regression are documented
+separately in the [host preview](docs/host-preview.md); neither establishes general task quality.
 
 ## Install and use in Codex
 

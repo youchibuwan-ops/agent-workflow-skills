@@ -1,0 +1,14 @@
+{
+  "name": "dsh-proactive-workflow",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "index.mjs",
+  "license": "MIT",
+  "files": ["index.mjs", "binding.mjs", "runtime.mjs", "launcher.mjs", "install.mjs", "cordis.patch.yml", "README.md"],
+  "bin": {"workflow-dsh": "launcher.mjs", "workflow-dsh-install": "install.mjs"},
+  "engines": {"node": ">=24.9.0", "dsh": "0.2.1-rc.2"},
+  "dependencies": {"@deepseek-ai/dsh": "0.2.1-rc.2", "pnpm": "11.25.0"},
+  "overrides": {"zod": "4.6.6", "undici": "8.12.2", "fflate": "0.8.3", "@modelcontextprotocol/client": "2.3.0"},
+  "peerDependencies": {"@deepseek-ai/cordis": "~4.0.5", "@deepseek-ai/dsh-tools": "0.2.1-rc.2"},
+  "dsh": {"bundle": {"patch": "./cordis.patch.yml"}}
+}
