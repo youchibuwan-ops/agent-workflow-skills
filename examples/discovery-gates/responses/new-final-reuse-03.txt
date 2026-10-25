@@ -17,7 +17,7 @@
 已有完整、相同版本的项目技能，直接复用，无需重复安装。先前哈希枚举包含目录而报错，已改为只枚举文件并取得全部保护文件哈希。
 
 {"task":"current-export","revision":1,"stage":"discovery","done":["从 catalog 查询并核读全部候选及两份材料","确认已安装 current-export 完整且与 fixture-v2 相同"],"evidence":["三文件 SHA256 比对一致","保护文件哈希工具返回"],"missing":[],"next_action":"按用户已选 JSON 方向执行"}
- 
+
 {"task":"current-export","revision":1,"stage":"selection","done":["引用用户指令：采用 JSON 交付记录，这个方向已经选定；常规技术取舍及验证自主完成"],"evidence":["用户当前指令"],"missing":[],"next_action":"读取原始字节，先内存检查再写 output.json"}
 
 
