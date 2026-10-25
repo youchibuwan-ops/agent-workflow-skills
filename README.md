@@ -2,11 +2,12 @@
 
 [中文说明](README.zh-CN.md) · [Installation](docs/installation.md)
 
-**Find suitable skills, verify actual results, and retain tested lessons.**
+**Research first, let the user choose, deliver, improve from feedback, and retain tested lessons.**
 
 This repository maintains **proactive-skill-discovery**, an MIT-licensed workflow
-for matching capability gaps to inspected methods, using them on the actual task,
-checking outputs and maintaining reusable lessons. It grants no permission to
+that starts from unproven capability, actively researches professional skills and
+multiple relevant examples, presents supported options for user selection, then
+builds a draft, improves it from feedback and maintains reusable lessons. It grants no permission to
 publish, spend money or resume paused work.
 
 **2026-10-25: the SVG Skill has been withdrawn.**
@@ -41,9 +42,13 @@ do not establish task quality or general model performance.
 
 The [Skill](skills/proactive-skill-discovery/SKILL.md) and
 [discovery workflow](docs/discovery-workflow.md) cover installed capability matching,
-conditional external research, source/license inspection, scoped reuse, real output
-verification and experience maintenance.
+proactive external research, source/license inspection, supported option selection,
+actual output verification, feedback-driven refinement and visible skill maintenance.
 
+- [Complete workflow example](examples/discovery-complete-loop/README.md): the
+  reference/selection/draft/feedback/maintenance sequence, with its evidence limits.
+- [Executable maintenance example](examples/discovery-maintenance-loop/README.md):
+  a controlled stale-export failure, repaired review Skill and rerunnable checks.
 - [Release audit example](examples/discovery-release-audit/README.md): source
   inspection, tool reuse, license packaging findings and installation checks.
 - [Historical Codex acceptance](docs/codex-acceptance.md): known-task author

@@ -18,7 +18,7 @@ npm run assemble:example
 npm run render:example
 ```
 
-Validate both skills with upstream `skills-ref`; check links with lychee 0.24.2.
+Validate the installable skills with upstream `skills-ref`; check links with lychee 0.24.2.
 Commands and scope are in [validation](docs/validation.md). Development dependencies
 are locked; consumers install skill folders without this repository's toolchain.
 

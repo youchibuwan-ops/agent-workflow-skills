@@ -1,0 +1,54 @@
+{
+  "kind": "controlled synthetic execution",
+  "checks": [
+    {
+      "file": "exports/a_ready.json",
+      "exit_code": 0,
+      "result": {
+        "source": {
+          "generation": "run-B",
+          "amount": 17
+        },
+        "output": {
+          "generation": "run-B",
+          "amount": 17
+        },
+        "mismatches": []
+      }
+    },
+    {
+      "file": "exports/z_latest.json",
+      "exit_code": 1,
+      "result": {
+        "source": {
+          "generation": "run-B",
+          "amount": 17
+        },
+        "output": {
+          "generation": "run-A",
+          "amount": 17
+        },
+        "mismatches": [
+          "generation"
+        ]
+      }
+    },
+    {
+      "file": "exports/same_generation_bad_data.json",
+      "exit_code": 1,
+      "result": {
+        "source": {
+          "generation": "run-B",
+          "amount": 17
+        },
+        "output": {
+          "generation": "run-B",
+          "amount": 99
+        },
+        "mismatches": [
+          "amount"
+        ]
+      }
+    }
+  ]
+}

@@ -2,8 +2,9 @@
 
 [English](README.md)
 
-本仓库目前只维护 **proactive-skill-discovery**：先匹配已有能力，有缺口才搜索外部
-方案，实际阅读方法、资源与许可证，复用后核验真实产物，再沉淀已验证的经验。
+本仓库维护 **proactive-skill-discovery**。默认当前能力尚不能满足任务目标，从任务开始
+主动寻找专业 Skill、多份相关资料和成熟实例，整理方案让用户先选，再制作初稿、根据
+反馈调整、完整交付，最后总结并实际维护或制作可复用 Skill。
 安装成功不等于任务成功；它不扩大任务授权，也不自动恢复暂停工作。
 
 **2026-10-25：SVG Skill 已撤下。**
@@ -33,7 +34,10 @@ PowerShell 若限制脚本执行，可使用 `npx.cmd`。保留完整目录和�
 自动匹配依赖宿主，明确调用便于复现。当前流程和资源见
 [Skill 正文](skills/proactive-skill-discovery/SKILL.md)与[流程说明](docs/discovery-workflow.md)。
 
-## 保留的证据
+## 使用示例与保留证据
+
+- [完整流程示例](examples/discovery-complete-loop/README.md)：先研究、先选方案，再初稿与反馈。
+- [可运行的经验维护示例](examples/discovery-maintenance-loop/README.md)：实际识别旧导出、修订审核 Skill 并复验。
 
 - [发现与发布检查案例](examples/discovery-release-audit/README.md)。
 - [历史 Codex 验收及边界](docs/codex-acceptance.md)：已知任务的作者回归，不能推广成普遍效果。

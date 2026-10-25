@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+### Discovery, selection and visible learning — 2026-10-25
+
+- Default to unproven capability and research professional Skills and multiple relevant materials at task start.
+- Restore user option selection before drafts, then feedback refinement, complete delivery and actual lesson maintenance.
+- Add requirement-to-evidence records and reference-selection guidance; preserve authorization and earlier requirements.
+- Add a labeled workflow walkthrough and a rerunnable controlled Skill-maintenance example.
+- Keep historical acceptance evidence dated; it does not validate the revised workflow generally.
+
 ### SVG Skill withdrawal — 2026-10-25
 
 - Remove the SVG Skill from the current installable catalog and withdraw its standalone release ZIP.

@@ -24,6 +24,8 @@ policy. `--copy` avoids symlink permissions. Keep this complete directory:
   agents/openai.yaml
   references/adapting-upstream-skills.md
   references/learning-from-work.md
+  references/execution-record.md
+  references/reference-selection.md
 ```
 
 ## Confirm installation
@@ -77,7 +79,7 @@ silently substitute a different revision or change global Git configuration.
 
 The Skill contains instructions and references, with no bundled executable, paid
 API, renderer or required external review model. External discovery requires host
-search/tool access when a capability gap warrants it.
+search/tool access for the active discovery workflow. Explicit user network restrictions take precedence.
 
 The third-party installer sends telemetry by default. Its opt-outs are
 `DISABLE_TELEMETRY=1` and `DO_NOT_TRACK=1`; verification uses both. Checks do not

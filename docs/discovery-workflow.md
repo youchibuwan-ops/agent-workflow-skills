@@ -1,79 +1,40 @@
 # Discovery and learning / 主动发现与学习流程
 
 Use [proactive-skill-discovery](../skills/proactive-skill-discovery/SKILL.md).
-The purpose is a correct task result and useful maintained guidance, not more
-searches, installations, logs or rules.
+Default capability is unproven for every new authorized execution task. Research
+professional Skills and multiple relevant sources before production; familiarity,
+old scripts and reviewer agreement do not establish fitness for this task.
 
-```mermaid
-flowchart TD
-    S["当前要求 → 可观察交付条件 / Observable task contract"] --> I["匹配已安装能力 / Match installed workflows"]
-    I --> H{"已有足够且已核的流程？ / Established suitable workflow?"}
-    H -- "是 / Yes" --> E["执行当前步骤或首个样例 / Execute a real sample"]
-    H -- "否；曾失败或准备复杂格式实现 / Gap or prior failure" --> Q
-    E --> VC["按故障覆盖核内容、结构/版面与实图 / Validate actual coverage"]
-    VC --> C{"当前结果与执行证据符合要求？ / Result and process fit?"}
-    C -- "否 / No" --> D["定位偏差与最早失效步骤 / Locate cause"]
-    D --> G{"缺的是方法能力？ / Missing method?"}
-    G -- "是 / Yes" --> Q["按输入、机制、输出和验证搜索 / Search by capability contract"]
-    Q --> R["按生成、验证、预览逐项读取实际方法与许可 / Read actual adopted items"]
-    R --> RG{"S/L：实际返回支持行为及许可范围？ / Returned evidence supports use?"}
-    RG -- "否：补读或换已审方法 / Resolve missing evidence" --> R
-    RG -- "是 / Yes" --> RD["R：执行前写采用判断 / Record pre-use decision"]
-    RD --> A["选择最小适配并实际使用 / Apply the smallest suitable method"]
-    A -. "换方案或新增实质依赖 / Reopen changed item" .-> R
-    A --> E
-    G -- "资料、环境或漏执行 / Evidence, environment or omission" --> F["补证据、修调用或补执行 / Resolve that cause"]
-    F --> E
-    C -- "是 / Yes" --> N{"原任务还有步骤？ / More task work?"}
-    N -- "有 / Yes" --> E
-    N -- "无 / No" --> L{"有已验证的可复用经验？ / Verified reusable lesson?"}
-    L -- "有 / Yes" --> T["保留旧版；新任务与相邻反例实测 / New-task and near-miss tests"]
-    T --> V{"范围内有效且未引入退化？ / Supported within scope?"}
-    V -- "是 / Yes" --> M["维护合适的已有 Skill / Maintain the right existing Skill"]
-    V -- "否 / No" --> B["收窄或撤回候选规则，保留反例 / Narrow or withdraw"]
-    B --> L
-    L -- "无 / No" --> O["交付原任务及实际验证边界 / Deliver bounded evidence"]
-    M --> O
-```
+## Current workflow — 2026-10-25
 
-At entry, first sample, stage handoff and completion, compare actual artifacts with
-the contract and affected retained work. Diagnose a first unexplained mismatch;
-do not wait for the user or mistake an omitted step for a missing Skill.
-Critical unresolved gaps remain unresolved. Seek the minimum missing evidence or
-input and continue independent work; neither endless searching nor an invented
-pass closes the gap. User stopping points remain authoritative.
+1. Understand the task, retained requirements, boundaries and stopping point.
+2. Actively inspect professional Skills, licenses, methods and multiple relevant
+   materials or mature examples. Install and use suitable missing capabilities.
+3. Present normally 3–5 supported, comparable options with real materials,
+   differences, limitations and a recommendation. Let the user choose the main
+   direction before building it. Respect an already chosen or explicitly delegated decision.
+4. Build an actual reviewable draft using the chosen direction and verify it.
+5. Translate feedback into concrete differences, research any missing mechanism,
+   revise and recheck the affected whole.
+6. Finish the complete contract and confirmed feedback; distinguish draft,
+   technical verification and user acceptance.
+7. Extract supported lessons, update the appropriate existing Skill or create and
+   verify a new reusable capability, and show the changed location and evidence.
 
-开始、首个样例、阶段交接和完成前主动对照产物。先诊断，再决定是否需要搜索；
-已经有检查步骤却没有执行，就补执行、修正并重验。资料/环境/方法缺口分别处理，
-查到或装上不等于用上，用上也不等于原任务完成。经验记录区分事实、解释和规则；
-同一测试两版都通过就记平局，不把换一种写法说成提升。
+**需求 → 主动找 Skill 与多份资料/实例 → 先选方案 → 初稿 → 反馈调整 → 完整交付 → 总结并维护或制作 Skill。**
 
-Source review covers the method content actually returned, not a nominal URL/title.
-License downloads, identifiers and complete internal stdout cannot establish that
-the actor read the required body. Recover truncated ranges; record the relevant
-source, license/use scope and adoption decision before production, validation or
-preview use. A fallback or newly added substantive dependency reopens its gate.
-Same-version/same-use reviews may be reused; routine work does not need another search.
-Update each actual item to unreviewed, needs evidence or usable after reading its
-returned content. A navigation page, empty method lookup or truncated license
-remains unresolved. Reuse the existing task record; no parallel logging system is needed.
+The [execution record](../skills/proactive-skill-discovery/references/execution-record.md)
+connects each requirement to a method, installation/reuse decision, actual artifact,
+verification and unresolved scope. The final handoff includes capability changes,
+result checks and concrete lesson-maintenance results. A log alone is not maintenance.
 
-Before hand implementation of nontrivial standard-format work, match mature methods
-even when the language is familiar. For delivery gaps, inspect a production/check
-Skill or maintainer workflow, then map required checks to evidence. An alternative
-library alone does not prove independent coverage: text extraction, structural/layout
-diagnostics and current-page visual review answer different questions. Keep warnings,
-fix their cause or the output, then repeat the affected checks. Do not suppress a
-warning to turn an unmet acceptance condition into a pass.
+Discussion and criticism do not authorize a new task. Paused work stays paused.
+Later summaries do not cancel earlier explicit requirements. New examples are a
+[workflow walkthrough](../examples/discovery-complete-loop/README.md) and an
+[actual controlled maintenance fixture](../examples/discovery-maintenance-loop/README.md).
+These do not establish universal reliability or completed game-art quality.
 
-读到正文后逐项判断“未核／待补／可用”，不能把网址正确、命令成功或保存文件当作已审。
-非平凡格式实现先查成熟流程；交付验收按故障选检查，分别落实到内容、结构/版面和当前
-实图。纯指令不能硬拦住宿主的任意调用；是否执行须用真实轨迹和产物核对。
-The [versioned regressions](../examples/codex-acceptance/execution-reliability/README.md)
-retain missed loads, search omissions, wrong visual counts and compatibility warnings;
-instruction wording is not proof.
-
-## Research and reuse decisions — 2026-10-23
+## Historical research and reuse decisions — 2026-10-23
 
 These sources informed our adaptation. Their results do not establish this
 repository's efficacy, and the papers' benchmarks were not rerun here.
