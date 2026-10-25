@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+### Observable checkpoints and executable stage gates — 2026-10-25
+
+- Require task cards, capability inspection tables, ordered checkpoint outputs and a terminal learning checkpoint.
+- Add a host-owned, signed-evidence gate with current-file/manifest checks, stage order, exact scoped requirement coverage and real user choice/stop boundaries.
+- Add a DSH native guard adapter and actual ToolRuntime dispatch regression, plus isolated native Codex model-task tests.
+- Retain baseline failures, the missing-learning checkpoint repair and Codex hook fail-open counterexamples; distinguish instructions, native dispatch and real-model evidence.
+- Regenerate the DSH bundle from the same canonical instructions and executable resources. No global host configuration or automatic firewall is installed by the Skill.
+
 ### DeepSeek Harness variant — 2026-10-25
 
 - Add a separately named DSH Skill, Chinese classmate quick start and non-overwriting project/user installer.

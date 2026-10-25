@@ -30,7 +30,9 @@ jobs:
       - run: npm audit --audit-level=low
       - run: npm run lint
       - run: npm run test:dsh
+      - run: npm run test:workflow
       - run: python -m unittest discover -s evals/codex -p test_run.py
+      - run: python -m unittest discover -s evals/discovery-gates -p test_run.py
       - run: python -m pip install "skills-ref @ git+https://github.com/agentskills/agentskills.git@69ef37e9424c0a7ea9dd2293b559e43ec8176379#subdirectory=skills-ref"
       - run: skills-ref validate skills/proactive-skill-discovery
       - run: skills-ref validate skills/proactive-skill-discovery-dsh

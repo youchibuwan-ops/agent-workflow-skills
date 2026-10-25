@@ -1,0 +1,65 @@
+{
+  "task": "json-export",
+  "revision": 1,
+  "enforcement": "instruction_only",
+  "authorization": "User selected JSON and delegated routine technical decisions and validation; no feedback wait required.",
+  "constraints": "No network; project writes only; input, mirrors and materials unchanged. HANDOFF.md is not authority.",
+  "discovery": {
+    "query": "catalog.json candidates and references; generation|total|SHA|JSON searches in mirror and materials",
+    "network_search": "Not performed: prohibited by user; supplied mirrors used",
+    "adopted": {
+      "name": "current-export",
+      "version": "fixture-v2",
+      "source": "mirror/current-export",
+      "reuse": ".agents/skills/current-export",
+      "read": [
+        "SKILL.md",
+        "references/method.md",
+        "LICENSE"
+      ],
+      "verification": "All three installed file SHA256 hashes match mirror; complete installed files read back"
+    },
+    "rejected": {
+      "name": "legacy-color",
+      "version": "fixture-v1",
+      "read": [
+        "SKILL.md",
+        "LICENSE"
+      ],
+      "reason": "SVG recoloring does not support identity, hashing or numerical exports"
+    },
+    "references": [
+      "materials/current-identity.md",
+      "materials/independent-validation.md"
+    ]
+  },
+  "requirements": [
+    {
+      "field": "generation",
+      "method": "Read current input bytes and preserve parsed generation",
+      "result": "run-current",
+      "validation": "Independent Python reparse and equality assertion passed"
+    },
+    {
+      "field": "total",
+      "method": "PowerShell loop sums every values entry",
+      "result": 40,
+      "validation": "Independent Python sum comparison passed"
+    },
+    {
+      "field": "input_sha256",
+      "method": "SHA256 of exact raw input bytes, not reserialized JSON",
+      "result": "4eef722238bd4138197c24bdc307a1af4ba4f67dca82b18d984f5915d942717a",
+      "validation": "Independent Python hashlib comparison passed"
+    }
+  ],
+  "artifact": "output.json",
+  "validation": "PowerShell generated output after current-input method check; Python separately read both files and asserted exact output object equality against recomputed fields.",
+  "learning": {
+    "reference": ".agents/skills/proactive-skill-discovery/references/learning-from-work.md",
+    "result": "No skill changes needed",
+    "reason": "Current-export already explicitly covers raw-byte hashing, current generation and independent post-export recomputation. Current application passed; no new reusable increment or demonstrated gap."
+  },
+  "uncovered_requirements": [],
+  "status": "complete"
+}

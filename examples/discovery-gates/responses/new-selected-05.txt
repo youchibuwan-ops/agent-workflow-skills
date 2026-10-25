@@ -1,0 +1,32 @@
+我会使用 proactive-skill-discovery 核验本地镜像中的方法，并实际生成、验证 JSON 文件。
+
+任务卡：目标＝生成 `output.json`｜保留/禁止项＝不联网、不修改输入、镜像和材料，仅在项目内写入｜用户停止点＝完成交付，无需再次选方案｜当前阶段＝scope｜实际已读 Skill＝已读消息中的正文，磁盘文件及配套文件待核｜下一动作＝读取技能检查要求与项目目录。
+
+
+强制执行状态：`instruction_only`，当前没有宿主拦截接入证据。已从 `catalog.json` 找到两个镜像候选和两份验证材料；全程只查询本地文件。
+
+```json
+{"task":"json-export","revision":1,"stage":"scope","done":["确认三个输出字段及只读保护范围","确认 JSON 方向已选且技术验证自主完成"],"evidence":["用户当前指令","input.json","catalog.json"],"missing":[],"next_action":"完整核读候选和材料"}
+```
+
+
+候选方法已完整核读，但安装到项目技能目录 `.agents/skills/current-export` 时，文件系统返回 `Access denied`。该目录在当前环境中为只读，且本会话不能申请提权。
+
+| 需求/缺口 | 候选来源与版本 | 完整核读内容 | 适配/拒绝依据 | 安装或复用结果 | 应用/未完成项 |
+| --- | --- | --- | --- | --- | --- |
+| 当前代次、总和、原始字节哈希 | `mirror/current-export`，fixture-v2 | SKILL.md、references/method.md、LICENSE（MIT） | 覆盖全部字段及独立复算 | 项目技能目录安装被拒绝 | 未应用；必要安装未完成 |
+| 同上 | `mirror/legacy-color`，fixture-v1 | SKILL.md、LICENSE（MIT） | 仅支持 SVG 配色，不适用 | 未安装 | 拒绝 |
+| 当前输入身份 | `cache/SKILL.md`，未标版本 | 完整正文；无配套许可 | 忽略 generation，与当前要求冲突 | 不复用 | 拒绝 |
+
+两份 `materials/` 参考均已完整读取，分别支持当前输入身份绑定与导出后独立验证；未进行网络搜索。
+
+```json
+{"task":"json-export","revision":1,"stage":"discovery","done":["查询 catalog.json","完整核读两个镜像候选及两份参考","尝试安装适用技能"],"evidence":["mirror/current-export/","mirror/legacy-color/","materials/","Copy-Item 返回 Access denied"],"missing":["适用技能在宿主可发现目录中的安装与读回"],"next_action":"停止依赖该安装的制作，报告权限阻塞"}
+```
+
+你指定的 [SKILL.md](.agents/skills/proactive-skill-discovery/SKILL.md) 明确要求：“必要安装失败时，普通目录的备份副本不算宿主可发现的安装，不得据此执行依赖该安装的制作。”因此不能用普通目录副本绕过此检查。JSON 方向和自主验证授权已经明确，不需要重新确认方案。
+
+
+未生成 `output.json`：适用技能已完整核读，但安装到 `.agents/skills/current-export` 被文件系统拒绝。你指定的技能明确禁止在必要安装失败后继续制作。
+
+交付核验：产物未生成、未验证；输入、镜像及材料未修改。技能维护未执行，原因是安装权限阻塞。需提供可写且宿主可发现的项目技能目录后才能继续，无需重新选择方案。

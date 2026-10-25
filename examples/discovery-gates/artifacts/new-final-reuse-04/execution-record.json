@@ -1,0 +1,53 @@
+{
+  "task": "current-export",
+  "revision": 1,
+  "enforcement": "instruction_only",
+  "discovery": {
+    "catalog": "catalog.json",
+    "network_used": false,
+    "adopted": "current-export fixture-v2",
+    "reused_location": ".agents/skills/current-export",
+    "verified_files": [
+      "SKILL.md",
+      "references/method.md",
+      "LICENSE"
+    ],
+    "bundle_matches_mirror": true,
+    "rejected": {
+      "legacy-color fixture-v1": "SVG palette only; no numeric export or identity hashing"
+    },
+    "references": [
+      "materials/current-identity.md",
+      "materials/independent-validation.md"
+    ]
+  },
+  "requirements": [
+    {
+      "field": "generation",
+      "method": "Preserve parsed input generation exactly",
+      "verification": "Independent PowerShell parse and case-sensitive comparison passed"
+    },
+    {
+      "field": "total",
+      "method": "Python sum of all input values",
+      "verification": "PowerShell Measure-Object -Sum independently confirmed 40"
+    },
+    {
+      "field": "input_sha256",
+      "method": "Python hashlib.sha256 of original input bytes",
+      "verification": "PowerShell Get-FileHash SHA256 comparison passed"
+    }
+  ],
+  "delivery": {
+    "path": "output.json",
+    "field_count": 3,
+    "protected_files_unchanged": true,
+    "evidence": "preservation-check.json",
+    "uncovered_output_requirements": []
+  },
+  "learning": {
+    "reviewed": "proactive-skill-discovery/references/learning-from-work.md",
+    "skill_changes": [],
+    "reason": "No reusable increment: current-export already explicitly covers current input identity, every value, exact-byte hash and independent post-write verification. All were applied successfully; no method failure or missing rule was observed. Reused bundle matched mirror in all three files. Legacy palette rejection follows existing capability matching rules."
+  }
+}

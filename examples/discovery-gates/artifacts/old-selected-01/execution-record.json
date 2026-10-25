@@ -1,0 +1,55 @@
+{
+  "status": "completed",
+  "authorization": "用户已选 JSON，授权自主技术取舍与验证；不需方案或审美确认。仅修改项目，禁止联网及修改输入、镜像和材料。HANDOFF.md 仅作旧记录。",
+  "discovery": {
+    "initial_capabilities": "generation 保留、全项求和、原字节摘要和独立复核在启动时均未证实。",
+    "queries": [
+      "读取 catalog.json 的 candidates 和 references",
+      "rg generation|sha256|total|validation catalog.json mirror materials cache",
+      "检查本地 .agents/skills 和 cache/SKILL.md"
+    ],
+    "network": "未联网；仅查询用户提供的完整镜像，未声称完成在线外搜。",
+    "selected": "current-export fixture-v2，完整读取 SKILL.md、references/method.md、MIT LICENSE；无外部依赖，应用 Python 标准库生成和 PowerShell 独立验证，仅写项目产物。",
+    "rejected": {
+      "legacy-color fixture-v1": "已读全文与 MIT 许可，仅支持 SVG 配色，不覆盖导出要求。",
+      "cache/SKILL.md": "忽略 generation，与本次要求及 current-identity 材料冲突。"
+    },
+    "references_read": [
+      "materials/current-identity.md",
+      "materials/independent-validation.md"
+    ],
+    "installation": "标准项目 .agents/skills 写入被权限拒绝，未成功；完整包改为保存 skills/current-export，显式读取正文、方法与许可证，并逐文件字节比较镜像一致。不宣称宿主自动发现或个人目录安装。"
+  },
+  "requirements": [
+    {
+      "requirement": "保留 generation",
+      "method": "current-export + current-identity：从当前输入解析",
+      "evidence": "output.json generation=run-current；PowerShell 独立解析输入与产物，区分大小写比较通过"
+    },
+    {
+      "requirement": "values 全项求和为 total",
+      "method": "current-export：Python sum(values)",
+      "evidence": "17+23=40；PowerShell Measure-Object -Sum 独立重算通过"
+    },
+    {
+      "requirement": "input_sha256",
+      "method": "current-export：hashlib.sha256(input.json 原始字节)",
+      "evidence": "PowerShell Get-FileHash SHA256 独立比较通过"
+    },
+    {
+      "requirement": "JSON 交付和保护输入材料",
+      "method": "内存小样 JSON 往返验证后写 output.json；仅读输入、镜像、材料",
+      "evidence": "输出写后独立解析及精确字段集合检查通过；写入仅涉及项目 skills/current-export、output.json、execution-record.json"
+    }
+  ],
+  "validation": {
+    "sample": "当前输入内存小样 generation、total 断言和 JSON 往返通过，随后写文件",
+    "final": "独立 PowerShell 对全部三个字段和精确字段集合检查通过",
+    "uncovered_output_requirements": []
+  },
+  "learning": {
+    "result": "无需修改已有技能规则",
+    "basis": "本次核验了完整包一致性、当前代际、完整求和及原字节 SHA256；均由 current-export 已有规则和两份材料直接覆盖，无新增可复用方法或已证实的规则缺漏。旧缓存缺陷已有 current-export 明确处理。目录写权限限制记录为本项目约束，不晋升为通用规则。",
+    "skill_changes": "新增完整 current-export fixture-v2 项目副本；保留上游正文与许可证，未改输入技能或镜像。"
+  }
+}

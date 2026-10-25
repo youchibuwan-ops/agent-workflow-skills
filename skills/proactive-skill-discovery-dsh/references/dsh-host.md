@@ -8,7 +8,7 @@
 
 - 项目安装：`<project>/.dsh/skills/proactive-skill-discovery-dsh/SKILL.md`。
 - 个人安装：`<DSH_HOME>/skills/proactive-skill-discovery-dsh/SKILL.md`，默认对应用户的 `.dsh`。
-- 保留完整目录、`LICENSE` 和所有 `references/`，不能只复制正文。
+- 保留完整目录、`LICENSE`、所有 `references/` 和 `scripts/`，不能只复制正文。
 - 用 DSH 的 `skill` 工具按名字加载 `proactive-skill-discovery-dsh`。名字出现在目录中，
   不等于模型已读完整正文及引用。按本次任务继续读取所需资源。
 - DSH 按项目根发现项目技能；项目根通常是最近的 `.git` 祖先，没有时是当前工作目录。
@@ -37,6 +37,16 @@
 独立新能力无合适归属时再制作新 Skill，验证后保留完整包。
 
 ## 核对依据与验证范围
+
+阶段检查和门禁代码与通用版同步。仅加载 Skill 时须报告 `instruction_only`；它不会自动
+注册原生工具 guard。宿主可导入 `scripts/dsh-guard.mjs` 的 `attachDshGate(ctx, gate,
+trustedToolMap)`，将真实 `WorkflowGate` 接到 `ctx.tools.guard`。工具映射、签发证据的
+collector、状态和密钥必须由宿主管理，不能暴露为模型可编辑的“通过”文件。
+
+宿主应在启动时实际验证缺前置写入被拒绝、未知工具被拒绝、正确前置后正常执行和暂停
+后不能继续。仓库的 `evals/discovery-gates/dsh-dispatch.test.mjs` 使用官方 rc.2 原生管线
+实际执行这些检查；它证明本包模块接入该管线的拒绝行为，不能替代 DeepSeek 模型任务。
+详读通用[阶段检查与宿主阻断](stage-checks.md)，不把通用 shell 或任意转发工具标为只读研究。
 
 适配依据为官方[Skill 子系统文档](https://github.com/deepseek-ai/deepseek-harness/blob/22ddee3792402c3e70ec5f86a63c3e3e895a2f60/docs/subsystems/skills.md)
 及实际检查的 `@deepseek-ai/dsh-skill-filesystem`、`@deepseek-ai/dsh-skill` **0.2.1-rc.2**。

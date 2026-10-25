@@ -7,6 +7,12 @@ old scripts and reviewer agreement do not establish fitness for this task.
 
 ## Current workflow — 2026-10-25
 
+Each transition now requires a visible checkpoint before the dependent action,
+with task/revision, completed actions, actual evidence, missing items and next action.
+The last checkpoint of a complete task is `learning`, including a concrete justified
+no-increment decision when no Skill change is warranted. See the
+[executable gates and real-model regressions](discovery-gates.md).
+
 1. Understand the task, retained requirements, boundaries and stopping point.
 2. Actively inspect professional Skills, licenses, methods and multiple relevant
    materials or mature examples. Install and use suitable missing capabilities.

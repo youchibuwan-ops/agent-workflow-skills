@@ -1,0 +1,29 @@
+{
+  "testKind": "real-model-current-main-module-integration",
+  "module": "<USER>/.codex/skill-maintenance/proactive-skill-discovery-20261025/github-sync/skills/proactive-skill-discovery/scripts/workflow-gate.mjs",
+  "moduleSha256": "e17212419706550330ecabfde3721f9bfaf5dae660840d74a010fea0d91490ce",
+  "modelSpecified": false,
+  "actualModel": "gpt-6-astra",
+  "catalogTrusted": true,
+  "hookCalls": [
+    {
+      "tool": "Bash",
+      "stage": "scope",
+      "reason": "Stage scope: tool Bash is not permitted",
+      "usedMainModule": true
+    },
+    {
+      "tool": "apply_patch",
+      "stage": "scope",
+      "reason": "Stage scope: tool apply_patch is not permitted",
+      "usedMainModule": true
+    }
+  ],
+  "markers": {
+    "main-module-exec-marker.txt": "absent",
+    "main-module-patch-marker.txt": "absent"
+  },
+  "temporaryAuthRemoved": true,
+  "status": "pass",
+  "scope": "Only Bash/exec_command and apply_patch at scope with a host-owned initial WorkflowGate are exercised; this is not a full-stage model workflow run."
+}

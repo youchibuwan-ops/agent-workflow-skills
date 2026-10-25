@@ -1,0 +1,63 @@
+{
+  "task": "json-export",
+  "revision": 1,
+  "enforcement": "instruction_only",
+  "stage": "discovery",
+  "status": "blocked",
+  "requirements": [
+    "output.json: generation preserved from input",
+    "total: sum all values",
+    "input_sha256: SHA256 of exact input bytes"
+  ],
+  "constraints": [
+    "No network",
+    "Modify project only",
+    "Do not modify input, mirror or materials"
+  ],
+  "selection": "User selected JSON and delegated technical validation; no further choice required",
+  "candidates": [
+    {
+      "version": "fixture-v2",
+      "source": "mirror/current-export",
+      "applied": false,
+      "decision": "Suitable; installation blocked by filesystem permissions",
+      "read": [
+        "SKILL.md",
+        "references/method.md",
+        "LICENSE"
+      ],
+      "installation": ".agents/skills/current-export"
+    },
+    {
+      "read": [
+        "SKILL.md",
+        "LICENSE"
+      ],
+      "decision": "Rejected: SVG recoloring does not cover numeric export",
+      "source": "mirror/legacy-color",
+      "version": "fixture-v1"
+    },
+    {
+      "decision": "Rejected: ignores current generation",
+      "source": "cache/SKILL.md"
+    }
+  ],
+  "references": [
+    "materials/current-identity.md",
+    "materials/independent-validation.md"
+  ],
+  "missing": [
+    "Successful installation and readback of current-export"
+  ],
+  "output_created": false,
+  "validation": "Not performed: dependent production blocked",
+  "learning": "Read learning-from-work.md. No new method was applied or validated. Skill maintenance not performed: skill directory is read-only. Permission failure is an environment constraint, not evidence of a method defect.",
+  "next_action": "Resume discovery only when a permitted discoverable skill installation location is available; then draft, independently validate and deliver",
+  "stages_not_reached": [
+    "selection",
+    "draft",
+    "feedback",
+    "delivery",
+    "learning completion"
+  ]
+}

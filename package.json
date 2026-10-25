@@ -12,11 +12,14 @@
     "assemble:example": "node scripts/assemble-binder.mjs",
     "render:example": "node scripts/render-example.mjs",
     "build:dsh": "node scripts/build-dsh-variant.mjs",
-    "test:dsh": "node --test scripts/dsh.test.mjs"
+    "test:dsh": "node --test scripts/dsh.test.mjs",
+    "test:workflow": "node --test scripts/workflow-gate.test.mjs evals/discovery-gates/dsh-dispatch.test.mjs"
   },
   "devDependencies": {
     "@deepseek-ai/dsh-skill": "0.2.1-rc.2",
     "@deepseek-ai/dsh-skill-filesystem": "0.2.1-rc.2",
+    "@deepseek-ai/dsh-system-prompt": "0.2.1-rc.2",
+    "@deepseek-ai/dsh-tools": "0.2.1-rc.2",
     "@resvg/resvg-js": "2.6.2",
     "markdownlint": "0.42.0",
     "sharp": "0.35.5"

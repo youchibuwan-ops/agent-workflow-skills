@@ -1,0 +1,34 @@
+[
+  {
+    "moduleSha256": "5b941b765cb88020febc74104f5d044b3d7276d3e56573ec607a50348e519f3a",
+    "gateStage": "scope",
+    "mappedStage": "research",
+    "toolStages": {
+      "Bash": "research",
+      "exec_command": "research",
+      "apply_patch": "draft"
+    },
+    "reason": "Stage scope: tool Bash is not permitted",
+    "usedMainModule": true,
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "Set-Content -LiteralPath 'main-module-exec-marker.txt' -Value 'EXEC_BODY_RAN'"
+    }
+  },
+  {
+    "moduleSha256": "5b941b765cb88020febc74104f5d044b3d7276d3e56573ec607a50348e519f3a",
+    "gateStage": "scope",
+    "mappedStage": "draft",
+    "toolStages": {
+      "Bash": "research",
+      "exec_command": "research",
+      "apply_patch": "draft"
+    },
+    "reason": "Stage scope: tool apply_patch is not permitted",
+    "usedMainModule": true,
+    "tool_name": "apply_patch",
+    "tool_input": {
+      "command": "*** Begin Patch\n*** Add File: main-module-patch-marker.txt\n+PATCH_BODY_RAN\n*** End Patch"
+    }
+  }
+]

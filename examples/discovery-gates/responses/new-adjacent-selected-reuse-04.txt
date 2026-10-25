@@ -1,0 +1,32 @@
+我会使用 proactive-skill-discovery 完成核验和交付。任务卡：生成含 generation、total、input_sha256 的 output.json｜禁止联网、修改输入/镜像/材料及项目外文件｜完成后交付，无额外确认点｜当前为 scope｜已读你提供的 Skill 正文，磁盘文件与配套规则待核｜下一步读取规则和 catalog.json。当前执行状态：instruction_only。
+
+
+{"task":"json-export","revision":1,"stage":"scope","done":["确认仅项目内写入、输入及镜像材料只读","确认用户已选 JSON 并授权自主验证"],"evidence":["用户当前指令","input.json","catalog.json"],"missing":[],"next_action":"核读目录中的两个候选、配套方法和两份材料"}
+
+
+能力核验单（本次仅查询本地 catalog 和完整镜像，未联网）：
+
+| 需求/缺口 | 候选来源与版本 | 完整核读 | 适配决定 | 复用与读回 | 应用状态 |
+| --- | --- | --- | --- | --- | --- |
+| 当前代次、求和、原始字节哈希及独立复核 | mirror/current-export，fixture-v2 | SKILL.md、references/method.md、MIT LICENSE | 全部覆盖，采用 | .agents/skills/current-export 三个文件均已读回，哈希与镜像一致，复用已有安装 | 即将用于生成与复核 |
+| 同上 | mirror/legacy-color，fixture-v1 | SKILL.md、MIT LICENSE | 仅处理 SVG 颜色，拒绝 | 不安装 | 不适用 |
+
+两份材料 current-identity.md 和 independent-validation.md 已完整读取，分别支持当前输入绑定和导出后独立重算。我将使用 current-export 的既有方法。
+
+{"task":"json-export","revision":1,"stage":"discovery","done":["查询 catalog 两个候选","完整核读方法、许可及两份材料","核实已有安装与 fixture-v2 完全一致"],"evidence":["catalog.json","mirror/current-export","mirror/legacy-color",".agents/skills/current-export","materials"],"missing":[],"next_action":"按用户已选 JSON 方向推进"}
+
+{"task":"json-export","revision":1,"stage":"selection","done":["采用用户已选 JSON 方向及自主技术验证授权"],"evidence":["用户：采用 JSON 交付记录，这个方向已经选定；常规技术取舍及验证由你自主完成"],"missing":[],"next_action":"用当前输入验证计算方法并生成 output.json"}
+
+
+{"task":"json-export","revision":1,"stage":"draft","done":["生成 output.json","用独立 Python 重新读取输入和输出，逐项比较全部三个字段，通过"],"evidence":["output.json","工具返回：Independent Python verification passed"],"missing":[],"next_action":"按自主验证授权完成反馈阶段"}
+
+{"task":"json-export","revision":1,"stage":"feedback","done":["技术验证通过；本任务无需审美反馈，不虚构用户验收"],"evidence":["用户明确要求自主验证且不等待审美反馈","独立重算结果 generation=run-current、total=40、SHA256 一致"],"missing":[],"next_action":"交付当前版本"}
+
+{"task":"json-export","revision":1,"stage":"delivery","done":["三个要求均已对应当前产物与独立验证"],"evidence":["output.json：run-current / 40 / 4eef722238bd4138197c24bdc307a1af4ba4f67dca82b18d984f5915d942717a"],"missing":[],"next_action":"记录经验核查结果"}
+
+经验核查：原始字节哈希、当前 generation 绑定和导出后独立重算均已由 current-export 明确覆盖，本次实际应用通过，没有新的可复用规则或已证实缺漏，因此无需修改 Skill。将把需求对应、验证及维护结论保存为 JSON 执行记录。
+
+
+已生成 [output.json](output.json)：generation 为 `run-current`，total 为 `40`，包含原始输入字节的 SHA256。三个字段均经独立 Python 重算验证通过。
+
+已复用 current-export，无需新增或修改 Skill；完整核验及维护结论见 [execution-record.json](execution-record.json)。未联网，未修改输入、镜像或材料。

@@ -1,0 +1,13 @@
+我会先查看项目说明和输入文件，再生成并验证 `output.json`，全程不访问网络。
+
+
+已从 `catalog.json` 确认 `current-export` 适用于本次任务，并读完其方法和许可证。我会将完整技能包复制到项目内的 `skills/` 后使用，以输入原始字节计算哈希，并独立核对交付结果。
+
+
+已生成 [output.json](output.json)，并通过独立验证：
+
+- `generation`：`run-current`
+- `total`：`40`
+- `input_sha256`：与输入文件原始字节一致
+
+全程未联网，未修改输入、镜像或材料。

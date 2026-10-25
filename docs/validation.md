@@ -4,7 +4,9 @@
 the canonical discovery Skill and its DSH variant. Dated SVG and two-Skill results below remain historical
 evidence, not current distribution or performance claims.
 
-Latest behavioral acceptance is separate: [2026-10-23 strict Codex repair regressions and independent-test scope](codex-acceptance.md).
+Current checkpoint and model-task regression evidence is recorded separately in
+[2026-10-25 stage checks](discovery-gates.md). The earlier
+[2026-10-23 strict Codex repair regressions](codex-acceptance.md) remain tied to their original payload.
 The historical package/render checks below do not establish implicit activation.
 
 Evidence dates: 2026-10-22–23. Baseline repository: `b33ac6e`.
@@ -38,6 +40,8 @@ npm ci --ignore-scripts
 npm audit --audit-level=low
 npm run lint
 npm run test:dsh
+npm run test:workflow
+python -m unittest discover -s evals/discovery-gates -p test_run.py
 npm run verify:install
 npm run assemble:example
 npm run render:example

@@ -1,0 +1,11 @@
+我会先查看项目中的输入和目录记录，再生成并核验 `output.json`；全程不访问网络。
+
+已从 `catalog.json` 找到并读取 `current-export` 技能及其方法和许可证，我会使用它生成记录，并按要求将完整技能包复制到项目内的 `skills/current-export`。输入的合计为 40；写出后会独立核对 generation、合计和原始文件字节的 SHA256。
+
+已生成 [output.json](output.json)，并通过独立核验：
+
+- `generation`：`run-current`
+- `total`：`40`
+- `input_sha256`：与输入文件原始字节的 SHA256 一致
+
+未访问网络，未修改输入、镜像或材料。

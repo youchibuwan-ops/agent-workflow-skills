@@ -1,0 +1,84 @@
+{
+  "task": "json-export",
+  "revision": 1,
+  "enforcement": "instruction_only",
+  "stage": "discovery",
+  "status": "blocked",
+  "scope": {
+    "selection": "User selected JSON and delegated technical validation",
+    "goal": "output.json with generation, total, input_sha256",
+    "restrictions": [
+      "no network",
+      "project-only writes",
+      "preserve input, mirror and materials"
+    ]
+  },
+  "discovery": {
+    "rejected": [
+      {
+        "reason": "SVG colors do not cover numeric exports or identity",
+        "version": "fixture-v1",
+        "source": "mirror/legacy-color"
+      },
+      {
+        "reason": "Obsolete; omits required generation identity",
+        "source": "cache/SKILL.md"
+      }
+    ],
+    "adopted_candidate": "mirror/current-export",
+    "references": [
+      "materials/current-identity.md",
+      "materials/independent-validation.md"
+    ],
+    "version": "fixture-v2",
+    "fully_read": [
+      "SKILL.md",
+      "references/method.md",
+      "LICENSE"
+    ],
+    "catalog": "catalog.json",
+    "external_search": "Not performed: user prohibits network; queried supplied local mirror catalog"
+  },
+  "requirements": [
+    {
+      "status": "not executed",
+      "field": "generation",
+      "method": "Preserve actual input generation",
+      "validation": "Independently compare parsed output to source"
+    },
+    {
+      "status": "not executed",
+      "field": "total",
+      "method": "Sum every values entry",
+      "validation": "Independently recompute source sum"
+    },
+    {
+      "status": "not executed",
+      "field": "input_sha256",
+      "method": "SHA256 exact input bytes",
+      "validation": "Independently hash source bytes"
+    }
+  ],
+  "installation": {
+    "result": "Access denied",
+    "target": ".agents/skills/current-export",
+    "readback": "Failed: files absent",
+    "applied": false
+  },
+  "missing": [
+    "Complete installation in discoverable project skill directory and successful readback"
+  ],
+  "remaining_stages": {
+    "selection": "Direction already selected; not advanced past discovery",
+    "learning": "Reviewed learning-from-work.md; no method execution or verified reusable increment; no skill modifications",
+    "delivery": "output.json not generated",
+    "draft": "Blocked",
+    "feedback": "Technical verification delegated; not reached"
+  },
+  "delivery_check": {
+    "validation": "Candidate source review only; no output validation",
+    "artifact": "No output.json generated",
+    "maintenance": "No skill changes: installation blocked, no new verified method or failure mechanism beyond documented installation boundary",
+    "uncovered": "All output fields"
+  }
+}

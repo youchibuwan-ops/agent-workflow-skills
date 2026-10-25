@@ -1,0 +1,47 @@
+{
+  "nativeDispatch": {
+    "package": "@deepseek-ai/dsh-tools@0.2.1-rc.2",
+    "assertionsPassed": 5,
+    "modelCalled": false
+  },
+  "realCodexModelCalls": {
+    "deny": {
+      "testKind": "real-model-tool-call-smoke",
+      "actualModel": "gpt-6-astra",
+      "hookCalls": 2,
+      "toolNames": [
+        "Bash",
+        "apply_patch"
+      ],
+      "markers": {
+        "deny-exec-marker.txt": null,
+        "deny-patch-marker.txt": null
+      },
+      "catalogTrusted": true,
+      "temporaryAuthRemoved": true,
+      "verdict": "pass: both tool bodies denied"
+    },
+    "fault": {
+      "testKind": "real-model-tool-call-smoke",
+      "actualModel": "gpt-6-astra",
+      "hookCalls": 2,
+      "toolNames": [
+        "Bash",
+        "apply_patch"
+      ],
+      "markers": {
+        "fault-exec-marker.txt": "EXEC_BODY_RAN\r\n",
+        "fault-patch-marker.txt": "PATCH_BODY_RAN\n"
+      },
+      "catalogTrusted": true,
+      "temporaryAuthRemoved": true,
+      "verdict": "known fail-open reproduced: hook crashes and both bodies run"
+    }
+  },
+  "shellControlsPassed": 3,
+  "boundary": [
+    "Codex write_stdin, hosted tools and special opt-out paths were source-reviewed, not exercised.",
+    "DSH guard probe invokes ToolRuntime directly; it does not establish DSH model behavior or CLI boot.",
+    "Codex hook failure remains fail-open; trusted catalog alone is insufficient."
+  ]
+}

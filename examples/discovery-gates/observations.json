@@ -1,0 +1,1866 @@
+{
+  "notice": "These are observations, not actor-authored pass results. Manual review and versioned conclusions are in README.",
+  "cases": [
+    {
+      "case": "final-scope-paused-03",
+      "skill_body_sha256": "b7e5d6acb9dc803b22e895ea21a618ebb790402e09286697d2bdf40a75812b02",
+      "observed_stages": [
+        "scope",
+        "discovery"
+      ],
+      "command_count": 0,
+      "first_scope_event": {
+        "line": 3,
+        "item_id": "item_0"
+      },
+      "first_discovery_event": null,
+      "first_production_event": null,
+      "read_before_production": {
+        "mirror/current-export/SKILL.md": [],
+        "mirror/current-export/references/method.md": [],
+        "mirror/current-export/LICENSE": [],
+        "materials/current-identity.md": [],
+        "materials/independent-validation.md": []
+      },
+      "protected_input_changes": [],
+      "automatic_behavior_pass": null,
+      "execution": {
+        "status": "completed_needs_review",
+        "exit_code": 0,
+        "elapsed_seconds": 31.77,
+        "case": "paused",
+        "guidance": true,
+        "artifact_exists": false,
+        "artifact_semantics": null,
+        "protected_inputs_intact": true,
+        "changed_inputs": [],
+        "behavior_pass": null,
+        "manual_review_required": true,
+        "limits": "Native model/file actions; controlled local source mirrors; not live GitHub discovery, a security sandbox study, or a future reliability guarantee."
+      }
+    },
+    {
+      "case": "final-scope-research-02",
+      "skill_body_sha256": "b7e5d6acb9dc803b22e895ea21a618ebb790402e09286697d2bdf40a75812b02",
+      "observed_stages": [
+        "scope",
+        "discovery"
+      ],
+      "command_count": 5,
+      "first_scope_event": {
+        "line": 6,
+        "item_id": "item_2"
+      },
+      "first_discovery_event": {
+        "line": 8,
+        "item_id": "item_3"
+      },
+      "first_production_event": null,
+      "read_before_production": {
+        "mirror/current-export/SKILL.md": [
+          {
+            "line": 10,
+            "item_id": "item_4"
+          }
+        ],
+        "mirror/current-export/references/method.md": [
+          {
+            "line": 10,
+            "item_id": "item_4"
+          }
+        ],
+        "mirror/current-export/LICENSE": [
+          {
+            "line": 10,
+            "item_id": "item_4"
+          }
+        ],
+        "materials/current-identity.md": [
+          {
+            "line": 10,
+            "item_id": "item_4"
+          }
+        ],
+        "materials/independent-validation.md": [
+          {
+            "line": 10,
+            "item_id": "item_4"
+          }
+        ]
+      },
+      "protected_input_changes": [],
+      "automatic_behavior_pass": null,
+      "execution": {
+        "status": "completed_needs_review",
+        "exit_code": 0,
+        "elapsed_seconds": 90.75,
+        "case": "research",
+        "guidance": true,
+        "artifact_exists": false,
+        "artifact_semantics": null,
+        "protected_inputs_intact": true,
+        "changed_inputs": [],
+        "behavior_pass": null,
+        "manual_review_required": true,
+        "limits": "Native model/file actions; controlled local source mirrors; not live GitHub discovery, a security sandbox study, or a future reliability guarantee."
+      }
+    },
+    {
+      "case": "final-scope-selected-01",
+      "skill_body_sha256": "b7e5d6acb9dc803b22e895ea21a618ebb790402e09286697d2bdf40a75812b02",
+      "observed_stages": [
+        "scope",
+        "discovery"
+      ],
+      "command_count": 4,
+      "first_scope_event": {
+        "line": 6,
+        "item_id": "item_2"
+      },
+      "first_discovery_event": {
+        "line": 8,
+        "item_id": "item_3"
+      },
+      "first_production_event": null,
+      "read_before_production": {
+        "mirror/current-export/SKILL.md": [
+          {
+            "line": 10,
+            "item_id": "item_4"
+          }
+        ],
+        "mirror/current-export/references/method.md": [
+          {
+            "line": 10,
+            "item_id": "item_4"
+          }
+        ],
+        "mirror/current-export/LICENSE": [
+          {
+            "line": 10,
+            "item_id": "item_4"
+          }
+        ],
+        "materials/current-identity.md": [
+          {
+            "line": 10,
+            "item_id": "item_4"
+          }
+        ],
+        "materials/independent-validation.md": [
+          {
+            "line": 10,
+            "item_id": "item_4"
+          }
+        ]
+      },
+      "protected_input_changes": [],
+      "automatic_behavior_pass": null,
+      "execution": {
+        "status": "completed_needs_review",
+        "exit_code": 0,
+        "elapsed_seconds": 71.34,
+        "case": "selected",
+        "guidance": true,
+        "artifact_exists": false,
+        "artifact_semantics": null,
+        "protected_inputs_intact": true,
+        "changed_inputs": [],
+        "behavior_pass": null,
+        "manual_review_required": true,
+        "limits": "Native model/file actions; controlled local source mirrors; not live GitHub discovery, a security sandbox study, or a future reliability guarantee."
+      }
+    },
+    {
+      "case": "final-scope-selected-reuse-05",
+      "skill_body_sha256": "b7e5d6acb9dc803b22e895ea21a618ebb790402e09286697d2bdf40a75812b02",
+      "observed_stages": [
+        "scope",
+        "discovery",
+        "selection",
+        "draft",
+        "feedback",
+        "delivery",
+        "learning"
+      ],
+      "command_count": 5,
+      "first_scope_event": {
+        "line": 6,
+        "item_id": "item_2"
+      },
+      "first_discovery_event": {
+        "line": 8,
+        "item_id": "item_3"
+      },
+      "first_production_event": {
+        "line": 15,
+        "item_id": "item_7"
+      },
+      "read_before_production": {
+        "mirror/current-export/SKILL.md": [
+          {
+            "line": 10,
+            "item_id": "item_4"
+          },
+          {
+            "line": 12,
+            "item_id": "item_5"
+          }
+        ],
+        "mirror/current-export/references/method.md": [
+          {
+            "line": 10,
+            "item_id": "item_4"
+          },
+          {
+            "line": 12,
+            "item_id": "item_5"
+          }
+        ],
+        "mirror/current-export/LICENSE": [
+          {
+            "line": 10,
+            "item_id": "item_4"
+          },
+          {
+            "line": 12,
+            "item_id": "item_5"
+          }
+        ],
+        "materials/current-identity.md": [
+          {
+            "line": 12,
+            "item_id": "item_5"
+          }
+        ],
+        "materials/independent-validation.md": [
+          {
+            "line": 12,
+            "item_id": "item_5"
+          }
+        ]
+      },
+      "protected_input_changes": [],
+      "automatic_behavior_pass": null,
+      "execution": {
+        "status": "completed_needs_review",
+        "exit_code": 0,
+        "elapsed_seconds": 84.53,
+        "case": "selected-reuse",
+        "guidance": true,
+        "artifact_exists": true,
+        "artifact_semantics": true,
+        "protected_inputs_intact": true,
+        "changed_inputs": [],
+        "behavior_pass": null,
+        "manual_review_required": true,
+        "limits": "Native model/file actions; controlled local source mirrors; not live GitHub discovery, a security sandbox study, or a future reliability guarantee."
+      }
+    },
+    {
+      "case": "final-scope-selected-reuse-06",
+      "skill_body_sha256": "b7e5d6acb9dc803b22e895ea21a618ebb790402e09286697d2bdf40a75812b02",
+      "observed_stages": [
+        "scope",
+        "discovery",
+        "selection",
+        "draft",
+        "feedback",
+        "delivery",
+        "learning"
+      ],
+      "command_count": 6,
+      "first_scope_event": {
+        "line": 6,
+        "item_id": "item_2"
+      },
+      "first_discovery_event": {
+        "line": 8,
+        "item_id": "item_3"
+      },
+      "first_production_event": {
+        "line": 15,
+        "item_id": "item_7"
+      },
+      "read_before_production": {
+        "mirror/current-export/SKILL.md": [
+          {
+            "line": 10,
+            "item_id": "item_4"
+          },
+          {
+            "line": 12,
+            "item_id": "item_5"
+          }
+        ],
+        "mirror/current-export/references/method.md": [
+          {
+            "line": 10,
+            "item_id": "item_4"
+          },
+          {
+            "line": 12,
+            "item_id": "item_5"
+          }
+        ],
+        "mirror/current-export/LICENSE": [
+          {
+            "line": 10,
+            "item_id": "item_4"
+          },
+          {
+            "line": 12,
+            "item_id": "item_5"
+          }
+        ],
+        "materials/current-identity.md": [
+          {
+            "line": 10,
+            "item_id": "item_4"
+          }
+        ],
+        "materials/independent-validation.md": [
+          {
+            "line": 10,
+            "item_id": "item_4"
+          }
+        ]
+      },
+      "protected_input_changes": [],
+      "automatic_behavior_pass": null,
+      "execution": {
+        "status": "completed_needs_review",
+        "exit_code": 0,
+        "elapsed_seconds": 100.4,
+        "case": "selected-reuse",
+        "guidance": true,
+        "artifact_exists": true,
+        "artifact_semantics": true,
+        "protected_inputs_intact": true,
+        "changed_inputs": [],
+        "behavior_pass": null,
+        "manual_review_required": true,
+        "limits": "Native model/file actions; controlled local source mirrors; not live GitHub discovery, a security sandbox study, or a future reliability guarantee."
+      }
+    },
+    {
+      "case": "final-scope-selected-reuse-07",
+      "skill_body_sha256": "b7e5d6acb9dc803b22e895ea21a618ebb790402e09286697d2bdf40a75812b02",
+      "observed_stages": [
+        "scope",
+        "discovery",
+        "selection",
+        "draft",
+        "feedback",
+        "delivery",
+        "learning"
+      ],
+      "command_count": 6,
+      "first_scope_event": {
+        "line": 6,
+        "item_id": "item_2"
+      },
+      "first_discovery_event": {
+        "line": 8,
+        "item_id": "item_3"
+      },
+      "first_production_event": {
+        "line": 16,
+        "item_id": "item_8"
+      },
+      "read_before_production": {
+        "mirror/current-export/SKILL.md": [
+          {
+            "line": 10,
+            "item_id": "item_4"
+          }
+        ],
+        "mirror/current-export/references/method.md": [
+          {
+            "line": 10,
+            "item_id": "item_4"
+          }
+        ],
+        "mirror/current-export/LICENSE": [
+          {
+            "line": 10,
+            "item_id": "item_4"
+          }
+        ],
+        "materials/current-identity.md": [
+          {
+            "line": 10,
+            "item_id": "item_4"
+          }
+        ],
+        "materials/independent-validation.md": [
+          {
+            "line": 10,
+            "item_id": "item_4"
+          }
+        ]
+      },
+      "protected_input_changes": [],
+      "automatic_behavior_pass": null,
+      "execution": {
+        "status": "completed_needs_review",
+        "exit_code": 0,
+        "elapsed_seconds": 106.85,
+        "case": "selected-reuse",
+        "guidance": true,
+        "artifact_exists": true,
+        "artifact_semantics": true,
+        "protected_inputs_intact": true,
+        "changed_inputs": [],
+        "behavior_pass": null,
+        "manual_review_required": true,
+        "limits": "Native model/file actions; controlled local source mirrors; not live GitHub discovery, a security sandbox study, or a future reliability guarantee."
+      }
+    },
+    {
+      "case": "final-scope-selected-reuse-08",
+      "skill_body_sha256": "b7e5d6acb9dc803b22e895ea21a618ebb790402e09286697d2bdf40a75812b02",
+      "observed_stages": [
+        "scope",
+        "discovery",
+        "selection",
+        "draft",
+        "feedback",
+        "delivery",
+        "learning"
+      ],
+      "command_count": 6,
+      "first_scope_event": {
+        "line": 6,
+        "item_id": "item_2"
+      },
+      "first_discovery_event": {
+        "line": 8,
+        "item_id": "item_3"
+      },
+      "first_production_event": {
+        "line": 15,
+        "item_id": "item_7"
+      },
+      "read_before_production": {
+        "mirror/current-export/SKILL.md": [
+          {
+            "line": 10,
+            "item_id": "item_4"
+          },
+          {
+            "line": 12,
+            "item_id": "item_5"
+          }
+        ],
+        "mirror/current-export/references/method.md": [
+          {
+            "line": 10,
+            "item_id": "item_4"
+          },
+          {
+            "line": 12,
+            "item_id": "item_5"
+          }
+        ],
+        "mirror/current-export/LICENSE": [
+          {
+            "line": 10,
+            "item_id": "item_4"
+          },
+          {
+            "line": 12,
+            "item_id": "item_5"
+          }
+        ],
+        "materials/current-identity.md": [
+          {
+            "line": 12,
+            "item_id": "item_5"
+          }
+        ],
+        "materials/independent-validation.md": [
+          {
+            "line": 12,
+            "item_id": "item_5"
+          }
+        ]
+      },
+      "protected_input_changes": [],
+      "automatic_behavior_pass": null,
+      "execution": {
+        "status": "completed_needs_review",
+        "exit_code": 0,
+        "elapsed_seconds": 85.16,
+        "case": "selected-reuse",
+        "guidance": true,
+        "artifact_exists": true,
+        "artifact_semantics": true,
+        "protected_inputs_intact": true,
+        "changed_inputs": [],
+        "behavior_pass": null,
+        "manual_review_required": true,
+        "limits": "Native model/file actions; controlled local source mirrors; not live GitHub discovery, a security sandbox study, or a future reliability guarantee."
+      }
+    },
+    {
+      "case": "final-scope-selected-reuse-09",
+      "skill_body_sha256": "b7e5d6acb9dc803b22e895ea21a618ebb790402e09286697d2bdf40a75812b02",
+      "observed_stages": [
+        "scope",
+        "discovery",
+        "selection",
+        "draft",
+        "feedback",
+        "delivery",
+        "learning"
+      ],
+      "command_count": 6,
+      "first_scope_event": {
+        "line": 6,
+        "item_id": "item_2"
+      },
+      "first_discovery_event": {
+        "line": 8,
+        "item_id": "item_3"
+      },
+      "first_production_event": {
+        "line": 15,
+        "item_id": "item_7"
+      },
+      "read_before_production": {
+        "mirror/current-export/SKILL.md": [
+          {
+            "line": 10,
+            "item_id": "item_4"
+          }
+        ],
+        "mirror/current-export/references/method.md": [
+          {
+            "line": 10,
+            "item_id": "item_4"
+          }
+        ],
+        "mirror/current-export/LICENSE": [
+          {
+            "line": 10,
+            "item_id": "item_4"
+          }
+        ],
+        "materials/current-identity.md": [
+          {
+            "line": 10,
+            "item_id": "item_4"
+          }
+        ],
+        "materials/independent-validation.md": [
+          {
+            "line": 10,
+            "item_id": "item_4"
+          }
+        ]
+      },
+      "protected_input_changes": [],
+      "automatic_behavior_pass": null,
+      "execution": {
+        "status": "completed_needs_review",
+        "exit_code": 0,
+        "elapsed_seconds": 86.45,
+        "case": "selected-reuse",
+        "guidance": true,
+        "artifact_exists": true,
+        "artifact_semantics": true,
+        "protected_inputs_intact": true,
+        "changed_inputs": [],
+        "behavior_pass": null,
+        "manual_review_required": true,
+        "limits": "Native model/file actions; controlled local source mirrors; not live GitHub discovery, a security sandbox study, or a future reliability guarantee."
+      }
+    },
+    {
+      "case": "final-scope-status-04",
+      "skill_body_sha256": "b7e5d6acb9dc803b22e895ea21a618ebb790402e09286697d2bdf40a75812b02",
+      "observed_stages": [],
+      "command_count": 0,
+      "first_scope_event": null,
+      "first_discovery_event": null,
+      "first_production_event": null,
+      "read_before_production": {
+        "mirror/current-export/SKILL.md": [],
+        "mirror/current-export/references/method.md": [],
+        "mirror/current-export/LICENSE": [],
+        "materials/current-identity.md": [],
+        "materials/independent-validation.md": []
+      },
+      "protected_input_changes": [],
+      "automatic_behavior_pass": null,
+      "execution": {
+        "status": "completed_needs_review",
+        "exit_code": 0,
+        "elapsed_seconds": 10.02,
+        "case": "status",
+        "guidance": true,
+        "artifact_exists": false,
+        "artifact_semantics": null,
+        "protected_inputs_intact": true,
+        "changed_inputs": [],
+        "behavior_pass": null,
+        "manual_review_required": true,
+        "limits": "Native model/file actions; controlled local source mirrors; not live GitHub discovery, a security sandbox study, or a future reliability guarantee."
+      }
+    },
+    {
+      "case": "new-adjacent-paused-02",
+      "skill_body_sha256": "cebebf53855b38646d01a1c900d4b9a901d64852540b922a4186096ac0f5ee88",
+      "observed_stages": [],
+      "command_count": 0,
+      "first_scope_event": null,
+      "first_discovery_event": null,
+      "first_production_event": null,
+      "read_before_production": {
+        "mirror/current-export/SKILL.md": [],
+        "mirror/current-export/references/method.md": [],
+        "mirror/current-export/LICENSE": [],
+        "materials/current-identity.md": [],
+        "materials/independent-validation.md": []
+      },
+      "protected_input_changes": [],
+      "automatic_behavior_pass": null,
+      "execution": {
+        "status": "completed_needs_review",
+        "exit_code": 0,
+        "elapsed_seconds": 18.65,
+        "case": "paused",
+        "guidance": true,
+        "artifact_exists": false,
+        "artifact_semantics": null,
+        "protected_inputs_intact": true,
+        "changed_inputs": [],
+        "behavior_pass": null,
+        "manual_review_required": true,
+        "limits": "Native model/file actions; controlled local source mirrors; not live GitHub discovery, a security sandbox study, or a future reliability guarantee."
+      }
+    },
+    {
+      "case": "new-adjacent-research-01",
+      "skill_body_sha256": "cebebf53855b38646d01a1c900d4b9a901d64852540b922a4186096ac0f5ee88",
+      "observed_stages": [
+        "scope",
+        "discovery"
+      ],
+      "command_count": 5,
+      "first_scope_event": {
+        "line": 8,
+        "item_id": "item_3"
+      },
+      "first_discovery_event": {
+        "line": 5,
+        "item_id": "item_1"
+      },
+      "first_production_event": null,
+      "read_before_production": {
+        "mirror/current-export/SKILL.md": [
+          {
+            "line": 10,
+            "item_id": "item_4"
+          }
+        ],
+        "mirror/current-export/references/method.md": [
+          {
+            "line": 10,
+            "item_id": "item_4"
+          }
+        ],
+        "mirror/current-export/LICENSE": [
+          {
+            "line": 10,
+            "item_id": "item_4"
+          }
+        ],
+        "materials/current-identity.md": [],
+        "materials/independent-validation.md": []
+      },
+      "protected_input_changes": [],
+      "automatic_behavior_pass": null,
+      "execution": {
+        "status": "completed_needs_review",
+        "exit_code": 0,
+        "elapsed_seconds": 124.42,
+        "case": "research",
+        "guidance": true,
+        "artifact_exists": false,
+        "artifact_semantics": null,
+        "protected_inputs_intact": true,
+        "changed_inputs": [],
+        "behavior_pass": null,
+        "manual_review_required": true,
+        "limits": "Native model/file actions; controlled local source mirrors; not live GitHub discovery, a security sandbox study, or a future reliability guarantee."
+      }
+    },
+    {
+      "case": "new-adjacent-selected-reuse-04",
+      "skill_body_sha256": "cebebf53855b38646d01a1c900d4b9a901d64852540b922a4186096ac0f5ee88",
+      "observed_stages": [
+        "scope",
+        "discovery",
+        "selection",
+        "draft",
+        "feedback",
+        "delivery"
+      ],
+      "command_count": 5,
+      "first_scope_event": {
+        "line": 8,
+        "item_id": "item_3"
+      },
+      "first_discovery_event": {
+        "line": 5,
+        "item_id": "item_1"
+      },
+      "first_production_event": {
+        "line": 13,
+        "item_id": "item_6"
+      },
+      "read_before_production": {
+        "mirror/current-export/SKILL.md": [
+          {
+            "line": 10,
+            "item_id": "item_4"
+          }
+        ],
+        "mirror/current-export/references/method.md": [
+          {
+            "line": 10,
+            "item_id": "item_4"
+          }
+        ],
+        "mirror/current-export/LICENSE": [
+          {
+            "line": 10,
+            "item_id": "item_4"
+          }
+        ],
+        "materials/current-identity.md": [
+          {
+            "line": 10,
+            "item_id": "item_4"
+          }
+        ],
+        "materials/independent-validation.md": [
+          {
+            "line": 10,
+            "item_id": "item_4"
+          }
+        ]
+      },
+      "protected_input_changes": [],
+      "automatic_behavior_pass": null,
+      "execution": {
+        "status": "completed_needs_review",
+        "exit_code": 0,
+        "elapsed_seconds": 86.96,
+        "case": "selected-reuse",
+        "guidance": true,
+        "artifact_exists": true,
+        "artifact_semantics": true,
+        "protected_inputs_intact": true,
+        "changed_inputs": [],
+        "behavior_pass": null,
+        "manual_review_required": true,
+        "limits": "Native model/file actions; controlled local source mirrors; not live GitHub discovery, a security sandbox study, or a future reliability guarantee."
+      }
+    },
+    {
+      "case": "new-adjacent-status-03",
+      "skill_body_sha256": "cebebf53855b38646d01a1c900d4b9a901d64852540b922a4186096ac0f5ee88",
+      "observed_stages": [],
+      "command_count": 0,
+      "first_scope_event": null,
+      "first_discovery_event": null,
+      "first_production_event": null,
+      "read_before_production": {
+        "mirror/current-export/SKILL.md": [],
+        "mirror/current-export/references/method.md": [],
+        "mirror/current-export/LICENSE": [],
+        "materials/current-identity.md": [],
+        "materials/independent-validation.md": []
+      },
+      "protected_input_changes": [],
+      "automatic_behavior_pass": null,
+      "execution": {
+        "status": "completed_needs_review",
+        "exit_code": 0,
+        "elapsed_seconds": 10.91,
+        "case": "status",
+        "guidance": true,
+        "artifact_exists": false,
+        "artifact_semantics": null,
+        "protected_inputs_intact": true,
+        "changed_inputs": [],
+        "behavior_pass": null,
+        "manual_review_required": true,
+        "limits": "Native model/file actions; controlled local source mirrors; not live GitHub discovery, a security sandbox study, or a future reliability guarantee."
+      }
+    },
+    {
+      "case": "new-final-reuse-01",
+      "skill_body_sha256": "bdc8393fd67655d1bfa0ea25b5fafe29429cbde07266520706e50f190b2e99cb",
+      "observed_stages": [
+        "scope",
+        "discovery",
+        "selection",
+        "draft",
+        "feedback",
+        "delivery",
+        "learning"
+      ],
+      "command_count": 5,
+      "first_scope_event": {
+        "line": 8,
+        "item_id": "item_3"
+      },
+      "first_discovery_event": {
+        "line": 5,
+        "item_id": "item_1"
+      },
+      "first_production_event": {
+        "line": 13,
+        "item_id": "item_6"
+      },
+      "read_before_production": {
+        "mirror/current-export/SKILL.md": [
+          {
+            "line": 7,
+            "item_id": "item_2"
+          },
+          {
+            "line": 10,
+            "item_id": "item_4"
+          }
+        ],
+        "mirror/current-export/references/method.md": [
+          {
+            "line": 10,
+            "item_id": "item_4"
+          }
+        ],
+        "mirror/current-export/LICENSE": [
+          {
+            "line": 10,
+            "item_id": "item_4"
+          }
+        ],
+        "materials/current-identity.md": [
+          {
+            "line": 10,
+            "item_id": "item_4"
+          }
+        ],
+        "materials/independent-validation.md": [
+          {
+            "line": 10,
+            "item_id": "item_4"
+          }
+        ]
+      },
+      "protected_input_changes": [],
+      "automatic_behavior_pass": null,
+      "execution": {
+        "status": "completed_needs_review",
+        "exit_code": 0,
+        "elapsed_seconds": 103.78,
+        "case": "selected-reuse",
+        "guidance": true,
+        "artifact_exists": true,
+        "artifact_semantics": true,
+        "protected_inputs_intact": true,
+        "changed_inputs": [],
+        "behavior_pass": null,
+        "manual_review_required": true,
+        "limits": "Native model/file actions; controlled local source mirrors; not live GitHub discovery, a security sandbox study, or a future reliability guarantee."
+      }
+    },
+    {
+      "case": "new-final-reuse-02",
+      "skill_body_sha256": "bdc8393fd67655d1bfa0ea25b5fafe29429cbde07266520706e50f190b2e99cb",
+      "observed_stages": [
+        "scope",
+        "discovery",
+        "selection",
+        "draft",
+        "feedback",
+        "delivery",
+        "learning"
+      ],
+      "command_count": 5,
+      "first_scope_event": {
+        "line": 8,
+        "item_id": "item_3"
+      },
+      "first_discovery_event": {
+        "line": 5,
+        "item_id": "item_1"
+      },
+      "first_production_event": {
+        "line": 15,
+        "item_id": "item_7"
+      },
+      "read_before_production": {
+        "mirror/current-export/SKILL.md": [
+          {
+            "line": 10,
+            "item_id": "item_4"
+          }
+        ],
+        "mirror/current-export/references/method.md": [
+          {
+            "line": 10,
+            "item_id": "item_4"
+          }
+        ],
+        "mirror/current-export/LICENSE": [
+          {
+            "line": 10,
+            "item_id": "item_4"
+          }
+        ],
+        "materials/current-identity.md": [
+          {
+            "line": 10,
+            "item_id": "item_4"
+          }
+        ],
+        "materials/independent-validation.md": [
+          {
+            "line": 10,
+            "item_id": "item_4"
+          }
+        ]
+      },
+      "protected_input_changes": [],
+      "automatic_behavior_pass": null,
+      "execution": {
+        "status": "completed_needs_review",
+        "exit_code": 0,
+        "elapsed_seconds": 97.37,
+        "case": "selected-reuse",
+        "guidance": true,
+        "artifact_exists": true,
+        "artifact_semantics": true,
+        "protected_inputs_intact": true,
+        "changed_inputs": [],
+        "behavior_pass": null,
+        "manual_review_required": true,
+        "limits": "Native model/file actions; controlled local source mirrors; not live GitHub discovery, a security sandbox study, or a future reliability guarantee."
+      }
+    },
+    {
+      "case": "new-final-reuse-03",
+      "skill_body_sha256": "bdc8393fd67655d1bfa0ea25b5fafe29429cbde07266520706e50f190b2e99cb",
+      "observed_stages": [
+        "scope",
+        "discovery",
+        "selection",
+        "draft",
+        "feedback",
+        "delivery",
+        "learning"
+      ],
+      "command_count": 11,
+      "first_scope_event": {
+        "line": 14,
+        "item_id": "item_6"
+      },
+      "first_discovery_event": {
+        "line": 5,
+        "item_id": "item_1"
+      },
+      "first_production_event": {
+        "line": 21,
+        "item_id": "item_10"
+      },
+      "read_before_production": {
+        "mirror/current-export/SKILL.md": [
+          {
+            "line": 9,
+            "item_id": "item_3"
+          },
+          {
+            "line": 13,
+            "item_id": "item_5"
+          }
+        ],
+        "mirror/current-export/references/method.md": [
+          {
+            "line": 13,
+            "item_id": "item_5"
+          }
+        ],
+        "mirror/current-export/LICENSE": [
+          {
+            "line": 13,
+            "item_id": "item_5"
+          }
+        ],
+        "materials/current-identity.md": [
+          {
+            "line": 13,
+            "item_id": "item_5"
+          }
+        ],
+        "materials/independent-validation.md": [
+          {
+            "line": 13,
+            "item_id": "item_5"
+          }
+        ]
+      },
+      "protected_input_changes": [],
+      "automatic_behavior_pass": null,
+      "execution": {
+        "status": "completed_needs_review",
+        "exit_code": 0,
+        "elapsed_seconds": 89.79,
+        "case": "selected-reuse",
+        "guidance": true,
+        "artifact_exists": true,
+        "artifact_semantics": true,
+        "protected_inputs_intact": true,
+        "changed_inputs": [],
+        "behavior_pass": null,
+        "manual_review_required": true,
+        "limits": "Native model/file actions; controlled local source mirrors; not live GitHub discovery, a security sandbox study, or a future reliability guarantee."
+      }
+    },
+    {
+      "case": "new-final-reuse-04",
+      "skill_body_sha256": "bdc8393fd67655d1bfa0ea25b5fafe29429cbde07266520706e50f190b2e99cb",
+      "observed_stages": [
+        "scope",
+        "discovery",
+        "selection",
+        "draft",
+        "feedback",
+        "delivery",
+        "learning"
+      ],
+      "command_count": 9,
+      "first_scope_event": {
+        "line": 14,
+        "item_id": "item_6"
+      },
+      "first_discovery_event": {
+        "line": 5,
+        "item_id": "item_1"
+      },
+      "first_production_event": {
+        "line": 19,
+        "item_id": "item_9"
+      },
+      "read_before_production": {
+        "mirror/current-export/SKILL.md": [
+          {
+            "line": 13,
+            "item_id": "item_5"
+          }
+        ],
+        "mirror/current-export/references/method.md": [
+          {
+            "line": 13,
+            "item_id": "item_5"
+          }
+        ],
+        "mirror/current-export/LICENSE": [
+          {
+            "line": 13,
+            "item_id": "item_5"
+          }
+        ],
+        "materials/current-identity.md": [
+          {
+            "line": 13,
+            "item_id": "item_5"
+          }
+        ],
+        "materials/independent-validation.md": [
+          {
+            "line": 13,
+            "item_id": "item_5"
+          }
+        ]
+      },
+      "protected_input_changes": [],
+      "automatic_behavior_pass": null,
+      "execution": {
+        "status": "completed_needs_review",
+        "exit_code": 0,
+        "elapsed_seconds": 92.24,
+        "case": "selected-reuse",
+        "guidance": true,
+        "artifact_exists": true,
+        "artifact_semantics": true,
+        "protected_inputs_intact": true,
+        "changed_inputs": [],
+        "behavior_pass": null,
+        "manual_review_required": true,
+        "limits": "Native model/file actions; controlled local source mirrors; not live GitHub discovery, a security sandbox study, or a future reliability guarantee."
+      }
+    },
+    {
+      "case": "new-final-reuse-05",
+      "skill_body_sha256": "bdc8393fd67655d1bfa0ea25b5fafe29429cbde07266520706e50f190b2e99cb",
+      "observed_stages": [
+        "scope",
+        "discovery",
+        "selection",
+        "draft",
+        "feedback",
+        "delivery",
+        "learning"
+      ],
+      "command_count": 5,
+      "first_scope_event": {
+        "line": 8,
+        "item_id": "item_3"
+      },
+      "first_discovery_event": {
+        "line": 5,
+        "item_id": "item_1"
+      },
+      "first_production_event": {
+        "line": 15,
+        "item_id": "item_7"
+      },
+      "read_before_production": {
+        "mirror/current-export/SKILL.md": [
+          {
+            "line": 7,
+            "item_id": "item_2"
+          }
+        ],
+        "mirror/current-export/references/method.md": [
+          {
+            "line": 10,
+            "item_id": "item_4"
+          }
+        ],
+        "mirror/current-export/LICENSE": [
+          {
+            "line": 10,
+            "item_id": "item_4"
+          }
+        ],
+        "materials/current-identity.md": [
+          {
+            "line": 7,
+            "item_id": "item_2"
+          }
+        ],
+        "materials/independent-validation.md": [
+          {
+            "line": 7,
+            "item_id": "item_2"
+          }
+        ]
+      },
+      "protected_input_changes": [],
+      "automatic_behavior_pass": null,
+      "execution": {
+        "status": "completed_needs_review",
+        "exit_code": 0,
+        "elapsed_seconds": 75.98,
+        "case": "selected-reuse",
+        "guidance": true,
+        "artifact_exists": true,
+        "artifact_semantics": true,
+        "protected_inputs_intact": true,
+        "changed_inputs": [],
+        "behavior_pass": null,
+        "manual_review_required": true,
+        "limits": "Native model/file actions; controlled local source mirrors; not live GitHub discovery, a security sandbox study, or a future reliability guarantee."
+      }
+    },
+    {
+      "case": "new-selected-01",
+      "skill_body_sha256": "cebebf53855b38646d01a1c900d4b9a901d64852540b922a4186096ac0f5ee88",
+      "observed_stages": [
+        "scope",
+        "discovery"
+      ],
+      "command_count": 5,
+      "first_scope_event": {
+        "line": 8,
+        "item_id": "item_3"
+      },
+      "first_discovery_event": {
+        "line": 5,
+        "item_id": "item_1"
+      },
+      "first_production_event": {
+        "line": 16,
+        "item_id": "item_8"
+      },
+      "read_before_production": {
+        "mirror/current-export/SKILL.md": [
+          {
+            "line": 10,
+            "item_id": "item_4"
+          }
+        ],
+        "mirror/current-export/references/method.md": [
+          {
+            "line": 10,
+            "item_id": "item_4"
+          }
+        ],
+        "mirror/current-export/LICENSE": [
+          {
+            "line": 10,
+            "item_id": "item_4"
+          }
+        ],
+        "materials/current-identity.md": [
+          {
+            "line": 10,
+            "item_id": "item_4"
+          }
+        ],
+        "materials/independent-validation.md": [
+          {
+            "line": 10,
+            "item_id": "item_4"
+          }
+        ]
+      },
+      "protected_input_changes": [],
+      "automatic_behavior_pass": null,
+      "execution": {
+        "status": "completed_needs_review",
+        "exit_code": 0,
+        "elapsed_seconds": 87.04,
+        "case": "selected",
+        "guidance": true,
+        "artifact_exists": false,
+        "artifact_semantics": null,
+        "protected_inputs_intact": true,
+        "changed_inputs": [],
+        "behavior_pass": null,
+        "manual_review_required": true,
+        "limits": "Native model/file actions; controlled local source mirrors; not live GitHub discovery, a security sandbox study, or a future reliability guarantee."
+      }
+    },
+    {
+      "case": "new-selected-02",
+      "skill_body_sha256": "cebebf53855b38646d01a1c900d4b9a901d64852540b922a4186096ac0f5ee88",
+      "observed_stages": [
+        "scope",
+        "discovery"
+      ],
+      "command_count": 5,
+      "first_scope_event": {
+        "line": 8,
+        "item_id": "item_3"
+      },
+      "first_discovery_event": {
+        "line": 5,
+        "item_id": "item_1"
+      },
+      "first_production_event": {
+        "line": 15,
+        "item_id": "item_7"
+      },
+      "read_before_production": {
+        "mirror/current-export/SKILL.md": [
+          {
+            "line": 10,
+            "item_id": "item_4"
+          }
+        ],
+        "mirror/current-export/references/method.md": [
+          {
+            "line": 10,
+            "item_id": "item_4"
+          }
+        ],
+        "mirror/current-export/LICENSE": [
+          {
+            "line": 10,
+            "item_id": "item_4"
+          }
+        ],
+        "materials/current-identity.md": [
+          {
+            "line": 10,
+            "item_id": "item_4"
+          }
+        ],
+        "materials/independent-validation.md": [
+          {
+            "line": 10,
+            "item_id": "item_4"
+          }
+        ]
+      },
+      "protected_input_changes": [],
+      "automatic_behavior_pass": null,
+      "execution": {
+        "status": "completed_needs_review",
+        "exit_code": 0,
+        "elapsed_seconds": 84.74,
+        "case": "selected",
+        "guidance": true,
+        "artifact_exists": false,
+        "artifact_semantics": null,
+        "protected_inputs_intact": true,
+        "changed_inputs": [],
+        "behavior_pass": null,
+        "manual_review_required": true,
+        "limits": "Native model/file actions; controlled local source mirrors; not live GitHub discovery, a security sandbox study, or a future reliability guarantee."
+      }
+    },
+    {
+      "case": "new-selected-03",
+      "skill_body_sha256": "cebebf53855b38646d01a1c900d4b9a901d64852540b922a4186096ac0f5ee88",
+      "observed_stages": [
+        "scope",
+        "discovery"
+      ],
+      "command_count": 4,
+      "first_scope_event": {
+        "line": 8,
+        "item_id": "item_3"
+      },
+      "first_discovery_event": {
+        "line": 5,
+        "item_id": "item_1"
+      },
+      "first_production_event": {
+        "line": 13,
+        "item_id": "item_6"
+      },
+      "read_before_production": {
+        "mirror/current-export/SKILL.md": [
+          {
+            "line": 7,
+            "item_id": "item_2"
+          }
+        ],
+        "mirror/current-export/references/method.md": [
+          {
+            "line": 7,
+            "item_id": "item_2"
+          }
+        ],
+        "mirror/current-export/LICENSE": [
+          {
+            "line": 7,
+            "item_id": "item_2"
+          }
+        ],
+        "materials/current-identity.md": [
+          {
+            "line": 7,
+            "item_id": "item_2"
+          }
+        ],
+        "materials/independent-validation.md": [
+          {
+            "line": 7,
+            "item_id": "item_2"
+          }
+        ]
+      },
+      "protected_input_changes": [],
+      "automatic_behavior_pass": null,
+      "execution": {
+        "status": "completed_needs_review",
+        "exit_code": 0,
+        "elapsed_seconds": 78.12,
+        "case": "selected",
+        "guidance": true,
+        "artifact_exists": false,
+        "artifact_semantics": null,
+        "protected_inputs_intact": true,
+        "changed_inputs": [],
+        "behavior_pass": null,
+        "manual_review_required": true,
+        "limits": "Native model/file actions; controlled local source mirrors; not live GitHub discovery, a security sandbox study, or a future reliability guarantee."
+      }
+    },
+    {
+      "case": "new-selected-04",
+      "skill_body_sha256": "cebebf53855b38646d01a1c900d4b9a901d64852540b922a4186096ac0f5ee88",
+      "observed_stages": [
+        "scope",
+        "discovery"
+      ],
+      "command_count": 4,
+      "first_scope_event": {
+        "line": 8,
+        "item_id": "item_3"
+      },
+      "first_discovery_event": {
+        "line": 5,
+        "item_id": "item_1"
+      },
+      "first_production_event": null,
+      "read_before_production": {
+        "mirror/current-export/SKILL.md": [
+          {
+            "line": 10,
+            "item_id": "item_4"
+          }
+        ],
+        "mirror/current-export/references/method.md": [
+          {
+            "line": 10,
+            "item_id": "item_4"
+          }
+        ],
+        "mirror/current-export/LICENSE": [
+          {
+            "line": 10,
+            "item_id": "item_4"
+          }
+        ],
+        "materials/current-identity.md": [
+          {
+            "line": 10,
+            "item_id": "item_4"
+          }
+        ],
+        "materials/independent-validation.md": [
+          {
+            "line": 10,
+            "item_id": "item_4"
+          }
+        ]
+      },
+      "protected_input_changes": [],
+      "automatic_behavior_pass": null,
+      "execution": {
+        "status": "completed_needs_review",
+        "exit_code": 0,
+        "elapsed_seconds": 61.44,
+        "case": "selected",
+        "guidance": true,
+        "artifact_exists": false,
+        "artifact_semantics": null,
+        "protected_inputs_intact": true,
+        "changed_inputs": [],
+        "behavior_pass": null,
+        "manual_review_required": true,
+        "limits": "Native model/file actions; controlled local source mirrors; not live GitHub discovery, a security sandbox study, or a future reliability guarantee."
+      }
+    },
+    {
+      "case": "new-selected-05",
+      "skill_body_sha256": "cebebf53855b38646d01a1c900d4b9a901d64852540b922a4186096ac0f5ee88",
+      "observed_stages": [
+        "scope",
+        "discovery"
+      ],
+      "command_count": 4,
+      "first_scope_event": {
+        "line": 8,
+        "item_id": "item_3"
+      },
+      "first_discovery_event": {
+        "line": 7,
+        "item_id": "item_2"
+      },
+      "first_production_event": null,
+      "read_before_production": {
+        "mirror/current-export/SKILL.md": [
+          {
+            "line": 10,
+            "item_id": "item_4"
+          }
+        ],
+        "mirror/current-export/references/method.md": [
+          {
+            "line": 10,
+            "item_id": "item_4"
+          }
+        ],
+        "mirror/current-export/LICENSE": [
+          {
+            "line": 10,
+            "item_id": "item_4"
+          }
+        ],
+        "materials/current-identity.md": [
+          {
+            "line": 10,
+            "item_id": "item_4"
+          }
+        ],
+        "materials/independent-validation.md": [
+          {
+            "line": 10,
+            "item_id": "item_4"
+          }
+        ]
+      },
+      "protected_input_changes": [],
+      "automatic_behavior_pass": null,
+      "execution": {
+        "status": "completed_needs_review",
+        "exit_code": 0,
+        "elapsed_seconds": 69.62,
+        "case": "selected",
+        "guidance": true,
+        "artifact_exists": false,
+        "artifact_semantics": null,
+        "protected_inputs_intact": true,
+        "changed_inputs": [],
+        "behavior_pass": null,
+        "manual_review_required": true,
+        "limits": "Native model/file actions; controlled local source mirrors; not live GitHub discovery, a security sandbox study, or a future reliability guarantee."
+      }
+    },
+    {
+      "case": "none-selected-01",
+      "skill_body_sha256": null,
+      "observed_stages": [],
+      "command_count": 5,
+      "first_scope_event": null,
+      "first_discovery_event": {
+        "line": 5,
+        "item_id": "item_1"
+      },
+      "first_production_event": {
+        "line": 12,
+        "item_id": "item_5"
+      },
+      "read_before_production": {
+        "mirror/current-export/SKILL.md": [
+          {
+            "line": 9,
+            "item_id": "item_3"
+          }
+        ],
+        "mirror/current-export/references/method.md": [
+          {
+            "line": 9,
+            "item_id": "item_3"
+          }
+        ],
+        "mirror/current-export/LICENSE": [
+          {
+            "line": 9,
+            "item_id": "item_3"
+          }
+        ],
+        "materials/current-identity.md": [
+          {
+            "line": 7,
+            "item_id": "item_2"
+          }
+        ],
+        "materials/independent-validation.md": [
+          {
+            "line": 7,
+            "item_id": "item_2"
+          }
+        ]
+      },
+      "protected_input_changes": [],
+      "automatic_behavior_pass": null,
+      "execution": {
+        "status": "completed_needs_review",
+        "exit_code": 0,
+        "elapsed_seconds": 39.37,
+        "case": "selected",
+        "guidance": false,
+        "artifact_exists": true,
+        "artifact_semantics": true,
+        "behavior_pass": null,
+        "manual_review_required": true,
+        "limits": "Native model/file actions; controlled local source mirrors; not live GitHub discovery, a security sandbox study, or a future reliability guarantee."
+      }
+    },
+    {
+      "case": "none-selected-02",
+      "skill_body_sha256": null,
+      "observed_stages": [],
+      "command_count": 5,
+      "first_scope_event": null,
+      "first_discovery_event": {
+        "line": 5,
+        "item_id": "item_1"
+      },
+      "first_production_event": {
+        "line": 12,
+        "item_id": "item_5"
+      },
+      "read_before_production": {
+        "mirror/current-export/SKILL.md": [
+          {
+            "line": 9,
+            "item_id": "item_3"
+          }
+        ],
+        "mirror/current-export/references/method.md": [
+          {
+            "line": 9,
+            "item_id": "item_3"
+          }
+        ],
+        "mirror/current-export/LICENSE": [
+          {
+            "line": 9,
+            "item_id": "item_3"
+          }
+        ],
+        "materials/current-identity.md": [
+          {
+            "line": 7,
+            "item_id": "item_2"
+          }
+        ],
+        "materials/independent-validation.md": [
+          {
+            "line": 7,
+            "item_id": "item_2"
+          }
+        ]
+      },
+      "protected_input_changes": [],
+      "automatic_behavior_pass": null,
+      "execution": {
+        "status": "completed_needs_review",
+        "exit_code": 0,
+        "elapsed_seconds": 38.8,
+        "case": "selected",
+        "guidance": false,
+        "artifact_exists": true,
+        "artifact_semantics": true,
+        "behavior_pass": null,
+        "manual_review_required": true,
+        "limits": "Native model/file actions; controlled local source mirrors; not live GitHub discovery, a security sandbox study, or a future reliability guarantee."
+      }
+    },
+    {
+      "case": "none-selected-03",
+      "skill_body_sha256": null,
+      "observed_stages": [],
+      "command_count": 5,
+      "first_scope_event": null,
+      "first_discovery_event": {
+        "line": 5,
+        "item_id": "item_1"
+      },
+      "first_production_event": {
+        "line": 12,
+        "item_id": "item_5"
+      },
+      "read_before_production": {
+        "mirror/current-export/SKILL.md": [
+          {
+            "line": 9,
+            "item_id": "item_3"
+          }
+        ],
+        "mirror/current-export/references/method.md": [
+          {
+            "line": 9,
+            "item_id": "item_3"
+          }
+        ],
+        "mirror/current-export/LICENSE": [
+          {
+            "line": 9,
+            "item_id": "item_3"
+          }
+        ],
+        "materials/current-identity.md": [
+          {
+            "line": 7,
+            "item_id": "item_2"
+          }
+        ],
+        "materials/independent-validation.md": [
+          {
+            "line": 7,
+            "item_id": "item_2"
+          }
+        ]
+      },
+      "protected_input_changes": [],
+      "automatic_behavior_pass": null,
+      "execution": {
+        "status": "completed_needs_review",
+        "exit_code": 0,
+        "elapsed_seconds": 40.24,
+        "case": "selected",
+        "guidance": false,
+        "artifact_exists": true,
+        "artifact_semantics": true,
+        "behavior_pass": null,
+        "manual_review_required": true,
+        "limits": "Native model/file actions; controlled local source mirrors; not live GitHub discovery, a security sandbox study, or a future reliability guarantee."
+      }
+    },
+    {
+      "case": "none-selected-04",
+      "skill_body_sha256": null,
+      "observed_stages": [],
+      "command_count": 5,
+      "first_scope_event": null,
+      "first_discovery_event": {
+        "line": 5,
+        "item_id": "item_1"
+      },
+      "first_production_event": {
+        "line": 14,
+        "item_id": "item_6"
+      },
+      "read_before_production": {
+        "mirror/current-export/SKILL.md": [
+          {
+            "line": 11,
+            "item_id": "item_4"
+          }
+        ],
+        "mirror/current-export/references/method.md": [
+          {
+            "line": 11,
+            "item_id": "item_4"
+          }
+        ],
+        "mirror/current-export/LICENSE": [
+          {
+            "line": 11,
+            "item_id": "item_4"
+          }
+        ],
+        "materials/current-identity.md": [
+          {
+            "line": 9,
+            "item_id": "item_3"
+          }
+        ],
+        "materials/independent-validation.md": [
+          {
+            "line": 9,
+            "item_id": "item_3"
+          }
+        ]
+      },
+      "protected_input_changes": [],
+      "automatic_behavior_pass": null,
+      "execution": {
+        "status": "completed_needs_review",
+        "exit_code": 0,
+        "elapsed_seconds": 40.05,
+        "case": "selected",
+        "guidance": false,
+        "artifact_exists": true,
+        "artifact_semantics": true,
+        "behavior_pass": null,
+        "manual_review_required": true,
+        "limits": "Native model/file actions; controlled local source mirrors; not live GitHub discovery, a security sandbox study, or a future reliability guarantee."
+      }
+    },
+    {
+      "case": "none-selected-05",
+      "skill_body_sha256": null,
+      "observed_stages": [],
+      "command_count": 3,
+      "first_scope_event": null,
+      "first_discovery_event": {
+        "line": 5,
+        "item_id": "item_1"
+      },
+      "first_production_event": {
+        "line": 9,
+        "item_id": "item_3"
+      },
+      "read_before_production": {
+        "mirror/current-export/SKILL.md": [],
+        "mirror/current-export/references/method.md": [],
+        "mirror/current-export/LICENSE": [],
+        "materials/current-identity.md": [
+          {
+            "line": 7,
+            "item_id": "item_2"
+          }
+        ],
+        "materials/independent-validation.md": [
+          {
+            "line": 7,
+            "item_id": "item_2"
+          }
+        ]
+      },
+      "protected_input_changes": [],
+      "automatic_behavior_pass": null,
+      "execution": {
+        "status": "completed_needs_review",
+        "exit_code": 0,
+        "elapsed_seconds": 25.79,
+        "case": "selected",
+        "guidance": false,
+        "artifact_exists": true,
+        "artifact_semantics": true,
+        "behavior_pass": null,
+        "manual_review_required": true,
+        "limits": "Native model/file actions; controlled local source mirrors; not live GitHub discovery, a security sandbox study, or a future reliability guarantee."
+      }
+    },
+    {
+      "case": "old-selected-01",
+      "skill_body_sha256": "85c318b03334635d3c440f0be5c36f7afeae7ef01dfb699cfe7655f471dafade",
+      "observed_stages": [],
+      "command_count": 7,
+      "first_scope_event": null,
+      "first_discovery_event": {
+        "line": 5,
+        "item_id": "item_1"
+      },
+      "first_production_event": {
+        "line": 15,
+        "item_id": "item_7"
+      },
+      "read_before_production": {
+        "mirror/current-export/SKILL.md": [
+          {
+            "line": 9,
+            "item_id": "item_3"
+          }
+        ],
+        "mirror/current-export/references/method.md": [
+          {
+            "line": 9,
+            "item_id": "item_3"
+          }
+        ],
+        "mirror/current-export/LICENSE": [
+          {
+            "line": 9,
+            "item_id": "item_3"
+          }
+        ],
+        "materials/current-identity.md": [
+          {
+            "line": 9,
+            "item_id": "item_3"
+          }
+        ],
+        "materials/independent-validation.md": [
+          {
+            "line": 9,
+            "item_id": "item_3"
+          }
+        ]
+      },
+      "protected_input_changes": [],
+      "automatic_behavior_pass": null,
+      "execution": {
+        "status": "coordinator_postprocessing_failed",
+        "note": "Original utf8-sig codec typo retained; raw model turn and artifact remain."
+      }
+    }
+  ]
+}

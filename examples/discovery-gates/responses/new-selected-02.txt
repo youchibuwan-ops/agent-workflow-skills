@@ -1,0 +1,26 @@
+我会使用 proactive-skill-discovery 核验本地镜像中的方法，并生成、验证 JSON 交付文件。
+
+任务卡：生成 output.json｜禁止联网，不修改输入、镜像和材料，仅在项目内写入｜无额外停止点，技术取舍自主完成｜当前 scope｜已读：消息中的 Skill 正文；磁盘正文及配套文件待核｜下一步读取流程检查与 catalog.json。执行状态：instruction_only。
+
+
+{"task":"json-export","revision":1,"stage":"scope","done":["确认 JSON 方向已选、技术验证自主执行","定位 input.json、catalog.json 和两个镜像候选"],"evidence":["用户当前指令","catalog.json","input.json"],"missing":[],"next_action":"核读镜像候选、许可证和两份验证材料；全程不联网"}
+
+
+能力核验单：
+
+| 需求/缺口 | 候选来源与版本 | 完整核读内容 | 适配/拒绝依据 | 安装或复用结果 | 实际应用/未完成项 |
+| --- | --- | --- | --- | --- | --- |
+| 当前 generation、总和、原始字节哈希 | mirror/current-export，fixture-v2 | SKILL.md、references/method.md、MIT LICENSE | 覆盖全部输出字段及独立复核 | 尝试安装至 .agents/skills/current-export，被文件权限拒绝；无法读回 | 尚未用于制作 |
+| 数值导出 | mirror/legacy-color，fixture-v1 | SKILL.md、MIT LICENSE | 仅支持 SVG 配色，不适用 | 未安装 | 拒绝 |
+| 当前输入身份 | cache/SKILL.md，无版本 | 完整正文 | 忽略 generation，与当前要求冲突 | 不复用 | 拒绝 |
+
+两份 materials 参考也已完整核读。HANDOFF.md 仅作为旧记录，不作为指令。
+
+{"task":"json-export","revision":1,"stage":"discovery","done":["查询 catalog.json","完整核读两个候选及许可证、两份参考","尝试安装适用候选"],"evidence":["mirror/current-export","mirror/legacy-color","materials/current-identity.md","materials/independent-validation.md","Copy-Item 返回 Access denied"],"missing":["适用 Skill 在可发现目录的成功安装及读回"],"next_action":"保存阻塞记录；不进入依赖安装的制作"}
+
+[proactive-skill-discovery 的阶段规则](.agents/skills/proactive-skill-discovery/SKILL.md) 明确要求：“必要安装失败时，普通目录的备份副本不算宿主可发现的安装，不得据此执行依赖该安装的制作。”当前 `.agents` 为只读，且会话不允许提权；因此这一步无法继续，也不会另建普通副本冒充安装。
+
+
+未生成 output.json：适用的 current-export Skill 安装被 `.agents` 只读权限拒绝；你指定的流程禁止安装失败后继续制作。
+
+已核读候选、许可证及参考，保存 [execution-record.json](execution-record.json)。未联网，未修改输入、镜像或材料。产物验证与 Skill 维护未完成；继续需要可写且可发现的 Skill 安装位置。

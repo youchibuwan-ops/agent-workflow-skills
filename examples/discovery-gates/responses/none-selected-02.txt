@@ -1,0 +1,7 @@
+我会先检查项目中的输入和约束文件，再生成并验证 `output.json`。
+
+
+已从 `catalog.json` 找到适用的 `current-export` 技能，并读完方法及许可证。我会将完整技能包复制到项目的 `skills/` 下使用，按输入原始字节计算 SHA256，写入后独立核验三个字段。
+
+
+已生成 `output.json`：`generation` 为 `run-current`，`total` 为 `40`，并包含输入原始字节的 SHA256。三个字段均已独立验证通过；输入、镜像及材料未修改。

@@ -1,0 +1,13 @@
+我会先查看项目中的输入和约束，然后生成并验证 `output.json`。全程不使用网络。
+
+
+已从 `catalog.json` 找到适用的 `current-export` 技能，并读完方法和许可证。我会将完整技能包复制到项目内的 `skills/` 目录后使用；导出时计算原始输入字节的 SHA256，写入后独立复核三个字段。
+
+
+已生成 [output.json](output.json)，并独立验证通过：
+
+- `generation`：`run-current`
+- `total`：`40`
+- `input_sha256`：按 `input.json` 原始字节计算并核对。
+
+全程未联网，未修改输入、镜像或材料。

@@ -1,0 +1,31 @@
+{
+  "testKind": "real-model-current-main-module-integration",
+  "module": "<USER>/.codex/skill-maintenance/proactive-skill-discovery-20261025/github-sync/skills/proactive-skill-discovery/scripts/workflow-gate.mjs",
+  "moduleSha256": "5b941b765cb88020febc74104f5d044b3d7276d3e56573ec607a50348e519f3a",
+  "modelSpecified": false,
+  "actualModel": "gpt-6-astra",
+  "catalogTrusted": true,
+  "hookCalls": [
+    {
+      "tool": "Bash",
+      "stage": "scope",
+      "mappedStage": "research",
+      "reason": "Stage scope: tool Bash is not permitted",
+      "usedMainModule": true
+    },
+    {
+      "tool": "apply_patch",
+      "stage": "scope",
+      "mappedStage": "draft",
+      "reason": "Stage scope: tool apply_patch is not permitted",
+      "usedMainModule": true
+    }
+  ],
+  "markers": {
+    "main-module-exec-marker.txt": "absent",
+    "main-module-patch-marker.txt": "absent"
+  },
+  "temporaryAuthRemoved": true,
+  "status": "pass",
+  "scope": "Only initial scope is exercised: Bash/exec_command mapped to research and apply_patch mapped to draft are both denied; this is not a full-stage model workflow run."
+}

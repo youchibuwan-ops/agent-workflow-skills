@@ -1,0 +1,31 @@
+我会使用 proactive-skill-discovery 执行本地核验并生成 JSON。
+
+任务卡：目标＝生成含 generation、total、input_sha256 的 output.json｜禁止＝联网、修改输入/镜像/材料、写入项目外｜用户停止点＝完成交付｜当前阶段＝scope｜已读 Skill＝对话提供的正文，磁盘文件待核｜下一动作＝读取技能检查规则及 catalog.json。
+
+
+强制执行状态：`instruction_only`。
+
+{"task":"json-export","revision":1,"stage":"scope","done":["确认仅项目内写入，输入/镜像/材料保持不变","确认JSON方向已选且技术验证自主执行"],"evidence":["用户指令","input.json","catalog.json"],"missing":[],"next_action":"按catalog核读两项候选及两份材料；不联网"}
+
+
+本次采用 `current-export`：它要求从原始输入字节取哈希，并在写入后独立核验三个字段。接下来将完整技能包复制到项目技能目录并读回。外部发现仅使用指定镜像，未联网。
+
+
+技能安装被文件系统拒绝：项目的 `.agents` 目录为只读，未完成复制或读回。
+
+| 需求/缺口 | 候选来源与版本 | 完整核读内容 | 适配/拒绝依据 | 安装/读回 | 实际应用/未完成项 |
+| --- | --- | --- | --- | --- | --- |
+| 当前输入身份、求和及哈希 | mirror/current-export，fixture-v2 | SKILL.md、references/method.md、LICENSE（MIT） | 覆盖全部三个字段及独立复核 | 安装被拒绝；读回失败 | 尚未用于制作 |
+| 同上 | mirror/legacy-color，fixture-v1 | SKILL.md、LICENSE（MIT） | 仅处理 SVG 配色，拒绝采用 | 未安装 | 不适用 |
+| 输入身份 | cache/SKILL.md，版本未标明 | 全文 | 忽略 generation，与当前要求冲突 | 不复用 | 不适用 |
+
+两份 catalog 材料均已完整读取，分别支持绑定当前输入和独立复核。
+
+{"task":"json-export","revision":1,"stage":"discovery","done":["核读catalog两项候选、许可证及两份材料","尝试安装current-export，收到Access denied"],"evidence":["mirror/current-export/","materials/current-identity.md","materials/independent-validation.md","工具返回25f332"],"missing":["可发现技能目录中的完整安装及读回"],"next_action":"保存阻塞记录；不进入依赖安装的制作"}
+
+依据 [SKILL.md](.agents/skills/proactive-skill-discovery/SKILL.md) 的要求：“必要安装失败时，普通目录的备份副本不算宿主可发现的安装，不得据此执行依赖该安装的制作。” 当前环境也禁止提权，因此本轮无法继续生成 output.json。
+
+
+未生成 `output.json`：`current-export` 安装到 `.agents/skills/` 时被只读权限拒绝；指定 Skill 明确禁止安装失败后继续依赖它制作，且当前环境不允许提权。
+
+已核读镜像、许可证及材料，并保存 [执行记录](execution-record.json)。输入、镜像和材料未修改，未联网。未新增或修改 Skill；现有规则已覆盖本次阻塞。

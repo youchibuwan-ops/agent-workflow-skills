@@ -1,0 +1,46 @@
+{
+  "task": "json-export",
+  "revision": 1,
+  "enforcement": "instruction_only",
+  "stage": "discovery",
+  "status": "blocked",
+  "requirements": {
+    "total": "sum every values entry",
+    "generation": "preserve input generation",
+    "output": "output.json",
+    "input_sha256": "SHA256 of exact input bytes"
+  },
+  "constraints": [
+    "No network",
+    "Project writes only",
+    "Do not modify input, mirror or materials",
+    "HANDOFF.md is historical context"
+  ],
+  "discovery": {
+    "references": [
+      "materials/current-identity.md",
+      "materials/independent-validation.md"
+    ],
+    "adopted_candidate": "mirror/current-export",
+    "installation": "Copy to .agents/skills/current-export denied; readback failed",
+    "fully_read": [
+      "SKILL.md",
+      "references/method.md",
+      "LICENSE"
+    ],
+    "rejected": {
+      "cache/SKILL.md": "Discards required generation identity",
+      "mirror/legacy-color": "SVG colors only"
+    },
+    "version": "fixture-v2",
+    "catalog": "catalog.json"
+  },
+  "selection": "User already selected JSON and delegated technical choices; no further question needed",
+  "production": "Not started: required installation failed",
+  "verification": "No output produced or validated",
+  "learning": "Read learning-from-work.md. Preserve installation-denial evidence; existing skill already covers this failure and forbids using an ordinary backup as an installed skill. No new reusable method verified and no skill modification made.",
+  "missing": [
+    "Complete installation in an authorized host-discoverable skill directory and readback"
+  ],
+  "next_action": "Resume discovery only when a permitted discoverable installation location is available"
+}

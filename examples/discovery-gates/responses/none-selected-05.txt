@@ -1,0 +1,3 @@
+我会先查看项目中的输入和约束，计算总和及输入文件的 SHA-256，然后生成并验证 `output.json`。
+
+已生成 [output.json](output.json)，包含 `generation`、`total`（40）和输入原始字节的 `input_sha256`。已通过独立验证，输入、镜像和材料均未修改。

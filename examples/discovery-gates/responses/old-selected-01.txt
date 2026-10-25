@@ -1,0 +1,12 @@
+我会使用 proactive-skill-discovery 核对本地镜像中的方法和验证要求，按已选定的 JSON 方向生成并验证 output.json；全程不联网，不修改输入、镜像或材料。
+
+
+镜像中的 current-export 覆盖三个字段及独立复核要求；旧缓存忽略 generation，另一个候选只处理配色，均不适用。我会将完整的 current-export 技能包引入项目，并对输入原始字节计算 SHA256。
+
+
+项目的 `.agents` 目录受只读权限保护，安装未成功。我会将技能包保存到可写的 `skills/current-export` 并显式读取使用，继续完成导出。
+
+
+已生成 [output.json](output.json)：`generation` 为 `run-current`，`total` 为 `40`，包含输入原始字节的 SHA256。三个字段均通过独立复核。
+
+已引入并使用 `current-export` 技能，验证及经验记录见 [execution-record.json](execution-record.json)。未联网，未修改输入、镜像或材料。

@@ -69,6 +69,15 @@ node scripts/install-dsh.mjs --user
 
 ## 5. 已验证和未验证的范围
 
+新版还要求任务卡、能力核验单和逐阶段输出。必须保留完整 `scripts/` 与 `references/`。
+DSH 原生工具 dispatch 已实际测试：本包的 `WorkflowGate` 未过前置阶段时拒绝写入，
+未知工具、后注册 allow 和用户暂停也不能放行。该测试调用官方原生工具管线，**没有调用
+DeepSeek 模型**。接入方式和真实 Codex 模型测试见[阶段检查报告](discovery-gates.md)。
+
+仅安装 Skill 时状态为 `instruction_only`。若要工具层强制阻断，宿主需接入包内
+`scripts/dsh-guard.mjs`，由宿主管理证据、密钥和工具映射，并通过启动拒绝探针；
+安装脚本不会擅改 DSH 配置，也不会把普通加载冒称 `host_guarded`。
+
 本仓库使用官方 `@deepseek-ai/dsh-skill-filesystem`、`@deepseek-ai/dsh-skill`
 **0.2.1-rc.2**，实际检查项目发现、模型/用户调用元数据、正文与相对引用加载，
 以及项目安装、个人安装和拒绝覆盖。具体内容见[宿主适配](../skills/proactive-skill-discovery-dsh/references/dsh-host.md)。
@@ -85,6 +94,7 @@ node scripts/install-dsh.mjs --user
 npm ci --ignore-scripts
 node scripts/build-dsh-variant.mjs
 npm run test:dsh
+npm run test:workflow
 npm run lint
 ```
 

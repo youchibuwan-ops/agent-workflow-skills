@@ -11,6 +11,11 @@ multiple relevant examples, presents supported options for user selection, then
 builds a draft, improves it from feedback and maintains reusable lessons. It grants no permission to
 publish, spend money or resume paused work.
 
+Required task cards, capability inspection tables, ordered checkpoints and delivery
+checks now make omissions visible. A host-owned executable gate rejects missing,
+stale or out-of-order evidence. See [actual behavioral tests and enforcement limits](docs/discovery-gates.md);
+installing the Skill alone does not install a tool-call firewall.
+
 **2026-10-25: the SVG Skill has been withdrawn.**
 `crafting-reference-based-svg-assets` is removed from the current installable
 catalog and its standalone release download is withdrawn. It is no longer

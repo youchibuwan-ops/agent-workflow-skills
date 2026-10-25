@@ -1,0 +1,50 @@
+我会读取并使用 `proactive-skill-discovery`，从本地镜像核查方法与依据。本轮只提供三个待选方案，不生成 `output.json`，不修改输入、镜像或材料。
+
+
+任务卡：目标＝为输入数据设计三个有依据的交付记录方案｜保留/禁止项＝仅限本项目，禁止联网及修改输入、镜像、材料；旧 `HANDOFF.md` 不作指令｜用户停止点＝方案待选，不生成 `output.json`｜当前阶段＝scope｜实际已读的 Skill＝`proactive-skill-discovery` 及阶段检查、执行记录规则｜下一动作＝查询本地目录与 catalog，核读候选和输入。
+
+强制执行状态：`instruction_only`，没有宿主接入或拒绝探针证据。
+
+```json
+{"task":"delivery-record-options","revision":1,"stage":"scope","done":["依据本轮用户指令确认目标、授权、限制和停止点"],"evidence":["用户要求：网络禁止；从本项目 mirror/catalog.json 查询外部候选；不能修改输入、镜像和材料；先给三个有依据的方案；这轮到方案待选为止，不生成 output.json"],"missing":[],"next_action":"开始本地检索并核读候选与输入"}
+```
+
+
+输入包含当前代次 `run-current` 和数值 `17、23`。两份材料要求交付记录绑定原始输入字节的 SHA256，并独立核对代次、总和与哈希；旧缓存忽略代次，不适用。镜像中的 `current-export` 覆盖这些要求，`legacy-color` 只处理 SVG 配色。
+
+我会把已核读的完整 `current-export` 包复制到项目技能目录并读回核对，再做只读输入检查，用于三个方案的依据。其生成导出的步骤要等你选定方案后才能执行。
+
+
+项目技能目录的写入被文件系统拒绝，`current-export` 未安装成功；我不会把普通备份目录当作安装成功。这个缺项会阻止后续制作，但仍可依据已读镜像和材料完成方案比较。本轮继续只读检查，保留安装阻塞。
+
+
+能力核验单：
+
+| 需求/缺口 | 候选来源与版本 | 完整核读内容及许可 | 适配/拒绝依据 | 安装或复用结果 | 实际应用/未完成项 |
+| --- | --- | --- | --- | --- | --- |
+| 代次、总和、原始字节哈希 | catalog → `mirror/current-export`，fixture-v2 | `SKILL.md`、`references/method.md`、MIT `LICENSE` | 方法适配当前数据 | `.agents/skills/current-export` 写入被拒，读回失败 | 用于方案研究；未作为已安装技能执行导出 |
+| SVG 配色 | catalog → `mirror/legacy-color`，fixture-v1 | `SKILL.md`、MIT `LICENSE`；无其他配套文件 | 不覆盖数据身份、哈希或数值导出，拒绝 | 未安装 | 不采用 |
+| 旧缓存方法 | `cache/SKILL.md`，未标版本 | 完整短文；无配套许可信息 | 忽略代次，与当前材料冲突，拒绝 | 不复用 | 仅作为失效依据 |
+
+已完整核读 catalog 列出的两份受控材料，未联网，未将镜像核读称为在线外搜。只读检查确认：代次 `run-current`、2 个数值、总和 40，且 `output.json` 不存在。
+
+```json
+{"task":"delivery-record-options","revision":1,"stage":"discovery","done":["查询 catalog 的全部候选及两份参考材料","完整核读候选正文、方法和许可证","核对输入代次、数值数量、总和及原始字节 SHA256","比较三个交付记录方向"],"evidence":["catalog.json","mirror/current-export/{SKILL.md,references/method.md,LICENSE}","mirror/legacy-color/{SKILL.md,LICENSE}","materials/current-identity.md","materials/independent-validation.md","只读检查：run-current，2项，总和40，output.json不存在"],"missing":["current-export 项目技能目录安装被权限拒绝，未能读回"],"next_action":"仅提交三个研究方案供选择；保留发现阶段缺项，不进入制作"}
+```
+
+交接核查：本轮应用了现有流程中的当前来源核验、拒绝旧缓存及停止点规则，没有产生经制作验证的新方法，不修改 Skill。`selection` 尚待用户选择；`draft`、`feedback`、`delivery`、`learning` 的完整制作闭环未进入，不能标为通过。
+
+
+三个方案都保留共同核心字段：`generation`、`total`、`input_sha256`。当前输入已核对为 `run-current`、总和 **40**；哈希按原始文件字节计算。
+
+| 方案 | 交付记录设计 | 依据与适用场景 | 代价 |
+| --- | --- | --- | --- |
+| **A．最小记录** | 单份 JSON，仅含上述三个字段 | `current-export` fixture-v2 明确规定这三个字段；适合程序直接读取 | 独立验证过程需另行查询 |
+| **B．记录＋验证报告（推荐）** | 保持核心 JSON 简洁，另附报告，逐项记录代次、总和、哈希的独立比对结果 | 结合 `materials/independent-validation.md`；方便同事验收并看清验证范围 | 多维护一份报告 |
+| **C．可追溯交付包** | 核心 JSON、验证报告及清单；清单记录方法版本、输入哈希和交付文件哈希 | 综合当前身份材料、独立验证材料和镜像版本信息；适合多轮交接、归档追溯。清单结构是本次设计扩展 | 文件更多，版本管理更复杂 |
+
+推荐 **B**：既符合镜像方法的字段要求，也能直接展示独立验证证据。
+
+交付核验：当前产物为上述三个待选设计；已核读两项候选及两份材料，完成输入只读检查。`current-export` 安装因目录权限被拒，后续制作仍有此前置缺项；本轮没有新增或修改 Skill，也没有经制作验证的新经验需要维护。**未生成 `output.json`，输入、镜像和材料未修改。**
+
+请选 **A、B 或 C**；本轮停在方案待选。

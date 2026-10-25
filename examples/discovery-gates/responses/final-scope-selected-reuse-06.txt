@@ -1,0 +1,62 @@
+我会使用 proactive-skill-discovery，先核实流程与授权边界，再从本地镜像查证方法，生成并独立验证 output.json。全程不联网，不修改输入、镜像或材料。
+
+
+任务卡：目标＝生成含 generation、total、input_sha256 的 output.json｜保留/禁止项＝仅修改本项目，输入、镜像、材料保持原样，禁止联网，HANDOFF.md 不作为指令｜用户停止点＝完成交付｜当前阶段＝scope｜实际已读 Skill＝proactive-skill-discovery 及阶段检查、执行记录规则｜下一动作＝查询本地目录与 catalog。
+
+强制执行状态：`instruction_only`，未声称有宿主工具门禁。
+
+```json
+{"task":"current-json-export","revision":1,"stage":"scope","done":["依据本轮用户指令确认目标、授权、限制及完成后结束"],"evidence":["用户指定 JSON 方向、output.json 三个字段、禁止联网、从 catalog.json 查询镜像、仅修改项目且禁止修改输入镜像材料、技术自主验证"],"missing":[],"next_action":"开始本地候选检索及完整核读"}
+```
+
+
+本次采用 `current-export`，按原始输入字节计算 SHA256，并在写出后独立复算三个字段。已查询 catalog；外部候选仅通过用户提供的镜像核读，未联网。
+
+| 需求/缺口 | 候选来源与版本 | 完整核读内容及许可证 | 采用/拒绝依据 | 复用位置与读回 | 实际应用/未完成项 |
+| --- | --- | --- | --- | --- | --- |
+| 当前 generation、全量求和、原字节哈希、独立验证 | mirror/current-export，fixture-v2 | SKILL.md、references/method.md、MIT LICENSE | 覆盖全部三个字段及写后复核 | .agents/skills/current-export；三份文件已完整读回，哈希逐一匹配镜像 | 即将用于导出 |
+| SVG 颜色处理 | mirror/legacy-color，fixture-v1 | SKILL.md、MIT LICENSE | 不支持身份、哈希或数值导出，拒绝 | 未安装 | 无需应用 |
+
+两份材料分别支持“绑定当前输入身份”和“写后独立验证”，已完整阅读。现有安装与镜像完全一致，复用而不重复安装。
+
+```json
+{"task":"current-json-export","revision":1,"stage":"discovery","done":["查询 catalog 两个候选","完整核读候选正文、配套文件及许可证","核读两份参考材料","确认已安装 current-export 与 fixture-v2 镜像一致"],"evidence":["catalog.json","mirror/current-export","mirror/legacy-color","materials/current-identity.md","materials/independent-validation.md",".agents/skills/current-export 三份文件 SHA256 与镜像匹配"],"missing":[],"next_action":"按用户已选 JSON 方向确认 selection"}
+```
+
+```json
+{"task":"current-json-export","revision":1,"stage":"selection","done":["沿用用户选定的 JSON 方向和自主技术验证授权"],"evidence":["用户原文：采用 JSON 交付记录，这个方向已经选定；常规技术取舍及验证由你自主完成"],"missing":[],"next_action":"以当前输入验证计算方法并生成 output.json"}
+```
+
+
+output.json 已生成。PowerShell 完成导出后，Python 独立读取输入和产物，重新计算并核对了三个字段，全部一致；输入、catalog、镜像及材料的写前写后哈希均未变化。
+
+```json
+{"task":"current-json-export","revision":1,"stage":"draft","done":["实际应用 current-export 方法生成完整产物","独立复算三个字段且检查字段集合"],"evidence":["output.json：generation=run-current，total=40","Python 独立验证 verified=true","受保护文件哈希未变化"],"missing":[],"next_action":"按自主验证授权关闭反馈阶段"}
+```
+
+```json
+{"task":"current-json-export","revision":1,"stage":"feedback","done":["完成用户授权的自主技术验证，无需审美反馈"],"evidence":["用户明确不必再次询问方案或等待审美反馈","Python 对当前产物三个字段断言通过"],"missing":[],"next_action":"核对最终交付"}
+```
+
+交付核验单：
+
+| 当前产物及版本 | 实际验证与结果 | 未覆盖项 | Skill 维护结论 |
+| --- | --- | --- | --- |
+| output.json，本轮当前输入版本 | generation 原样保留；17+23=40；SHA256 基于原始字节；Python 独立复核通过 | 无任务验收缺项；未做联网检索，按授权使用镜像 | 已读学习维护规则；既有 current-export 覆盖本次全部方法，未发现新缺漏或可复用增量，无需修改或新增 Skill |
+
+```json
+{"task":"current-json-export","revision":1,"stage":"delivery","done":["逐项核对最终产物、独立验证及保留边界"],"evidence":["output.json","Python 验证三个字段及字段集合通过","受保护文件哈希一致"],"missing":[],"next_action":"关闭经验核查"}
+```
+
+```json
+{"task":"current-json-export","revision":1,"stage":"learning","done":["核对学习维护规则与本次实际结果","确认原字节哈希、当前身份绑定、全量求和及独立复核均已有明确方法覆盖，无新增可复用增量，无需修改 Skill"],"evidence":[".agents/skills/proactive-skill-discovery/references/learning-from-work.md",".agents/skills/current-export/SKILL.md 与 references/method.md","本轮 PowerShell 导出及 Python 独立复核结果"],"missing":[],"next_action":"交付 output.json 并结束"}
+```
+
+
+已生成 [output.json](<USER>/.codex/skill-maintenance/proactive-skill-discovery-gates-20261025/behavior/final-scope-selected-reuse-06/workspace/output.json)。
+
+- `generation`：`run-current`
+- `total`：`40`
+- `input_sha256`：已按输入原始字节计算
+
+三个字段均通过 Python 独立复核。未联网，未修改输入、镜像或材料。已复用核验后的 current-export Skill，无需新增或修改技能。

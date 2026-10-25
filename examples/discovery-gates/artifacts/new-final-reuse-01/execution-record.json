@@ -1,0 +1,79 @@
+{
+  "task": "current-json-export",
+  "revision": 1,
+  "enforcement": "instruction_only",
+  "status": "complete",
+  "scope": {
+    "protected": [
+      "input.json",
+      "catalog.json",
+      "mirror/",
+      "materials/"
+    ],
+    "user_selection": "JSON selected; technical decisions and validation delegated",
+    "output": "output.json",
+    "network": "prohibited; not used"
+  },
+  "discovery": {
+    "query": "catalog.json: current-generation JSON, sum, exact-byte SHA256, independent validation",
+    "reused_at": ".agents/skills/current-export",
+    "external_search": "Not performed: user prohibits network; supplied mirror inspected",
+    "comparison": "All three installed file hashes equal mirror/current-export",
+    "adopted": "current-export fixture-v2",
+    "rejected": "legacy-color fixture-v1: SVG palette only",
+    "references": [
+      "materials/current-identity.md",
+      "materials/independent-validation.md"
+    ],
+    "read_files": [
+      "SKILL.md",
+      "references/method.md",
+      "LICENSE"
+    ]
+  },
+  "requirements": [
+    {
+      "verification": "Reparse source and output and compare case-sensitively",
+      "result": "run-current",
+      "method": "Read actual input; preserve exactly",
+      "field": "generation"
+    },
+    {
+      "verification": "Independent Measure-Object -Sum on reread input",
+      "result": 40,
+      "method": "Sum every values entry using loop",
+      "field": "total"
+    },
+    {
+      "verification": "Independent Get-FileHash SHA256 comparison",
+      "result": "4eef722238bd4138197c24bdc307a1af4ba4f67dca82b18d984f5915d942717a",
+      "method": "SHA256.HashData on original input bytes",
+      "field": "input_sha256"
+    }
+  ],
+  "validation": {
+    "passed": true,
+    "uncovered": [],
+    "checks": [
+      "current-input sample before write",
+      "independent comparison after write",
+      "exactly three output fields",
+      "protected files unchanged against pre-write hash snapshot"
+    ]
+  },
+  "learning": {
+    "skill_changes": [],
+    "reason": "Current-export already specifies exact input bytes, current generation, all values, and independent post-write verification. Current results validate those existing rules; no new failure or reusable method discovered.",
+    "read": "proactive-skill-discovery/references/learning-from-work.md",
+    "outcome": "No skill changes needed"
+  },
+  "stages": [
+    "scope",
+    "discovery",
+    "selection",
+    "draft",
+    "feedback",
+    "delivery",
+    "learning"
+  ]
+}
