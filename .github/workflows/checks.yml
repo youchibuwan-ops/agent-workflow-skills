@@ -51,6 +51,7 @@ jobs:
           fail: true
   global-hosts:
     strategy:
+      fail-fast: false
       matrix:
         os: [ubuntu-24.04, windows-latest]
     runs-on: ${{ matrix.os }}
@@ -67,6 +68,13 @@ jobs:
         with:
           node-version: '24.22.1'
           cache: npm
+      - name: Canonical Windows temporary directories for native fixtures
+        if: runner.os == 'Windows'
+        run: >-
+          node --input-type=module -e "import {appendFileSync,realpathSync} from 'node:fs';
+          import {tmpdir} from 'node:os';
+          const canonical=realpathSync.native(tmpdir());
+          appendFileSync(process.env.GITHUB_ENV,'TEMP='+canonical+'\nTMP='+canonical+'\n');"
       - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
         with:
           python-version: '3.13'
@@ -85,10 +93,22 @@ jobs:
           console.log('Installed DSH 0.2.1-rc.2 ready for local scripted-provider tests');"
       - run: npm run test:hosts
       - run: npm run test:host-native
-      - name: Current global host tests, including actual scripted DSH profiles
+      - name: Windows full global host tests, including actual scripted DSH profiles
+        if: runner.os == 'Windows'
         run: npm run test:global
+      - name: Windows companion missing-capability refusal checks
+        if: runner.os == 'Windows'
+        run: node --test evals/global-entry/*.test.mjs
+      - name: Linux portable global tests and explicit unsupported-native refusal checks
+        if: runner.os == 'Linux'
+        shell: bash
+        run: |
+          node -e "console.log('Linux scope: portable global tests plus missing-pwsh fail-closed checks. broker.test.mjs and launcher-native.test.mjs require verified Windows native IO and run in full on Windows. The cross-platform test:hosts and test:host-native steps above remain required.');"
+          mapfile -t dsh_unit_tests < <(node --input-type=module -e "import {readdirSync} from 'node:fs'; for(const name of readdirSync('hosts/dsh-global').sort()) if(name.endsWith('.test.mjs')&&!['broker.test.mjs','launcher-native.test.mjs'].includes(name)) console.log('hosts/dsh-global/'+name);")
+          node --test hosts/core/*.test.mjs hosts/providers/*.test.mjs hosts/security/*.test.mjs hosts/conversation/*.test.mjs hosts/codex-global/*.test.mjs "${dsh_unit_tests[@]}" hosts/codex-global/probes/*.test.mjs hosts/dsh-global/probes/*.test.mjs evals/global-entry/*.test.mjs
   global-build:
     strategy:
+      fail-fast: false
       matrix:
         os: [ubuntu-24.04, windows-latest]
     runs-on: ${{ matrix.os }}
@@ -99,6 +119,13 @@ jobs:
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version: '24.22.1'
+      - name: Canonical Windows temporary directories for package fixtures
+        if: runner.os == 'Windows'
+        run: >-
+          node --input-type=module -e "import {appendFileSync,realpathSync} from 'node:fs';
+          import {tmpdir} from 'node:os';
+          const canonical=realpathSync.native(tmpdir());
+          appendFileSync(process.env.GITHUB_ENV,'TEMP='+canonical+'\nTMP='+canonical+'\n');"
       - name: Preserve the historical builder and original evidence bytes
         run: node scripts/check-frozen-preview.mjs
       - run: npm run test:global-package

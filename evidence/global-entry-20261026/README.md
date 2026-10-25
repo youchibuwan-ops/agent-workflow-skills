@@ -40,3 +40,9 @@
 每次启动先验证完整发行源码和安装后依赖树；实际受控 npm 安装、包/锁文件及完整官方 Node 工具树构成首次信任依据。依赖后改、增文件和不可信旧目录均拒绝。HMAC 认证本机所有者记录，不是公开供应链或作者行为的第三方签名；发布 ZIP 的 SHA256 仍需从可信发布处核对。
 
 本轮已实际维护两版 Skill 的 [阶段检查](../../skills/proactive-skill-discovery/references/stage-checks.md)：普通入口与测试入口分开验收、完整依赖树、Windows 文件别名及 MSIX 路径、结构化原生结果、足额测试预算及评分器校准。对应边界、失败反例和当前行为回归实际执行；个人目录安装需逐文件读回核对。没有新增无关 Skill。
+
+## 模型验收后的 CI 兼容补丁
+
+[ci-compatibility.json](ci-compatibility.json) 独立记录首轮 CI `40223588518` 的真实失败与后续补丁：Ubuntu 把 Windows native 能力当成跨平台能力运行，Windows 包测试则把 WinPS 错误行折换误判为未拒绝篡改。原失败、跳过及被取消的 matrix 均保留，不改写成通过。
+
+当前工作树对 R08 的 112 个源件中，111 个逐字节相同；唯一差异是 `scripts/build-global-package.test.mjs` 的诊断断言与短/长路径反例，所有生产文件相同。workflow 和 companion 位于 payload 外。R08 的 113 项清单、原 ZIP SHA256 与两份真实模型摘要保持原身份，不因 CI 测试修订重封或更换模型绑定。逐文件 SHA、包外文件 SHA 与本地 Windows 20/20（0 skipped）范围见该 JSON；Ubuntu 实跑与远端重新 CI 结果仍待后续记录。
