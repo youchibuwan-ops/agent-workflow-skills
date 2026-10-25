@@ -1,0 +1,29 @@
+{
+  "status": "complete",
+  "transport": "real Codex 0.164 native WebSocket with production gateway and generic factory",
+  "model": "gpt-6-astra",
+  "manifestSha256": "09059b2879be8f2060f6fe76c1761bd04c89342986fb5d305991c27c2eed4518",
+  "probeSha256": "f6511f54f24cdde26e2b99f60cb050c67b195e1f04727ed607bed5fcf9b96269",
+  "controlledCalls": 35,
+  "turns": 3,
+  "orderedStages": [
+    "scope",
+    "discovery",
+    "selection",
+    "draft",
+    "feedback",
+    "delivery",
+    "learning"
+  ],
+  "sourceSnapshots": 113,
+  "sourceBeforeEqualsAfter": true,
+  "exactNativeToolReturns": 35,
+  "inputSha256": "c7ea6170f878ce41594e669f98e92b025a9aa0b8f4d739813149f4a9e1487ce5",
+  "artifactSha256": "9f074b30b4facf2e137d805ca3e0054a2da27a835a9b4991301621ef16631340",
+  "artifactBytes": 315,
+  "earlyWriteDenied": true,
+  "externalDriverChoiceAndAcceptance": true,
+  "temporaryAuthRemoved": true,
+  "originalAuthUnchangedReported": true,
+  "scope": "Technical WS model-chain acceptance; no desktop UI message input or human stylistic acceptance; no exact HTTP or money budget claim"
+}

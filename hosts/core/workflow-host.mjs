@@ -5,12 +5,14 @@ import { dirname, basename, isAbsolute, relative, resolve, join } from 'node:pat
 import { tmpdir } from 'node:os';
 import { WorkflowGate, sealEvidence, STAGES } from '../../skills/proactive-skill-discovery/scripts/workflow-gate.mjs';
 import { WORKFLOW_TOOL_SCHEMAS } from './tool-schemas.mjs';
+import {protectedProjectSegment,projectPathKey,projectPathEquals} from '../security/project-path.mjs';
 export { WORKFLOW_TOOL_SCHEMAS };
 
 const hash = (bytes) => createHash('sha256').update(bytes).digest('hex');
 const nonempty = (value) => typeof value === 'string' && value.trim().length > 0;
 const inside = (root, path) => { const rel = relative(resolve(root), resolve(path)); return rel === '' || (!rel.startsWith('..') && !isAbsolute(rel)); };
 const blocked = (message) => Object.assign(new Error(message), { business: true });
+export const isWorkflowProgressQuery=text=>typeof text==='string'&&/^(?:\/workflow status|(?:现在|目前|当前)?的?(?:进度(?:怎么样|如何|怎样|到哪一步了)?|(?:弄好|做完|完成)了?(?:吗|没(?:有)?))|status(?: update)?|what(?:'s| is) (?:the )?status)[?？。.!！]*$/i.test(text.trim().replace(/\s+/g,' '));
 function safeRelative(value) {
   if (!nonempty(value) || value.includes('\0') || isAbsolute(value) || /^[a-z]:/i.test(value)) throw blocked('Expected a relative path');
   const path = value.replaceAll('\\', '/');
@@ -25,7 +27,7 @@ function regularFiles(root) {
       const path = join(dir, entry.name);
       if (entry.isSymbolicLink()) throw blocked('Symlinked Skill resources are not accepted');
       if (entry.isDirectory()) visit(path);
-      else if (entry.isFile()) files.push(path);
+      else if (entry.isFile()) {if(lstatSync(path).nlink>1)throw blocked('Hard-linked Skill resources are not accepted');files.push(path);}
       if (files.length > 100) throw blocked('Bundle exceeds the reviewed resource limit');
     }
   };
@@ -45,6 +47,7 @@ function validate(value, schema, label = 'arguments') {
     if (!Array.isArray(value)) throw blocked(`${label}: expected array`);
     for (const item of value) validate(item, schema.items, label);
   } else if (schema.type === 'string' && typeof value !== 'string') throw blocked(`${label}: expected string`);
+  else if (schema.type === 'boolean' && typeof value !== 'boolean') throw blocked(`${label}: expected boolean`);
   else if (schema.type === 'integer' && (!Number.isSafeInteger(value) || value < (schema.minimum ?? -Infinity) || value > (schema.maximum ?? Infinity))) throw blocked(`${label}: invalid integer`);
 }
 
@@ -57,11 +60,11 @@ class GuardedWorkflowHost {
     if (!nonempty(config?.workspace) || !nonempty(config?.userMessage)) throw new Error('Trusted workspace and original external user message required');
     this.#workspace = realpathSync(config.workspace);
     this.#root = resolve(config.stateRoot ?? join(tmpdir(), `workflow-state-${randomBytes(12).toString('hex')}`));
-    if (inside(this.#workspace, this.#root)) throw new Error('Trusted state must remain outside the actor workspace');
+    if (inside(this.#workspace, this.#root) && !config.protectedPrivateSubroots) throw new Error('Trusted state must remain outside the actor workspace');
     mkdirSync(this.#root, { recursive: true });
-    this.#root = realpathSync(this.#root);
-    if (inside(this.#workspace, this.#root)) throw new Error('State symlink resolves into the actor workspace');
-    if (config.installedRoot && inside(this.#workspace, config.installedRoot)) throw new Error('Managed installed Skills must remain outside the actor workspace');
+    this.#root = realpathSync.native(this.#root);
+    if (inside(this.#workspace, this.#root) && !config.protectedPrivateSubroots) throw new Error('State symlink resolves into the actor workspace');
+    if (config.installedRoot && inside(this.#workspace, config.installedRoot) && !config.protectedPrivateSubroots) throw new Error('Managed installed Skills must remain outside the actor workspace');
     this.#config = { ...config, taskId: config.taskId ?? `task-${randomBytes(8).toString('hex')}`,
       contract: structuredClone(config.contract ?? {}) };
     this.#config.contract.requirements ??= ['user-task'];
@@ -79,10 +82,6 @@ class GuardedWorkflowHost {
     this.#feedback = this.#config.contract.feedback.mode === 'delegated_verification' ? this.#config.contract.feedback : null;
     this.#gate = new WorkflowGate({ task: this.#config.taskId, revision: 1, key: this.#key, root: this.#root });
     for (const entry of this.#config.contract.catalog) this.#candidates.set(entry.id, structuredClone(entry));
-    for (const path of this.#config.contract.protectedInputs) {
-      const absolute = this.#workspaceFile(path, false);
-      this.#protected.set(safeRelative(path), hash(readFileSync(absolute)));
-    }
   }
   get toolSchemas() { return WORKFLOW_TOOL_SCHEMAS; }
   get stage() { return this.#gate.stage; }
@@ -93,7 +92,7 @@ class GuardedWorkflowHost {
       + `Discovery: search -> open Skill -> read ALL required file ranges -> confirm their returned source_receipt values with workflow_confirm_sources -> review applicability/license -> install/read back -> acquire/read/confirm/observe at least two references.\n`
       + `Reading a range returns its content and an unpredictable one-use source_receipt. After receiving those results, batch their receipts in workflow_confirm_sources. Precomputed read+review or read+observe calls do not count as inspection. The host never reveals challenges through status.\n`
       + `Checkpoint evidence must list host-issued IDs; do not submit receipts, pass fields or human authority. Use actual user choice/delegation.\n`
-      + `At draft write allowed artifacts, then call the host validator. This preview refuses sandbox method execution. Call workflow_learn with concrete evidence before completion.\n`
+      + `At draft write allowed artifacts, then call the host validator. ${this.#config.sandboxProvider?'A native permission-aware Python OS sandbox is configured; declare all input/output paths and use workflow_apply_method for inspected scripts.':'Sandbox method execution is unavailable.'} Call workflow_learn with concrete evidence before completion.\n`
       + (this.#config.contract.autoAdvance ? `Stage reports are automatic: after actual prerequisites are satisfied the HOST emits each ordered checkpoint and advances. Read the state returned by each tool; do not repeatedly call workflow_status/checkpoint or fill seven report forms. workflow_checkpoint is needed only to submit real unresolved selection options.\n`
         : `This trusted test contract uses manual stage requests: checkpoint draft, feedback, delivery and learning using host-issued evidence IDs.\n`)
       + `Correctable refusals keep the stage open. Do not claim completion while host.complete is false. Pending choice/feedback must be reported as waiting.\n`
@@ -104,6 +103,7 @@ class GuardedWorkflowHost {
         references: this.#config.contract.references.map((x) => ({ id: x.id, url: x.url, label: x.label })), learning: this.#config.contract.learning })}`;
   }
   async initialize() {
+    for (const path of this.#config.contract.protectedInputs) this.#protected.set(projectPathKey(safeRelative(path)),hash(await this.#readWorkspace(path)));
     this.#record('authorization', { origin: 'user', instruction: this.#config.userMessage });
     this.#record('scope', { goal: this.#config.userMessage, requirements: this.#config.contract.requirements,
       constraints: this.#config.contract.constraints, stop_after: this.#config.contract.stopAfter });
@@ -119,7 +119,7 @@ class GuardedWorkflowHost {
   }
   assertReady() { if (!this.ready) throw new Error(`Workflow host unavailable: ${this.#failed ?? 'not initialized'}`); return true; }
   abort(reason) { this.#failed = String(reason); this.#ready = false; this.#gate.stop(String(reason)); this.#audit.push({ event: 'aborted', reason: String(reason) }); }
-  exportAudit() { return structuredClone({ task: this.#config.taskId, stage: this.stage, complete: this.complete, failed: this.#failed, events: this.#audit }); }
+  exportAudit() { return structuredClone({ task: this.#config.taskId, revision:this.#gate.revision, stage: this.stage, complete: this.complete, failed: this.#failed, events: this.#audit }); }
   #state() { return { task: this.#config.taskId, revision: this.#gate.revision, stage: this.stage, complete: this.complete,
     blockedReason: this.#failed, evidence: this.#pending.map((x) => x.id),
     candidates: [...this.#candidates.values()].map((x) => ({ id: x.id, version: x.version, installed: this.#installed.has(x.id) })),
@@ -127,7 +127,7 @@ class GuardedWorkflowHost {
       return { id: x.id, source: source?.id ?? null, confirmed: !!source && this.#fullyRead(source), observed: !!source?.observation }; }),
     validators: this.#config.contract.validators.map((x) => ({ id: x.id, type: x.type })),
     capabilities: { source_confirmation: 'returned-challenge', checkpoints: this.#config.contract.autoAdvance ? 'host-automatic' : 'manual-test-mode',
-      acquisition: 'configured-local-only', method_execution: 'unavailable', skill_maintenance: 'no-increment-only', validators: ['json-export','exact-text'] },
+      acquisition: this.#config.sourceProvider?'installed-first-and-public-HTTPS':'configured-local-only', method_execution: this.#config.sandboxProvider?'native-permission-OS-sandbox-Python':'unavailable', skill_maintenance: 'no-increment-only', validators: ['json-export','exact-text','current-text-structural-only'] },
     options: this.#options, needs_input: this.stage === 'selection' && !this.#selection || this.stage === 'feedback' && !this.#feedback };
   }
   async #card(card) {
@@ -146,15 +146,25 @@ class GuardedWorkflowHost {
   #require(stage) { if (this.stage !== stage) throw blocked(`Current stage is ${this.stage}; ${stage} action denied before its prerequisites`); }
   #workspaceFile(path, writing) {
     const rel = safeRelative(path);
-    if (rel.split('/').some((x) => ['.git', '.codex', '.agents', '.dsh', '.workflow-host', 'node_modules'].includes(x))
-      || /(^|\/)(?:\.env(?:\..*)?|auth\.json|credentials(?:\..*)?)$/i.test(rel)) throw blocked('Host/configuration or credential paths are unavailable to the actor');
+    if (rel.split('/').some(protectedProjectSegment)) throw blocked('Host/configuration, ambiguous Windows aliases or credential paths are unavailable to the actor');
     const absolute = resolve(this.#workspace, rel);
     if (!inside(this.#workspace, absolute)) throw blocked('Workspace escape denied');
+    const privateRoots=[this.#root,this.#config.installedRoot,...(this.#config.privateRoots??[])].filter(Boolean).map(p=>existsSync(p)?realpathSync.native(p):resolve(p));
+    if(privateRoots.some(p=>inside(p,absolute)))throw blocked('Private host state and dependencies are unavailable to the actor');
     let parent = writing ? dirname(absolute) : absolute;
     while (!existsSync(parent)) parent = dirname(parent);
-    if (!inside(this.#workspace, realpathSync(parent))) throw blocked('Symlink escape denied');
+    const actualParent=realpathSync.native(parent);
+    if (!inside(realpathSync.native(this.#workspace),actualParent)) throw blocked('Symlink escape denied');
+    if(privateRoots.some(p=>inside(p,actualParent)))throw blocked('Project path resolves into private host state');
     if (existsSync(absolute) && lstatSync(absolute).isSymbolicLink()) throw blocked('Symlinked output denied');
+    if(existsSync(absolute)&&lstatSync(absolute).isFile()&&lstatSync(absolute).nlink>1)throw blocked('Hard-linked project files cannot bypass private/protected path identity');
     return absolute;
+  }
+  async #readWorkspace(path) {
+    const absolute=this.#workspaceFile(path,false);
+    const bytes=this.#config.workspaceIO?await this.#config.workspaceIO.read(safeRelative(path)):readFileSync(absolute);
+    if(!Buffer.isBuffer(bytes))throw new Error('Workspace reader did not return exact raw bytes');
+    return bytes;
   }
   #snapshot(relativePath, bytes, bundlePath = relativePath) {
     const path = safeRelative(relativePath);
@@ -163,8 +173,8 @@ class GuardedWorkflowHost {
     mkdirSync(dirname(target), { recursive: true }); writeFileSync(target, bytes);
     return { path, relative_path: bundlePath, bytes: bytes.length, returned_bytes: bytes.length, truncated: false, sha256: hash(bytes) };
   }
-  #integrity() {
-    for (const [path, digest] of this.#protected) if (hash(readFileSync(this.#workspaceFile(path, false))) !== digest) throw new Error(`Protected input changed externally: ${path}`);
+  async #integrity() {
+    for (const [path, digest] of this.#protected) if (hash(await this.#readWorkspace(path)) !== digest) throw new Error(`Protected input changed externally: ${path}`);
     for (const entry of this.#installed.values()) {
       const names = regularFiles(entry.path).map((x) => relative(entry.path, x).replaceAll('\\', '/')).sort();
       if (JSON.stringify(names) !== JSON.stringify(entry.files.map((x) => x.path).sort())) throw new Error('Installed method manifest changed externally');
@@ -175,7 +185,7 @@ class GuardedWorkflowHost {
       if (JSON.stringify(names) !== JSON.stringify(source.files.map((x) => x.path).sort())
         || source.files.some((x) => hash(readFileSync(join(source.originRoot, x.path))) !== hash(x.bytes))) throw new Error('Acquired current source changed externally');
     } else if (source.originFile && hash(readFileSync(source.originFile)) !== hash(source.files[0].bytes)) throw new Error('Reference source changed externally');
-    for (const [path, entry] of this.#artifacts) if (hash(readFileSync(this.#workspaceFile(path, false))) !== entry.sha256) throw new Error(`Artifact changed outside its guarded writer: ${path}`);
+    for (const [path, entry] of this.#artifacts) if (hash(await this.#readWorkspace(path)) !== entry.sha256) throw new Error(`Artifact changed outside its guarded writer: ${path}`);
   }
   dispatch(name, args = {}, meta = {}) {
     const run = this.#queue.then(() => this.#performDispatch(name, args, meta));
@@ -185,13 +195,18 @@ class GuardedWorkflowHost {
   async #performDispatch(name, args, meta) {
     try {
       this.assertReady();
-      this.#integrity();
       const definition = WORKFLOW_TOOL_SCHEMAS.find((x) => x.name === name);
       if (!definition) throw blocked('Unknown or raw tool is not registered in this host');
       validate(args, definition.inputSchema);
       if (name !== 'workflow_status') {
         if (this.complete || STAGES.indexOf(this.stage) > STAGES.indexOf(this.#config.contract.stopAfter)) throw blocked('The authorized stopping boundary has been reached');
         this.#gate.run(this.stage, () => undefined);
+        await this.#integrity();
+      }
+      if(this.#feedback?.mode==='pending_external_accept'){
+        if(name==='workflow_status')await this.#integrity();
+        this.#acceptCurrentGoal(this.#feedback.instruction);await this.#autoAdvance();
+        if(name!=='workflow_status'&&(this.complete||STAGES.indexOf(this.stage)>STAGES.indexOf(this.#config.contract.stopAfter)))throw blocked('The authorized stopping boundary has been reached');
       }
       this.#audit.push({ event: 'tool', name, callId: meta.callId, stage: this.stage });
       const data = await this.#dispatch(name, args);
@@ -208,8 +223,8 @@ class GuardedWorkflowHost {
     if (name === 'workflow_read_workspace') {
       const path = safeRelative(args.path);
       const allowed = this.#config.contract.readAllowlist;
-      if (allowed && !allowed.includes(path)) throw blocked('Input is outside the host-approved read allowlist');
-      const bytes = readFileSync(this.#workspaceFile(path, false));
+      if (allowed && !allowed.some(x=>projectPathEquals(x,path))) throw blocked('Input is outside the host-approved read allowlist');
+      const bytes = await this.#readWorkspace(path);
       const chunk = this.#textChunk(bytes, args.offset ?? 0, args.length ?? 12000);
       this.#audit.push({ event: 'workspace_input_delivered', path, start: chunk.start, end: chunk.end, sha256: hash(bytes) });
       return { path, ...chunk, bytes: bytes.length, sha256: hash(bytes) };
@@ -217,6 +232,13 @@ class GuardedWorkflowHost {
     if (name === 'workflow_checkpoint') return this.#checkpoint(args);
     if (name === 'workflow_search_skills') {
       this.#require('discovery');
+      if (this.#config.sourceProvider) {
+        if (args.external && (!this.#pending.some(x=>x.kind==='skill_search' && x.data.source==='installed-provider') || !nonempty(args.gap))) throw blocked('Search installed Skills first and state the actual local capability gap before external discovery');
+        const result = await this.#config.sourceProvider.search(args.query, { external: !!args.external });
+        for (const candidate of result.candidates) this.#candidates.set(candidate.id, {...candidate, providerCandidate: true});
+        this.#record('skill_search', {source:args.external?'public-provider':'installed-provider',query:args.query,results:result.candidates.map(x=>x.id),...(args.external?{gap:args.gap}:{})});
+        return result;
+      }
       const candidates = [...this.#candidates.values()];
       if (!candidates.length) throw blocked('No approved catalog is configured; acquire a trusted source before continuing');
       this.#record('skill_search', { source: 'host-configured-catalog', query: args.query, results: candidates.map((x) => x.id) });
@@ -227,6 +249,14 @@ class GuardedWorkflowHost {
       const candidate = this.#candidates.get(args.candidate);
       if (!candidate) throw blocked('Candidate was not returned by this catalog');
       if (!this.#pending.some((x) => x.kind === 'skill_search' && x.data.results.includes(candidate.id))) throw blocked('Actual candidate search is required first');
+      if (candidate.providerCandidate) {
+        const acquired = await this.#config.sourceProvider.acquire(candidate.id);
+        if (acquired.status !== 'ready') throw blocked(`Acquired bundle remains ${acquired.status}: ${(acquired.missing??[]).join(', ')}. Binary material needs a verified viewer; no text-only substitute is allowed`);
+        const root = realpathSync(acquired.path);
+        const files = regularFiles(root);
+        if (files.length!==acquired.manifest.length || acquired.manifest.some(x=>!files.includes(join(root,x.path)) || hash(readFileSync(join(root,x.path)))!==x.sha256)) throw new Error('Acquired provider manifest does not match actual bundle bytes');
+        return this.#openBundle({...candidate,path:root,version:acquired.version,licensePath:acquired.license?.path});
+      }
       if (!candidate.path) throw blocked('This source needs the reviewed network acquisition provider');
       return this.#openBundle(candidate);
     }
@@ -249,7 +279,14 @@ class GuardedWorkflowHost {
     if (name === 'workflow_install_skill') return this.#install(args.candidate);
     if (name === 'workflow_open_reference') {
       this.#require('discovery');
-      const ref = this.#config.contract.references.find((x) => x.id === args.reference);
+      let ref = this.#config.contract.references.find((x) => x.id === args.reference);
+      if (!ref && this.#config.sourceProvider) {
+        const acquired = await this.#config.sourceProvider.fetchReference(args.reference);
+        if (acquired.status!=='text') throw blocked('This reference requires a verified native viewer; binary-to-text reading cannot prove inspection');
+        ref={id:hash(Buffer.from(acquired.url)),path:acquired.path,url:acquired.url,label:acquired.url};
+        if (hash(readFileSync(ref.path))!==acquired.sha256) throw new Error('Reference bytes differ from acquired digest');
+        this.#config.contract.references.push(ref);
+      }
       if (!ref?.path) throw blocked('Reference is not a configured readable source');
       const bytes = readFileSync(ref.path);
       const source = { id: `reference:${ref.id}`, storage: `reference-${this.#sources.size}`, type: 'reference', reference: ref,
@@ -269,7 +306,7 @@ class GuardedWorkflowHost {
       return { observed: true, inspected_references: refs.length };
     }
     if (name === 'workflow_write') return this.#write(args.path, args.content);
-    if (name === 'workflow_apply_method') throw blocked('Method execution requires the OS sandbox provider; no raw execution fallback is allowed');
+    if (name === 'workflow_apply_method') return this.#applyMethod(args);
     if (name === 'workflow_validate') return this.#validateArtifact(args);
     if (name === 'workflow_learn') return this.#learn(args);
     throw blocked('Tool has no host-owned handler');
@@ -277,7 +314,7 @@ class GuardedWorkflowHost {
   #openBundle(candidate) {
     const root = realpathSync(candidate.path);
     const files = regularFiles(root).map((path) => ({ path: relative(root, path).replaceAll('\\', '/'), bytes: readFileSync(path), coverage: [] }));
-    if (!files.some((x) => x.path === 'SKILL.md') || !files.some((x) => /(^|\/)LICEN[CS]E(?:\.[^/]+)?$/i.test(x.path))) throw blocked('Complete Skill entry and applicable license body are required');
+    if (!files.some((x) => x.path === 'SKILL.md' && x.bytes.length > 0) || !files.some((x) => (candidate.licensePath ? x.path===candidate.licensePath : /(^|\/)(?:LICEN[CS]E|COPYING)(?:\.[^/]+)?$/i.test(x.path)) && x.bytes.length > 0)) throw blocked('Nonempty Skill entry and applicable license body are required');
     if (files.reduce((n, x) => n + x.bytes.length, 0) > 4 * 1024 * 1024) throw blocked('Source bundle is too large for this reviewed acquisition policy');
     const source = { id: `skill:${candidate.id}`, storage: `skill-${this.#sources.size}`, type: 'skill', candidate: candidate.id,
       version: candidate.version ?? hash(Buffer.concat(files.map((x) => x.bytes))), files, originRoot: root };
@@ -316,15 +353,17 @@ class GuardedWorkflowHost {
     return { confirmed: entries.map(({ source, file, start, end }) => ({ source: source.id, path: file.path, start, end, complete: this.#fileRead(file) })) };
   }
   #textChunk(bytes, start, length) {
+    if (bytes.length === 0 && start === 0) return { start: 0, end: 0, content: '' };
     if (start >= bytes.length) throw blocked('Source offset out of range');
     const maximum = Math.min(bytes.length, start + length);
     for (let end = maximum; end > start && end >= maximum - 3; end--) {
-      try { return { start, end, content: new TextDecoder('utf-8', { fatal: true }).decode(bytes.subarray(start, end)) }; }
+      try { return { start, end, content: new TextDecoder('utf-8', { fatal: true, ignoreBOM: true }).decode(bytes.subarray(start, end)) }; }
       catch { /* Move only the ending boundary; an invalid start is never acknowledged. */ }
     }
     throw blocked('Binary source, invalid UTF-8 start, or chunk shorter than one codepoint');
   }
   #fileRead(file) {
+    if (file.bytes.length === 0) return file.coverage.some(([a,b]) => a === 0 && b === 0);
     let end = 0;
     for (const [a, b] of [...file.coverage].sort((x, y) => x[0] - y[0])) { if (a > end) return false; end = Math.max(end, b); }
     return end === file.bytes.length && end > 0;
@@ -334,7 +373,7 @@ class GuardedWorkflowHost {
     this.#require('discovery');
     const source = this.#sources.get(`skill:${candidate}`);
     if (!source || source.review?.decision !== 'adopt' || !this.#fullyRead(source)) throw blocked('Only a fully inspected adopted source may be installed');
-    const folder = candidate.replace(/[^a-zA-Z0-9-]/g, '-');
+    const folder = candidate.replace(/[^a-zA-Z0-9-]/g, '-')+(this.#candidates.get(candidate)?.providerCandidate?'-'+hash(Buffer.from(source.version)).slice(0,16):'');
     const target = resolve(this.#config.installedRoot ?? join(this.#root, 'installed-skills'), folder);
     const exists = existsSync(target);
     if (exists) {
@@ -354,35 +393,60 @@ class GuardedWorkflowHost {
     this.#record('skill_install', { candidate, version: source.version, mode: exists ? 'reuse' : 'install', files });
     return { installed: true, mode: exists ? 'reuse' : 'install', catalog: 'host-managed-discoverable-skills', files: manifest };
   }
-  #write(path, content) {
+  async #write(path, content) {
     this.#require('draft');
     const rel = safeRelative(path);
-    if (this.#protected.has(rel)) throw blocked('Protected input cannot be written');
+    if (this.#protected.has(projectPathKey(rel))) throw blocked('Protected input cannot be written');
     const allow = this.#config.contract.writeAllowlist;
-    if (allow && !allow.includes(rel)) throw blocked('Artifact is outside the authorized write allowlist');
+    if (allow && !allow.some(x=>projectPathEquals(x,rel))) throw blocked('Artifact is outside the authorized write allowlist');
     if (Buffer.byteLength(content) > 2 * 1024 * 1024) throw blocked('Artifact exceeds allowed size');
     const method = [...this.#installed.entries()].find(([, item]) => item.source.review?.decision === 'adopt');
     if (!method) throw blocked('No inspected installed method is active');
     const absolute = this.#workspaceFile(rel, true);
-    mkdirSync(dirname(absolute), { recursive: true });
-    const temp = `${absolute}.workflow-${randomBytes(8).toString('hex')}.tmp`;
-    writeFileSync(temp, content); renameSync(temp, absolute);
-    const artifact = this.#snapshot(`artifacts/${rel}`, readFileSync(absolute), rel);
-    this.#pending = this.#pending.filter((x) => !(['application','validation'].includes(x.kind) && x.data.artifact?.relative_path === rel));
-    this.#artifacts.set(rel, { ...artifact, workspacePath: rel }); this.#validated.delete(rel);
+    const expected=Buffer.from(content);
+    if(this.#config.workspaceIO) await this.#config.workspaceIO.write(rel,expected);
+    else {
+      mkdirSync(dirname(absolute), { recursive: true });
+      const temp = `${absolute}.workflow-${randomBytes(8).toString('hex')}.tmp`;
+      writeFileSync(temp, expected); renameSync(temp, absolute);
+    }
+    const actual=await this.#readWorkspace(rel);if(!actual.equals(expected))throw new Error('Guarded artifact write readback mismatch');
+    const artifact = this.#snapshot(`artifacts/${rel}`, actual, rel);
+    this.#pending = this.#pending.filter((x) => !(['application','validation'].includes(x.kind) && x.data.artifact?.relative_path && projectPathEquals(x.data.artifact.relative_path,rel)));
+    this.#artifacts.set(projectPathKey(rel), { ...artifact, workspacePath: rel }); this.#validated.delete(projectPathKey(rel));
     this.#record('application', { candidate: method[0], version: method[1].source.version,
       method: `Artifact physically produced after the selected inspected method; semantic correspondence requires independent validation. ${method[1].source.review.reason}`, artifact });
     return { artifact: rel, sha256: artifact.sha256, bytes: artifact.bytes };
   }
-  #validateArtifact(args) {
+  async #applyMethod(args){
     this.#require('draft');
-    const artifact = this.#artifacts.get(safeRelative(args.artifact));
+    if(!this.#config.sandboxProvider)throw blocked('Method execution requires the OS sandbox provider; no raw execution fallback is allowed');
+    if(args.args?.length)throw blocked('This reviewed Python sandbox does not accept unreviewed script arguments');
+    const method=this.#installed.get(args.candidate),script=safeRelative(args.path);
+    if(!method||method.source.review?.decision!=='adopt'||!method.files.some(x=>x.path===script))throw blocked('Execute only an actually inspected installed script');
+    const inputs=(args.inputs??[]).map(safeRelative),outputs=(args.outputs??[]).map(safeRelative);
+    if(!outputs.length)throw blocked('Declare the exact staged artifact output paths');
+    if(new Set(outputs.map(projectPathKey)).size!==outputs.length)throw blocked('Duplicate method output aliases rejected');
+    for(const path of inputs){this.#workspaceFile(path,false);if(this.#config.contract.readAllowlist&&!this.#config.contract.readAllowlist.some(x=>projectPathEquals(x,path)))throw blocked('Method input is outside the approved read allowlist');}
+    for(const path of outputs){this.#workspaceFile(path,true);if(this.#protected.has(projectPathKey(path))||(this.#config.contract.writeAllowlist&&!this.#config.contract.writeAllowlist.some(x=>projectPathEquals(x,path))))throw blocked('Method output would overwrite a protected or unauthorized path');}
+    const result=await this.#config.sandboxProvider.execute({workspace:this.#workspace,methodRoot:method.path,script,inputPaths:inputs,outputPaths:outputs});
+    if(!result.ok)throw blocked(`Isolated method failed; no project output committed: ${result.stderr??'execution refused'}`);
+    await this.#integrity();
+    const decoded=[];
+    for(const path of outputs){const bytes=result.outputs[path];if(!Buffer.isBuffer(bytes))throw new Error('Sandbox returned an incomplete staged output manifest');let content;try{content=new TextDecoder('utf8',{fatal:true,ignoreBOM:true}).decode(bytes);}catch{throw blocked('Binary method output requires a verified binary writer; no text conversion fallback');}decoded.push({path,content,sha256:hash(bytes)});}
+    this.#audit.push({event:'isolated_method_executed',candidate:args.candidate,path:script,methodScriptSha256:result.methodScriptSha256,inputSha256:result.inputSha256,outputs:decoded.map(({path,sha256})=>({path,sha256})),isolation:result.isolation});
+    const artifacts=[];for(const item of decoded)artifacts.push(await this.#write(item.path,item.content));
+    return {executed:true,exitCode:result.exitCode,stdout:result.stdout,artifacts,independent_semantic_validation_required:true};
+  }
+  async #validateArtifact(args) {
+    this.#require('draft');
+    const artifact = this.#artifacts.get(projectPathKey(safeRelative(args.artifact)));
     const validator = this.#config.contract.validators.find((x) => x.id === args.validator);
     if (!artifact || !validator) throw blocked('Current produced artifact and host-approved validator are required');
-    const bytes = readFileSync(this.#workspaceFile(args.artifact, false));
+    const bytes = await this.#readWorkspace(args.artifact);
     let observation;
     if (validator.type === 'json-export') {
-      const raw = readFileSync(this.#workspaceFile(validator.input, false));
+      const raw = await this.#readWorkspace(validator.input);
       const input = JSON.parse(raw.toString('utf8'));
       let actual;
       try { actual = JSON.parse(bytes.toString('utf8')); } catch { throw blocked('Independent validator: malformed JSON'); }
@@ -395,13 +459,18 @@ class GuardedWorkflowHost {
     } else if (validator.type === 'exact-text') {
       if (bytes.toString('utf8') !== validator.expected) throw blocked('Independent validator: text differs from frozen expected output');
       observation = 'Current artifact equals the trusted frozen expected text.';
+    } else if (validator.type === 'current-text') {
+      if(JSON.stringify(validator.covers)!==JSON.stringify(['artifact-readable']))throw blocked('Structural validation may cover only artifact-readable; original task semantics require actual external acceptance');
+      let text;try{text=new TextDecoder('utf8',{fatal:true,ignoreBOM:true}).decode(bytes);}catch{throw blocked('Current artifact is not complete valid UTF-8 text');}
+      if(/\.json$/i.test(args.artifact)){try{JSON.parse(text.replace(/^\uFEFF/,''));}catch{throw blocked('Current JSON artifact is malformed');}}
+      observation='Verified current raw-byte readback, UTF-8 decoding'+(/\.json$/i.test(args.artifact)?' and JSON syntax':'')+'. This structural check does not verify the original user goal.';
     } else throw blocked('Unknown independent validator; no actor-supplied test result is accepted');
     const covers = validator.covers ?? (validator.type === 'json-export' ? ['generation','sum','input_sha256'] : []);
     if (!Array.isArray(covers) || !covers.length || covers.some((x) => !this.#config.contract.requirements.includes(x)))
       throw blocked('Independent validator has no valid host-defined scoped requirement coverage');
-    this.#validated.set(args.artifact, { artifact, observation, covers });
+    this.#validated.set(projectPathKey(args.artifact), { artifact, observation, covers });
     this.#record('validation', { artifact, command: `host-approved:${validator.id}/${validator.type}`, exit_code: 0, observation });
-    return { validated: true, artifact: args.artifact, observation };
+    return { validated: true, artifact: args.artifact, observation, ...(validator.type==='current-text'?{semantic_goal_verified:false}:{}) };
   }
   #learn(args) {
     this.#require('learning');
@@ -419,6 +488,10 @@ class GuardedWorkflowHost {
           const source = this.#sources.get(id);
           return !source || source.type !== 'reference' || !source.observation || !this.#fullyRead(source);
         }))) throw blocked('Each option needs a concrete description and actually inspected reference sources');
+        if(this.#config.contract.conversationMode){
+          if(args.options.some(x=>!Array.isArray(x.artifacts)||!x.artifacts.length||new Set(x.artifacts).size!==x.artifacts.length))throw blocked('Each conversation option must declare its exact artifact/edit paths for actual external approval');
+          for(const option of args.options)for(const path of option.artifacts){this.#workspaceFile(path,true);if(this.#protected.has(projectPathKey(safeRelative(path))))throw blocked('Option may not propose overwriting a protected input');}
+        }
         this.#options = structuredClone(args.options);
         await this.#card({ kind: 'options', stage: 'selection', options: this.#options });
       }
@@ -426,7 +499,7 @@ class GuardedWorkflowHost {
       if (!this.#pending.some((x) => x.kind === 'selection')) this.#record('selection', { origin: 'user', ...this.#selection });
     }
     if (this.stage === 'feedback') {
-      if (!this.#feedback) throw blocked('Actual feedback for this current artifact is missing');
+      if (!this.#feedback || this.#feedback.mode==='pending_external_accept') throw blocked('Actual feedback and current artifact recheck for this draft are required');
       if (!this.#pending.some((x) => x.kind === 'feedback')) for (const item of this.#validated.values()) this.#record('feedback', { origin: 'user',
         decision: this.#feedback.mode === 'delegated_verification' ? 'delegated_verification' : 'accept', instruction: this.#feedback.instruction, artifact: item.artifact });
     }
@@ -455,8 +528,8 @@ class GuardedWorkflowHost {
       const allCovered = this.#config.contract.requirements.every((id) => [...this.#validated.values()].some((x) => x.covers.includes(id)));
       const eligible = this.stage === 'discovery' ? ['skill_search','skill_review','skill_install','references'].every((kind) => kinds.has(kind))
         : this.stage === 'selection' ? !!this.#selection
-          : this.stage === 'draft' ? allValidated && allCovered
-            : this.stage === 'feedback' ? allValidated && !!this.#feedback
+          : this.stage === 'draft' ? allValidated && (allCovered || (this.#config.contract.feedback.mode==='required' && this.#config.contract.requirements.every(id=>id==='original-user-task'||[...this.#validated.values()].some(x=>x.covers.includes(id)))))
+            : this.stage === 'feedback' ? allValidated && !!this.#feedback && this.#feedback.mode!=='pending_external_accept'
               : this.stage === 'delivery' ? allValidated && allCovered
                 : this.stage === 'learning' ? kinds.has('learning') : false;
       if (!eligible) break;
@@ -473,6 +546,7 @@ class GuardedWorkflowHost {
   async acceptUserMessage(text) {
     // This method is deliberately absent from model tool schemas.
     if (!nonempty(text)) throw new Error('External input must be nonempty');
+    if(isWorkflowProgressQuery(text)){this.#audit.push({event:'external_status_query',text,stage:this.stage});return this.#state();}
     const choice = text.match(/^\/workflow choose ([a-z0-9_-]+)$/i);
     if (choice) {
       const selected = choice[1];
@@ -480,11 +554,23 @@ class GuardedWorkflowHost {
         throw blocked('Choose only an actually shown option at the selection stage');
       this.#selection = { mode: 'chosen', selected,
         options: this.#options.map((x) => x.id), instruction: text };
+      if(this.#config.contract.conversationMode)this.#config.contract.writeAllowlist=this.#options.find(x=>x.id===selected).artifacts.map(safeRelative);
     } else if (text.trim() === '/workflow accept') {
       if (this.stage !== 'feedback' || !this.#validated.size) throw blocked('Accept only the current independently validated draft at feedback');
-      this.#feedback = { mode: 'accept', instruction: text };
+      if(this.#config.workspaceIO)this.#feedback={mode:'pending_external_accept',instruction:text};
+      else{await this.#integrity();this.#acceptCurrentGoal(text);}
     }
     else if (/^(?:\/workflow pause|暂停|先停|停止)/.test(text.trim())) this.abort('External user paused the task');
+    else if(this.#config.contract.conversationMode){
+      this.#gate.reopen('scope',text);this.#pending=[];this.#sources.clear();this.#sourceReceipts.clear();this.#installed.clear();this.#artifacts.clear();this.#validated.clear();this.#options=[];this.#selection=null;this.#feedback=null;
+      this.#config.contract.writeAllowlist=[];
+      this.#config.userMessage+='\n\nActual external user correction/addition:\n'+text;
+      this.#record('authorization',{origin:'user',instruction:this.#config.userMessage});
+      this.#record('scope',{goal:this.#config.userMessage,requirements:this.#config.contract.requirements,constraints:this.#config.contract.constraints,stop_after:this.#config.contract.stopAfter});
+      const report=this.#report(['Reopened the scope from actual external feedback; all prior method/source/validation claims invalidated.']);
+      const result=this.#gate.advance(report,this.#pending);if(!result.ok)throw new Error(result.errors.join('; '));this.#pending=[];
+      await this.#card({kind:'scope',report,enforcement:'host_guarded'});await this.#card({kind:'checkpoint',report,result});
+    }
     else if (this.stage === 'feedback') {
       this.#gate.reopen('draft', text); this.#pending = []; this.#validated.clear(); this.#sourceReceipts.clear();
       this.#feedback = this.#config.contract.feedback.mode === 'delegated_verification' ? this.#config.contract.feedback : null;
@@ -493,6 +579,16 @@ class GuardedWorkflowHost {
     this.#audit.push({ event: 'external_user_input', text });
     await this.#autoAdvance();
     return this.#state();
+  }
+  #acceptCurrentGoal(instruction){
+    this.#feedback={mode:'accept',instruction};
+    if(this.#config.contract.requirements.includes('original-user-task')){
+      for(const item of this.#validated.values()){
+        item.covers=[...new Set([...item.covers,'original-user-task'])];
+        item.observation+=' Original task accepted by the actual external user for this exact artifact hash; no independent semantic verification is claimed.';
+      }
+      this.#audit.push({event:'user_acceptance',kind:'external_goal_acceptance',artifacts:[...this.#validated.values()].map(x=>({path:x.artifact.relative_path,sha256:x.artifact.sha256})),instruction});
+    }
   }
 }
 

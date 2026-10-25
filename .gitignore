@@ -10,3 +10,12 @@ node_modules/
 .agents/
 .venv/
 lychee-out.md
+
+# Owner-only host evidence and credentials are never distribution sources.
+**/.evidence/
+**/.runtime-tests/
+**/private-reports/
+**/auth.json
+**/owner-config.json
+**/owner-config.codex.json
+**/owner-config.dsh.json

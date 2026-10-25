@@ -1,0 +1,5 @@
+# 小型技术交流会 · Technical Exchange Meetup
+
+小型技术交流会将于 2026 年 11 月 8 日 14:30 在松林会议室举行。请于 11 月 5 日前发送邮件至 test@example.invalid 报名。
+
+The small-scale technical exchange meetup will be held on 8 November 2026 at 14:30 in the Songlin Meeting Room (Pine Room). Please register by emailing test@example.invalid by 5 November.

@@ -5,4 +5,19 @@
 *.pdf binary
 # Preserve the exact runtime bytes bound by the controlled-host model evidence.
 hosts/** -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+packaging/** -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+skills/proactive-skill-discovery/** -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+skills/proactive-skill-discovery-dsh/** -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+scripts/build-global-package* -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+scripts/build-dsh-variant.mjs -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+scripts/install-dsh.mjs -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+scripts/check-frozen-preview* -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+scripts/variants/** -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+docs/global-testing.md -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+package*.json -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+LICENSE -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
 evidence/host-preview-20261025/summary.json -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+evidence/global-entry-20261026/** -text whitespace=blank-at-eol,space-before-tab,cr-at-eol
+# Preserve the exact already-tested native fixtures, including their final blank line.
+hosts/dsh-global/broker.test.mjs whitespace=blank-at-eol,space-before-tab,cr-at-eol,-blank-at-eof
+hosts/dsh-global/launcher-native.test.mjs whitespace=blank-at-eol,space-before-tab,cr-at-eol,-blank-at-eof

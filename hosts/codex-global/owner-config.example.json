@@ -1,0 +1,38 @@
+{
+  "integrityVerifierModule": "<immutable payload>/hosts/security/installation-verifier.mjs",
+  "integrityVerifierSha256": "<owner-pinned verifier SHA256>",
+  "integrity": {
+    "payloadRoot": "<immutable payload>",
+    "manifestPath": "<independent owner release manifest>",
+    "manifestSha256": "<owner-pinned release manifest SHA256>",
+    "dependencyKeyFile": "<global>/keys/shared-sdk.key",
+    "dependencySealRoot": "<global>/seals",
+    "dependencies": [{"installRoot": "<sealed shared SDK root>", "sealPath": "<verified observed-installation seal>"}],
+    "actorWritableRoots": [],
+    "trustedLinkRoots": []
+  },
+  "gateway": {
+    "backendCommand": ["<absolute installed Codex 0.164.0-alpha.11.1 executable>"],
+    "strictCatalog": {"models": ["<actual restrictCatalog output objects; not slugs alone>"]},
+    "stateRoot": "<global>/state/codex-native",
+    "dependencyRoot": "<same exact sealed shared SDK root>",
+    "legacyCodexHome": "<original Codex home; read-only history index>",
+    "authPath": "<existing original auth.json; temporary private copy only>",
+    "port": "<read private keys/codex-route.json numeric port>",
+    "tokenPath": "<read private keys/codex-route.json tokenPath; never print it>"
+  },
+  "conversation": {
+    "stateRoot": "<global>/state/codex",
+    "installedRoots": ["<original Codex home>/skills"],
+    "privateRoots": ["<global>", "<original Codex home>", "<portable Node root>"],
+    "external": true
+  },
+  "privateDesktop": {
+    "root": "<global>/private-codex/26.1021.3705.0-r02",
+    "executable": "<global>/private-codex/26.1021.3705.0-r02/ChatGPT.exe",
+    "expectedExeSha256": "3eb97bd9fbae9b9faae7d41e8ebfef38154cb288d14fe7d8c1b14c6fa8e6b4d2",
+    "expectedAsarHeaderSha256": "f20ccb911e96ab52d7c75ee8b882d2c7fcc7821bdcfa6bcbe3c4555e3013fe5e",
+    "treeManifestPath": "<global>/private-codex/runtime-tree-r02.json",
+    "expectedTreeManifestSha256": "01613e3c933391baa1ab0cf0cb2cd93b0bd063cc2b9b1ddec4dbedd8909536e9"
+  }
+}

@@ -47,7 +47,7 @@ export class WorkflowGate {
       const rel = relative(this.#root, path);
       if (rel === '..' || rel.startsWith('../') || rel.startsWith('..\\') || isAbsolute(rel)) throw new Error('Evidence escaped the declared root');
       const bytes = readFileSync(path);
-      if (!bytes.length || entry.truncated !== false || entry.bytes !== bytes.length || entry.returned_bytes !== bytes.length
+      if (entry.truncated !== false || entry.bytes !== bytes.length || entry.returned_bytes !== bytes.length
           || createHash('sha256').update(bytes).digest('hex') !== entry.sha256) throw new Error('Changed, missing or truncated evidence');
     } catch (error) { errors.push(`${entry?.path ?? 'file'}: ${error.message}`); }
   }
@@ -108,8 +108,8 @@ export class WorkflowGate {
           if (!text(d.candidate) || !text(d.version) || !text(d.reason) || !['adopt', 'reject'].includes(d.decision)
               || !list(d.required_files) || !list(d.files)) errors.push('Incomplete source/license/scope review');
           for (const path of d.required_files ?? []) if (!d.files?.some((x) => x.path === path)) errors.push(`Missing required source/license/resource: ${path}`);
-          if (!d.files?.some((x) => /(^|[/\\])SKILL\.md$/.test(x.path))
-              || !d.files?.some((x) => /(^|[/\\])LICEN[CS]E(?:\.[^/\\]+)?$/i.test(x.path))) errors.push('Full Skill and applicable license bodies required');
+          if (!d.files?.some((x) => /(^|[/\\])SKILL\.md$/.test(x.path) && x.bytes > 0)
+              || !d.files?.some((x) => /(^|[/\\])(?:LICEN[CS]E|COPYING)(?:[._-][^/\\]+)?$/i.test(x.path) && x.bytes > 0)) errors.push('Full nonempty Skill and applicable license bodies required');
           if (!by('skill_search').some((x) => x.seq < event.seq && x.data.results.includes(d.candidate))) errors.push('Current candidate search must precede this review');
           break;
         }

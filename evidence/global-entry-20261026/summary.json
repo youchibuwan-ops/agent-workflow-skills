@@ -1,0 +1,208 @@
+{
+  "format": 1,
+  "date": "2026-10-26",
+  "status": "accepted-controlled-entry-preview",
+  "release": "20261026-r08",
+  "manifestSha256": "990f55bd56432170cf60e9b263486ecb775c0ab48f6b35717471133bf51b2377",
+  "evidenceOrigin": "Author local runs and separate-agent read-only review; not independent classmate reproduction or signed public execution proof",
+  "local": {
+    "release": "20261026-r08",
+    "manifestSha256": "990f55bd56432170cf60e9b263486ecb775c0ab48f6b35717471133bf51b2377",
+    "actualWorkingTreeSourceMatches": 112,
+    "generatedReadmeOnly": true,
+    "globalTests": {
+      "tests": 193,
+      "pass": 193,
+      "fail": 0,
+      "skipped": 0,
+      "realSandbox": true,
+      "realPublicSources": true,
+      "realInstalledSdk": true
+    },
+    "packageTests": {
+      "tests": 19,
+      "pass": 19,
+      "fail": 0,
+      "skipped": 0,
+      "unchangedPackageCode": true
+    },
+    "skillGateTests": {
+      "tests": 23,
+      "pass": 23
+    },
+    "dshSkillLoadingDispatchTests": {
+      "tests": 6,
+      "pass": 6,
+      "explicitSealedSdkResolution": true
+    }
+  },
+  "codex": {
+    "status": "complete",
+    "transport": "real Codex 0.164 native WebSocket with production gateway and generic factory",
+    "model": "gpt-6-astra",
+    "manifestSha256": "09059b2879be8f2060f6fe76c1761bd04c89342986fb5d305991c27c2eed4518",
+    "probeSha256": "f6511f54f24cdde26e2b99f60cb050c67b195e1f04727ed607bed5fcf9b96269",
+    "controlledCalls": 35,
+    "turns": 3,
+    "orderedStages": [
+      "scope",
+      "discovery",
+      "selection",
+      "draft",
+      "feedback",
+      "delivery",
+      "learning"
+    ],
+    "sourceSnapshots": 113,
+    "sourceBeforeEqualsAfter": true,
+    "exactNativeToolReturns": 35,
+    "inputSha256": "c7ea6170f878ce41594e669f98e92b025a9aa0b8f4d739813149f4a9e1487ce5",
+    "artifactSha256": "9f074b30b4facf2e137d805ca3e0054a2da27a835a9b4991301621ef16631340",
+    "artifactBytes": 315,
+    "earlyWriteDenied": true,
+    "externalDriverChoiceAndAcceptance": true,
+    "temporaryAuthRemoved": true,
+    "originalAuthUnchangedReported": true,
+    "scope": "Technical WS model-chain acceptance; no desktop UI message input or human stylistic acceptance; no exact HTTP or money budget claim"
+  },
+  "dsh": {
+    "status": "complete",
+    "provider": "deepseek-official",
+    "model": "deepseek-flash",
+    "sdk": "0.2.1-rc.2",
+    "sourceManifestSha256": "990f55bd56432170cf60e9b263486ecb775c0ab48f6b35717471133bf51b2377",
+    "probeSha256": "a815706b4e45f5877da636174ef84f31ab2285095777a272c8eb4596a716b5eb",
+    "providerStreamCalls": 38,
+    "nativeTurns": 5,
+    "correctionRounds": 1,
+    "finalRevision": 2,
+    "orderedStages": [
+      "scope",
+      "discovery",
+      "selection",
+      "draft",
+      "feedback",
+      "delivery",
+      "learning"
+    ],
+    "recordedSourceSnapshots": 105,
+    "fullSourcePreflightFiles": 113,
+    "fullSourcePostflightFiles": 113,
+    "sourceUnchanged": true,
+    "originalInputUnchanged": true,
+    "inputBytes": 219,
+    "inputSha256": "c3ca1241c486c298ead0b26b290429c13ba0ae5e8f9734c3b8c72ed31231afab",
+    "artifact": {
+      "bytes": 395,
+      "sha256": "062cae63a49528e1f26f4cc496a3a79402f98d345ce0ccd27a099ee0b88cb942",
+      "bom": false,
+      "crlf": 0,
+      "lf": 5
+    },
+    "selectedFormat": {
+      "newline": "LF",
+      "noBom": true
+    },
+    "externalDriverChoiceAndAcceptance": true,
+    "humanApproval": false,
+    "budget": {
+      "requests": 128,
+      "maxTokens": 100000,
+      "cumulativeInputJsonBytes": 100663296,
+      "perRequestInputJsonBytes": 2097152,
+      "promptTerminalGuardMs": 1200000
+    },
+    "usage": {
+      "inputTokens": 95246,
+      "cacheReadTokens": 2221184,
+      "cacheWriteTokens": 0,
+      "outputTokens": 32468,
+      "totalTokens": 2348898,
+      "inputContextTokens": 2316430
+    },
+    "maximumInputContextTokens": 125328,
+    "scope": "Actual official native SDK technical model chain; provider stream count is not an exact HTTP/money count; no browser UI or human stylistic approval",
+    "nativeTerminalReasons": [
+      {
+        "turn": 1,
+        "reason": "completed",
+        "stage": "selection",
+        "complete": false
+      },
+      {
+        "turn": 2,
+        "reason": "completed",
+        "stage": "feedback",
+        "complete": false
+      },
+      {
+        "turn": 3,
+        "reason": "completed",
+        "stage": "selection",
+        "complete": false
+      },
+      {
+        "turn": 4,
+        "reason": "completed",
+        "stage": "feedback",
+        "complete": false
+      },
+      {
+        "turn": 5,
+        "reason": "completed",
+        "stage": "complete",
+        "complete": true
+      }
+    ],
+    "readOnlyReview": {
+      "sourceToActualModelTextComparisons": 400,
+      "changedOrTruncated": 0,
+      "sourceConfirmationBatches": 6,
+      "revisionBoundReceipts": 20,
+      "nativeInputReadsUnchanged": 4,
+      "scope": "Separate-agent author-side read-only audit; not third-party reproduction"
+    }
+  },
+  "runtimeEquivalence": {
+    "from": "20261026-r05",
+    "to": "20261026-r08",
+    "productionRuntimeUnchanged": true,
+    "comparedMembers": 113,
+    "unchangedMembers": 106,
+    "changedOnlyDshProbeAndWorkflowDocumentation": [
+      "docs/global-testing.md",
+      "hosts/dsh-global/probes/README.md",
+      "hosts/dsh-global/probes/model-monitor.mjs",
+      "hosts/dsh-global/probes/probe.test.mjs",
+      "hosts/dsh-global/probes/real-model.mjs",
+      "skills/proactive-skill-discovery-dsh/references/stage-checks.md",
+      "skills/proactive-skill-discovery/references/stage-checks.md"
+    ],
+    "codexRealModelRerunNeeded": false,
+    "scope": "Exact unchanged production files; R05 model result retains its original full manifest identity, never relabelled R08"
+  },
+  "defaultDsh": {
+    "enabled": true,
+    "systemPathChanged": false,
+    "stockExecutableChanged": false,
+    "reopenTerminalRequired": true,
+    "registryDerivedFreshApplicationResolution": true,
+    "actualDefaultCommandExecuted": true,
+    "privilegedRuntimeOverrideRefused": true,
+    "stateFilesCreatedByRefusal": 0,
+    "providerKeyAbsentDuringNegativeProbe": true,
+    "scope": "Fresh registry-derived application alias; direct stock SDK, websites and third-party clients remain outside this launcher"
+  },
+  "personalSkills": {
+    "updated": true,
+    "verification": "personal-skill-update.json",
+    "scope": "Both ten-file installations match the frozen release, with previous directories preserved"
+  },
+  "uncovered": [
+    "Codex desktop message/click/login UI",
+    "DSH browser rendering and human question UI",
+    "Human stylistic acceptance",
+    "Automatic runtime Skill edits",
+    "Direct stock SDK, websites, third-party clients and already-open unguarded conversations"
+  ]
+}

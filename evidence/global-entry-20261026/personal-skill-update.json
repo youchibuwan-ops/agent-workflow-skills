@@ -1,0 +1,28 @@
+{
+  "sourceManifestSha256": "990f55bd56432170cf60e9b263486ecb775c0ab48f6b35717471133bf51b2377",
+  "hosts": [
+    {
+      "host": "codex",
+      "skill": "proactive-skill-discovery",
+      "files": 10,
+      "exactFrozenSourceReadback": true,
+      "changedFiles": [
+        "references/stage-checks.md",
+        "scripts/workflow-gate.mjs"
+      ],
+      "previousVersionBackedUp": true
+    },
+    {
+      "host": "dsh",
+      "skill": "proactive-skill-discovery-dsh",
+      "files": 10,
+      "exactFrozenSourceReadback": true,
+      "changedFiles": [
+        "references/stage-checks.md",
+        "scripts/workflow-gate.mjs"
+      ],
+      "previousVersionBackedUp": true
+    }
+  ],
+  "enforcement": "Personal Skill files remain instruction_only; host-guarded enforcement requires the separately verified controlled launcher"
+}

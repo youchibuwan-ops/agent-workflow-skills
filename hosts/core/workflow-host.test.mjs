@@ -1,14 +1,16 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { mkdtempSync, mkdirSync, writeFileSync, readFileSync, existsSync, readdirSync, rmSync } from 'node:fs';
+import { mkdtempSync, mkdirSync, writeFileSync, readFileSync, existsSync, readdirSync, rmSync, renameSync,linkSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { basename, dirname, join, resolve } from 'node:path';
 import { createHash } from 'node:crypto';
 import { createWorkflowHost } from './workflow-host.mjs';
+import { createSourceProvider } from '../providers/source-provider.mjs';
+import { createSandboxProvider } from '../providers/sandbox-provider.mjs';
 
 const sha = (x) => createHash('sha256').update(x).digest('hex');
 const adopt = { candidate: 'current-export', decision: 'adopt', reason: 'Current physical method covers all scoped output fields.', covers: ['generation','sum','input_sha256'] };
-async function setup(t, overrides = {}) {
+async function setup(t, overrides = {}, services = {}) {
   const root = mkdtempSync(join(tmpdir(), 'trusted-workflow-host-'));
   t.after(() => {
     assert.equal(dirname(resolve(root)), resolve(tmpdir()));
@@ -36,6 +38,7 @@ async function setup(t, overrides = {}) {
       references: [{ id: 'a', path: join(root, 'ref-a.md') }, { id: 'b', path: join(root, 'ref-b.md') }],
       validators: [{ id: 'current-json', type: 'json-export', input: 'input.json' }], learning: { required: false }, autoAdvance: false,
       ...overrides }, onCard: (card) => cards.push(card) };
+  Object.assign(config,services);
   const host = await createWorkflowHost(config);
   const call = (name, args = {}) => host.dispatch(name, args, { callId: `test-${Math.random()}` });
   const checkpoint = async () => {
@@ -91,6 +94,118 @@ test('input reading returns actual bytes and hash while host/config inputs remai
   assert.equal((await f.call('workflow_read_workspace', { path: '.agents/skills/host/SKILL.md' })).ok, false);
 });
 
+test('mixed-case host directories cannot bypass path protection',async t=>{
+ const f=await setup(t);mkdirSync(join(f.workspace,'.CoDeX'));writeFileSync(join(f.workspace,'.CoDeX/config.toml'),'PRIVATE_SENTINEL');
+ const result=await f.call('workflow_read_workspace',{path:'.CoDeX/config.toml'});assert.equal(result.ok,false);
+});
+
+test('Windows case aliases cannot overwrite protected inputs',{skip:process.platform!=='win32'},async t=>{
+ const f=await setup(t,{writeAllowlist:undefined});await f.inspect();await f.checkpoint();
+ const result=await f.call('workflow_write',{path:'INPUT.JSON',content:'overwrite via alias'});assert.equal(result.ok,false);
+ assert.equal(readFileSync(join(f.workspace,'input.json'),'utf8'),f.input);
+});
+
+test('pre-existing hard links cannot expose private host text through a public project name',async t=>{
+ const f=await setup(t);const secret=join(f.root,'private-state/private-note.txt');writeFileSync(secret,'PRIVATE_TEXT_SENTINEL');linkSync(secret,join(f.workspace,'public-input.txt'));
+ const r=await f.call('workflow_read_workspace',{path:'public-input.txt'});assert.equal(r.ok,false);assert.match(r.error,/hard.link/i);
+ assert(!JSON.stringify(r).includes('PRIVATE_TEXT_SENTINEL'));
+});
+
+test('Windows ambiguous dot, space and DOS short-name forms are refused before file access',{skip:process.platform!=='win32'},async t=>{
+ const f=await setup(t);
+ for(const path of ['.codex./config.toml','.CoDeX /config.toml','NODE_M~1/hidden.js','input.json.','nul.txt']){const r=await f.call('workflow_read_workspace',{path});assert.equal(r.ok,false,path);assert.match(r.error,/alias|credential|unavailable/i);}
+});
+
+test('zero-byte ancillary resources need an actual one-use confirmation and survive the gate', async t=>{
+ const f=await setup(t);writeFileSync(join(f.mirror,'references/empty.py'),'');
+ await f.call('workflow_search_skills',{query:'export'});
+ const opened=await f.call('workflow_open_skill',{candidate:'current-export'});
+ for(const file of opened.data.files.filter(x=>x.bytes>0)){
+  const r=await f.call('workflow_read_source',{source:opened.data.source,path:file.path});
+  assert.equal((await f.call('workflow_confirm_sources',{receipts:[r.data.source_receipt]})).ok,true);
+ }
+ assert.equal((await f.call('workflow_review_skill',adopt)).ok,false);
+ const r=await f.call('workflow_read_source',{source:opened.data.source,path:'references/empty.py'});
+ assert.equal(r.ok,true);assert.equal(r.data.content,'');assert.equal(r.data.complete,false);
+ assert.equal((await f.call('workflow_confirm_sources',{receipts:[r.data.source_receipt]})).ok,true);
+ assert.equal((await f.call('workflow_confirm_sources',{receipts:[r.data.source_receipt]})).ok,false);
+ assert.equal((await f.call('workflow_review_skill',adopt)).ok,true);
+ assert.equal((await f.call('workflow_install_skill',{candidate:'current-export'})).ok,true);
+ for(const id of ['a','b']){
+  const o=await f.call('workflow_open_reference',{reference:id});
+  const r=await f.call('workflow_read_source',{source:o.data.source,path:o.data.files[0].path});
+  await f.call('workflow_confirm_sources',{receipts:[r.data.source_receipt]});
+  await f.call('workflow_observe_reference',{source:o.data.source,observation:'Actually read current reference.'});
+ }
+ assert.equal((await f.checkpoint()).ok,true);
+});
+
+test('empty Skill or license bodies never become adoptable bundles',async t=>{
+ const f=await setup(t);await f.call('workflow_search_skills',{query:'export'});
+ writeFileSync(join(f.mirror,'LICENSE'),'');
+ assert.equal((await f.call('workflow_open_skill',{candidate:'current-export'})).ok,false);
+ writeFileSync(join(f.mirror,'LICENSE'),'MIT license fixture');writeFileSync(join(f.mirror,'SKILL.md'),'');
+ assert.equal((await f.call('workflow_open_skill',{candidate:'current-export'})).ok,false);
+});
+
+test('real acquisition provider searches local first, acquires a COPYING license and confirms actual resources',async t=>{
+ const f=await setup(t);renameSync(join(f.mirror,'LICENSE'),join(f.mirror,'COPYING'));
+ const provider=createSourceProvider({installedRoots:[dirname(f.mirror)],cacheRoot:join(f.root,'acquisition'),external:false});
+ const host=await createWorkflowHost({...f.config,stateRoot:join(f.root,'provider-host'),sourceProvider:provider});
+ const call=(name,args={})=>host.dispatch(name,args);
+ const early=await call('workflow_search_skills',{query:'current export',external:true,gap:'Need unsupported capability'});
+ assert.equal(early.ok,false);assert.match(early.error,/installed Skills first/);
+ const found=await call('workflow_search_skills',{query:'current export'});assert.equal(found.ok,true);
+ const candidate=found.data.candidates.find(x=>x.nameHint==='current-export');assert(candidate);
+ const opened=await call('workflow_open_skill',{candidate:candidate.id});assert.equal(opened.ok,true,opened.error);
+ const receipts=[];
+ for(const file of opened.data.files){const r=await call('workflow_read_source',{source:opened.data.source,path:file.path});assert.equal(r.ok,true);receipts.push(r.data.source_receipt);}
+ assert.equal((await call('workflow_confirm_sources',{receipts})).ok,true);
+ assert.equal((await call('workflow_review_skill',{...adopt,candidate:candidate.id})).ok,true);
+ assert.equal((await call('workflow_install_skill',{candidate:candidate.id})).ok,true);
+ assert.equal((await call('workflow_write',{path:'output.json',content:f.output})).ok,false);
+ assert.equal(existsSync(join(f.workspace,'output.json')),false);
+});
+
+test('project IO uses the injected native permission boundary for read/write and independent readback',async t=>{
+ let reads=0,writes=0;const bytes=new Map([['input.json',Buffer.from('{"generation":"actual-current","values":[17,23]}\n')]]);
+ const io={read:async path=>{reads++;if(!bytes.has(path))throw Error('native input permission denied');return bytes.get(path);},write:async(path,data)=>{writes++;bytes.set(path,data);return data;}};
+ const f=await setup(t,{}, {workspaceIO:io});await f.inspect();await f.checkpoint();
+ const r=await f.call('workflow_read_workspace',{path:'input.json'});assert.equal(r.ok,true);assert.equal(r.data.content,f.input);
+ const output=await f.call('workflow_write',{path:'output.json',content:f.output});assert.equal(output.ok,true,output.error);
+ assert.equal(writes,1);assert.equal(existsSync(join(f.workspace,'output.json')),false);
+ const validated=await f.call('workflow_validate',{validator:'current-json',artifact:'output.json'});assert.equal(validated.ok,true,validated.error);assert(reads>3);
+ const denied=await f.call('workflow_read_workspace',{path:'private.txt'});assert.equal(denied.ok,false);assert.match(denied.error,/native input permission denied/);
+});
+
+test('structural artifact validation never certifies the original task without current external acceptance',async t=>{
+ const f=await setup(t,{requirements:['artifact-readable','original-user-task'],feedback:{mode:'required'},validators:[{id:'artifact-current',type:'current-text',covers:['artifact-readable']}],autoAdvance:true});
+ // Adopt against this actual scope; the method's semantics remain a proposal.
+ await f.call('workflow_search_skills',{query:'export'});const o=await f.call('workflow_open_skill',{candidate:'current-export'});
+ const proofs=[];for(const file of o.data.files){const r=await f.call('workflow_read_source',{source:o.data.source,path:file.path});proofs.push(r.data.source_receipt);}await f.call('workflow_confirm_sources',{receipts:proofs});
+ await f.call('workflow_review_skill',{...adopt,covers:['artifact-readable','original-user-task']});await f.call('workflow_install_skill',{candidate:'current-export'});
+ for(const id of ['a','b']){const o=await f.call('workflow_open_reference',{reference:id});const r=await f.call('workflow_read_source',{source:o.data.source,path:o.data.files[0].path});await f.call('workflow_confirm_sources',{receipts:[r.data.source_receipt]});await f.call('workflow_observe_reference',{source:o.data.source,observation:'Current actual reference read.'});}
+ assert.equal(f.host.stage,'draft');await f.call('workflow_write',{path:'output.json',content:f.output});
+ const r=await f.call('workflow_validate',{validator:'artifact-current',artifact:'output.json'});
+ assert.equal(r.ok,true,r.error);assert.equal(r.data.semantic_goal_verified,false);assert.equal(f.host.stage,'feedback');assert.equal(f.host.complete,false);
+ assert.equal((await f.call('workflow_learn',{decision:'no_increment',reason:'all done',evidence:['actor assertion']})).ok,false);
+ await f.host.acceptUserMessage('/workflow accept');assert.equal(f.host.stage,'learning');
+ const audit=f.host.exportAudit();assert(audit.events.some(x=>x.kind==='external_goal_acceptance'));
+});
+
+test('actual inspected Python method stages OS-isolated bytes before guarded writes and independent validation',{skip:process.env.WORKFLOW_REAL_SANDBOX_TEST!=='1'},async t=>{
+ let provider;
+ const f=await setup(t,{}, {sandboxProvider:{execute:request=>provider.execute(request)}});
+ mkdirSync(join(f.mirror,'scripts'));writeFileSync(join(f.mirror,'scripts/run.py'),"from pathlib import Path\nimport json,hashlib\nb=Path('input.json').read_bytes();d=json.loads(b)\nPath('output.json').write_text(json.dumps({'generation':d['generation'],'total':sum(d['values']),'input_sha256':hashlib.sha256(b).hexdigest()}))\n");
+ provider=createSandboxProvider({stateRoot:join(f.root,'sandbox'),executionPolicy:'test-only-direct'});
+ const early=await f.call('workflow_apply_method',{candidate:'current-export',path:'scripts/run.py',inputs:['input.json'],outputs:['output.json']});assert.equal(early.ok,false);
+ await f.inspect();await f.checkpoint();
+ const result=await f.call('workflow_apply_method',{candidate:'current-export',path:'scripts/run.py',inputs:['input.json'],outputs:['output.json']});
+ assert.equal(result.ok,true,result.error);assert.equal(result.data.executed,true);assert.equal(readFileSync(join(f.workspace,'input.json'),'utf8'),f.input);
+ assert.equal((await f.call('workflow_validate',{validator:'current-json',artifact:'output.json'})).ok,true);
+ assert(f.host.exportAudit().events.some(x=>x.event==='isolated_method_executed'&&x.isolation.processCreation==='seccomp-denied'));
+});
+
 test('UTF-8 chunks join exactly without silent truncation or broken boundary acknowledgments', async (t) => {
   const f = await setup(t);
   const body = '汉字😀'.repeat(4000);
@@ -104,6 +219,22 @@ test('UTF-8 chunks join exactly without silent truncation or broken boundary ack
     actual += chunk.data.content; offset = chunk.data.end;
   }
   assert.equal(actual, body);
+});
+
+test('source and workspace delivery preserve leading and chunk-boundary BOM bytes', async (t) => {
+  const f = await setup(t);
+  const text = '\uFEFF' + 'x'.repeat(11997) + '\uFEFFtail';
+  writeFileSync(join(f.workspace, 'bom.txt'), text);
+  const first = await f.call('workflow_read_workspace', { path: 'bom.txt', length: 12000 });
+  const second = await f.call('workflow_read_workspace', { path: 'bom.txt', offset: first.data.end });
+  assert.equal(first.data.content + second.data.content, text);
+  assert.equal(sha(Buffer.from(first.data.content + second.data.content)), sha(Buffer.from(text)));
+  writeFileSync(join(f.mirror, 'references/method.md'), text);
+  await f.call('workflow_search_skills', { query: 'export' });
+  const source = await f.call('workflow_open_skill', { candidate: 'current-export' });
+  const a = await f.call('workflow_read_source', { source: source.data.source, path: 'references/method.md', length: 12000 });
+  const b = await f.call('workflow_read_source', { source: source.data.source, path: 'references/method.md', offset: a.data.end });
+  assert.equal(a.data.content + b.data.content, text);
 });
 
 test('download and a partial returned source never satisfy inspection or installation', async (t) => {

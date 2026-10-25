@@ -1,0 +1,18 @@
+{
+  "from": "20261026-r05",
+  "to": "20261026-r08",
+  "productionRuntimeUnchanged": true,
+  "comparedMembers": 113,
+  "unchangedMembers": 106,
+  "changedOnlyDshProbeAndWorkflowDocumentation": [
+    "docs/global-testing.md",
+    "hosts/dsh-global/probes/README.md",
+    "hosts/dsh-global/probes/model-monitor.mjs",
+    "hosts/dsh-global/probes/probe.test.mjs",
+    "hosts/dsh-global/probes/real-model.mjs",
+    "skills/proactive-skill-discovery-dsh/references/stage-checks.md",
+    "skills/proactive-skill-discovery/references/stage-checks.md"
+  ],
+  "codexRealModelRerunNeeded": false,
+  "scope": "Exact unchanged production files; R05 model result retains its original full manifest identity, never relabelled R08"
+}

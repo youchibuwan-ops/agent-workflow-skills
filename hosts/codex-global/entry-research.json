@@ -1,0 +1,12 @@
+{
+  "installedVersion": "26.1021.3705.0",
+  "runtimeName": "owl",
+  "applicationRoot": "C:/Program Files/WindowsApps/OpenAI.Codex_26.1021.3705.0_x64__2p2nqsd0c76g0/app",
+  "asar": {"path":"resources/app.asar","bytes":640129388,"rawHeaderSha256":"5bd1f1afeb64772e9dd2bb20c1d7aee48591e8b5ea15e626c936abcfda7cb785"},
+  "main": {"path":".vite/build/main-BPBEjAxi.js","sha256":"2327d031e32c8d80c0dbf9bd81144466a90f8e49d3bc64e6604c23fbab900d7f","factoryByteOffset":4507554,"uniqueAnchor":"function _7(e){","websocketConstructor":"l.E","preBranchPredicates":["Egt(e.hostConfig)","e.transportKind === remote-control","i.zi(e.hostConfig)","i.Mi(e.hostConfig.id)"]},
+  "fuses": {"file":"chrome.dll","sentinelOffset":287183360,"sentinel":"dL7pKGdnNz796PbbjQWNKmHXBZaB9tsX","version":1,"length":9,"wire":"010011001","runAsNode":false,"cookieEncryption":true,"nodeOptions":false,"nodeCliInspect":false,"embeddedAsarIntegrityValidation":true,"onlyLoadAppFromAsar":true,"browserSpecificSnapshot":false,"fileProtocolExtraPrivileges":false,"wasmTrapHandlers":true},
+  "integrityResource": {"file":"ChatGPT.exe","type":"Integrity","name":"ElectronAsar","format":"JSON array","entry":{"file":"resources\\\\app.asar","alg":"SHA256","value":"5bd1f1afeb64772e9dd2bb20c1d7aee48591e8b5ea15e626c936abcfda7cb785"}},
+  "installationStatus":"not installed; original files untouched; pure patch transform fixture only",
+  "privateCopyPlan":"Keep embedded integrity enabled; share unchanged DLL/assets read-only; stream-rebuild private ASAR updating changed file/block hashes and header; copy small ChatGPT.exe and update its existing integrity resource hash; do not alter stock chrome.dll fuses. Private PE is modified and no longer vendor-signed. OS/runtime acceptance requires isolated validation.",
+  "sources":["https://www.electronjs.org/docs/latest/tutorial/fuses","https://www.electronjs.org/docs/latest/tutorial/asar-integrity"]
+}

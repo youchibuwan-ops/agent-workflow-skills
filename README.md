@@ -21,6 +21,13 @@ entry points, source-delivery confirmation and automatic host-generated checkpoi
 It does not switch the daily desktop or cover arbitrary tasks. Its supported scope,
 installation checks and retained real-model failures are stated separately.
 
+The newer [DSH default guarded entry](docs/global-entry.md) adds a mandatory
+native launcher, ordinary conversation controller, full installed-dependency
+verification and an opt-in user PATH alias. Read its current acceptance record;
+installing the Skill alone still does not activate this host integration.
+
+The [R08 author acceptance record](evidence/global-entry-20261026/README.md) separates the actual DSH feedback/model chain, Codex native WebSocket chain, dependency tamper checks and local default alias from unverified UI and third-party clients.
+
 **2026-10-25: the SVG Skill has been withdrawn.**
 `crafting-reference-based-svg-assets` is removed from the current installable
 catalog and its standalone release download is withdrawn. It is no longer

@@ -16,7 +16,10 @@
     "test:workflow": "node --test scripts/workflow-gate.test.mjs evals/discovery-gates/dsh-dispatch.test.mjs",
     "test:hosts": "node --test hosts/core/*.test.mjs hosts/codex/*.test.mjs hosts/dsh/native.test.mjs hosts/dsh/launcher.test.mjs hosts/dsh/cli.test.mjs",
     "test:host-native": "node --test hosts/dsh/profile-loader.test.mjs hosts/dsh/source-confirmation.test.mjs",
-    "test:host-preview": "node --test scripts/host-preview.test.mjs"
+    "test:host-preview": "node --test scripts/host-preview.test.mjs",
+    "test:global": "node --test hosts/core/*.test.mjs hosts/providers/*.test.mjs hosts/security/*.test.mjs hosts/conversation/*.test.mjs hosts/codex-global/*.test.mjs hosts/dsh-global/*.test.mjs hosts/codex-global/probes/*.test.mjs hosts/dsh-global/probes/*.test.mjs",
+    "test:global-package": "node --test scripts/check-frozen-preview.test.mjs scripts/build-global-package.test.mjs packaging/global-install.test.mjs packaging/sealed-sdk-install.test.mjs",
+    "build:global": "node scripts/build-global-package.mjs"
   },
   "devDependencies": {
     "@deepseek-ai/dsh-skill": "0.2.1-rc.2",

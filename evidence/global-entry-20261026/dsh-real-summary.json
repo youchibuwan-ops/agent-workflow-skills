@@ -1,0 +1,98 @@
+{
+  "status": "complete",
+  "provider": "deepseek-official",
+  "model": "deepseek-flash",
+  "sdk": "0.2.1-rc.2",
+  "sourceManifestSha256": "990f55bd56432170cf60e9b263486ecb775c0ab48f6b35717471133bf51b2377",
+  "probeSha256": "a815706b4e45f5877da636174ef84f31ab2285095777a272c8eb4596a716b5eb",
+  "providerStreamCalls": 38,
+  "nativeTurns": 5,
+  "correctionRounds": 1,
+  "finalRevision": 2,
+  "orderedStages": [
+    "scope",
+    "discovery",
+    "selection",
+    "draft",
+    "feedback",
+    "delivery",
+    "learning"
+  ],
+  "recordedSourceSnapshots": 105,
+  "fullSourcePreflightFiles": 113,
+  "fullSourcePostflightFiles": 113,
+  "sourceUnchanged": true,
+  "originalInputUnchanged": true,
+  "inputBytes": 219,
+  "inputSha256": "c3ca1241c486c298ead0b26b290429c13ba0ae5e8f9734c3b8c72ed31231afab",
+  "artifact": {
+    "bytes": 395,
+    "sha256": "062cae63a49528e1f26f4cc496a3a79402f98d345ce0ccd27a099ee0b88cb942",
+    "bom": false,
+    "crlf": 0,
+    "lf": 5
+  },
+  "selectedFormat": {
+    "newline": "LF",
+    "noBom": true
+  },
+  "externalDriverChoiceAndAcceptance": true,
+  "humanApproval": false,
+  "budget": {
+    "requests": 128,
+    "maxTokens": 100000,
+    "cumulativeInputJsonBytes": 100663296,
+    "perRequestInputJsonBytes": 2097152,
+    "promptTerminalGuardMs": 1200000
+  },
+  "usage": {
+    "inputTokens": 95246,
+    "cacheReadTokens": 2221184,
+    "cacheWriteTokens": 0,
+    "outputTokens": 32468,
+    "totalTokens": 2348898,
+    "inputContextTokens": 2316430
+  },
+  "maximumInputContextTokens": 125328,
+  "scope": "Actual official native SDK technical model chain; provider stream count is not an exact HTTP/money count; no browser UI or human stylistic approval",
+  "nativeTerminalReasons": [
+    {
+      "turn": 1,
+      "reason": "completed",
+      "stage": "selection",
+      "complete": false
+    },
+    {
+      "turn": 2,
+      "reason": "completed",
+      "stage": "feedback",
+      "complete": false
+    },
+    {
+      "turn": 3,
+      "reason": "completed",
+      "stage": "selection",
+      "complete": false
+    },
+    {
+      "turn": 4,
+      "reason": "completed",
+      "stage": "feedback",
+      "complete": false
+    },
+    {
+      "turn": 5,
+      "reason": "completed",
+      "stage": "complete",
+      "complete": true
+    }
+  ],
+  "readOnlyReview": {
+    "sourceToActualModelTextComparisons": 400,
+    "changedOrTruncated": 0,
+    "sourceConfirmationBatches": 6,
+    "revisionBoundReceipts": 20,
+    "nativeInputReadsUnchanged": 4,
+    "scope": "Separate-agent author-side read-only audit; not third-party reproduction"
+  }
+}

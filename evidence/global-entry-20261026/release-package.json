@@ -1,0 +1,9 @@
+{
+  "file": "AgentWorkflow-Codex-DSH-20261026-preview2-r08-verified.zip",
+  "bytes": 479192,
+  "sha256": "7cedebc274fca05d9bea2748505b965aac84d75fdbd59d4c7ebb357ac79b828c",
+  "manifestSha256": "990f55bd56432170cf60e9b263486ecb775c0ab48f6b35717471133bf51b2377",
+  "sourcePayloadFiles": 113,
+  "archiveMembers": 122,
+  "scope": "Author-verified guarded-entry preview; bundled reports do not activate a recipient computer automatically"
+}

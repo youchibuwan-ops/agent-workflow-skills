@@ -1,0 +1,10 @@
+# Bootstrap has no dependency on the services whose creation it protects.
+- insert:
+    - id: workflow-session-broker
+      name: dsh-workflow-session-broker
+- id: llm
+  inject: [workflowBrokerInstalled]
+- id: tools
+  inject: [workflowBrokerInstalled]
+- id: agent-loop
+  inject: [workflowBrokerReady]

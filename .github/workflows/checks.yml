@@ -49,7 +49,7 @@ jobs:
           lycheeVersion: v0.24.2
           args: --config .lychee.toml --no-progress --max-concurrency 4 --timeout 30 --max-retries 2 './**/*.md'
           fail: true
-  controlled-hosts:
+  global-hosts:
     strategy:
       matrix:
         os: [ubuntu-24.04, windows-latest]
@@ -59,6 +59,8 @@ jobs:
       DO_NOT_TRACK: '1'
       PYTHONUTF8: '1'
       DSH_RUNTIME_ROOT: ${{ github.workspace }}/hosts/dsh
+      WORKFLOW_REAL_SANDBOX_TEST: '0'
+      SOURCE_PROVIDER_REAL_NETWORK: '0'
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
@@ -73,6 +75,69 @@ jobs:
       - run: npm ci --prefix hosts/dsh --ignore-scripts --omit=dev
       - run: npm audit --prefix hosts/codex --audit-level=low
       - run: npm audit --prefix hosts/dsh --audit-level=low
+      - name: Require the installed DSH runtime before scripted native tests
+        run: >-
+          node --input-type=module -e "import {resolveDshRuntime} from './hosts/dsh-global/runtime.mjs';
+          import {readFileSync,existsSync} from 'node:fs';
+          if(!process.env.DSH_RUNTIME_ROOT) throw Error('DSH runtime is required in CI');
+          const runtime=resolveDshRuntime(process.env.DSH_RUNTIME_ROOT);
+          if(JSON.parse(readFileSync(runtime.installAnchor)).version!=='0.2.1-rc.2'||!existsSync(runtime.bin)) throw Error('Wrong DSH runtime');
+          console.log('Installed DSH 0.2.1-rc.2 ready for local scripted-provider tests');"
       - run: npm run test:hosts
       - run: npm run test:host-native
-      - run: npm run test:host-preview
+      - name: Current global host tests, including actual scripted DSH profiles
+        run: npm run test:global
+  global-build:
+    strategy:
+      matrix:
+        os: [ubuntu-24.04, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: '24.22.1'
+      - name: Preserve the historical builder and original evidence bytes
+        run: node scripts/check-frozen-preview.mjs
+      - run: npm run test:global-package
+      - name: Build the current global source package with its own manifest
+        run: npm run build:global -- "${{ runner.temp }}/AgentWorkflow-global-preview2.zip"
+      - name: Export the new manifest from the verified ZIP
+        run: >-
+          node --input-type=module -e "import {readGlobalZip} from './scripts/build-global-package.mjs';
+          import {readFileSync,writeFileSync} from 'node:fs'; import {join} from 'node:path';
+          import {createHash} from 'node:crypto';
+          const entries=readGlobalZip(readFileSync(join(process.env.RUNNER_TEMP,'AgentWorkflow-global-preview2.zip')));
+          const manifest=entries.find(e=>e.path.endsWith('/manifest.json'));
+          if(!manifest) throw Error('Current global manifest missing');
+          const data=JSON.parse(manifest.bytes);
+          if(!data.files.some(e=>e.path==='hosts/codex-global/launch.mjs')||data.files.some(e=>e.path.startsWith('evidence/host-preview-20261025/'))) throw Error('Wrong release scope');
+          writeFileSync(join(process.env.RUNNER_TEMP,'global-manifest.json'),manifest.bytes,{flag:'wx'});
+          console.log('Current global source manifest SHA256',createHash('sha256').update(manifest.bytes).digest('hex'));"
+  legacy-preview:
+    strategy:
+      matrix:
+        os: [ubuntu-24.04, windows-latest]
+    runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        working-directory: legacy-preview
+    env:
+      PYTHONUTF8: '1'
+      WORKFLOW_PREVIEW_REAL_INSTALL: '0'
+    steps:
+      - name: Checkout only the historical preview.1 release
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: 004e3407ef40de377d650336805999953f3cfdaf
+          path: legacy-preview
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: '24.22.1'
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: '3.13'
+      - name: Regress the frozen preview artifact and its original 17 source pins
+        run: node --test scripts/host-preview.test.mjs

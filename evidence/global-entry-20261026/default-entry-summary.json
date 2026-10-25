@@ -1,0 +1,12 @@
+{
+  "enabled": true,
+  "systemPathChanged": false,
+  "stockExecutableChanged": false,
+  "reopenTerminalRequired": true,
+  "registryDerivedFreshApplicationResolution": true,
+  "actualDefaultCommandExecuted": true,
+  "privilegedRuntimeOverrideRefused": true,
+  "stateFilesCreatedByRefusal": 0,
+  "providerKeyAbsentDuringNegativeProbe": true,
+  "scope": "Fresh registry-derived application alias; direct stock SDK, websites and third-party clients remain outside this launcher"
+}
