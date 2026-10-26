@@ -1,0 +1,69 @@
+{
+  "status": "pass",
+  "sourceManifestSha256": "971ce53abc581c67644c2940666117214fdbeacfe4740eaf9fdc7aa1e75194f9",
+  "turns": [
+    {
+      "kind": "live-settings",
+      "tools": [
+        "workflow_status",
+        "workflow_read_workspace",
+        "workflow_search_skills",
+        "workflow_read_workspace",
+        "workflow_learn"
+      ],
+      "reads": [
+        {
+          "path": "project.godot",
+          "bytes": 584,
+          "sha256": "1580ecfb9b14b6c19c3052905aa9d7d92f4df40ecba33d2d2625e508081fbd69",
+          "currentRawBytesMatch": true,
+          "stage": "discovery",
+          "complete": false
+        }
+      ],
+      "refused": [
+        {
+          "tool": "workflow_read_workspace",
+          "reason": "Expected a relative path"
+        },
+        {
+          "tool": "workflow_learn",
+          "reason": "Current stage is discovery; learning action denied before its prerequisites"
+        }
+      ],
+      "model": "gpt-6.1-sol",
+      "effort": "xhigh"
+    },
+    {
+      "kind": "cold-same-conversation",
+      "tools": [
+        "workflow_status",
+        "workflow_read_workspace"
+      ],
+      "reads": [
+        {
+          "path": "project.godot",
+          "bytes": 584,
+          "sha256": "1580ecfb9b14b6c19c3052905aa9d7d92f4df40ecba33d2d2625e508081fbd69",
+          "currentRawBytesMatch": true,
+          "stage": "discovery",
+          "complete": false
+        }
+      ],
+      "refused": [],
+      "model": "gpt-6.1-sol",
+      "effort": "xhigh"
+    }
+  ],
+  "sameNativeConversation": true,
+  "actualUiSubmitted": true,
+  "coldNativeProcessWasExited": true,
+  "rolloutSha256": "5d76952acf6f3a2e5762296abafe2ec1f000c09e1f1bb518dfc28c2c10fac455",
+  "rolloutPrivate": true,
+  "pending": {
+    "failed": null,
+    "stage": "discovery",
+    "complete": false
+  },
+  "gameBothHashesUnchanged": true
+}

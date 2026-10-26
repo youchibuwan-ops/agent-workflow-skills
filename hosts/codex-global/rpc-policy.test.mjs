@@ -28,7 +28,8 @@ test('every execution-bearing parameter is host-owned',()=>{
  const t=turnParams({threadId:'t',input:[{type:'text',text:'actual'}],config:{evil:true},environments:[{}]},'C:/work','trusted');
  assert.deepEqual(t.environments,[]);assert.equal(t.config,undefined);assert.equal(t.additionalContext.workflow_host.value,'trusted');
  assert.throws(()=>turnParams({input:[{type:'image',url:'x'}]},'C:/work',''),/text/);
- assert.deepEqual(settingsParams({threadId:'t',permissions:'full-access',cwd:'C:/else',effort:'ultra',model:'known'},new Set(['known'])),{threadId:'t',approvalPolicy:'never',sandboxPolicy:{type:'readOnly'},model:'known'});
+ assert.throws(()=>settingsParams({threadId:'t',effort:'ultra',model:'known'},new Set(['known'])),/effort/);
+ assert.deepEqual(settingsParams({threadId:'t',permissions:'full-access',cwd:'C:/else',effort:'high',model:'known'},new Set(['known'])),{threadId:'t',approvalPolicy:'never',sandboxPolicy:{type:'readOnly'},model:'known',effort:'high'});
 });
 test('connection classification denies every unsupported transport before creation',()=>{
  assert.equal(classifyRoute({id:'local',display_name:'Local',kind:'local'},'local').allowed,true);

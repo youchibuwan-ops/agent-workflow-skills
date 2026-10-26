@@ -3,7 +3,7 @@ function desktopWorkspace(value){if(value===undefined)return undefined;if(typeof
 export function restrictCatalog(input){
  const catalog=structuredClone(typeof input==='string'?JSON.parse(readFileSync(input,'utf8')):input);
  if(!Array.isArray(catalog?.models)||!catalog.models.length)throw new Error('Nonempty model catalog required');
- for(const model of catalog.models)Object.assign(model,{tool_mode:'direct',multi_agent_version:null,multi_agent_reasoning_effort:null,experimental_supported_tools:[],shell_type:'disabled',apply_patch_tool_type:null});
+ for(const model of catalog.models){Object.assign(model,{tool_mode:'direct',multi_agent_version:null,multi_agent_reasoning_effort:null,experimental_supported_tools:[],shell_type:'disabled',apply_patch_tool_type:null});if(Array.isArray(model.supported_reasoning_levels))model.supported_reasoning_levels=model.supported_reasoning_levels.filter(x=>x.effort!=='ultra');if(model.default_reasoning_level==='ultra')model.default_reasoning_level=model.supported_reasoning_levels?.at(-1)?.effort??'low';}
  return validateStrictCatalog(catalog);
 }
 export function validateStrictCatalog(input){
@@ -21,7 +21,7 @@ export function strictConfig(catalogPath,{defaultWorkspace}={}){const workspace=
 // CLI overrides have higher precedence than workspace/user config layers.
 export function strictArguments(catalogPath,{defaultWorkspace}={}){
  const workspace=desktopWorkspace(defaultWorkspace);
- const settings={model_catalog_json:catalogPath.replaceAll('\\','/'),default_permissions:':read-only',model_reasoning_effort:'low',web_search:'disabled',notify:[],tool_output_token_limit:262144,model_auto_compact_token_limit:1000000000,model_post_turn_compact_threshold_percent:0,
+ const settings={model_catalog_json:catalogPath.replaceAll('\\','/'),default_permissions:':read-only',web_search:'disabled',notify:[],tool_output_token_limit:262144,model_auto_compact_token_limit:1000000000,model_post_turn_compact_threshold_percent:0,
   'cloud.skills.enabled':false,'orchestrator.mcp.enabled':false,'tools.update_plan.enabled':false,'tools.experimental_request_user_input.enabled':false};
  for(const name of ['apps','plugins','remote_plugin','multi_agent','code_mode','code_mode_only','browser_use','computer_use','image_generation','tool_suggest','sleep_tool','shell_tool','view_image','goals','hooks','codex_hooks','plugin_hooks','async_compaction'])settings['features.'+name]=false;
  if(workspace!==undefined)settings['desktop.projectlessWorkspaceRoot']=workspace;

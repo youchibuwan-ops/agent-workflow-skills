@@ -1,0 +1,35 @@
+{
+  "format": 1,
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 3026,
+      "sha256": "eb46c21775a920d9f64a07c298b0acef1e733d9b54d868154e0f90a2d255cc71"
+    },
+    {
+      "path": "model-settings.json",
+      "bytes": 1847,
+      "sha256": "c773cc5416f05784cc08bc07c889a283d90dcb637620ad1de64ab0a52178859a"
+    },
+    {
+      "path": "release.json",
+      "bytes": 565,
+      "sha256": "38e0a538a2bb1f5a6366972d7d5909ad1b48bad565c38be5396503444f446e59"
+    },
+    {
+      "path": "source-manifest.json",
+      "bytes": 23918,
+      "sha256": "971ce53abc581c67644c2940666117214fdbeacfe4740eaf9fdc7aa1e75194f9"
+    },
+    {
+      "path": "summary.json",
+      "bytes": 4546,
+      "sha256": "6c0832683c86963dd406898c35485798fc7ef785604bc90583eb8e1f129615eb"
+    },
+    {
+      "path": "verify-evidence.mjs",
+      "bytes": 2641,
+      "sha256": "2c76b33aed8296bbbb4db3a122848a9a0ce32b11c8b529f6c8e0a5cb8266969c"
+    }
+  ]
+}

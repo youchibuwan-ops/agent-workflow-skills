@@ -1,0 +1,113 @@
+{
+  "revision": "R37",
+  "status": "author-local-model-settings-and-cold-ui-verified",
+  "checkedAt": "2026-10-26T05:28:02.076Z",
+  "sourceManifestSha256": "971ce53abc581c67644c2940666117214fdbeacfe4740eaf9fdc7aa1e75194f9",
+  "sourceDeltaFromR36": [
+    "hosts/codex-global/desktop-config.mjs",
+    "hosts/codex-global/desktop-controls.mjs",
+    "hosts/codex-global/desktop-model.test.mjs",
+    "hosts/codex-global/gateway.mjs",
+    "hosts/codex-global/rpc-policy.mjs",
+    "hosts/codex-global/rpc-policy.test.mjs",
+    "hosts/codex/strict-config.mjs"
+  ],
+  "modelCatalog": {
+    "realNativeRefresh": true,
+    "runtimeSha256": "1103e9e09c71fa2cd0afd6d8f3b9a2d63174fe8efd7cb5bd09f1cb14ef58a098",
+    "clientVersion": "0.164.0",
+    "fetchedAt": "2026-10-26T05:07:12.598820400Z",
+    "rawCacheSha256": "01df01cdcf0ab0292a53106922aa19c07f1aec7fc2287a8e76f48b022a6d59d6",
+    "containsGpt61Sol": true,
+    "inventedMetadata": false
+  },
+  "tests": {
+    "global": {
+      "status": "pass-after-targeted-retest",
+      "sourceManifestSha256": "971ce53abc581c67644c2940666117214fdbeacfe4740eaf9fdc7aa1e75194f9",
+      "fullRun": {
+        "tests": 448,
+        "pass": 447,
+        "fail": 1,
+        "cancelled": 0,
+        "skipped": 0
+      },
+      "initialFailure": "Public source HTTP_STATUS; retained unchanged",
+      "targetedRetest": {
+        "status": "pass",
+        "tests": 1,
+        "pass": 1,
+        "fail": 0,
+        "skip": 0,
+        "resultSha256": "eb016783e72a5473f035f27bce8a8c26b7f785147d0d719ad760595809340766"
+      },
+      "uniqueCasesPassing": 448,
+      "sourceUnchanged": true,
+      "scope": "447 original passing cases plus one actual current-source network case re-tested; not a single clean 448/448 run"
+    },
+    "package": {
+      "tests": 34,
+      "pass": 34,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0
+    },
+    "codexPolicy": {
+      "tests": 31,
+      "pass": 31,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0
+    },
+    "independentReview": {
+      "relatedTests": 38,
+      "pass": 38,
+      "skip": 0,
+      "realNativeLocalProvider": true,
+      "concurrentFrontendFixture": true,
+      "paidModel": false,
+      "independentGui": false
+    }
+  },
+  "actualUi": {
+    "modelSwitch": "GPT-6 Sol → GPT-6.1 Sol",
+    "reasoning": "low → xhigh",
+    "actualPaidModelTurns": 2,
+    "sameConversationColdReread": true,
+    "modelAndEffortFromNativeTurnContext": true,
+    "gameBothHashesUnchanged": true,
+    "windowsReadiness": "ready",
+    "windowsMode": "elevated"
+  },
+  "installation": {
+    "bothHostSourceAndDependenciesVerified": true,
+    "nativeLauncherSha256": "f4948f5459ee38ba40873e8164cb56250d1d3c6b6680a2dc0754ea422067d860",
+    "shortcutsPreserved": true
+  },
+  "learning": {
+    "decision": "existing-rule-and-executable-regression",
+    "existingReference": "skills/proactive-skill-discovery/references/stage-checks.md",
+    "reason": "Existing normal-host-control and actual cold execution criteria already require this verification. The omission was incomplete application of those criteria; add exact preference/cold/request and adversarial tests rather than duplicate general instructions.",
+    "skillBytesChanged": false,
+    "dshSkillBytesChanged": false
+  },
+  "dsh": {
+    "productionRuntimeChanged": false,
+    "paidModelRerun": false,
+    "packageSynchronized": true
+  },
+  "failuresRetained": [
+    "Original normal model config write was denied; catalog was a 0.155.1 snapshot without 6.1 Sol; CLI and every turn forced low.",
+    "Full global run:447/448, one public-reference HTTP_STATUS; targeted current-source real-network test passed. The original failure remains.",
+    "Initial new UI workspace-policy read failed; actual Retry restored sending. No policy bypass or claimed causal fix.",
+    "Real first model attempted absolute-path read and premature learning; both rejected."
+  ],
+  "limits": [
+    "Author actual GUI/model evidence; independent review only covers code/native scripted traffic, not GUI replication.",
+    "Single controlled local desktop scenario, not every app function or transport.",
+    "Read-only nested task remains discovery/complete=false.",
+    "Fixed account catalog was genuinely refreshed for this installation; future new model releases require a new native catalog refresh.",
+    "DSH installer excludes the private Codex application; no new paid DSH model claim.",
+    "No signed third-party evidence provenance; distribution integrity still anchors on the separately published archive hash."
+  ]
+}
