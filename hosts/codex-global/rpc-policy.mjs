@@ -38,9 +38,10 @@ export function threadParams(p,cwd,schemas,models){
  return {cwd,ephemeral:false,historyMode:'paginated',environments:[],approvalPolicy:'never',sandbox:'read-only',dynamicTools:structuredClone(schemas),developerInstructions:instruction,...pick(p,['model']),...(p.projectId==null?{}:{projectId:p.projectId})};
 }
 export function resumeParams(p,cwd){return {threadId:p.threadId,cwd,approvalPolicy:'never',sandbox:'read-only',developerInstructions:instruction,excludeTurns:p.excludeTurns===true,...(p.initialTurnsPage?{initialTurnsPage:pick(p.initialTurnsPage,['limit','sortDirection','itemsView'])}:{})};}
-export function turnParams(p,cwd,instructions,models){
+export function turnParams(p,cwd,instructions,models,selectedSkillHints=[]){
  if(!Array.isArray(p.input)||!p.input.length||p.input.length>64||p.input.some(x=>x.type!=='text'||typeof x.text!=='string'||!x.text.trim())||p.input.reduce((n,x)=>n+Buffer.byteLength(x.text),0)>1024*1024)throw Error('Only bounded genuine text input supported');
- return {threadId:p.threadId,cwd,environments:[],approvalPolicy:'never',...modelChoice(p,models),input:p.input.map(x=>({type:'text',text:x.text})),additionalContext:{workflow_host:{kind:'application',value:instructions||instruction}}};
+ if(!Array.isArray(selectedSkillHints)||selectedSkillHints.length>64||selectedSkillHints.some(x=>typeof x!=='string'||x.length>32768))throw Error('Bounded host-resolved Skill hints required');
+ return {threadId:p.threadId,cwd,environments:[],approvalPolicy:'never',...modelChoice(p,models),input:p.input.map(x=>({type:'text',text:x.text})),additionalContext:{workflow_host:{kind:'application',value:instructions||instruction},...(selectedSkillHints.length?{workflow_selected_skills:{kind:'untrusted',value:JSON.stringify(selectedSkillHints)}}:{})}};
 }
 export function settingsParams(p,models,cwd){
  return {threadId:p.threadId,approvalPolicy:'never',sandboxPolicy:{type:'readOnly'},...modelChoice(p,models),...(cwd===undefined?{}:{cwd})};

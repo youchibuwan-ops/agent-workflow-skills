@@ -1,0 +1,17 @@
+{
+  "name": "AgentWorkflow-DSH-20261026-preview3-r39-verified.zip",
+  "bytes": 632915,
+  "sha256": "53feee5576d493e5d6fd1da981adaac4ae81f1a3ece3812e12884a9fd0ef1641",
+  "manifestSha256": "a7c4edc6a70254423d109dad532965f7b24c2d828f8bf93cb449834930bef807",
+  "payloadFiles": 139,
+  "outerFiles": 5,
+  "bootstrap": {
+    "status": "verified-no-sdk-or-model-called",
+    "nodeTree": {
+      "entries": 2459,
+      "bytes": 107345970,
+      "treeSha256": "8c862fa5a190b0e1a53cad0cd0b361c53d280939cb30f4342867ffbf57e0cd85"
+    }
+  },
+  "privateCodexAppIncluded": false
+}

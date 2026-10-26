@@ -3,6 +3,7 @@ import {createStrictBackend} from './native-backend.mjs';import {readParams,thre
 import {createWorkspacePathPolicy} from '../security/verified-worktree.mjs';
 import {createDesktopControls,NOT_DESKTOP_CONTROL} from './desktop-controls.mjs';
 import {protectedProjectSegment} from '../security/project-path.mjs';
+import {createSkillInventory} from './skill-inventory.mjs';
 const realpathSync=fsRealpathSync.native;
 const digest=s=>createHash('sha256').update(s).digest('hex');
 export async function createDesktopGateway(options={}){
@@ -57,10 +58,11 @@ export async function createDesktopGateway(options={}){
   assertThreadWorkspace(t);
   if(load&&!t.loaded&&!t.admissionFailure){native.assertIntegrity();await native.rpc('thread/resume',resumeParams({threadId:id,excludeTurns:true},t.cwd));t.loaded=true;record('resumed',{threadId:id});}return t;
  }
- const desktopControls=createDesktopControls({models,backend:()=>native,defaultWorkspace,resolveRoot:async input=>{const actual=await resolveWorkspace(input),lease=workspaceLeases.get(actual);pathPolicy(actual,lease).assertWorkspace({allowPrivateSubroots:false});if(!lease&&actual.split(path.sep).some(protectedProjectSegment))throw Error('Protected metadata cannot become a desktop workspace');return actual;},
+ const skillInventory=createSkillInventory({roots:options.installedSkillRoots??[],stateRoot:root,backendCommand,strictCatalog:options.strictCatalog});
+ const desktopControls=createDesktopControls({models,listSkills:()=>skillInventory.list(),backend:()=>native,defaultWorkspace,resolveRoot:async input=>{const actual=await resolveWorkspace(input),lease=workspaceLeases.get(actual);pathPolicy(actual,lease).assertWorkspace({allowPrivateSubroots:false});if(!lease&&actual.split(path.sep).some(protectedProjectSegment))throw Error('Protected metadata cannot become a desktop workspace');return actual;},
   assertIdle:()=>{if(closing||actorAdmissions||[...threads.values()].some(t=>t.active||t.admitting))throw Error('Desktop control requires idle native turns');},
   restart:async()=>{const previous=native;await previous.close();native=await openNative();for(const t of threads.values())t.loaded=false;record('native_restarted_after_setup',{});},send:(c,m)=>send(c.ws,m),record,failClosed:fatal,ownThread:id=>owned(id,{load:false})});
- const disabled=new Map([['app/list',{data:[],nextCursor:null}],['app/installed',{data:[],nextCursor:null}],['plugin/list',{marketplaces:[],featuredPluginIds:[],marketplaceLoadErrors:[]}],['skills/list',{data:[]}],['hooks/list',{data:[]}],['mcpServerStatus/list',{data:[],nextCursor:null}]]);
+ const disabled=new Map([['app/list',{data:[],nextCursor:null}],['app/installed',{data:[],nextCursor:null}],['plugin/list',{marketplaces:[],featuredPluginIds:[],marketplaceLoadErrors:[]}],['hooks/list',{data:[]}],['mcpServerStatus/list',{data:[],nextCursor:null}]]);
  async function clientRpc(c,m){
   if(!m||typeof m!=='object'||Array.isArray(m)||typeof m.method!=='string')throw Error('Client responses/malformed RPC denied');
   const p=m.params??{};if(!p||typeof p!=='object'||Array.isArray(p))throw Error('Invalid RPC parameters');
@@ -94,13 +96,13 @@ export async function createDesktopGateway(options={}){
    if(m.method==='thread/settings/update'){if(t.admissionFailure)throw Error('Native turn admission failed; start a new thread');if(t.admitting)throw Error('Concurrent workspace binding denied');t.admitting=true;try{const cwd=await requestedWorkspace(t,p.cwd),result=await native.rpc(m.method,settingsParams(p,models,p.cwd==null?undefined:cwd));commitWorkspace(t,cwd);return result;}finally{t.admitting=false;}}
    if(m.method==='turn/interrupt'){if(!t.active||p.turnId!==t.turnId)throw Error('Unknown active turn');return await native.rpc(m.method,{threadId:t.id,turnId:t.turnId});}
    if(m.method==='turn/start'){
-    native.assertIntegrity();if(t.admissionFailure)throw Error('Native turn admission failed; start a new thread');if(t.active||t.admitting)throw Error('Concurrent turn on same thread denied');t.admitting=true;try{const cwd=await requestedWorkspace(t,p.cwd),safe=turnParams(p,cwd,'',models);const text=safe.input.map(x=>x.text).join('\n');
+    native.assertIntegrity();if(t.admissionFailure)throw Error('Native turn admission failed; start a new thread');if(t.active||t.admitting)throw Error('Concurrent turn on same thread denied');t.admitting=true;try{const cwd=await requestedWorkspace(t,p.cwd),prepared=await skillInventory.prepareInput(p.input),request={...p,input:prepared.input},safe=turnParams(request,cwd,'',models,prepared.hints);const text=safe.input.map(x=>x.text).join('\n');
     try{const previous=t.controller;const controller=await controllerFactory({workspace:cwd,worktreeLease:cwd===t.cwd?t.worktreeLease:workspaceLeases.get(cwd),userMessage:text,sessionId:t.id,threadId:t.id,taskId:t.id+':'+(++t.task),stateRoot:path.join(root,'workflow',digest(t.id)),previousController:previous,kind:'auto',onCard:cardCallback(t)});
      if(!controller||JSON.stringify(controller.toolSchemas)!==JSON.stringify(schemas))throw Error('Controller schema mismatch');
      if(typeof controller.assertReady!=='function')throw Error('Controller readiness assertion required');if(controller===previous)await controller.acceptUserMessage(text);t.controller=controller;await controller.assertReady();if(controller.ready===false)throw Error('Controller not ready');
     }catch(e){fatal(e);throw e;}
     t.active=true;t.turnId=null;record('turn_allowed',{threadId:t.id,stage:t.controller.stage});
-    try{const result=await native.rpc('turn/start',turnParams(p,cwd,t.controller.instructions,models));if(typeof result?.turn?.id!=='string')throw Error('Native turn identity absent');if(t.turnId&&t.turnId!==result.turn.id)throw Error('Native turn identity mismatch');t.turnId=result.turn.id;commitWorkspace(t,cwd);t.provisional=false;return result;}catch(e){t.active=false;t.admissionFailure='native-turn-admission-failed';try{saveFailure(t.id);await t.controller.abort('Native turn admission failed: '+e.message);}catch(abortError){fatal(abortError);}const state={status:'blocked',stage:t.controller.stage,complete:false,blockedReason:'Native turn admission failed; start a new thread'};record('turn_admission_failed',{threadId:t.id,...state,reason:e.message});broadcast({method:'workflow/state',params:{threadId:t.id,...state}},t.id);throw e;}
+    try{const result=await native.rpc('turn/start',turnParams(request,cwd,t.controller.instructions,models,prepared.hints));if(typeof result?.turn?.id!=='string')throw Error('Native turn identity absent');if(t.turnId&&t.turnId!==result.turn.id)throw Error('Native turn identity mismatch');t.turnId=result.turn.id;commitWorkspace(t,cwd);t.provisional=false;return result;}catch(e){t.active=false;t.admissionFailure='native-turn-admission-failed';try{saveFailure(t.id);await t.controller.abort('Native turn admission failed: '+e.message);}catch(abortError){fatal(abortError);}const state={status:'blocked',stage:t.controller.stage,complete:false,blockedReason:'Native turn admission failed; start a new thread'};record('turn_admission_failed',{threadId:t.id,...state,reason:e.message});broadcast({method:'workflow/state',params:{threadId:t.id,...state}},t.id);throw e;}
     }finally{t.admitting=false;}
    }
    return await native.rpc(m.method,readParams(m.method,p));

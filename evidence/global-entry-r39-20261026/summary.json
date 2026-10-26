@@ -1,0 +1,100 @@
+{
+  "revision": "R39",
+  "status": "author-actual-skill-ui-and-cold-model-verified",
+  "checkedAt": "2026-10-26T06:13:59.201Z",
+  "sourceManifestSha256": "a7c4edc6a70254423d109dad532965f7b24c2d828f8bf93cb449834930bef807",
+  "sourceDeltaFromR37": [
+    "hosts/codex-global/desktop-controls.mjs",
+    "hosts/codex-global/desktop-skills.test.mjs",
+    "hosts/codex-global/gateway.mjs",
+    "hosts/codex-global/launch.mjs",
+    "hosts/codex-global/rpc-policy.mjs",
+    "hosts/codex-global/skill-inventory.mjs"
+  ],
+  "tests": {
+    "global": {
+      "tests": 451,
+      "pass": 451,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0
+    },
+    "package": {
+      "tests": 34,
+      "pass": 34,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0
+    },
+    "codexPolicy": {
+      "tests": 31,
+      "pass": 31,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0
+    },
+    "total": 516,
+    "independent": {
+      "nativeTests": 3,
+      "realControllerFlows": 4,
+      "paidModel": false,
+      "independentGui": false
+    }
+  },
+  "actualUi": {
+    "route": "Ctrl+K → 技能 → 前往技能",
+    "installedCards": 74,
+    "metadataEntries": 77,
+    "duplicateNamesCoalesced": 3,
+    "parseErrors": 0,
+    "detailsFullBodyVisible": true,
+    "tryButtonSelected": true,
+    "coldDollarSearchSelected": true,
+    "actualPaidModelTurns": 2,
+    "sameNativeConversation": true,
+    "currentBytesCompared": true,
+    "coldProjectReadBytes": 584,
+    "model": "gpt-6.1-sol",
+    "effort": "xhigh",
+    "readiness": "ready",
+    "windowsMode": "elevated",
+    "gameBothHashesUnchanged": true
+  },
+  "installation": {
+    "bothHostSourceAndSealedDependenciesVerified": true,
+    "nativeLauncherSha256": "8daf465e0851b02b6e64afc5fa71df408bc9a8b4f7e456c2431821549ee3477d",
+    "shortcutsPreserved": true
+  },
+  "learning": {
+    "decision": "existing-rule-and-executable-regression",
+    "existingReference": "skills/proactive-skill-discovery/references/stage-checks.md",
+    "coveredRules": [
+      "Normal host controls and real cold execution require actual UI verification.",
+      "Original external authorization must remain separate from recognition copies or metadata."
+    ],
+    "concreteMaintenance": "Native current-metadata, invalid-YAML/cache/path checks and exact original-command regressions; independently reproduced pause failure retained.",
+    "skillBytesChanged": false,
+    "dshSkillBytesChanged": false,
+    "reason": "The existing rules cover the failure. Correct their concrete host application and executable tests rather than duplicate instructions."
+  },
+  "dsh": {
+    "productionRuntimeChanged": false,
+    "paidModelRerun": false,
+    "packageSynchronized": true
+  },
+  "failuresRetained": [
+    "Original skills/list returned an empty placeholder despite real installed sources.",
+    "R38 candidate mixed selected metadata into human controls; actual pause was swallowed. Candidate never deployed; R39 separates untrusted hints and original text.",
+    "Actual model review omitted scoped coverage initially; actual premature learning attempts were rejected.",
+    "Author evidence scorer initially used nonexistent workflow_record_learning; corrected to actual workflow_learn after inspecting unchanged raw trace."
+  ],
+  "limits": [
+    "Author local GUI/model evidence; independent review used code/native/controller flows, not independent GUI.",
+    "74 unique names in the configured personal/release/managed roots; arbitrary plugin cache or other accounts are not claimed covered.",
+    "UI enable/disable/uninstall/new-skill write controls are outside this read/list/select acceptance.",
+    "Actual vendor UI serialized selected chips as Markdown text; structured Skill input is separately verified with native tests.",
+    "Read-only nested task remains discovery/complete=false; no all-task quality or all-feature acceptance.",
+    "DSH production and both Skills unchanged; no new paid DSH model run; installer excludes private Codex app.",
+    "No signed third-party evidence provenance."
+  ]
+}

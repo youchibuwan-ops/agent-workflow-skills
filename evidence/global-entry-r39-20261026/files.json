@@ -1,0 +1,39 @@
+{
+  "files": [
+    {
+      "path": "INDEPENDENT-REVIEW.md",
+      "bytes": 6350,
+      "sha256": "d2fd06209bd3cc9968b5c2b12e0cc868e1d81ac37986996c2a5a0ab25564cd31"
+    },
+    {
+      "path": "README.md",
+      "bytes": 3559,
+      "sha256": "f30f3e9864c7edf5017ff2087842560e1be79717de4692c01bf3ae609f84ecaf"
+    },
+    {
+      "path": "release.json",
+      "bytes": 565,
+      "sha256": "cc9a416f6e0054b7337a929c1a03e39660f597155b83c6475f801963a0e74c67"
+    },
+    {
+      "path": "skill-ui.json",
+      "bytes": 4722,
+      "sha256": "cdd1ecab9e1d14ae5c367aabae2084f36bd6dd854449dc09d518ecd05bd14ff0"
+    },
+    {
+      "path": "source-manifest.json",
+      "bytes": 24268,
+      "sha256": "a7c4edc6a70254423d109dad532965f7b24c2d828f8bf93cb449834930bef807"
+    },
+    {
+      "path": "summary.json",
+      "bytes": 4052,
+      "sha256": "ed2b6f5f59169dd8597e89b7ada2cfc4c875d501307a9299b75fd7ed40037432"
+    },
+    {
+      "path": "verify-evidence.mjs",
+      "bytes": 2958,
+      "sha256": "083469ca597f7808b9d423ae5ad9b3c3bed7aef4d23d229c9725763a5e46458f"
+    }
+  ]
+}

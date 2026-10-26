@@ -1,0 +1,162 @@
+{
+  "status": "pass",
+  "sourceManifestSha256": "a7c4edc6a70254423d109dad532965f7b24c2d828f8bf93cb449834930bef807",
+  "turns": [
+    {
+      "kind": "live-card-try",
+      "tools": [
+        "workflow_status",
+        "workflow_search_skills",
+        "workflow_open_skill",
+        "workflow_read_source",
+        "workflow_read_source",
+        "workflow_read_source",
+        "workflow_read_source",
+        "workflow_confirm_sources",
+        "workflow_review_skill",
+        "workflow_review_skill",
+        "workflow_learn"
+      ],
+      "sourceReads": [
+        {
+          "path": "SKILL.md",
+          "bytes": 5472,
+          "sha256": "c00eeea0e13e74fe4a9d84ba0a8542205a1b736d65f13134fe1a6647eb14976f",
+          "currentRawBytesMatch": true
+        },
+        {
+          "path": "LICENSE",
+          "bytes": 1069,
+          "sha256": "661142e53c313d2bb5e1b055f5c0a39001450ff1b5e27b89dc4bc7de9a6352ca",
+          "currentRawBytesMatch": true
+        },
+        {
+          "path": "ADAPTATION.md",
+          "bytes": 525,
+          "sha256": "b7ce19500ae3f66e68c96c81f54f9b8191b7dd9413d581133ed32725e1da44ea",
+          "currentRawBytesMatch": true
+        },
+        {
+          "path": "agents/openai.yaml",
+          "bytes": 345,
+          "sha256": "6ce82a1cf5bea3048e817cc01e67df10c3017740264d05f732c6f0a15f61b9c2",
+          "currentRawBytesMatch": true
+        }
+      ],
+      "workspaceReads": [],
+      "refused": [
+        {
+          "tool": "workflow_review_skill",
+          "reason": "Adopted method does not map every scoped requirement"
+        },
+        {
+          "tool": "workflow_learn",
+          "reason": "Current stage is discovery; learning action denied before its prerequisites"
+        }
+      ],
+      "sourceConfirmations": 1,
+      "model": "gpt-6.1-sol",
+      "effort": "xhigh"
+    },
+    {
+      "kind": "cold-picker-same-conversation",
+      "tools": [
+        "workflow_status",
+        "workflow_search_skills",
+        "workflow_open_skill",
+        "workflow_read_source",
+        "workflow_read_source",
+        "workflow_confirm_sources",
+        "workflow_read_workspace",
+        "workflow_read_source",
+        "workflow_read_source",
+        "workflow_confirm_sources",
+        "workflow_review_skill",
+        "workflow_learn"
+      ],
+      "sourceReads": [
+        {
+          "path": "SKILL.md",
+          "bytes": 5472,
+          "sha256": "c00eeea0e13e74fe4a9d84ba0a8542205a1b736d65f13134fe1a6647eb14976f",
+          "currentRawBytesMatch": true
+        },
+        {
+          "path": "LICENSE",
+          "bytes": 1069,
+          "sha256": "661142e53c313d2bb5e1b055f5c0a39001450ff1b5e27b89dc4bc7de9a6352ca",
+          "currentRawBytesMatch": true
+        },
+        {
+          "path": "ADAPTATION.md",
+          "bytes": 525,
+          "sha256": "b7ce19500ae3f66e68c96c81f54f9b8191b7dd9413d581133ed32725e1da44ea",
+          "currentRawBytesMatch": true
+        },
+        {
+          "path": "agents/openai.yaml",
+          "bytes": 345,
+          "sha256": "6ce82a1cf5bea3048e817cc01e67df10c3017740264d05f732c6f0a15f61b9c2",
+          "currentRawBytesMatch": true
+        }
+      ],
+      "workspaceReads": [
+        {
+          "path": "project.godot",
+          "bytes": 584,
+          "sha256": "1580ecfb9b14b6c19c3052905aa9d7d92f4df40ecba33d2d2625e508081fbd69",
+          "currentRawBytesMatch": true,
+          "stage": "discovery",
+          "complete": false
+        }
+      ],
+      "refused": [
+        {
+          "tool": "workflow_learn",
+          "reason": "Current stage is discovery; learning action denied before its prerequisites"
+        }
+      ],
+      "sourceConfirmations": 2,
+      "model": "gpt-6.1-sol",
+      "effort": "xhigh"
+    }
+  ],
+  "sameNativeConversation": true,
+  "actualUiSubmitted": true,
+  "fullPrivateProcessExitVerified": true,
+  "coldNativeInventory": {
+    "entries": 77,
+    "uniqueNames": 74,
+    "errors": 0
+  },
+  "ui": {
+    "installedCards": 74,
+    "nativeCardBodyOpened": true,
+    "tryButtonUsed": true,
+    "coldDollarSearchSelected": true,
+    "rawUiChipSerializedAsMarkdown": true,
+    "structuredSkillInputCoveredSeparatelyByNativeTests": true
+  },
+  "pending": {
+    "stage": "discovery",
+    "complete": false,
+    "failed": null
+  },
+  "rolloutSha256": "90e35a31b529dfed24b356ec42597c84578b599ec12afa6a80367bc15f2cc092",
+  "rolloutPrivate": true,
+  "gameHashesUnchanged": true,
+  "skills": [
+    {
+      "name": "proactive-skill-discovery",
+      "files": 10,
+      "exactSourceReadback": true,
+      "changedThisRevision": false
+    },
+    {
+      "name": "proactive-skill-discovery-dsh",
+      "files": 10,
+      "exactSourceReadback": true,
+      "changedThisRevision": false
+    }
+  ]
+}

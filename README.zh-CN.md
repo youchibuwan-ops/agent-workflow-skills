@@ -21,6 +21,8 @@
 
 当前 [R36 桌面修复记录](evidence/global-entry-r36-20261026/README.md) 已实际验证 Windows 设置、原生目录信任与项目添加、真实文件完整读取，以及完全退出重开后在原失败会话里再次调用工具读取。作者本机全量 443/443、打包 34/34、Codex 策略 31/31，均零跳过；两份 Skill 已更新。旧 DSH 付费实测仍保留 [R32 来源身份](evidence/global-entry-r32-20261026/README.md)，本轮执行代码未变，没有冒称重新跑过付费模型。更新包见 [GitHub Releases](https://github.com/youchibuwan-ops/agent-workflow-skills/releases)；DSH 安装按钮不分发私有 Codex 桌面，仅复制 Skill 仍是 `instruction_only`。
 
+当前 [R39 技能清单修复](evidence/global-entry-r39-20261026/README.md) 已实际验证受控桌面的技能卡片、正文详情和选用：按 Ctrl+K → 输入“技能” → “前往技能”，聊天中输入 `$find` 可搜索。作者本机显示74个不同名称；两轮真实模型含同会话冷启动及当前项目重读，字节与哈希相符。回归516/516、零跳过。DSH包同步源码；DSH生产代码及两份Skill正文未变，没有新增付费DSH模型验收。
+
 **2026-10-25：SVG Skill 已撤下。**
 `crafting-reference-based-svg-assets` 已从当前可安装目录移除，单独的发布 ZIP 也撤下，
 不再推荐安装。历史案例、测试和 Git 历史保留作证据，不再作为当前 Skill 的推广入口。
