@@ -140,9 +140,6 @@ jobs:
       - name: Preserve the historical builder and original evidence bytes
         run: node scripts/check-frozen-preview.mjs
       - run: npm run test:global-package
-      - name: Diagnose a Windows shortcut failure in isolated pinned fixture copies
-        if: failure() && runner.os == 'Windows'
-        run: node scripts/diagnose-native-shortcut-ci.mjs
       - name: Build the current global source package with its own manifest
         run: npm run build:global -- "${{ runner.temp }}/AgentWorkflow-global-preview2.zip"
       - name: Export the new manifest from the verified ZIP
