@@ -1,0 +1,23 @@
+{
+  "status": "pass",
+  "sourceManifestSha256": "68451f84a15a1b2ba84ed0edc4fc34e62ee301fc2d9f8a9e5670c439971efee1",
+  "files": [
+    {
+      "skill": "proactive-skill-discovery",
+      "resource": "references/stage-checks.md",
+      "beforeSha256": "9fa5f33024c0b971302e11a054135385aabbb4e7b95a1ca63b0a73a971dd4cc7",
+      "afterSha256": "3c1bd2c0d2f7e2ca5cc8d3b37740e8ae59bcd1dda4ef680e77325a735d34cd90",
+      "installedReadback": true
+    },
+    {
+      "skill": "proactive-skill-discovery-dsh",
+      "resource": "references/stage-checks.md",
+      "beforeSha256": "016494727f9c99541b8f7ababb542d1be4342c8130c9481e1fffb4c847d75cab",
+      "afterSha256": "3c1bd2c0d2f7e2ca5cc8d3b37740e8ae59bcd1dda4ef680e77325a735d34cd90",
+      "installedReadback": true
+    }
+  ],
+  "change": "Require actual interpreter fallback/version evidence; distinguish hand-set CLM, preloaded trusted modules and actual OS sandbox execution.",
+  "behaviorVerification": "Current emitted-command test: PS5.1/PS7 x two language modes; actual DSH PS5.1 OS workspace-write/read-only cases; existing private path, denial/truncation and write-registration regressions.",
+  "adjacentCase": "PS7 preserved, protected paths refuse before dispatch, premature write remains refused."
+}

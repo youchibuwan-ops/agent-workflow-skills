@@ -1,0 +1,76 @@
+{
+  "status": "pass",
+  "sourceManifestSha256": "68451f84a15a1b2ba84ed0edc4fc34e62ee301fc2d9f8a9e5670c439971efee1",
+  "sourceFiles": 148,
+  "totalPass": 579,
+  "totalFail": 0,
+  "totalSkip": 0,
+  "suites": [
+    {
+      "scope": "global",
+      "counts": {
+        "tests": 514,
+        "pass": 514,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0
+      },
+      "sourceUnchanged": true,
+      "logSha256": "c055d926fb4fb82c270bb4074aa3621aa59588751d702b78f4a4c4ba0c48346b"
+    },
+    {
+      "scope": "package",
+      "counts": {
+        "tests": 34,
+        "pass": 34,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0
+      },
+      "sourceUnchanged": true,
+      "logSha256": "5277923ea55acad596402c4fe3b1fb4acfb863e81cebdb587cf6cfc783e336d8"
+    },
+    {
+      "scope": "codex-policy",
+      "counts": {
+        "tests": 31,
+        "pass": 31,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0
+      },
+      "sourceUnchanged": true,
+      "logSha256": "170a350d33c98416bc8b71e555e3355af4c8aa52b62c03f0994bfb01360efee2"
+    }
+  ],
+  "retainedBaseline": {
+    "status": "baseline-reproduced",
+    "sourceRelease": "20261026-r56",
+    "sourceManifestSha256": "68451f84a15a1b2ba84ed0edc4fc34e62ee301fc2d9f8a9e5670c439971efee1",
+    "baselineManifestSha256": "e0d759cb0730e7d5f1b9c8fbb41e1bc8134eec6a2f6d24b0fa4d6869acf94339",
+    "pass": 2,
+    "fail": 2,
+    "skipped": 0,
+    "expectedFailure": "Both Windows PS5.1 variants fail at original native directory command; PS7 variants pass. Frozen R56 bytes are unchanged.",
+    "scope": "Exact current emitted-command regression fixture pointed at immutable old production module; manual language probes are distinct from real DSH OS sandbox tests."
+  },
+  "independentReview": {
+    "focusedPass": 20,
+    "critical": 0,
+    "important": 0,
+    "minor": 1,
+    "scope": "18 real adapter/shell checks plus 2 native DSH SDK cases; no independent GUI/model/fresh-install claim"
+  },
+  "installed": {
+    "dshUpdated": true,
+    "sdkReused": true,
+    "noNewRuntimeDownload": true,
+    "codexOwnerAndShortcutsUnchanged": true
+  },
+  "knownLimits": [
+    "Codex R56 deprecation warnings are unchanged; Codex runtime was not upgraded by this DSH-only local repair.",
+    "Old failed tasks are not automatically resumed.",
+    "No fresh-machine full install or all-product feature claim.",
+    "New native tests configure OS modes and inspect the selected executable; the reviewer recommends also capturing effective enforcement facts. The full suite separately checks existing sandbox rejection behavior."
+  ]
+}

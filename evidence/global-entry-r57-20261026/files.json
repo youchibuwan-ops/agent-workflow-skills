@@ -1,0 +1,44 @@
+{
+  "files": [
+    {
+      "path": "INDEPENDENT-REVIEW.md",
+      "bytes": 10438,
+      "sha256": "14de6281f6035b2142775cb34837a825648f5c595bf57cc607ca209cd1e84a67"
+    },
+    {
+      "path": "README.md",
+      "bytes": 3493,
+      "sha256": "6ac5b87d0f3b79c7117118f2fbb56db1c3d90d3c3fd90513f4d5144b53c51134"
+    },
+    {
+      "path": "release.json",
+      "bytes": 248,
+      "sha256": "a2f9f3e0184f47be5dddd165bdde9d1bf18a9faa8104d16ede4f061f14c58ef7"
+    },
+    {
+      "path": "skill-maintenance.json",
+      "bytes": 1254,
+      "sha256": "94ce3a1a078936ec0f11ac623f8bf9e4fc5731f98bd8cd082c3f95c930e9c093"
+    },
+    {
+      "path": "source-manifest.json",
+      "bytes": 26078,
+      "sha256": "68451f84a15a1b2ba84ed0edc4fc34e62ee301fc2d9f8a9e5670c439971efee1"
+    },
+    {
+      "path": "summary.json",
+      "bytes": 2603,
+      "sha256": "e319d647f26c52baf3b51e980053e13d7657fd1d8c624a66736e7000272cc8e4"
+    },
+    {
+      "path": "verify-evidence.mjs",
+      "bytes": 2891,
+      "sha256": "1dcde66699f35b47ad360c3190e6a5f479bb8f47b42d8eab788a256303574cf9"
+    },
+    {
+      "path": "web-project.json",
+      "bytes": 2090,
+      "sha256": "a76ddc53a36098b3b0c6eecc29d0063c24c9451463a201c7618cc2e09d59704d"
+    }
+  ]
+}

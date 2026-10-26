@@ -41,6 +41,8 @@ current [GitHub Releases](https://github.com/youchibuwan-ops/agent-workflow-skil
 
 The [R56 native management repair](evidence/global-entry-r56-20261026/README.md) replaces scattered handlers with one metadata control domain, separate from model execution. It retains native project and chat lifecycle behavior, recovers interrupted deletion, and shares lifecycle reservations with actor admission. Current regression, real-model, installed-project, UI, and distribution checks are recorded separately. Read the retained failures and coverage limits before treating a check as universal support. DSH downloads are in [GitHub Releases](https://github.com/youchibuwan-ops/agent-workflow-skills/releases).
 
+The [R57 DSH compatibility repair](evidence/global-entry-r57-20261026/README.md) supports native Windows PowerShell 5.1 fallback as well as PowerShell 7, preserving Unicode directory JSON and exact byte reads through the original permission service. Its record separates 579 author checks, 20 independent focused checks, and a real current-project Web/model run from a normal terminal environment. PowerShell 7 or Codex's private PATH is not required; start inside a normal project directory and open the complete URL printed by `dsh.cmd web`.
+
 **2026-10-25: the SVG Skill has been withdrawn.**
 `crafting-reference-based-svg-assets` is removed from the current installable
 catalog and its standalone release download is withdrawn. It is no longer

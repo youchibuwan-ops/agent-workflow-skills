@@ -39,6 +39,32 @@ function rpcClient(child){
   return {notifications,request(method,params){const id=nextId++;return new Promise((resolve,reject)=>{const timer=setTimeout(()=>{pending.delete(id);reject(Error('Native RPC timed out: '+method));},15000);pending.set(id,{resolve,reject,timer});child.stdin.write(JSON.stringify({jsonrpc:'2.0',id,method,params})+'\n');});}};
 }
 
+for(const mode of ['workspace-write','read-only'])test(`real DSH Windows PS5.1 ${mode} native sandbox lists and reads with an ordinary terminal PATH`,{skip:!runtimeRoot||process.platform!=='win32',timeout:90000},async()=>{
+ const f=await fixture('sdk'),shell=join(process.env.SystemRoot??'C:/Windows','System32/WindowsPowerShell/v1.0/powershell.exe');
+ const provider=join(f.privateRoot,'scripted-provider.mjs'),original=readFileSync(provider,'utf8');
+ const changed=original.replace("export const inject=['llm','agents','tools'];","export const inject=['llm','agents','tools','shell'];")
+  .replace('JSON.stringify({sessionId:String(agent.id),step,','JSON.stringify({sessionId:String(agent.id),step,nativeShell:ctx.shell.pwshPath,')
+  .replace('if(step>=5)','if(step>=6)')
+  .replace("if(step===4){name='workflow_read_workspace';args={path:'ordinary-input.txt'};}","if(step===4){name='workflow_read_workspace';args={path:'.'};}if(step===5){name='workflow_read_workspace';args={path:'ordinary-input.txt'};}");
+ assert.notEqual(changed,original);assert(changed.includes('if(step>=6)'));writeFileSync(provider,changed);
+ const overlay=f.config.overlays[0];writeFileSync(overlay,readFileSync(overlay,'utf8')+`\n- id: pwsh-sandbox\n  config:\n    pwshPath: ${JSON.stringify(shell)}\n- id: sandbox-policy\n  config:\n    mode: ${mode}\n`);
+ f.env.PATH=[join(process.env.SystemRoot??'C:/Windows','System32'),process.env.SystemRoot??'C:/Windows'].join(';');delete f.env.PSModulePath;
+ const run=await f.launch(),rpc=rpcClient(run.child);
+ try{
+  await rpc.request('initialize',{cwd:f.workspace,provider:'launcher-script',model:'no-network'});
+  await rpc.request('session/prompt',{sessionId:'legacy-powershell',contentBlocks:[{type:'text',text:'List the current project and read ordinary-input.txt without changing files.'}]});
+  await rpc.request('session/wait',{sessionId:'legacy-powershell'});
+  await rpc.request('shutdown',{});const outcome=await run.finished;
+  assert.equal(outcome.nativeExitCode,0,run.output().stderr);assert.equal(outcome.sessions[0]?.failed,null,JSON.stringify(outcome.sessions));
+  const journal=readFileSync(f.journal,'utf8').trim().split('\n').map(JSON.parse);
+  assert.equal(journal.length,7);assert(journal.every(row=>resolve(row.nativeShell).toLowerCase()===resolve(shell).toLowerCase()),'The actual native service must select PS5.1, not the test runner shell');
+  assert.equal(journal[2].previous.ok,false,'Premature writes remain refused');
+  assert.equal(journal[5].previous.ok,true);assert(journal[5].previous.data.entries.some(entry=>entry.path==='ordinary-input.txt'));
+  assert.equal(journal[6].previous.ok,true);assert.equal(journal[6].previous.data.sha256,createHash('sha256').update(readFileSync(join(f.workspace,'ordinary-input.txt'))).digest('hex'));
+  f.assertPreserved();writeFileSync(join(f.root,'legacy-shell-verification.json'),JSON.stringify({status:'pass',actualShell:shell,nativeOsPermissionRoute:true,calls:journal.length,outcome},null,2));
+ }finally{if(run.child.exitCode===null)run.child.kill();}
+});
+
 test('real CLI headless ordinary tasks, separate sessions and cold resume use the production factory',{skip:!runtimeRoot,timeout:45000},async()=>{
   const f=await fixture('headless');let run;
   try{

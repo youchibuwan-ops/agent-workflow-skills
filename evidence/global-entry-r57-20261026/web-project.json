@@ -1,0 +1,55 @@
+{
+  "status": "pass",
+  "sourceManifestSha256": "68451f84a15a1b2ba84ed0edc4fc34e62ee301fc2d9f8a9e5670c439971efee1",
+  "entry": "Installed daily dsh.cmd web, ordinary machine/user PATH without Codex runtime PATH injection",
+  "actualBrowserSubmission": true,
+  "existingWorkspaceSelected": true,
+  "realProjectRead": true,
+  "toolCalls": 20,
+  "modelSteps": 12,
+  "uiSeconds": 122,
+  "provider": "deepseek-official/deepseek-flash",
+  "nativeTurnStatus": "completed",
+  "hostBusiness": {
+    "stage": "discovery",
+    "complete": false,
+    "failed": null,
+    "bound": true
+  },
+  "actualWindowsPS51DescendantObserved": true,
+  "currentFileFactsMatched": true,
+  "files": [
+    {
+      "path": "AGENTS.md",
+      "bytes": 16682,
+      "sha256": "dcb0771ac0ef336edb9f4caff5f058e1e2b74a7cca91541f99b18adb2bb76ea5"
+    },
+    {
+      "path": "project.godot",
+      "bytes": 584,
+      "sha256": "1580ecfb9b14b6c19c3052905aa9d7d92f4df40ecba33d2d2625e508081fbd69"
+    },
+    {
+      "path": "scenes/rolling_main.tscn",
+      "bytes": 173,
+      "sha256": "09b005ad5b85116e7e5bbcd72d3a5829918b6159cd40dbfba8fa1d5e252f4b1c"
+    }
+  ],
+  "threeSnapshotFilesUnchanged": true,
+  "noProjectWriteOrSkillInstallTool": true,
+  "actualInstalledSkillSearch": true,
+  "actualExternalSkillSearch": true,
+  "retainedToolRefusals": [
+    {
+      "method": "workflow_open_skill",
+      "diagnostic": "Acquired bundle remains incomplete: license_missing. Binary material needs a verified viewer; no text-only substitute is allowed"
+    },
+    {
+      "method": "workflow_validate",
+      "diagnostic": "Current stage is discovery; draft action denied before its prerequisites"
+    }
+  ],
+  "screenshotKeptLocal": true,
+  "privateScreenshotSha256": "99892d29bbf2b7c40b000049e079281edc272d0f6ce56c14dfbfa8b6fc2200f3",
+  "scope": "A real current-project read-only fact task; business workflow remains discovery/pending. No production-art resumption, all-GUI or model-quality claim. Runtime PATH selection is corroborated by actual process ancestry. Initial native directory and exact file read failure is absent."
+}
