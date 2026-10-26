@@ -1,0 +1,20 @@
+{
+  "name": "AgentWorkflow-DSH-20261026-preview3-r36-verified.zip",
+  "bytes": 623404,
+  "sha256": "fec88d0527e4c96354359085e4813465a28f57a3b7c9c45594cf5df603d05c3b",
+  "payloadFiles": 136,
+  "outerFiles": 5,
+  "manifestSha256": "bf4d6a9dfb97b234a425c2b043cc7a6918a694373f7ef66e8af105d0f66f9149",
+  "payloadUnchanged": true,
+  "bootstrap": {
+    "status": "verified-no-sdk-or-model-called",
+    "actualExtractedInstaller": true,
+    "nodeTree": {
+      "entries": 2459,
+      "bytes": 107345970,
+      "treeSha256": "8c862fa5a190b0e1a53cad0cd0b361c53d280939cb30f4342867ffbf57e0cd85"
+    },
+    "noSdkOrModelInvoked": true
+  },
+  "scope": "Exact extracted DSH package preflight and author local host verification; no classmate-machine install or bundled private Codex application claim"
+}

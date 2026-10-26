@@ -1,0 +1,33 @@
+import {readFileSync,writeFileSync,mkdirSync,lstatSync,existsSync,realpathSync,renameSync} from 'node:fs';
+import {createHash,createHmac,randomBytes,timingSafeEqual} from 'node:crypto';import path from 'node:path';
+const sha=b=>createHash('sha256').update(b).digest('hex');
+function regular(file,max=262144){const s=lstatSync(file);if(!s.isFile()||s.isSymbolicLink()||s.nlink!==1||s.size>max)throw Error('Desktop configuration authority requires a regular single-link file');return readFileSync(file);}
+function directory(dir){if(!existsSync(dir))mkdirSync(dir,{recursive:true});const s=lstatSync(dir);if(!s.isDirectory()||s.isSymbolicLink()||path.resolve(dir)!==realpathSync.native(dir))throw Error('Desktop configuration authority directory redirected');}
+const quotes=value=>[JSON.stringify(value),...(!value.includes("'")&&!/[\x00-\x1f\x7f]/.test(value)?["'"+value+"'"]:[])];
+function validateState(state){if(!Array.isArray(state)||state.length>200)throw Error('Bounded desktop configuration state required');const seen=new Set();for(const s of state){const id=s?.kind==='windows'?'windows':s?.kind==='project'?'project:'+s.path:null;if(!id||seen.has(id))throw Error('Duplicate or unknown desktop configuration section');seen.add(id);if(s.kind==='windows'){if(Object.keys(s).sort().join(',')!=='kind,value'||!['elevated','unelevated'].includes(s.value))throw Error('Exact Windows sandbox mode required');}else if(Object.keys(s).sort().join(',')!=='kind,path,value'||typeof s.path!=='string'||!path.isAbsolute(s.path)||/[\x00-\x1f\x7f]/.test(s.path)||s.path.length>32768||s.value!=='trusted')throw Error('Exact approved project trust section required');}}
+function matches(bytes,base,state){validateState(state);if(bytes.length>262144||!bytes.subarray(0,base.length).equals(base))return false;let tail=bytes.subarray(base.length).toString('utf8');const remaining=[...state];while(tail.length){const index=remaining.findIndex(s=>{const blocks=s.kind==='windows'?['\n[windows]\nsandbox = "'+s.value+'"\n']:quotes(s.path).map(q=>'\n[projects.'+q+']\ntrust_level = "trusted"\n');const block=blocks.find(b=>tail.startsWith(b));if(!block)return false;tail=tail.slice(block.length);return true;});if(index<0)return false;remaining.splice(index,1);}return remaining.length===0;}
+/** Only exact owner-approved native configuration edits can replace the pin.
+ * This is a whitelist of complete extensions, not a permissive TOML parser. */
+export function createDesktopConfigAuthority({file,base,authorityRoot}){
+ base=Buffer.from(base);directory(authorityRoot);const keyFile=path.join(authorityRoot,'host.key'),receiptFile=path.join(authorityRoot,'receipt.json');
+ const present=existsSync(receiptFile);if(present&&!existsSync(keyFile))throw Error('Desktop config receipt lost its authority');
+ let key=existsSync(keyFile)?regular(keyFile,32):randomBytes(32);if(key.length!==32)throw Error('Invalid desktop config authority key');
+ const mac=body=>createHmac('sha256',key).update(JSON.stringify(body)).digest('hex');let state=[],expected=base,pending=null;
+ if(present){const saved=JSON.parse(regular(receiptFile).toString('utf8')),body=saved.body;const signature=mac(body);if(body?.format!==1||body.file!==path.resolve(file)||typeof body.baseBytes!=='string'||typeof saved.signature!=='string'||!/^[a-f0-9]{64}$/.test(saved.signature)||!timingSafeEqual(Buffer.from(signature),Buffer.from(saved.signature)))throw Error('Desktop config receipt integrity mismatch');const previousBase=Buffer.from(body.baseBytes,'base64');if(previousBase.toString('base64')!==body.baseBytes||sha(previousBase)!==body.baseSha256)throw Error('Desktop config base identity mismatch');validateState(body.state);const previous=regular(file);if(sha(previous)!==body.sha256||!matches(previous,previousBase,body.state))throw Error('Persisted desktop configuration changed');state=body.state;
+  // The new base comes only from current owner options. Authenticate the old
+  // complete bytes first, then retain only its approved extension sections.
+  expected=Buffer.concat([base,previous.subarray(previousBase.length)]);}
+ else if(existsSync(file)&&!regular(file).equals(base))throw Error('Unknown preexisting desktop config cannot confer authority');
+ function store(){const body={format:1,file:path.resolve(file),baseSha256:sha(base),baseBytes:base.toString('base64'),state,sha256:sha(expected)},bytes=Buffer.from(JSON.stringify({body,signature:mac(body)})),temp=receiptFile+'.'+randomBytes(8).toString('hex')+'.tmp';if(existsSync(receiptFile))regular(receiptFile);writeFileSync(temp,bytes,{flag:'wx',mode:0o600});renameSync(temp,receiptFile);}
+ function assertCurrent(){if(pending)throw Error('Desktop configuration operation is in progress');if(!regular(file).equals(expected))throw Error('Strict native configuration changed');}
+ return Object.freeze({
+  initialBytes(){return Buffer.from(expected);},
+  sealInitial(){if(!regular(file).equals(expected))throw Error('Initial desktop configuration differs');if(!existsSync(keyFile))writeFileSync(keyFile,key,{flag:'wx',mode:0o600});store();},
+  assertCurrent,
+  get sandboxMode(){return state.find(s=>s.kind==='windows')?.value??null;},
+  get trustedRoots(){return state.filter(s=>s.kind==='project').map(s=>s.path);},
+  begin(change){assertCurrent();const next=structuredClone(state);validateState([change]);const index=next.findIndex(s=>s.kind===change.kind&&(s.kind==='windows'||s.path===change.path));if(index<0)next.push(structuredClone(change));else next[index]=structuredClone(change);const token=Object.freeze({});pending={token,next};return token;},
+  finish(token){if(!pending||pending.token!==token)throw Error('Foreign desktop config transaction');const bytes=regular(file);if(!matches(bytes,base,pending.next))throw Error('Native desktop config edit changed unapproved bytes');state=pending.next;expected=bytes;store();pending=null;return{sandboxMode:state.find(s=>s.kind==='windows')?.value??null};},
+  abort(token){if(!pending||pending.token!==token)throw Error('Foreign desktop config transaction');if(!regular(file).equals(expected))throw Error('Failed desktop operation changed configuration');pending=null;}
+ });
+}

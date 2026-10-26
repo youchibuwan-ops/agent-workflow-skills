@@ -1,0 +1,145 @@
+{
+  "format": 1,
+  "revision": "R36",
+  "status": "author-local-normal-desktop-flow-verified",
+  "checkedAt": "2026-10-26T04:49:08.166Z",
+  "sourceManifestSha256": "bf4d6a9dfb97b234a425c2b043cc7a6918a694373f7ef66e8af105d0f66f9149",
+  "payloadFiles": 136,
+  "sourceDeltaFromR32": [
+    "hosts/codex-global/desktop-config.mjs",
+    "hosts/codex-global/desktop-controls.mjs",
+    "hosts/codex-global/desktop-controls.test.mjs",
+    "hosts/codex-global/gateway.mjs",
+    "hosts/codex-global/gateway.test.mjs",
+    "hosts/codex-global/native-backend.mjs",
+    "hosts/codex-global/probes/desktop-fixture-backend.mjs",
+    "skills/proactive-skill-discovery-dsh/references/stage-checks.md",
+    "skills/proactive-skill-discovery/references/stage-checks.md"
+  ],
+  "tests": {
+    "global": {
+      "tests": 443,
+      "pass": 443,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "sourceUnchanged": true,
+      "logSha256": "cfeecd03e97154935eea89c78f0ddb2b44d9eec7a0f0a494703fadc598bc7e42",
+      "paidModel": false
+    },
+    "package": {
+      "tests": 34,
+      "pass": 34,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "sourceUnchanged": true,
+      "logSha256": "e7770feab8293aa48aff2df07d716d9b57c1cbef976f8c24140435d6d991435a",
+      "paidModel": false
+    },
+    "codex-policy": {
+      "tests": 31,
+      "pass": 31,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "sourceUnchanged": true,
+      "logSha256": "3643c455f1a5e978a989cd345195581bbbb3d6200c3d4e6dce02813dbb0ef1a9",
+      "paidModel": false
+    }
+  },
+  "skillAndPhaseTests": {
+    "tests": 29,
+    "pass": 29,
+    "fail": 0,
+    "skipped": 0
+  },
+  "desktopControlsIncludedInGlobal": {
+    "tests": 17,
+    "scope": "OS/protocol doubles, actual native project reads and boundary/lifecycle cases; counted within global, not added again"
+  },
+  "actualUi": {
+    "setup": {
+      "firstCompletedRevision": "R33",
+      "samePinnedNativeRuntime": true,
+      "actualNativeProvisioningCompleted": true,
+      "finalR36Readiness": "ready",
+      "finalMode": "elevated",
+      "notSimulated": true
+    },
+    "project": {
+      "nativePicker": true,
+      "actualFolderTrust": true,
+      "actualProjectCreate": true,
+      "sameAffectedConversationRecovered": true,
+      "oldLocalFailedDraftClearedAfterActualQueueHydration": true,
+      "localMembershipPersistedAcrossColdStart": true
+    },
+    "cold": {
+      "ordinaryIdleExitDidNotMarkFailed": true,
+      "sameConversationActualModelReread": true,
+      "files": [
+        {
+          "name": "project.godot",
+          "bytes": 584,
+          "sha256": "1580ecfb9b14b6c19c3052905aa9d7d92f4df40ecba33d2d2625e508081fbd69",
+          "actualNativeBytesMatch": true
+        },
+        {
+          "name": "AGENTS.md",
+          "bytes": 16682,
+          "sha256": "dcb0771ac0ef336edb9f4caff5f058e1e2b74a7cca91541f99b18adb2bb76ea5",
+          "actualNativeBytesMatch": true
+        }
+      ]
+    },
+    "modelBusinessTaskComplete": false,
+    "scope": "Author-driven real desktop and model evidence; no claim of independent GUI replication or whole-business-workflow completion"
+  },
+  "installation": {
+    "sourceAndSealedRuntimeVerified": [
+      {
+        "host": "codex",
+        "verified": true
+      },
+      {
+        "host": "dsh",
+        "verified": true
+      }
+    ],
+    "nativeLauncherSha256": "ca2f766495ec86ecacaa6496e8e08d79943d444fe1b3891f9dc5bd44d5d84ca0",
+    "actualExistingShortcutsPreserved": true,
+    "personalSkills": [
+      {
+        "host": "codex",
+        "files": 10,
+        "exactFrozenSourceReadback": true
+      },
+      {
+        "host": "dsh",
+        "files": 10,
+        "exactFrozenSourceReadback": true
+      }
+    ]
+  },
+  "dsh": {
+    "productionExecutionDeltaFromR32": [],
+    "paidModelRerun": false,
+    "explanation": "DSH production code and shared execution modules are unchanged; both Skill references are updated. Historical paid DSH/model traces retain their original R31/R32 source identity."
+  },
+  "failuresRetained": [
+    "R32 text-task acceptance did not establish normal Windows setup/project access; actual setupStart was denied.",
+    "R33 real setup and initial project read succeeded, but ordinary idle quit marked an unfinished task failed=Gateway stopped; a new actual turn closed the app.",
+    "R34 full suite 441/442: old native regression still demanded idle pending abort. Updated it to require actual fresh-factory reread and early-write refusal; active and fatal protections remain.",
+    "R35 actual recovery exposed denied queue hydration; R36 adds only bounded owned thread/queue/list.",
+    "An R35 installer CheckOnly invocation omitted the installer actual process execution-policy flag and was refused; matching the real installer invocation passed."
+  ],
+  "limits": [
+    "No blanket acceptance of every desktop function, cloud/SSH/WSL/remote route, visual/binary task or unexpected power loss.",
+    "Queued execution and queue writes remain denied; empty-page hydration and the actual local failed draft were verified, not arbitrary durable queue deletion or nonempty pagination.",
+    "Current UI read task correctly remains discovery/complete=false; reading files does not bypass required production stages.",
+    "Original stock window and existing original chats are outside the private controlled entry.",
+    "No new paid DSH-model run or five-repeat model A/B claim for the added Skill wording.",
+    "Private desktop/account/history, opaque routes and raw game files are excluded from the downloadable package and public evidence."
+  ]
+}

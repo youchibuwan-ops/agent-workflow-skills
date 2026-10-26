@@ -1,0 +1,112 @@
+{
+  "status": "pass",
+  "checkedAt": "2026-10-26T04:48:44.200Z",
+  "sourceManifestSha256": "bf4d6a9dfb97b234a425c2b043cc7a6918a694373f7ef66e8af105d0f66f9149",
+  "sameAffectedNativeThread": true,
+  "actualUiSubmittedModelTurns": [
+    {
+      "marker": "authorized-recovery",
+      "reads": [
+        {
+          "path": "project.godot",
+          "start": 0,
+          "end": 584,
+          "bytes": 584,
+          "sha256": "1580ecfb9b14b6c19c3052905aa9d7d92f4df40ecba33d2d2625e508081fbd69",
+          "currentReturnedBytesMatch": true,
+          "workflowStage": "discovery",
+          "workflowComplete": false
+        },
+        {
+          "path": "AGENTS.md",
+          "start": 0,
+          "end": 12000,
+          "bytes": 16682,
+          "sha256": "dcb0771ac0ef336edb9f4caff5f058e1e2b74a7cca91541f99b18adb2bb76ea5",
+          "currentReturnedBytesMatch": true,
+          "workflowStage": "discovery",
+          "workflowComplete": false
+        },
+        {
+          "path": "AGENTS.md",
+          "start": 12000,
+          "end": 16682,
+          "bytes": 16682,
+          "sha256": "dcb0771ac0ef336edb9f4caff5f058e1e2b74a7cca91541f99b18adb2bb76ea5",
+          "currentReturnedBytesMatch": true,
+          "workflowStage": "discovery",
+          "workflowComplete": false
+        }
+      ],
+      "tools": [
+        "workflow_status",
+        "workflow_read_workspace",
+        "workflow_read_workspace",
+        "workflow_read_workspace",
+        "workflow_read_workspace"
+      ],
+      "refusedReads": [
+        {
+          "arguments": {
+            "path": "AGENTS.md",
+            "length": 20000
+          },
+          "error": "arguments.length: invalid integer",
+          "notCountedAsRead": true
+        }
+      ]
+    },
+    {
+      "marker": "cold-reread",
+      "reads": [
+        {
+          "path": "project.godot",
+          "start": 0,
+          "end": 584,
+          "bytes": 584,
+          "sha256": "1580ecfb9b14b6c19c3052905aa9d7d92f4df40ecba33d2d2625e508081fbd69",
+          "currentReturnedBytesMatch": true,
+          "workflowStage": "discovery",
+          "workflowComplete": false
+        },
+        {
+          "path": "AGENTS.md",
+          "start": 0,
+          "end": 12000,
+          "bytes": 16682,
+          "sha256": "dcb0771ac0ef336edb9f4caff5f058e1e2b74a7cca91541f99b18adb2bb76ea5",
+          "currentReturnedBytesMatch": true,
+          "workflowStage": "discovery",
+          "workflowComplete": false
+        },
+        {
+          "path": "AGENTS.md",
+          "start": 12000,
+          "end": 16682,
+          "bytes": 16682,
+          "sha256": "dcb0771ac0ef336edb9f4caff5f058e1e2b74a7cca91541f99b18adb2bb76ea5",
+          "currentReturnedBytesMatch": true,
+          "workflowStage": "discovery",
+          "workflowComplete": false
+        }
+      ],
+      "tools": [
+        "workflow_status",
+        "workflow_read_workspace",
+        "workflow_read_workspace",
+        "workflow_read_workspace"
+      ]
+    }
+  ],
+  "rollout": {
+    "bytes": 282758,
+    "sha256": "36da69e1668efb1ce56c5b4a3dc554aaa28761231e82c45bb40ad07da40bc378",
+    "retainedPrivately": true
+  },
+  "pendingEnvelope": {
+    "failed": null,
+    "complete": false,
+    "stage": "discovery"
+  },
+  "scope": "Author real CUA desktop model calls, same affected conversation recovery through actual /workflow new then actual cold restart continuation; actual returned workspace bytes independently matched. Not whole seven-stage business-task completion or third-party replication."
+}

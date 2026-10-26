@@ -1,6 +1,7 @@
 import {spawn,spawnSync} from 'node:child_process';import {once} from 'node:events';import {StringDecoder} from 'node:string_decoder';import {createHash} from 'node:crypto';
 import {mkdirSync,realpathSync as fsRealpathSync,readFileSync,writeFileSync,existsSync,lstatSync,fstatSync,openSync,closeSync,ftruncateSync,constants,unlinkSync,copyFileSync} from 'node:fs';import path from 'node:path';
 import {isolatedBackendEnv} from './runtime-env.mjs';import {validateStrictCatalog,strictConfig,strictArguments} from '../codex/strict-config.mjs';import {inside} from './legacy-store.mjs';
+import {createDesktopConfigAuthority} from './desktop-config.mjs';
 const digest=b=>createHash('sha256').update(b).digest('hex');
 const realpathSync=fsRealpathSync.native;
 export async function createStrictBackend(options){
@@ -38,8 +39,9 @@ export async function createStrictBackend(options){
   if(version.status!==0||version.stdout.trim()!=='codex-cli 0.164.0-alpha.11.1')throw Error('Exact verified 0.164.0-alpha.11.1 runtime required');
   if(existsSync(privateAuth))throw Error('Refusing unmanaged existing private auth; explicit clean startup required');
   if(authPath){const original=realpathSync(authPath);if(inside(root,original))throw Error('Auth source must be outside private runtime');copyFileSync(original,privateAuth,constants.COPYFILE_EXCL);authOwned=true;ownedFile(privateAuth);}
-  const catalogBytes=JSON.stringify(catalog);writeOwned(catalogPath,catalogBytes);writeOwned(configPath,configBytes);const catalogHash=digest(catalogBytes),configHash=digest(configBytes);
-  const assertIntegrity=()=>{ownedFile(catalogPath);ownedFile(configPath);if(authOwned)ownedFile(privateAuth);if(digest(readFileSync(catalogPath))!==catalogHash||digest(readFileSync(configPath))!==configHash)throw Error('Strict native configuration changed');};
+  const desktopConfig=createDesktopConfigAuthority({file:configPath,base:configBytes,authorityRoot:path.join(root,'desktop-config-authority')});
+  const catalogBytes=JSON.stringify(catalog);writeOwned(catalogPath,catalogBytes);writeOwned(configPath,desktopConfig.initialBytes());desktopConfig.sealInitial();const catalogHash=digest(catalogBytes),configHash=digest(readFileSync(configPath));
+  const assertIntegrity=()=>{ownedFile(catalogPath);ownedFile(configPath);if(authOwned)ownedFile(privateAuth);if(digest(readFileSync(catalogPath))!==catalogHash)throw Error('Strict native configuration changed');desktopConfig.assertCurrent();};
   child=spawn(backendCommand[0],[...backendCommand.slice(1),...strictArguments(catalogPath,desktopOptions),'app-server','--strict-config'],{cwd:root,env,windowsHide:true,stdio:['pipe','pipe','pipe']});
   child.on('error',fatal);child.on('exit',(code,signal)=>{if(!closing)fatal(Error(`Native backend exited ${code??signal}`));});child.stdin.on('error',fatal);
   child.stderr.on('data',bytes=>{try{const p=options.onStderr?.(bytes);if(p&&typeof p.then==='function'){p.catch(()=>{});throw Error('stderr collector must be synchronous');}}catch(e){fatal(e);}});
@@ -61,6 +63,10 @@ export async function createStrictBackend(options){
   });
   const initializeResult=await rpc('initialize',{clientInfo:{name:'controlled-desktop-gateway',version:'1'},capabilities:{experimentalApi:true}});write({method:'initialized',params:{}});
   record('ready',{runtime:version.stdout.trim(),catalogHash,configHash});
-  return {rpc:(method,params)=>method==='initialize'?Promise.resolve(structuredClone(initializeResult)):rpc(method,params),initializeResult,env,root,assertIntegrity,close,exportAudit:()=>structuredClone(audit)};
+  const editDesktopConfig=async(change,params)=>{assertIntegrity();const transaction=desktopConfig.begin(change);try{const result=await rpc('config/batchWrite',params);if(result.status!=='ok')throw Error('Native desktop config edit was overridden');desktopConfig.finish(transaction);return result;}catch(error){try{desktopConfig.abort(transaction);}catch(integrity){fatal(integrity);}throw error;}};
+  return {rpc:(method,params)=>method==='initialize'?Promise.resolve(structuredClone(initializeResult)):rpc(method,params),initializeResult,env,root,assertIntegrity,editDesktopConfig,
+   beginSandboxSetup(mode){assertIntegrity();return desktopConfig.begin({kind:'windows',value:mode});},
+   finishSandboxSetup(transaction,success){if(success)return desktopConfig.finish(transaction);desktopConfig.abort(transaction);},
+   get sandboxMode(){return desktopConfig.sandboxMode;},get trustedProjectRoots(){return desktopConfig.trustedRoots;},close,exportAudit:()=>structuredClone(audit)};
  }catch(e){await close(e.message);throw e;}
 }
