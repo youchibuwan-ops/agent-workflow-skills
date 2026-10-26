@@ -10,6 +10,9 @@ import {createNativeWorkspaceIO} from '../providers/native-workspace-io.mjs';
 import {createSandboxProvider} from '../providers/sandbox-provider.mjs';
 import {createVerifiedWorktreeAuthority,createWorkspacePathPolicy} from '../security/verified-worktree.mjs';
 import {consumeResumeAuthorization} from './resume-authorization.mjs';
+import {bindWorkspaceRoot} from '../security/workspace-root.mjs';
+import {createProjectWorkspaces} from '../security/project-workspaces.mjs';
+import {projectPathKey} from '../security/project-path.mjs';
 export const toolSchemas=WORKFLOW_TOOL_SCHEMAS;
 const sha=x=>createHash('sha256').update(x).digest('hex');
 function readonlyDiagnostic(text){
@@ -72,12 +75,30 @@ export function createConversationFactory(options={}){
   const restoration=resumed?{strategy:'reverify-current-facts',previousTask:old.taskId,previousStage:old.stage}:null;
   const privateRoots=[root,resolve(dirname(fileURLToPath(import.meta.url)),'../..'),dirname(process.execPath),...(options.privateRoots??[])].map(p=>existsSync(p)?realpathSync.native(p):resolve(p));
   const io=input.nativeExecutor?createNativeWorkspaceIO({workspace,privateRoots,hardPrivateRoots,worktreeLease,nativeExecutor:input.nativeExecutor}):options.workspaceIOFactory?.({...input,worktreeLease});
-  const sandbox=typeof io?.invoke==='function'?createSandboxProvider({stateRoot:join(root,'sandbox'),privateRoots,hardPrivateRoots,worktreeLease,invoke:io.invoke,readInput:({path})=>io.read(path)}):undefined;
+  // Existing owner worktree authorizations describe one project, not separate
+  // chat silos. Attach only roots sharing that verified common Git directory.
+  const ownerWorktrees=options.worktreeAuthorizations??[],equal=(a,b)=>projectPathKey(resolve(a))===projectPathKey(resolve(b))||(existsSync(a)&&existsSync(b)&&projectPathKey(realpathSync(a))===projectPathKey(realpathSync(b))),group=row=>projectPathKey(resolve(row.expectedCommonGitDir));
+  const groups=new Set(ownerWorktrees.filter(row=>equal(row.workspace,workspace)||equal(dirname(row.expectedCommonGitDir),workspace)).map(group));
+  const additionalWorkspaces=[],attached=new Set([projectPathKey(workspace)]);
+  const attach=(target,lease)=>{
+   target=realpathSync(target);if(attached.has(projectPathKey(target)))return;attached.add(projectPathKey(target));
+   const id='related-'+sha(Buffer.from(projectPathKey(target))).slice(0,12);
+   const workspaceIO=input.nativeExecutor?createNativeWorkspaceIO({workspace:target,privateRoots,hardPrivateRoots,worktreeLease:lease,nativeExecutor:input.nativeExecutor}):options.workspaceIOFactory?.({...input,workspace:target,worktreeLease:lease});
+   additionalWorkspaces.push({id,workspace:target,worktreeLease:lease,workspaceIO});
+  };
+  for(const row of ownerWorktrees){if(!groups.has(group(row)))continue;const lease=worktreeAuthority.leaseForWorkspace(row.workspace);if(!lease)throw Error('Related project worktree requires current owner verification');attach(dirname(row.expectedCommonGitDir),null);attach(row.workspace,lease);}
+  const projectAccess=createProjectWorkspaces({workspaceBinding:bindWorkspaceRoot(workspace),policy:pathPolicy,workspaceIO:io,additionalWorkspaces,privateRoots,hardPrivateRoots});
+  const resolveProjectInput=path=>{
+   const scope=projectAccess.select(path);scope.binding.assertCurrent();scope.policy.assertCurrent();const absolute=resolve(scope.root,scope.path),actual=realpathSync(absolute),stat=lstatSync(absolute);
+   if(!inside(scope.root,actual)||scope.policy.deniesPrivate(actual)||stat.isSymbolicLink()||!stat.isFile()||stat.nlink!==1)throw Error('Related project input identity or private boundary rejected');
+   return {absolutePath:actual,assertCurrent:()=>{scope.binding.assertCurrent();scope.policy.assertCurrent();if(realpathSync(absolute)!==actual)throw Error('Related project input redirected');}};
+  };
+  const sandbox=typeof io?.invoke==='function'?createSandboxProvider({stateRoot:join(root,'sandbox'),privateRoots,hardPrivateRoots,worktreeLease,invoke:io.invoke,resolveInput:resolveProjectInput,readInput:({path})=>{const scope=projectAccess.select(path);if(!scope.io)throw Error('Original native reader unavailable for project directory');return scope.io.read(scope.path);}}):undefined;
   const sources=createSourceProvider({cacheRoot:acquisition,installedRoots:[...options.installedRoots,managed],external:options.external!==false,...(options.sourceProviderOptions??{})});
   let host,activeMessage=message,readonlyReply=resumed?old?.readonlyReplyIntent===true:readonlyDiagnostic(message),readonlyBoundary=0;
   const persist=()=>store(envelopePath,{version:1,sessionId,workspace,taskId,userMessage:activeMessage,readonlyReplyIntent:readonlyReply,stage:host?.stage??'discovery',complete:host?.complete??false,failed:host?.exportAudit().failed??null,updatedAt:new Date().toISOString()});
   host=await createWorkflowHost({workspace,stateRoot:taskRoot,taskId,userMessage:message,sourceProvider:sources,workspaceIO:io,sandboxProvider:sandbox,
-   protectedPrivateSubroots:true,privateRoots,hardPrivateRoots,worktreeLease,installedRoot:managed,
+   protectedPrivateSubroots:true,privateRoots,hardPrivateRoots,worktreeLease,additionalWorkspaces,installedRoot:managed,
    contract:{requirements:['artifact-readable','original-user-task'],constraints:['Preserve actual external scope; never certify original task semantics with a structural check.'],stopAfter:'learning',protectedInputs:[],writeAllowlist:[],selection:{mode:'pending'},feedback:{mode:'required'},learning:{required:false},conversationMode:true,
     validators:[{id:'artifact-current',type:'current-text',covers:['artifact-readable']}]},
    onCard:async card=>{persist();if(input.onCard)await input.onCard(card);if(options.onCard)await options.onCard({...card,sessionId,taskId});}

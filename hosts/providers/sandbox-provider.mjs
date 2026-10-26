@@ -69,7 +69,7 @@ try:print(json.dumps(run(json.load(sys.stdin))))
 except Exception as e:print(json.dumps({'ok':False,'exitCode':-1,'stdout':'','stderr':str(e),'outputs':{},'providerError':True}))
 `;
 
-export function createSandboxProvider({stateRoot,privateRoots=[],hardPrivateRoots=[],worktreeLease,executionPolicy='native-permission',invoke,readInput,timeoutMs=5000}={}){
+export function createSandboxProvider({stateRoot,privateRoots=[],hardPrivateRoots=[],worktreeLease,executionPolicy='native-permission',invoke,readInput,resolveInput,timeoutMs=5000}={}){
  if(!stateRoot)throw Error('A host-owned sandbox state root is required');
  mkdirSync(stateRoot,{recursive:true});const root=realpathSync.native(stateRoot);
  if(!['native-permission','test-only-direct'].includes(executionPolicy))throw Error('Unknown sandbox execution policy');
@@ -100,11 +100,13 @@ export function createSandboxProvider({stateRoot,privateRoots=[],hardPrivateRoot
   const selected=resolve(method,script);if(!inside(method,realpathSync(selected))||lstatSync(selected).isSymbolicLink())throw Error('Method path escaped inspected bundle');
   let total=0;const inputs=[];
   for(const p of inputPaths){
-   const path=resolve(project,p),actual=realpathSync.native(path);
-   if(!inside(physicalProject,actual)||policy.deniesPrivate(actual)||!lstatSync(path).isFile()||lstatSync(path).isSymbolicLink()||lstatSync(path).nlink>1)throw Error('Protected input or linked alias escaped the workspace');
+   const routed=resolveInput?.(p),path=routed?.absolutePath??resolve(project,p),actual=realpathSync.native(path);
+   if(!routed&&(!inside(physicalProject,actual)||policy.deniesPrivate(actual))||!lstatSync(path).isFile()||lstatSync(path).isSymbolicLink()||lstatSync(path).nlink>1)throw Error('Protected input or linked alias escaped the workspace');
+   if(routed&&(typeof routed.assertCurrent!=='function'||routed.absolutePath!==actual))throw Error('Trusted project input routing is incomplete');routed?.assertCurrent();
    total+=lstatSync(path).size;if(total>8*1024*1024)throw Error('Sandbox input limit exceeded');
    const delivered=executionPolicy==='native-permission'?await readInput({workspace:project,path:p,absolutePath:actual}):readFileSync(actual);
    if(!Buffer.isBuffer(delivered))throw Error('Native read delegate must return exact untruncated bytes');
+   routed?.assertCurrent();
    total+=delivered.length-lstatSync(path).size;if(total>8*1024*1024)throw Error('Sandbox input limit exceeded');
    inputs.push({path:p,bytes:delivered});
   }
