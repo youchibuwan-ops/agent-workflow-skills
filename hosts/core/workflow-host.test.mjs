@@ -391,14 +391,25 @@ test('actual Windows SDK ACL bookkeeping status changes require same-channel byt
 
 test('a status-only change never admits different confirmation bytes, denied confirmation or unbounded instability',async t=>{
  for(const mode of ['bytes','denied','unstable'])await t.test(mode,async t=>{
-  let f,reads=0;const epoch=1700000000;
+  let f,reads=0;const epoch=1700000000,statusChanges=[],fields=['dev','ino','mode','nlink','size','mtimeNs'];
+  const changeStatus=async(file,before)=>{
+   const deadline=performance.now()+2000,permissions=Number(before.mode)&0o777;
+   while(true){
+    chmodSync(file,permissions^0o200);chmodSync(file,permissions);
+    const after=lstatSync(file,{bigint:true});
+    for(const field of fields)assert.equal(after[field],before[field],'Fixture status mutation changed '+field);
+    if(after.ctimeNs!==before.ctimeNs){statusChanges.push({read:reads,before:String(before.ctimeNs),after:String(after.ctimeNs)});return;}
+    assert(performance.now()<deadline,'Fixture could not produce a ctime-only change within 2 seconds');
+    await new Promise(resolve=>setTimeout(resolve,10));
+   }
+  };
   f=await setup(t,{protectedInputs:[]},{workspaceIO:{read:async path=>{
-   reads++;if(reads===2&&mode==='denied')throw Object.assign(Error('Native confirmation permission denied'),{business:true});const file=join(f.workspace,path),bytes=readFileSync(file);
-   if(reads===1&&mode==='bytes'){const changed=Buffer.from(bytes);changed[0]^=1;writeFileSync(file,changed);utimesSync(file,epoch,epoch);}
-   if(mode!=='bytes'&&(reads===1||mode==='unstable')){const permissions=Number(lstatSync(file).mode)&0o777;chmodSync(file,permissions^0o200);chmodSync(file,permissions);}
+   reads++;if(reads===2&&mode==='denied')throw Object.assign(Error('Native confirmation permission denied'),{business:true});const file=join(f.workspace,path),bytes=readFileSync(file),before=lstatSync(file,{bigint:true});
+   if(reads===1&&mode==='bytes'){const changed=Buffer.from(bytes);changed[0]^=1;writeFileSync(file,changed);utimesSync(file,epoch,epoch);await changeStatus(file,before);}
+   if(mode!=='bytes'&&(reads===1||mode==='unstable'))await changeStatus(file,before);
    return bytes;
   }}});utimesSync(join(f.workspace,'input.json'),epoch,epoch);
-  const r=await f.call('workflow_read_workspace',{path:'input.json'});assert.equal(r.fatal,true);assert.equal(reads,2,JSON.stringify({error:r.error,reads}));assert.equal(f.host.ready,false);assert(!r.recovery);assert(!f.host.exportAudit().events.some(e=>e.event==='workspace_input_delivered'));
+  const r=await f.call('workflow_read_workspace',{path:'input.json'});assert.equal(statusChanges.length,mode==='unstable'?2:1,JSON.stringify({error:r.error,reads,statusChanges}));assert.equal(r.fatal,true);assert.equal(reads,2,JSON.stringify({error:r.error,reads}));assert.equal(f.host.ready,false);assert(!r.recovery);assert(!f.host.exportAudit().events.some(e=>e.event==='workspace_input_delivered'));
  });
 });
 
