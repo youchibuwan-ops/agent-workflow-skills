@@ -1,5 +1,5 @@
 import {createServer} from 'node:http';import {randomBytes,createHash,createHmac,timingSafeEqual} from 'node:crypto';import {mkdirSync,realpathSync as fsRealpathSync,readFileSync,writeFileSync,lstatSync,statSync,existsSync} from 'node:fs';import path from 'node:path';import {createRequire} from 'node:module';
-import {createStrictBackend} from './native-backend.mjs';import {readParams,threadParams,resumeParams,turnParams,settingsParams} from './rpc-policy.mjs';import {inside,migrateSelectedThread,readThreadMetadata,listThreadMetadata,metadataThread,assertPersistedTools} from './legacy-store.mjs';import {finalState} from '../codex/rpc-policy.mjs';
+import {createStrictBackend,replaceIdleBackend} from './native-backend.mjs';import {readParams,threadParams,resumeParams,turnParams,settingsParams,modelChoice} from './rpc-policy.mjs';import {inside,migrateSelectedThread,readThreadMetadata,listThreadMetadata,metadataThread,assertPersistedTools,normalizeOwnedRollout} from './legacy-store.mjs';import {finalState} from '../codex/rpc-policy.mjs';
 import {createWorkspacePathPolicy} from '../security/verified-worktree.mjs';
 import {createDesktopControls,NOT_DESKTOP_CONTROL} from './desktop-controls.mjs';
 import {protectedProjectSegment} from '../security/project-path.mjs';
@@ -7,6 +7,7 @@ import {createSkillInventory} from './skill-inventory.mjs';
 import {createNativeManagement,NOT_NATIVE_MANAGEMENT} from './native-management.mjs';
 import {compactToolResult} from '../core/tool-result-view.mjs';
 import {observeContextCompaction,assertContextToolDelivery} from './context-compaction.mjs';
+import {bindNativeDelegate,startNativeDelegate,assertNativeDelegate} from './delegation.mjs';
 const realpathSync=fsRealpathSync.native;
 const digest=s=>createHash('sha256').update(s).digest('hex');
 export async function createDesktopGateway(options={}){
@@ -50,7 +51,8 @@ export async function createDesktopGateway(options={}){
  const loadFailure=id=>{const file=path.join(failuresRoot,digest(id)+'.json');if(!existsSync(file))return null;const bytes=readFileSync(failureFile(file));if(bytes.length>2048)throw Error('Admission failure record exceeds bounded authority');const saved=JSON.parse(bytes),body=saved.body,mac=failureMac(body);if(body?.version!==1||body.threadId!==id||body.kind!=='native-turn-admission-failed'||typeof saved.signature!=='string'||!/^[a-f0-9]{64}$/.test(saved.signature)||!timingSafeEqual(Buffer.from(mac),Buffer.from(saved.signature)))throw Error('Admission failure record integrity mismatch');return body.kind;};
  const saveFailure=id=>{const file=path.join(failuresRoot,digest(id)+'.json');if(existsSync(file)){loadFailure(id);return;}const body={version:1,threadId:id,kind:'native-turn-admission-failed',at:new Date().toISOString()};writeFileSync(file,JSON.stringify({body,signature:failureMac(body)}),{flag:'wx',mode:0o600});};
  const cardCallback=t=>async card=>{record('card',{threadId:t.id,card});await onCard?.({threadId:t.id,...card});broadcast({method:'workflow/card',params:{threadId:t.id,...card}},t.id);};
- async function owned(id,{load=false}={}){
+ let restoringCapabilities=false;
+ async function owned(id,{load=false,multiAgentVersion}={}){
   nativeManagement?.assertActorAvailable(id);
   if(typeof id!=='string'||!id||id.length>200)throw Error('Invalid thread identity');let t=threads.get(id);
   if(!t){let row=readThreadMetadata(native.env.CODEX_HOME,id);
@@ -60,18 +62,30 @@ export async function createDesktopGateway(options={}){
    const cwd=await resolveWorkspace(row.cwd,id);t={id,cwd,worktreeLease:workspaceLeases.get(cwd)??null,admissionFailure:loadFailure(id),loaded:false,legacy:true,active:false,controller:null,cards:[],task:0};threads.set(id,t);
   }
   assertThreadWorkspace(t);
+  if(load&&!t.admissionFailure&&(!t.loaded||multiAgentVersion)){
+   const row=readThreadMetadata(native.env.CODEX_HOME,id);
+   if(row){const input={home:native.env.CODEX_HOME,threadId:id,file:row.rollout_path,toolSchemas:schemas,multiAgentVersion},preview=normalizeOwnedRollout({...input,dryRun:true,maxBytes:options.maxMigrationBytes});
+    if(preview.changed){
+     if(restoringCapabilities||actorAdmissions>1||[...threads.values()].some(x=>x.active||x.admitting))throw Error('Restoring conversation capabilities requires idle turns; retry after current work finishes');
+     native.assertIntegrity();restoringCapabilities=true;
+     try{await restartNative(()=>{const proof=normalizeOwnedRollout({...input,maxBytes:options.maxMigrationBytes});record('owned_capabilities_restored',{threadId:id,...proof});});}
+     finally{restoringCapabilities=false;}
+    }
+   }
+  }
   if(load&&!t.loaded&&!t.admissionFailure){native.assertIntegrity();await native.rpc('thread/resume',resumeParams({threadId:id,excludeTurns:true},t.cwd));t.loaded=true;record('resumed',{threadId:id});}nativeManagement?.assertActorAvailable(id);return t;
  }
  const skillInventory=createSkillInventory({roots:options.installedSkillRoots??[],stateRoot:root,backendCommand,strictCatalog:options.strictCatalog});
  const desktopControls=createDesktopControls({models,listSkills:()=>skillInventory.list(),backend:()=>native,defaultWorkspace,resolveRoot:async input=>{const actual=await resolveWorkspace(input),lease=workspaceLeases.get(actual);pathPolicy(actual,lease).assertWorkspace({allowPrivateSubroots:false});if(!lease&&actual.split(path.sep).some(protectedProjectSegment))throw Error('Protected metadata cannot become a desktop workspace');return actual;},
   assertIdle:()=>{if(closing||actorAdmissions||[...threads.values()].some(t=>t.active||t.admitting))throw Error('Desktop control requires idle native turns');},
-  restart:async()=>{const previous=native;await previous.close();native=await openNative();for(const t of threads.values())t.loaded=false;record('native_restarted_after_setup',{});},send:(c,m)=>send(c.ws,m),record,failClosed:fatal});
+  restart:async()=>{await restartNative();record('native_restarted_after_setup',{});},send:(c,m)=>send(c.ws,m),record,failClosed:fatal});
  nativeManagement=createNativeManagement({stateRoot:root,backend:()=>native,legacyHome:legacy,toolSchemas:schemas,getLive:id=>threads.get(id),admitRoot:input=>desktopControls.admitWorkspace(input),assertAvailable:()=>desktopControls.assertAvailable(),record,maxMigrationBytes:options.maxMigrationBytes,onLifecycle:m=>broadcast(m)});
  const disabled=new Map([['app/list',{data:[],nextCursor:null}],['app/installed',{data:[],nextCursor:null}],['plugin/list',{marketplaces:[],featuredPluginIds:[],marketplaceLoadErrors:[]}],['hooks/list',{data:[]}],['mcpServerStatus/list',{data:[],nextCursor:null}]]);
  async function clientRpc(c,m){
   if(!m||typeof m!=='object'||Array.isArray(m)||typeof m.method!=='string')throw Error('Client responses/malformed RPC denied');
   const p=m.params??{};if(!p||typeof p!=='object'||Array.isArray(p))throw Error('Invalid RPC parameters');
   if(m.method==='initialize'){const result=await native.rpc('initialize',{});c.initialized=true;return result;}if(!c.initialized)throw Error('Initialize required');if(m.method==='initialized')return;
+  if(restoringCapabilities)throw Error('Conversation capability restoration in progress; retry shortly');
   if(disabled.has(m.method))return structuredClone(disabled.get(m.method));
   const desktopResult=await desktopControls.handle(c,m.method,p);if(desktopResult!==NOT_DESKTOP_CONTROL)return desktopResult;
   const managementResult=await nativeManagement.handle(c,m.method,p);if(managementResult!==NOT_NATIVE_MANAGEMENT)return managementResult;
@@ -97,7 +111,7 @@ export async function createDesktopGateway(options={}){
   }
   if(['turn/start','turn/interrupt','thread/settings/update'].includes(m.method)){
    desktopControls.assertAvailable();actorAdmissions++;try{
-   const t=await owned(p.threadId,{load:m.method!=='thread/read'});c.subscriptions.add(t.id);
+   const choice=m.method==='turn/interrupt'?{}:modelChoice(p,models),t=await owned(p.threadId,{load:true,multiAgentVersion:choice.effort==='ultra'?'v2':undefined});if(t.delegation)throw Error('Native delegates are controlled through their owning conversation');c.subscriptions.add(t.id);
    if(m.method==='thread/settings/update'){if(t.admissionFailure)throw Error('Native turn admission failed; start a new thread');if(t.admitting)throw Error('Concurrent workspace binding denied');t.admitting=true;try{const cwd=await requestedWorkspace(t,p.cwd),result=await native.rpc(m.method,settingsParams(p,models,p.cwd==null?undefined:cwd));commitWorkspace(t,cwd);return result;}finally{t.admitting=false;}}
    if(m.method==='turn/interrupt'){if(!t.active||p.turnId!==t.turnId)throw Error('Unknown active turn');return await native.rpc(m.method,{threadId:t.id,turnId:t.turnId});}
    if(m.method==='turn/start'){
@@ -115,16 +129,23 @@ export async function createDesktopGateway(options={}){
   }
   const params=readParams(m.method,p);return native.rpc(m.method,params);
  }
+ async function restartNative(afterClose){
+  let result;try{result=await replaceIdleBackend({current:native,open:openNative,isClosing:()=>closing,afterClose,install:next=>{native=next;for(const t of threads.values())t.loaded=false;}});}catch(e){if(!closing)fatal(e);throw e;}
+  if(closing)throw Error('Gateway closed during backend restoration');if(result.failure)throw result.failure;
+ }
  async function openNative(){const generation=++nativeGeneration;
   return createStrictBackend({...options,stateRoot:root,onAudit:e=>record('native_'+e.kind,Object.fromEntries(Object.entries(e).filter(([k])=>!['kind','at'].includes(k)))),onFatal:fatal,
    onRequest:async m=>{const p=m.params??{},t=threads.get(p.threadId);
     if(m.method!=='item/tool/call'||!t?.active||!t.controller||p.turnId!==t.turnId||p.namespace||!schemas.some(s=>s.name===p.tool))throw Error(`Unknown native request/tool: ${m.method}/${p.tool??''}`);
     const requestKey=generation+':'+m.id;if(requestIds.has(requestKey)||typeof p.callId!=='string'||callIds.has(p.callId)||!p.arguments||typeof p.arguments!=='object'||Array.isArray(p.arguments))throw Error('Malformed/replayed native tool call');requestIds.add(requestKey);callIds.add(p.callId);
-    assertContextToolDelivery(t);await t.controller.assertReady();const result=await t.controller.dispatch(p.tool,p.arguments,{callId:p.callId});if(!result||typeof result.ok!=='boolean'||result.fatal===true)throw Error('Fatal host controller result');
+    assertNativeDelegate(t,threads);assertContextToolDelivery(t);await t.controller.assertReady();const result=await t.controller.dispatch(p.tool,p.arguments,{callId:p.callId});if(!result||typeof result.ok!=='boolean'||result.fatal===true)throw Error('Fatal host controller result');
     const text=JSON.stringify(compactToolResult(result,{toolName:p.tool}));if(Buffer.byteLength(text)>65536)throw Error('Tool result exceeds complete-delivery 64KiB boundary');record('dispatch',{threadId:t.id,tool:p.tool,callId:p.callId,stage:t.controller.stage,ok:result.ok});return {success:result.ok,contentItems:[{type:'inputText',text}]};
    },onNotification:async m=>{
     if(generation!==nativeGeneration)return;if(await desktopControls.notify(m))return;nativeManagement?.notify(m);
+    if(bindNativeDelegate(m,{threads,models}))record('native_delegate_bound',{threadId:m.params.item.agentThreadId,parentThreadId:m.params.threadId});
     const id=m.params?.threadId,t=threads.get(id);if(observeContextCompaction(m,t))record('context_compaction',{threadId:id,method:m.method,itemId:m.params?.item?.id??null});
+    if(m.method==='turn/started'&&t?.delegation){startNativeDelegate(m,t,threads);record('native_delegate_turn',{threadId:id,rootThreadId:t.delegation.rootThreadId});broadcast(m,id);return;}
+    if(m.method==='turn/completed'&&t?.delegation){if(!t.active||m.params.turn?.id!==t.turnId||t.contextCompaction?.pending)throw Error('Unowned native delegate completion');t.active=false;record('native_delegate_finished',{threadId:id,rootThreadId:t.delegation.rootThreadId,stage:t.controller.stage});broadcast(m,id);return;}
     if(m.method==='turn/started'){if(!t?.active)throw Error('Native unsolicited turn');t.turnId=m.params.turn?.id;}
     if(m.method==='thread/project/updated'&&t?.metadata)t.metadata={...t.metadata,projectId:m.params.projectId??null};
     if(m.method==='turn/completed'){if(!t?.controller||!t.active)throw Error('Unowned native completion');if(t.contextCompaction?.pending)throw Error('Native turn completion during unfinished compaction');t.active=false;const state=finalState(t.controller);record('turn_finished',{threadId:id,...state});broadcast({method:'workflow/state',params:{threadId:id,...state}},id);m={...m,params:{...m.params,workflow:state,turn:{...m.params.turn}}};if(state.status==='blocked'){m.params.turn.status='failed';m.params.turn.error={message:`Workflow incomplete at ${state.stage}`,codexErrorInfo:null,additionalDetails:state.blockedReason};}}
@@ -141,7 +162,7 @@ export async function createDesktopGateway(options={}){
     if(m.id!==undefined&&(!['string','number'].includes(typeof m.id)||c.inflight.has(m.id))){ws.terminate();return;}
     if(m.id!==undefined)c.inflight.add(m.id);
     c.chain=c.chain.then(async()=>{try{const result=await clientRpc(c,m);if(m.id!==undefined)send(ws,{id:m.id,result:result??{}});}catch(e){record('client_denied',{method:m.method,reason:e.message});if(m.id!==undefined)send(ws,{id:m.id,error:e.rpcError??{code:-32001,message:e.message}});}finally{c.inflight.delete(m.id);}}).catch(fatal);
-   });ws.on('error',()=>ws.terminate());ws.on('close',()=>{clients.delete(c);for(const id of c.subscriptions){const t=threads.get(id);if(t?.active&&![...clients].some(x=>x.subscriptions.has(id))){if(!t.controller.complete)t.controller.abort('Last desktop subscriber disconnected');void native.rpc('turn/interrupt',{threadId:id,turnId:t.turnId}).catch(fatal);}}});
+   });ws.on('error',()=>ws.terminate());ws.on('close',()=>{clients.delete(c);for(const id of c.subscriptions){const t=threads.get(id);if(t?.active&&!t.delegation&&![...clients].some(x=>x.subscriptions.has(id))){if(!t.controller.complete)t.controller.abort('Last desktop subscriber disconnected');void native.rpc('turn/interrupt',{threadId:id,turnId:t.turnId}).catch(fatal);}}});
   });
   if(!http.listening)await new Promise((resolve,reject)=>{http.once('error',reject);http.listen(options.port??0,'127.0.0.1',resolve);});record('gateway_ready');
   return {url:`ws://127.0.0.1:${http.address().port}${tokenPath}`,port:http.address().port,close,exportAudit:()=>structuredClone(audit),nativeHome:native.env.CODEX_HOME,hasInitializedFrontend:()=>[...clients].some(c=>c.initialized&&c.ws.readyState===WebSocket.OPEN)};

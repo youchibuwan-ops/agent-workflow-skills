@@ -2,6 +2,8 @@
 
 [English](README.md)
 
+[R66 模型目录与原生 Ultra 修复记录](evidence/global-entry-r66-20261027/README.md)：受控 Codex 启动时刷新账号实际可用型号，保留原生 Ultra 委派，并兼容既有对话的工具声明。原版 Codex 的过期目录覆盖移除后仍需退出重开；DSH 安装包不包含私有 Codex 桌面。
+
 本仓库维护 **proactive-skill-discovery** 及 **DeepSeek Harness（DSH）版**。默认当前能力尚不能满足任务目标，从任务开始
 主动寻找专业 Skill、多份相关资料和成熟实例，整理方案让用户先选，再制作初稿、根据
 反馈调整、完整交付，最后总结并实际维护或制作可复用 Skill。

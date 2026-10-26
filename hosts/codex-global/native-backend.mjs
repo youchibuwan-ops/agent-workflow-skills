@@ -4,6 +4,16 @@ import {isolatedBackendEnv} from './runtime-env.mjs';import {validateStrictCatal
 import {createDesktopConfigAuthority} from './desktop-config.mjs';
 const digest=b=>createHash('sha256').update(b).digest('hex');
 const realpathSync=fsRealpathSync.native;
+export async function replaceIdleBackend({current,open,isClosing,afterClose,install}){
+ if(typeof install!=='function')throw Error('Synchronous backend ownership installation required');
+ await current.close();if(isClosing())throw Error('Gateway closed during backend restoration');
+ let failure;try{afterClose?.();}catch(e){failure=e;}
+ if(isClosing())throw Error('Gateway closed during backend restoration');
+ const next=await open();if(isClosing()){await next.close();throw Error('Gateway closed during backend restoration');}
+ // Publish ownership in this same continuation: a caller awaiting our return
+ // leaves a microtask gap in which close() would still see the old backend.
+ install(next);return {failure};
+}
 export async function createStrictBackend(options){
  const {backendCommand,stateRoot,onRequest,onNotification,onFatal,onAudit,authPath}=options;
  const catalog=validateStrictCatalog(structuredClone(options.strictCatalog));

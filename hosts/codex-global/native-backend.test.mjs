@@ -1,9 +1,15 @@
 import test from 'node:test';import assert from 'node:assert/strict';import {mkdtempSync,rmSync,writeFileSync,existsSync,readFileSync,mkdirSync,symlinkSync,linkSync,lstatSync} from 'node:fs';import path from 'node:path';import os from 'node:os';
-import {createStrictBackend} from './native-backend.mjs';
+import {createStrictBackend,replaceIdleBackend} from './native-backend.mjs';
 import {createDesktopGateway} from './gateway.mjs';
 import {createServer} from 'node:http';import {restrictCatalog} from '../codex/strict-config.mjs';
 const catalog={models:[{slug:'fixture',tool_mode:'direct',multi_agent_version:null,multi_agent_reasoning_effort:null,shell_type:'disabled',apply_patch_tool_type:null,experimental_supported_tools:[]}]};
 const fixture=path.resolve('hosts/codex-global/probes/fixture-backend.mjs');
+for(const phase of ['old-close','after-close','new-open','after-install','normalization-failure','success'])test(`idle backend replacement cannot outlive gateway close: ${phase}`,async()=>{
+ let closing=false,opened=0,closed=0,normalized=0,installed;const failure=Error('normalization rollback fixture');
+ const promise=replaceIdleBackend({current:{async close(){if(phase==='old-close')closing=true;}},isClosing:()=>closing,afterClose(){normalized++;if(phase==='after-close')closing=true;if(phase==='normalization-failure')throw failure;},open:async()=>{opened++;if(phase==='new-open')closing=true;return {async close(){closed++;}};},install:next=>{installed=next;if(phase==='after-install')queueMicrotask(()=>{closing=true;void installed.close();});}});
+ if(['old-close','after-close','new-open'].includes(phase)){await assert.rejects(promise,/Gateway closed/);assert.equal(opened,phase==='new-open'?1:0);assert.equal(closed,phase==='new-open'?1:0);assert.equal(normalized,phase==='old-close'?0:1);}
+ else{const result=await promise;assert.equal(opened,1);assert.equal(closed,phase==='after-install'?1:0);assert(installed);assert.equal(result.failure,phase==='normalization-failure'?failure:undefined);}
+});
 for(const name of ['config.toml','strict-models.json'])for(const kind of ['hardlink','directory'])test(`${name} ${kind} is rejected before native execution without altering external bytes or creating a controller`,async()=>{
  const root=mkdtempSync(path.join(os.tmpdir(),'workflow-native-owned-')),state=path.join(root,'private'),configDir=path.join(state,'state'),external=path.join(root,'preserved-fixture.txt'),marker=path.join(root,'native-executed');mkdirSync(configDir,{recursive:true});const original=Buffer.from('ORIGINAL_FIXTURE_BYTES\r\n');writeFileSync(external,original);const target=name==='config.toml'?path.join(configDir,name):path.join(state,name);if(kind==='hardlink')linkSync(external,target);else mkdirSync(target);let factoryCalls=0,g,error;
  const script=`require('node:fs').writeFileSync(${JSON.stringify(marker)},'EXECUTED');import(require('node:url').pathToFileURL(process.argv[1]).href);`;

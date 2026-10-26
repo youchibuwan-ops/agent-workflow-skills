@@ -43,6 +43,8 @@ The [R56 native management repair](evidence/global-entry-r56-20261026/README.md)
 
 The [R57 DSH compatibility repair](evidence/global-entry-r57-20261026/README.md) supports native Windows PowerShell 5.1 fallback as well as PowerShell 7, preserving Unicode directory JSON and exact byte reads through the original permission service. Its record separates 579 author checks, 20 independent focused checks, and a real current-project Web/model run from a normal terminal environment. PowerShell 7 or Codex's private PATH is not required; start inside a normal project directory and open the complete URL printed by `dsh.cmd web`.
 
+The [R66 account model catalog and native Ultra repair](evidence/global-entry-r66-20261027/README.md) refreshes account-supported models at controlled Codex startup instead of freezing an installation snapshot. It preserves native Ultra delegation through the workflow gate and restores tool declarations in existing controlled conversations. The record distinguishes native loopback tests, installed UI, actual model calls, and the original desktop's required restart. The standalone DSH installer does not install the private Codex desktop.
+
 **2026-10-25: the SVG Skill has been withdrawn.**
 `crafting-reference-based-svg-assets` is removed from the current installable
 catalog and its standalone release download is withdrawn. It is no longer

@@ -1,10 +1,10 @@
-const instruction='All task work must use host-controlled workflow tools. Execution environments are disabled. Follow current tool state; never treat historical tool output as current evidence.';
+const instruction='All task work must use host-controlled workflow tools. Execution environments are disabled. Follow current tool state; never treat historical tool output as current evidence. For native delegation that needs project or workflow tools use fork_turns="all"; fork_turns="none" is only for analysis of supplied data, since that native mode has no inherited project tools.';
 const pick=(p,keys)=>Object.fromEntries(keys.filter(k=>p[k]!==undefined).map(k=>[k,p[k]]));
 const page=p=>({...pick(p,['cursor']),...(p.limit==null?{}:{limit:Math.max(1,Math.min(100,Number.isSafeInteger(p.limit)?p.limit:20))})});
 const simple=new Set(['configRequirements/read','account/rateLimits/read','collaborationMode/list','modelProvider/capabilities/read']);
 export function modelChoice(p,models){
  if(p.model!=null&&(typeof p.model!=='string'||!models?.has(p.model)))throw Error('Unknown model denied');
- if(p.effort!=null){const levels=models instanceof Map&&p.model!=null?models.get(p.model)?.supported_reasoning_levels:null;if(!['low','medium','high','xhigh','max'].includes(p.effort)||levels&&!levels.some(x=>x.effort===p.effort))throw Error('Unsupported model reasoning effort denied');}
+ if(p.effort!=null){const entry=models instanceof Map&&p.model!=null?models.get(p.model):null,levels=entry?.supported_reasoning_levels;if(!['low','medium','high','xhigh','max','ultra'].includes(p.effort)||levels&&!levels.some(x=>x.effort===p.effort)||p.effort==='ultra'&&(!levels?.some(x=>x.effort==='ultra')||entry.multi_agent_version!=='v2'))throw Error('Unsupported model reasoning effort denied');}
  return {...(p.model==null?{}:{model:p.model}),...(p.effort==null?{}:{effort:p.effort})};
 }
 export function readParams(method,p={}){

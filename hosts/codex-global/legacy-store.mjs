@@ -1,6 +1,6 @@
 import {DatabaseSync} from 'node:sqlite';
-import {readFileSync,writeFileSync,mkdirSync,realpathSync as fsRealpathSync,existsSync,lstatSync,statSync,unlinkSync,statfsSync,openSync,readSync,closeSync} from 'node:fs';
-import {createHash} from 'node:crypto';import path from 'node:path';
+import {readFileSync,writeFileSync,mkdirSync,realpathSync as fsRealpathSync,existsSync,lstatSync,statSync,unlinkSync,statfsSync,openSync,readSync,closeSync,renameSync,fstatSync,constants} from 'node:fs';
+import {createHash,randomBytes} from 'node:crypto';import path from 'node:path';
 const realpathSync=fsRealpathSync.native;
 export const inside=(root,p)=>{const r=path.relative(root,p);return r===''||(!r.startsWith('..'+path.sep)&&r!=='..'&&!path.isAbsolute(r));};
 const hash=b=>createHash('sha256').update(b).digest('hex');
@@ -20,12 +20,19 @@ function initializeHistory(source,target){
   dest.exec('COMMIT');committed=true;
  }finally{dest?.close();src.close();if(owned&&!committed&&existsSync(target))unlinkSync(target);}
 }
-export function rebindRollout(bytes,tools){
+export function rebindRollout(bytes,tools,{staleOnly=false,rebindMeta=true,multiAgentVersion}={}){
  if(!bytes.length||bytes.at(-1)!==10)throw Error('Live or incomplete rollout: retry after source is stable');
+ if(multiAgentVersion!==undefined&&multiAgentVersion!=='v2')throw Error('Only verified native v2 normalization is supported');
+ let lastContext=-1;
+ if(multiAgentVersion!==undefined){let offset=0;for(const line of bytes.toString('utf8').split('\n')){if(line.trim()&&JSON.parse(line).type==='turn_context')lastContext=offset;offset+=Buffer.byteLength(line)+1;}}
  const parts=[],edits=[];let start=0,records=0,meta=0;
  while(start<bytes.length){const end=bytes.indexOf(10,start)+1;const original=bytes.subarray(start,end);if(!original.toString('utf8').trim()){parts.push(original);start=end;continue;}const row=JSON.parse(original);let replacement=original;
-  if(row.type==='session_meta'){if(++meta!==1)throw Error('Multiple session metadata records');row.payload.dynamic_tools=tools;replacement=Buffer.from(JSON.stringify(row)+'\n');}
-  else if(row.type==='response_item'&&row.payload?.type==='additional_tools'){row.payload.tools=[];replacement=Buffer.from(JSON.stringify(row)+'\n');}
+  if(row.type==='session_meta'){if(++meta!==1)throw Error('Multiple session metadata records');if(rebindMeta){row.payload.dynamic_tools=tools;replacement=Buffer.from(JSON.stringify(row)+'\n');}}
+  // Empty native headers suppress even current tool discovery on resumed chats.
+  // A blank physical line lets native rebuild its own current schemas without
+  // renumbering historical rollout ordinals or retaining stale capabilities.
+  else if(row.type==='response_item'&&row.payload?.type==='additional_tools'&&(!staleOnly||Array.isArray(row.payload.tools)&&row.payload.tools.length===0))replacement=Buffer.from('\n');
+  else if(start===lastContext&&row.payload.multi_agent_version!==multiAgentVersion){row.payload.multi_agent_version=multiAgentVersion;replacement=Buffer.from(JSON.stringify(row)+'\n');}
   parts.push(replacement);if(replacement.length!==original.length)edits.push({end,delta:replacement.length-original.length});start=end;records++;
  }
  if(meta!==1)throw Error('Missing session metadata');
@@ -89,6 +96,50 @@ export function assertPersistedTools(home,threadId,file,schemas){
   // SessionMeta. Nonempty auxiliary rows must agree with the already-checked meta.
   if(tools.length&&!sameToolSchemas(tools,schemas))throw Error('Private SQLite tool schema mismatch');
  }finally{db.close();}
+}
+/** Host-only: call only while this owned native backend is closed/unloaded.
+ * Original/personal history is never a normalization target. The caller owns
+ * the private home and derives v2 only from an admitted current Ultra choice.
+ */
+export function normalizeOwnedRollout({home,threadId,file,toolSchemas,multiAgentVersion,dryRun=false,maxBytes=64*1024*1024}){
+ if(typeof threadId!=='string'||!threadId||threadId.length>200||typeof dryRun!=='boolean'||!Number.isSafeInteger(maxBytes)||maxBytes<1)throw Error('Bounded owned normalization required');
+ if(!Array.isArray(toolSchemas)||!toolSchemas.length||toolSchemas.some(t=>!/^workflow_[a-z0-9_]+$/.test(t.name)))throw Error('Guarded schemas required');
+ if(typeof home!=='string'||!path.isAbsolute(home)||typeof file!=='string'||!path.isAbsolute(file))throw Error('Absolute owned normalization paths required');
+ const root=realpathSync(home);if(lstatSync(home).isSymbolicLink()||!lstatSync(home).isDirectory())throw Error('Owned normalization home redirected');
+ function plain(p){const s=lstatSync(p);if(!s.isFile()||s.isSymbolicLink()||s.nlink!==1||!inside(root,realpathSync(p)))throw Error('Owned normalization file redirected');return s;}
+ const actual=realpathSync(file);if(!['sessions','archived_sessions'].some(d=>inside(path.join(root,d),actual)))throw Error('Owned rollout outside history roots');
+ for(let p=path.dirname(file);inside(root,p);p=path.dirname(p)){if(lstatSync(p).isSymbolicLink())throw Error('Owned normalization ancestor redirected');if(p===root)break;}
+ const statePath=path.join(root,'state_5.sqlite'),historyPath=path.join(root,'thread_history_1.sqlite'),dbIdentity=p=>{const s=plain(p);return s.dev+':'+s.ino;},stateIdentity=dbIdentity(statePath),historyIdentity=dbIdentity(historyPath);const initial=plain(file);if(initial.size>maxBytes)throw Error('Owned rollout exceeds normalization budget');
+ const row=readThreadMetadata(root,threadId);if(!row||realpathSync(row.rollout_path)!==actual)throw Error('Owned thread rollout identity mismatch');
+ assertPersistedTools(root,threadId,file,toolSchemas);
+ const identity=s=>[s.dev,s.ino,s.size,s.mtimeMs,s.nlink].join(':');
+ const fd=openSync(file,constants.O_RDONLY|(constants.O_NOFOLLOW??0));let bytes;
+ try{if(identity(fstatSync(fd))!==identity(initial))throw Error('Owned rollout identity changed before read');bytes=readFileSync(fd);if(identity(fstatSync(fd))!==identity(initial))throw Error('Owned rollout changed during read');}finally{closeSync(fd);}
+ const beforeSha256=hash(bytes),assertSnapshot=()=>{if(identity(plain(file))!==identity(initial)||hash(readFileSync(file))!==beforeSha256)throw Error('Owned rollout changed before normalization commit');};assertSnapshot();
+ const transformed=rebindRollout(bytes,toolSchemas,{staleOnly:true,rebindMeta:false,multiAgentVersion}),changed=!transformed.bytes.equals(bytes),result={changed,rewritten:false,beforeSha256,afterSha256:hash(transformed.bytes),beforeBytes:bytes.length,afterBytes:transformed.bytes.length};
+ if(!changed||dryRun)return result;
+ const disk=statfsSync(root);if(disk.bavail*disk.bsize<bytes.length*3+16*1024*1024)throw Error('Insufficient normalization disk budget');
+ const backupRoot=path.join(root,'rollout-normalization-backups');mkdirSync(backupRoot,{recursive:true});if(lstatSync(backupRoot).isSymbolicLink()||!inside(root,realpathSync(backupRoot)))throw Error('Normalization backup directory redirected');
+ const suffix=randomBytes(12).toString('hex'),backupPath=path.join(backupRoot,hash(threadId)+'-'+suffix+'.backup.private'),pending=file+'.'+suffix+'.pending';
+ writeFileSync(backupPath,bytes,{flag:'wx',mode:0o600});if(hash(readFileSync(backupPath))!==beforeSha256)throw Error('Normalization backup readback mismatch');
+ let db,replaced=false,committed=false;
+ try{
+  writeFileSync(pending,transformed.bytes,{flag:'wx',mode:0o600});plain(pending);if(hash(readFileSync(pending))!==result.afterSha256)throw Error('Normalization staged readback mismatch');
+  if(dbIdentity(statePath)!==stateIdentity||dbIdentity(historyPath)!==historyIdentity)throw Error('Owned database identity changed');
+  db=new DatabaseSync(statePath);db.exec('PRAGMA foreign_keys=ON');db.prepare('ATTACH DATABASE ? AS history').run(historyPath);db.exec('BEGIN IMMEDIATE');
+  const current=db.prepare('SELECT rollout_path FROM threads WHERE id=?').get(threadId);if(!current||realpathSync(current.rollout_path)!==actual)throw Error('Owned thread changed before normalization transaction');
+  db.function('workflow_rebase_offset',{deterministic:true},n=>transformed.shift(n));
+  db.prepare('UPDATE history.thread_turns SET rollout_byte_offset=workflow_rebase_offset(rollout_byte_offset),rollout_end_byte_offset=workflow_rebase_offset(rollout_end_byte_offset) WHERE thread_id=?').run(threadId);
+  db.prepare('UPDATE history.thread_history_projection_state SET next_rollout_byte_offset=workflow_rebase_offset(next_rollout_byte_offset) WHERE thread_id=?').run(threadId);
+  if(dbIdentity(statePath)!==stateIdentity||dbIdentity(historyPath)!==historyIdentity)throw Error('Owned database identity changed before commit');
+  assertSnapshot();renameSync(pending,file);replaced=true;plain(file);if(hash(readFileSync(file))!==result.afterSha256)throw Error('Normalization rollout readback mismatch');
+  db.exec('COMMIT');committed=true;
+  return {...result,rewritten:true,backupPath};
+ }catch(error){
+  if(db&&!committed)try{db.exec('ROLLBACK');}catch{}
+  if(replaced&&!committed){if(hash(readFileSync(file))!==result.afterSha256)throw Error('Normalization rollback blocked by concurrent rollout change',{cause:error});const rollback=file+'.'+suffix+'.rollback';writeFileSync(rollback,readFileSync(backupPath),{flag:'wx',mode:0o600});renameSync(rollback,file);if(hash(readFileSync(file))!==beforeSha256)throw Error('Normalization rollback readback mismatch',{cause:error});}
+  throw error;
+ }finally{db?.close();if(existsSync(pending)){plain(pending);unlinkSync(pending);}}
 }
 export function listThreadMetadata(homes,{maxEntries=10000}={}){
  const rows=new Map();for(const home of homes.filter(Boolean)){const file=path.join(home,'state_5.sqlite');if(!existsSync(file))continue;const db=new DatabaseSync(file,{readOnly:true});try{const sections=has(db,'thread_sections')?new Map(db.prepare('SELECT * FROM thread_sections LIMIT ?').all(maxEntries+1).map(r=>[r.id,{id:r.id,name:r.name,appearance:parsed(r.appearance,null)}])):new Map();if(sections.size>maxEntries)throw Error('Native section index exceeds bounded metadata budget');for(const row of db.prepare('SELECT * FROM threads LIMIT ?').all(maxEntries+1)){if(rows.size>=maxEntries&&!rows.has(row.id))throw Error('Thread index exceeds bounded metadata budget');rows.set(row.id,{...row,__section:sections.get(row.thread_section_id)??null});}}finally{db.close();}}return [...rows.values()];

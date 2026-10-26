@@ -50,7 +50,9 @@ async function scenario(mode,{ready=true,largeCard=false,result={ok:true,data:{c
  try{
   await rpc('initialize');const thread=(await rpc('thread/start',{cwd:work})).thread;
   await rpc('turn/start',{threadId:thread.id,input:[{type:'text',text:mode}]});
-  for(let i=0;i<400;i++){if(g.exportAudit().closed||g.exportAudit().events.some(e=>e.kind==='turn_finished')&&(mode!=='idle'||events.some(e=>e.method==='item/completed'&&e.params?.item?.type==='contextCompaction')))break;await new Promise(r=>setTimeout(r,5));}
+  // Completion is recorded before its WebSocket frame reaches this client.
+  // Wait for the asserted client-visible evidence, not just the host audit.
+  for(let i=0;i<400;i++){if(g.exportAudit().closed||g.exportAudit().events.some(e=>e.kind==='turn_finished')&&events.some(e=>e.method==='item/completed'&&e.params?.item?.id==='received')&&(mode!=='idle'||events.some(e=>e.method==='item/completed'&&e.params?.item?.type==='contextCompaction')))break;await new Promise(r=>setTimeout(r,5));}
   return{audit:g.exportAudit(),events,cards};
  }finally{ws.terminate();await g.close();rmSync(root,{recursive:true,force:true});}
 }

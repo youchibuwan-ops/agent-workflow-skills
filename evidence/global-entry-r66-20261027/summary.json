@@ -1,0 +1,177 @@
+{
+  "format": 1,
+  "release": "20261027-r66",
+  "sourceManifestSha256": "a1372618226d5af6deb744517e45a31849d8cb3206379e0f3e6eec2ac8e5f5a0",
+  "sourceFiles": 166,
+  "tests": {
+    "global": {
+      "tests": 571,
+      "pass": 516,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 55
+    },
+    "focused": {
+      "tests": 72,
+      "pass": 71,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 1
+    },
+    "packaging": {
+      "tests": 33,
+      "pass": 33,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0
+    }
+  },
+  "nativeInstalled": {
+    "status": "pass",
+    "release": "20261027-r66",
+    "catalogFetchedAt": "2026-10-26T21:06:56.323828200Z",
+    "allCatalogModels": 10,
+    "visibleRpcModels": 8,
+    "models": [
+      {
+        "model": "gpt-6.1-sol",
+        "ultra": true,
+        "efforts": [
+          "high",
+          "low",
+          "max",
+          "medium",
+          "ultra",
+          "xhigh"
+        ]
+      },
+      {
+        "model": "gpt-6-astra",
+        "ultra": true,
+        "efforts": [
+          "high",
+          "low",
+          "max",
+          "medium",
+          "ultra",
+          "xhigh"
+        ]
+      },
+      {
+        "model": "gpt-6.1-terra",
+        "ultra": true,
+        "efforts": [
+          "high",
+          "low",
+          "max",
+          "medium",
+          "ultra",
+          "xhigh"
+        ]
+      },
+      {
+        "model": "gpt-6-sol",
+        "ultra": true,
+        "efforts": [
+          "high",
+          "low",
+          "max",
+          "medium",
+          "ultra",
+          "xhigh"
+        ]
+      },
+      {
+        "model": "gpt-6-luna",
+        "ultra": false,
+        "efforts": [
+          "high",
+          "low",
+          "max",
+          "medium",
+          "xhigh"
+        ]
+      },
+      {
+        "model": "gpt-5.6-sol",
+        "ultra": true,
+        "efforts": [
+          "high",
+          "low",
+          "max",
+          "medium",
+          "ultra",
+          "xhigh"
+        ]
+      },
+      {
+        "model": "gpt-5.6-terra",
+        "ultra": true,
+        "efforts": [
+          "high",
+          "low",
+          "max",
+          "medium",
+          "ultra",
+          "xhigh"
+        ]
+      },
+      {
+        "model": "gpt-5.6-luna",
+        "ultra": false,
+        "efforts": [
+          "high",
+          "low",
+          "max",
+          "medium",
+          "xhigh"
+        ]
+      }
+    ],
+    "priorPreferencesPreserved": true,
+    "catalogRefreshEnabled": true,
+    "preservedFilesVerified": true,
+    "effective": {
+      "model_auto_compact_token_limit": null,
+      "model_post_turn_compact_threshold_percent": null,
+      "async_compaction": null,
+      "default_permissions": ":read-only",
+      "shell_tool": false,
+      "multi_agent": false
+    }
+  },
+  "realModel": {
+    "status": "pass",
+    "model": "gpt-6.1-terra",
+    "effort": "ultra",
+    "beforeSha256": "1580ecfb9b14b6c19c3052905aa9d7d92f4df40ecba33d2d2625e508081fbd69",
+    "beforeBytes": 584,
+    "nativeTurnStatus": "completed",
+    "helperCount": 1,
+    "readCalls": 1,
+    "skillSearchCalls": 1,
+    "projectUnchanged": true,
+    "currentHashInVisibleAnswer": true,
+    "workflowWrites": 0,
+    "toolNames": [
+      "workflow_search_skills",
+      "workflow_read_workspace"
+    ],
+    "actualNativeDelegation": true
+  },
+  "originalDesktop": {
+    "obsoleteCatalogOverrideRemoved": true,
+    "currentOriginalRuntimeRestarted": false,
+    "restartRequired": true,
+    "hotReloadShadowTest": "does-not-refresh-model-catalog"
+  },
+  "dsh": {
+    "runtimeChanged": false,
+    "servicePreserved": true,
+    "priorAcceptance": "global-entry-r62-20261027"
+  },
+  "review": {
+    "closeRace": "resolved-by-independent-static-rereview",
+    "realModelScope": "read-only-current-project-and-native-child-not-general-task-quality"
+  }
+}

@@ -3,7 +3,7 @@ function desktopWorkspace(value){if(value===undefined)return undefined;if(typeof
 export function restrictCatalog(input){
  const catalog=structuredClone(typeof input==='string'?JSON.parse(readFileSync(input,'utf8')):input);
  if(!Array.isArray(catalog?.models)||!catalog.models.length)throw new Error('Nonempty model catalog required');
- for(const model of catalog.models){Object.assign(model,{tool_mode:'direct',multi_agent_version:null,multi_agent_reasoning_effort:null,experimental_supported_tools:[],shell_type:'disabled',apply_patch_tool_type:null});if(Array.isArray(model.supported_reasoning_levels))model.supported_reasoning_levels=model.supported_reasoning_levels.filter(x=>x.effort!=='ultra');if(model.default_reasoning_level==='ultra')model.default_reasoning_level=model.supported_reasoning_levels?.at(-1)?.effort??'low';}
+ for(const model of catalog.models){const delegated=model.multi_agent_version==='v2'&&model.supported_reasoning_levels?.some(x=>x.effort==='ultra');Object.assign(model,{tool_mode:'direct',multi_agent_version:delegated?'v2':null,multi_agent_reasoning_effort:delegated?(model.multi_agent_reasoning_effort??null):null,experimental_supported_tools:[],shell_type:'disabled',apply_patch_tool_type:null});if(!delegated&&Array.isArray(model.supported_reasoning_levels))model.supported_reasoning_levels=model.supported_reasoning_levels.filter(x=>x.effort!=='ultra');if(model.default_reasoning_level==='ultra'&&!delegated)model.default_reasoning_level=model.supported_reasoning_levels?.at(-1)?.effort??'low';}
  return validateStrictCatalog(catalog);
 }
 export function validateStrictCatalog(input){
@@ -12,7 +12,8 @@ export function validateStrictCatalog(input){
  const slugs=new Set();
  for(const m of catalog.models){
   if(typeof m.slug!=='string'||!m.slug||slugs.has(m.slug))throw new Error('Unique model slug required');slugs.add(m.slug);
-  if(m.tool_mode!=='direct'||m.multi_agent_version!==null||m.multi_agent_reasoning_effort!==null||m.shell_type!=='disabled'||m.apply_patch_tool_type!==null||!Array.isArray(m.experimental_supported_tools)||m.experimental_supported_tools.length)throw new Error(`Unsafe model catalog entry: ${m.slug}`);
+  const delegated=m.multi_agent_version==='v2'&&m.supported_reasoning_levels?.some(x=>x.effort==='ultra')&&(m.multi_agent_reasoning_effort===null||m.supported_reasoning_levels.some(x=>x.effort===m.multi_agent_reasoning_effort&&x.effort!=='ultra'));
+  if(m.tool_mode!=='direct'||(!delegated&&(m.multi_agent_version!==null||m.multi_agent_reasoning_effort!==null))||m.shell_type!=='disabled'||m.apply_patch_tool_type!==null||!Array.isArray(m.experimental_supported_tools)||m.experimental_supported_tools.length)throw new Error(`Unsafe model catalog entry: ${m.slug}`);
  }
  return catalog;
 }
