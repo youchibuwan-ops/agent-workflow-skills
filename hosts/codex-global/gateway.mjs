@@ -4,6 +4,7 @@ import {createWorkspacePathPolicy} from '../security/verified-worktree.mjs';
 import {createDesktopControls,NOT_DESKTOP_CONTROL} from './desktop-controls.mjs';
 import {protectedProjectSegment} from '../security/project-path.mjs';
 import {createSkillInventory} from './skill-inventory.mjs';
+import {createNativeManagement,NOT_NATIVE_MANAGEMENT} from './native-management.mjs';
 const realpathSync=fsRealpathSync.native;
 const digest=s=>createHash('sha256').update(s).digest('hex');
 export async function createDesktopGateway(options={}){
@@ -18,7 +19,7 @@ export async function createDesktopGateway(options={}){
  mkdirSync(stateRoot,{recursive:true});const root=realpathSync(stateRoot),legacy=legacyCodexHome?realpathSync(legacyCodexHome):null;
  if(legacy&&(inside(root,legacy)||inside(legacy,root)))throw Error('Legacy and private runtime must be disjoint');
  const models=new Map(options.strictCatalog?.models?.map(x=>[x.slug,x])),tokenPath=options.tokenPath??'/workflow/'+randomBytes(32).toString('hex');if(!/^\/workflow\/[A-Za-z0-9_-]{32,}$/.test(tokenPath))throw Error('Opaque loopback tokenPath required');
- const audit={events:[],failure:null,closed:false},threads=new Map(),clients=new Set(),callIds=new Set(),requestIds=new Set();let closing=false,native,http,wss,closePromise,nativeGeneration=0,actorAdmissions=0;
+ const audit={events:[],failure:null,closed:false},threads=new Map(),clients=new Set(),callIds=new Set(),requestIds=new Set();let closing=false,native,http,wss,closePromise,nativeGeneration=0,actorAdmissions=0,nativeManagement;
  const cursorKey=randomBytes(32),sign=s=>createHmac('sha256',cursorKey).update(s).digest('base64url');
  const record=(kind,data={})=>{const e={at:new Date().toISOString(),kind,...data};audit.events.push(e);const p=onAudit?.(e);if(p&&typeof p.then==='function'){p.catch(()=>{});throw Error('Audit collector must be synchronous');}};
  const send=(ws,m)=>{if(ws.readyState===WebSocket.OPEN)ws.send(JSON.stringify(m));};
@@ -48,20 +49,22 @@ export async function createDesktopGateway(options={}){
  const saveFailure=id=>{const file=path.join(failuresRoot,digest(id)+'.json');if(existsSync(file)){loadFailure(id);return;}const body={version:1,threadId:id,kind:'native-turn-admission-failed',at:new Date().toISOString()};writeFileSync(file,JSON.stringify({body,signature:failureMac(body)}),{flag:'wx',mode:0o600});};
  const cardCallback=t=>async card=>{t.cards.push(structuredClone(card));record('card',{threadId:t.id,card});await onCard?.({threadId:t.id,...card});broadcast({method:'workflow/card',params:{threadId:t.id,...card}},t.id);};
  async function owned(id,{load=false}={}){
+  nativeManagement?.assertActorAvailable(id);
   if(typeof id!=='string'||!id||id.length>200)throw Error('Invalid thread identity');let t=threads.get(id);
   if(!t){let row=readThreadMetadata(native.env.CODEX_HOME,id);
-   if(!row&&legacy){const sourceRow=readThreadMetadata(legacy,id);if(!sourceRow)throw Error('Unknown or foreign thread denied');await resolveWorkspace(sourceRow.cwd,id);const proof=migrateSelectedThread({sourceHome:legacy,targetHome:native.env.CODEX_HOME,threadId:id,toolSchemas:schemas,maxBytes:options.maxMigrationBytes});record('legacy_migrated',proof);row=readThreadMetadata(native.env.CODEX_HOME,id);}
+   if(!row&&legacy){const sourceRow=readThreadMetadata(legacy,id);if(!sourceRow)throw Error('Unknown or foreign thread denied');await resolveWorkspace(sourceRow.cwd,id);nativeManagement?.assertActorAvailable(id);const proof=migrateSelectedThread({sourceHome:legacy,targetHome:native.env.CODEX_HOME,threadId:id,toolSchemas:schemas,maxBytes:options.maxMigrationBytes});record('legacy_migrated',proof);row=readThreadMetadata(native.env.CODEX_HOME,id);}
    if(!row)throw Error('Unknown or foreign thread denied');const file=realpathSync(row.rollout_path);if(!inside(native.env.CODEX_HOME,file))throw Error('Private thread points to original/native external rollout');
    assertPersistedTools(native.env.CODEX_HOME,id,file,schemas);
    const cwd=await resolveWorkspace(row.cwd,id);t={id,cwd,worktreeLease:workspaceLeases.get(cwd)??null,admissionFailure:loadFailure(id),loaded:false,legacy:true,active:false,controller:null,cards:[],task:0};threads.set(id,t);
   }
   assertThreadWorkspace(t);
-  if(load&&!t.loaded&&!t.admissionFailure){native.assertIntegrity();await native.rpc('thread/resume',resumeParams({threadId:id,excludeTurns:true},t.cwd));t.loaded=true;record('resumed',{threadId:id});}return t;
+  if(load&&!t.loaded&&!t.admissionFailure){native.assertIntegrity();await native.rpc('thread/resume',resumeParams({threadId:id,excludeTurns:true},t.cwd));t.loaded=true;record('resumed',{threadId:id});}nativeManagement?.assertActorAvailable(id);return t;
  }
  const skillInventory=createSkillInventory({roots:options.installedSkillRoots??[],stateRoot:root,backendCommand,strictCatalog:options.strictCatalog});
  const desktopControls=createDesktopControls({models,listSkills:()=>skillInventory.list(),backend:()=>native,defaultWorkspace,resolveRoot:async input=>{const actual=await resolveWorkspace(input),lease=workspaceLeases.get(actual);pathPolicy(actual,lease).assertWorkspace({allowPrivateSubroots:false});if(!lease&&actual.split(path.sep).some(protectedProjectSegment))throw Error('Protected metadata cannot become a desktop workspace');return actual;},
   assertIdle:()=>{if(closing||actorAdmissions||[...threads.values()].some(t=>t.active||t.admitting))throw Error('Desktop control requires idle native turns');},
-  restart:async()=>{const previous=native;await previous.close();native=await openNative();for(const t of threads.values())t.loaded=false;record('native_restarted_after_setup',{});},send:(c,m)=>send(c.ws,m),record,failClosed:fatal,ownThread:id=>owned(id,{load:false})});
+  restart:async()=>{const previous=native;await previous.close();native=await openNative();for(const t of threads.values())t.loaded=false;record('native_restarted_after_setup',{});},send:(c,m)=>send(c.ws,m),record,failClosed:fatal});
+ nativeManagement=createNativeManagement({stateRoot:root,backend:()=>native,legacyHome:legacy,toolSchemas:schemas,getLive:id=>threads.get(id),admitRoot:input=>desktopControls.admitWorkspace(input),assertAvailable:()=>desktopControls.assertAvailable(),record,maxMigrationBytes:options.maxMigrationBytes,onLifecycle:m=>broadcast(m)});
  const disabled=new Map([['app/list',{data:[],nextCursor:null}],['app/installed',{data:[],nextCursor:null}],['plugin/list',{marketplaces:[],featuredPluginIds:[],marketplaceLoadErrors:[]}],['hooks/list',{data:[]}],['mcpServerStatus/list',{data:[],nextCursor:null}]]);
  async function clientRpc(c,m){
   if(!m||typeof m!=='object'||Array.isArray(m)||typeof m.method!=='string')throw Error('Client responses/malformed RPC denied');
@@ -69,30 +72,30 @@ export async function createDesktopGateway(options={}){
   if(m.method==='initialize'){const result=await native.rpc('initialize',{});c.initialized=true;return result;}if(!c.initialized)throw Error('Initialize required');if(m.method==='initialized')return;
   if(disabled.has(m.method))return structuredClone(disabled.get(m.method));
   const desktopResult=await desktopControls.handle(c,m.method,p);if(desktopResult!==NOT_DESKTOP_CONTROL)return desktopResult;
+  const managementResult=await nativeManagement.handle(c,m.method,p);if(managementResult!==NOT_NATIVE_MANAGEMENT)return managementResult;
   if(m.method==='thread/list'){
    const safe=readParams(m.method,p),filterHash=digest(JSON.stringify({...safe,cursor:undefined,limit:undefined}));let offset=0;
    if(safe.cursor){if(typeof safe.cursor!=='string'||safe.cursor.length>1024)throw Error('Invalid index cursor');const [body,mac]=safe.cursor.split('.');if(sign(body)!==mac)throw Error('Invalid index cursor');const cursor=JSON.parse(Buffer.from(body,'base64url'));if(cursor.filterHash!==filterHash||!Number.isSafeInteger(cursor.offset)||cursor.offset<0||cursor.offset>10000)throw Error('Invalid index cursor');offset=cursor.offset;}
-   const rows=listThreadMetadata([legacy,native.env.CODEX_HOME]),byId=new Map();
+   const rows=listThreadMetadata([legacy,native.env.CODEX_HOME]),persistedIds=new Set(rows.map(r=>r.id)),byId=new Map();
    const normalized=s=>path.normalize(String(s).replace(/^\\\\\?\\/,''));
    if(safe.cwd!=null&&typeof safe.cwd!=='string'&&(!Array.isArray(safe.cwd)||safe.cwd.length>100||safe.cwd.some(x=>typeof x!=='string')))throw Error('Invalid cwd index filter');
    const matchesIndex=(r,sectionId=r.section?.id??null)=>!(safe.cwd!=null&&!(Array.isArray(safe.cwd)?safe.cwd:[safe.cwd]).some(x=>normalized(x)===normalized(r.cwd))||safe.projectId!==undefined&&safe.projectId!==(r.projectId??null)||safe.sectionId!==undefined&&safe.sectionId!==sectionId||safe.searchTerm&&!String(r.name??r.preview??'').toLowerCase().includes(String(safe.searchTerm).toLowerCase())||safe.sourceKinds?.length&&!safe.sourceKinds.includes(typeof r.source==='string'?r.source:r.source?.type));
-   for(const row of rows){if(Boolean(row.archived)!==(safe.archived===true))continue;const r=metadataThread(row);if(matchesIndex(r,row.thread_section_id??null))byId.set(r.id,r);}
-   if(!safe.archived)for(const t of threads.values())if(t.metadata&&!byId.has(t.id)&&matchesIndex(t.metadata))byId.set(t.id,t.metadata);
+   for(const row of rows){if(nativeManagement.isDeleted(row.id)||Boolean(row.archived)!==(safe.archived===true))continue;const r=metadataThread(row);if(matchesIndex(r,row.thread_section_id??null))byId.set(r.id,r);}
+   for(const t of threads.values())if(t.metadata&&!persistedIds.has(t.id)&&!t.deleted&&!nativeManagement.isDeleted(t.id)&&Boolean(t.archived)===(safe.archived===true)&&matchesIndex(t.metadata))byId.set(t.id,t.metadata);
    const field=safe.sortKey==='updated_at'?'updatedAt':safe.sortKey==='recency_at'?'recencyAt':'createdAt',direction=safe.sortDirection==='asc'?1:-1,list=[...byId.values()].sort((a,b)=>direction*((a[field]??0)-(b[field]??0)||a.id.localeCompare(b.id))),limit=safe.limit??20,data=list.slice(offset,offset+limit),next=offset+data.length;
    if(Buffer.byteLength(JSON.stringify(data))>2*1024*1024)throw Error('Thread index page exceeds bounded complete-response budget');const body=Buffer.from(JSON.stringify({offset:next,filterHash})).toString('base64url');return {data,nextCursor:next<list.length?body+'.'+sign(body):null};
   }
   if(m.method==='thread/start'){
    desktopControls.assertAvailable();actorAdmissions++;try{
    native.assertIntegrity();const safe=threadParams(p,undefined,schemas,models);let selected=p.cwd,provisional=false,selectedProject;
-   if(safe.projectId){const found=await desktopControls.handle(c,'project/read',{projectId:safe.projectId});if(found?.project?.id!==safe.projectId||!Array.isArray(found.project.roots)||!found.project.roots.length||typeof found.project.roots[0]?.path!=='string')throw Error('Native project workspace root unavailable');selectedProject=found.project;if(selected==null)selected=found.project.roots[0].path;}
+   if(safe.projectId){const found=await nativeManagement.handle(c,'project/read',{projectId:safe.projectId});if(found?.project?.id!==safe.projectId||!Array.isArray(found.project.roots)||!found.project.roots.length||typeof found.project.roots[0]?.path!=='string')throw Error('Native project workspace root unavailable');selectedProject=found.project;if(selected==null)selected=found.project.roots[0].path;}
    if(selected==null){if(!defaultWorkspace)throw Error('Explicit absolute workspace required');selected=defaultWorkspace;provisional=true;}
    const cwd=await resolveWorkspace(selected);if(selectedProject&&!selectedProject.roots.some(r=>inside(r.path,cwd)))throw Error('Project identity and selected workspace disagree');const result=await native.rpc(m.method,threadParams(p,cwd,schemas,models));const id=result?.thread?.id;if(typeof id!=='string'||threads.has(id))throw Error('Invalid new native thread identity');threads.set(id,{id,cwd,worktreeLease:workspaceLeases.get(cwd)??null,provisional,metadata:{...result.thread,cwd},loaded:true,active:false,controller:null,cards:[],task:0});c.subscriptions.add(id);record('thread_created',{threadId:id,workspace:cwd,provisional});return result;
    }finally{actorAdmissions--;}
   }
-  if(['thread/resume','turn/start','turn/interrupt','thread/settings/update'].includes(m.method)||m.method.startsWith('thread/')&&['thread/read','thread/turns/list','thread/items/list','thread/items/read'].includes(m.method)){
+  if(['turn/start','turn/interrupt','thread/settings/update'].includes(m.method)){
    desktopControls.assertAvailable();actorAdmissions++;try{
    const t=await owned(p.threadId,{load:m.method!=='thread/read'});c.subscriptions.add(t.id);
-   if(m.method==='thread/resume')return await native.rpc(m.method,resumeParams(p,t.cwd));
    if(m.method==='thread/settings/update'){if(t.admissionFailure)throw Error('Native turn admission failed; start a new thread');if(t.admitting)throw Error('Concurrent workspace binding denied');t.admitting=true;try{const cwd=await requestedWorkspace(t,p.cwd),result=await native.rpc(m.method,settingsParams(p,models,p.cwd==null?undefined:cwd));commitWorkspace(t,cwd);return result;}finally{t.admitting=false;}}
    if(m.method==='turn/interrupt'){if(!t.active||p.turnId!==t.turnId)throw Error('Unknown active turn');return await native.rpc(m.method,{threadId:t.id,turnId:t.turnId});}
    if(m.method==='turn/start'){
@@ -118,12 +121,12 @@ export async function createDesktopGateway(options={}){
     await t.controller.assertReady();const result=await t.controller.dispatch(p.tool,p.arguments,{callId:p.callId});if(!result||typeof result.ok!=='boolean'||result.fatal===true)throw Error('Fatal host controller result');
     const response={...result,...(t.cards.length?{hostCards:t.cards.splice(0)}:{})},text=JSON.stringify(response);if(Buffer.byteLength(text)>65536)throw Error('Tool result exceeds complete-delivery 64KiB boundary');record('dispatch',{threadId:t.id,tool:p.tool,callId:p.callId,stage:t.controller.stage,ok:result.ok});return {success:result.ok,contentItems:[{type:'inputText',text}]};
    },onNotification:async m=>{
-    if(generation!==nativeGeneration)return;if(await desktopControls.notify(m))return;
+    if(generation!==nativeGeneration)return;if(await desktopControls.notify(m))return;nativeManagement?.notify(m);
     if(/compact/i.test(m.method)||/compact/i.test(m.params?.item?.type??''))throw Error('Compaction is forbidden for current workflow evidence');const id=m.params?.threadId,t=threads.get(id);
     if(m.method==='turn/started'){if(!t?.active)throw Error('Native unsolicited turn');t.turnId=m.params.turn?.id;}
-    if(m.method==='thread/project/updated'&&t){if(m.params.projectId!=null){const result=await desktopControls.handle(null,'project/read',{projectId:m.params.projectId});if(!result.project.roots.some(r=>inside(r.path,t.cwd)))throw Error('Native project update changed workspace membership');}if(t.metadata)t.metadata={...t.metadata,projectId:m.params.projectId??null};}
+    if(m.method==='thread/project/updated'&&t?.metadata)t.metadata={...t.metadata,projectId:m.params.projectId??null};
     if(m.method==='turn/completed'){if(!t?.controller||!t.active)throw Error('Unowned native completion');t.active=false;const state=finalState(t.controller);record('turn_finished',{threadId:id,...state});broadcast({method:'workflow/state',params:{threadId:id,...state}},id);m={...m,params:{...m.params,workflow:state,turn:{...m.params.turn}}};if(state.status==='blocked'){m.params.turn.status='failed';m.params.turn.error={message:`Workflow incomplete at ${state.stage}`,codexErrorInfo:null,additionalDetails:state.blockedReason};}}
-    if(m.method==='item/tool/call')throw Error('Tool calls cannot be notifications');broadcast(m,id);
+    if(m.method==='item/tool/call')throw Error('Tool calls cannot be notifications');broadcast(m,/^(?:thread\/(?:archived|unarchived|deleted|name\/updated|project\/updated|section\/)|project\/|threadSection\/)/.test(m.method)?undefined:id);
    }});
  }
  try{

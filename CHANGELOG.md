@@ -2,7 +2,17 @@
 
 ## Unreleased
 
-### Selected-project discovery and test-only budgets — 2026-10-26 (R50)
+### Native desktop management boundary — 2026-10-26 (R56)
+
+- Replace duplicated project/membership/queue handlers with one metadata management domain, forwarding lifecycle semantics to the pinned native server while keeping model execution separately gated.
+- Keep management available when a workspace no longer exists; retain native pin/section identity, authoritative persisted state, source-history preservation, and deletion visibility across cold restart.
+- Resolve the R51 independent review's three Important findings: cross-project metadata no longer shuts down unrelated chats; pending lifecycle changes reserve actor admission; interrupted deletion intent is reconciled against actual native state.
+- Add bounded native attachment and import-history reads required by real desktop pages. Preserve unauthorized mutation and execution denials.
+- Match the fixed renderer host inventory to registered local capabilities, disable unmanaged Local Work execution via its native stop path, and verify actual packed renderer bytes at launch. Keep known history/config deprecation warnings visible.
+- Quote literal GitHub fallback queries, prefer repository names before widening, and keep live unlicensed candidates incomplete instead of relying on unstable repository ranking as a licensed-ready oracle.
+- Retain failed candidates, network-limit results, and the original independent review; current installed/UI/model/distribution scopes are in the R56 evidence record. No universal Skill-quality or every-feature support claim.
+
+### Selected-project discovery and test-only budgets — 2026-10-26 (R50, unreleased candidate)
 
 - Discover selected project directories through the existing reader schema; retain native DSH permissions, Unicode names, bounded pages and root identity checks.
 - Require actual current Skill search before ordinary project file reads; fall back from a failed public catalog to bounded current GitHub tree discovery without bypassing source, license or installation verification.

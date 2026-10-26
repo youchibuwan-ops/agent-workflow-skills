@@ -1,0 +1,51 @@
+{
+  "status": "pass",
+  "sourceManifestSha256": "e0d759cb0730e7d5f1b9c8fbb41e1bc8134eec6a2f6d24b0fa4d6869acf94339",
+  "byteVerification": {
+    "status": "pass",
+    "oldPrivateBuildRejected": true,
+    "current": {
+      "productionFamily": true,
+      "rendererEntries": 2,
+      "uncontrolledExecutor": "disabled-native-manager-path"
+    },
+    "sourceAndOutputRendererHashesMatch": true,
+    "stockUnchanged": true,
+    "sourceHeaderSha256": "5bd1f1afeb64772e9dd2bb20c1d7aee48591e8b5ea15e626c936abcfda7cb785"
+  },
+  "build": {
+    "stockUnchanged": true,
+    "mainSha256": "1d3133b5c877278ca293f721ea1d080d652345c687067f04724a0b30effb21e2",
+    "privatePESha256": "46aaa5e9f3438935b34ea611d3fbd742805fc7800f140421abe96a1676fa868b",
+    "privateHeaderSha256": "f2c2ff43fccbd0f354ef3137b45f646d077297de97ea582d799830314b300671",
+    "rendererHostInventory": [
+      {
+        "path": "webview/assets/data-controls-68ea7b93e49d.js",
+        "inputSha256": "850584930101ff80929b33213280717b66a63400a572ef773702003232bfa84c",
+        "outputSha256": "3fbe140a65b096fb73d95dfaa085cc6dfec61b413a1b17ac1595f0993f7ec0c4",
+        "policy": "registered-local-only"
+      },
+      {
+        "path": "webview/assets/app-primary-844e405f2b90.js",
+        "inputSha256": "298f4c7bafe278563aa82ef8d8d4c1afe3f581d54915917849065085f7f621d2",
+        "outputSha256": "eb7a6bbe8d4f81c1e7a3f982a0bb8b93941212a8a5c5650b257d0d1a53837ddd",
+        "policy": "registered-local-only"
+      }
+    ],
+    "uncontrolledExecutor": "disabled-native-manager-path"
+  },
+  "installedObservation": {
+    "status": "pass",
+    "sourceManifestSha256": "e0d759cb0730e7d5f1b9c8fbb41e1bc8134eec6a2f6d24b0fa4d6869acf94339",
+    "currentPrivateProcessId": 23796,
+    "checkedAt": "2026-10-26T14:09:14.847Z",
+    "currentProcessLogFiles": 3,
+    "currentLogBytes": 2618115,
+    "newUncontrolledStarts": 0,
+    "newUncontrolledRestarts": 0,
+    "legacyStartMarkersObserved": 36,
+    "initialObserverFailureRetained": "The initial observer stopped at directory depth 6 and missed the actual date-partitioned application log directory; it correctly failed its positive control. Corrected observer reads the exact current private-process logs from startup, not a fabricated empty result.",
+    "scope": "Actual full current-process application logs since cold shortcut launch; positive old-build markers and fixed packed-byte verification are independent evidence. Raw logs remain private; no universal future-execution assertion."
+  },
+  "scope": "Author actual bounded packed-byte and installed observation proof; private application, owner configuration and credentials are not distributed."
+}

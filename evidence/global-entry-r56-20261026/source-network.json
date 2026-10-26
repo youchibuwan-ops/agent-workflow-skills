@@ -1,0 +1,92 @@
+{
+  "status": "pass",
+  "sourceManifestSha256": "e0d759cb0730e7d5f1b9c8fbb41e1bc8134eec6a2f6d24b0fa4d6869acf94339",
+  "providerRuntimeSha256": "559289416486d72df472455742fab7e4c26755934cf1d360d749212cf9bd091e",
+  "currentFullRunPassed": true,
+  "targetedPreFreezeProof": {
+    "runtimeBytesMatchCurrent": true,
+    "catalog": {
+      "id": "github:vercel-labs/skills/find-skills",
+      "version": "a80e4c9d12d607631249d4d7d059f835d4b2f13a",
+      "source": {
+        "kind": "github",
+        "repo": "vercel-labs/skills",
+        "commit": "a80e4c9d12d607631249d4d7d059f835d4b2f13a",
+        "tree": "b3587b449d44f2df7b5ff698d30b8247ce03bfc1",
+        "url": "https://github.com/vercel-labs/skills/tree/a80e4c9d12d607631249d4d7d059f835d4b2f13a/skills/find-skills/",
+        "checkedAt": "2026-10-26T13:50:29.330Z"
+      },
+      "files": [
+        {
+          "path": "LICENSE",
+          "originPath": "LICENSE",
+          "bytes": 1069,
+          "sha256": "661142e53c313d2bb5e1b055f5c0a39001450ff1b5e27b89dc4bc7de9a6352ca",
+          "encoding": "utf8",
+          "requiresViewer": false,
+          "gitBlob": "eabe3008f6c0275929faa8b07d406e82717648cc"
+        },
+        {
+          "path": "SKILL.md",
+          "originPath": "skills/find-skills/SKILL.md",
+          "bytes": 5472,
+          "sha256": "c00eeea0e13e74fe4a9d84ba0a8542205a1b736d65f13134fe1a6647eb14976f",
+          "encoding": "utf8",
+          "requiresViewer": false,
+          "gitBlob": "a41bdd074bb587afd861332cf2f473f3154de4d7"
+        }
+      ],
+      "license": {
+        "path": "LICENSE",
+        "originPath": "LICENSE",
+        "sha256": "661142e53c313d2bb5e1b055f5c0a39001450ff1b5e27b89dc4bc7de9a6352ca",
+        "encoding": "utf8"
+      }
+    },
+    "catalogOutageFallback": {
+      "injectedCatalogFailure": true,
+      "actualGitHubHTTPS": true,
+      "source": {
+        "kind": "github",
+        "repo": "su-ron/find-skills",
+        "commit": "3342b98161a9ffd6b5d1c12ac0e8637c404d3a4a",
+        "tree": "3013fdeb8a11b10b1eb795ec3ae8bfca38f7c26d",
+        "url": "https://github.com/su-ron/find-skills/tree/3342b98161a9ffd6b5d1c12ac0e8637c404d3a4a/",
+        "checkedAt": "2026-10-26T13:50:32.630Z"
+      },
+      "files": [
+        {
+          "path": "SKILL.md",
+          "originPath": "SKILL.md",
+          "bytes": 5446,
+          "sha256": "1e85f6f9686e145aca4a124e3b704b9bbea9aa87e08515c1e352eee70f6e6e7a",
+          "encoding": "utf8",
+          "requiresViewer": false,
+          "gitBlob": "114c6637a18676ac99b8bd34ffc7c9da61d072cb"
+        }
+      ],
+      "status": "incomplete",
+      "missing": [
+        "license_missing"
+      ],
+      "license": null
+    },
+    "references": [
+      {
+        "url": "https://nodejs.org/dist/v24.22.1/SHASUMS256.txt",
+        "bytes": 3171,
+        "sha256": "fdfbffc969c0f604beff0124d409b33a43b53f5c681d6220f80023e0d6df9dc4",
+        "status": "text",
+        "truncated": false
+      },
+      {
+        "url": "https://www.iana.org/assignments/iana-ipv4-special-registry",
+        "bytes": 39095,
+        "sha256": "11209c51235a0238c1002efa22e31ad1f174c4e9e9de46e5693dae194bfa043c",
+        "status": "text",
+        "truncated": false
+      }
+    ]
+  },
+  "scope": "Actual current global network test plus retained pre-freeze targeted proof for the identical provider runtime bytes. Unlicensed candidates stay incomplete; live ranking is not adoption."
+}

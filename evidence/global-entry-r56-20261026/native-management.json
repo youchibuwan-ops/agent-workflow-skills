@@ -1,0 +1,158 @@
+{
+  "status": "pass",
+  "sourceManifestSha256": "e0d759cb0730e7d5f1b9c8fbb41e1bc8134eec6a2f6d24b0fa4d6869acf94339",
+  "nativeIntegration": {
+    "status": "pass",
+    "realPinnedNative": true,
+    "paidModel": false,
+    "provider": "Local deterministic SSE fixture",
+    "localProviderRequests": 1,
+    "lifecycle": [
+      "new",
+      "persisted-native-turn",
+      "name",
+      "search",
+      "pin",
+      "section-create-move-update-delete",
+      "project-create-update-delete",
+      "archive",
+      "archived-query",
+      "restore",
+      "cold-restart",
+      "missing-workspace-read-delete",
+      "legacy-copy-delete",
+      "second-cold-restart-no-resurrection"
+    ],
+    "sourceHistoryUnchanged": true,
+    "userProjectUsed": false,
+    "userChatUsed": false,
+    "nativeDeletionObserved": true
+  },
+  "installedLargeHistoryProof": {
+    "status": "pass",
+    "sourceManifestSha256": "e0d759cb0730e7d5f1b9c8fbb41e1bc8134eec6a2f6d24b0fa4d6869acf94339",
+    "scope": "Actual current production gateway metadata reads for already-existing large source histories; source rollout bodies not read or copied; no user chat deleted",
+    "actualLargeSourceHistories": [
+      {
+        "sourceRolloutBytes": 176980977,
+        "attachmentCount": 0,
+        "resultSha256": "4b354292101b152063e0a3d6a598c46f71284f9bfa1daf9cd9257c1fd23069f6",
+        "privateRowStillAbsent": true,
+        "sourceRolloutBodyNotReadByThisProbe": true
+      },
+      {
+        "sourceRolloutBytes": 124249136,
+        "attachmentCount": 0,
+        "resultSha256": "4b354292101b152063e0a3d6a598c46f71284f9bfa1daf9cd9257c1fd23069f6",
+        "privateRowStillAbsent": true,
+        "sourceRolloutBodyNotReadByThisProbe": true
+      },
+      {
+        "sourceRolloutBytes": 417003706,
+        "attachmentCount": 2,
+        "resultSha256": "05fde4d69a47a2b01112957e16af97a3ed4e4650d3840ba1218f206a77486cf4",
+        "privateRowStillAbsent": true,
+        "sourceRolloutBodyNotReadByThisProbe": true
+      }
+    ],
+    "previousDisposableDeletionSurvivesSourceUpgrade": true,
+    "previousDisposablePrivateRowAbsent": true,
+    "onlyPreviouslyCreatedTemporaryChatDeleted": true,
+    "paidModel": false
+  },
+  "largeHistoryMetadata": {
+    "status": "pass",
+    "kind": "native-large-history-metadata",
+    "realPinnedNative": true,
+    "paidModel": false,
+    "nativeDefaultPage": 25,
+    "nativeAttachmentPaginationExact": true,
+    "sourceExceedsMigrationBudget": true,
+    "rolloutCopied": false,
+    "otherFrontendNotified": true,
+    "concurrentActorAdmissionDenied": true,
+    "coldDeletedViewDoesNotResurrect": true,
+    "sourceHistoryUnchanged": true,
+    "actorCalls": 0
+  },
+  "installedNative": {
+    "model": "gpt-6.1-sol",
+    "effort": "xhigh",
+    "windowsMode": "elevated",
+    "readiness": "ready",
+    "actualNativeReadMatches": true,
+    "projectBytes": 584,
+    "inventory": {
+      "entries": 79,
+      "uniqueNames": 74,
+      "errors": 0
+    }
+  },
+  "uiObservation": {
+    "status": "pass",
+    "sourceManifestSha256": "e0d759cb0730e7d5f1b9c8fbb41e1bc8134eec6a2f6d24b0fa4d6869acf94339",
+    "observedAt": "2026-10-26T14:36:31.128Z",
+    "entry": "Existing Codex-Controlled shortcut, actual new private R11 process",
+    "currentActions": {
+      "coldStartup": true,
+      "projectPickerAndNamedCreation": true,
+      "projectTrustAndUiRemoval": true,
+      "rename": true,
+      "pin": true,
+      "archive": true,
+      "restore": true,
+      "allAndLocalArchivePagesSettledWithoutPhantomHostError": true,
+      "existingGameReadVisible": true,
+      "model61Visible": true
+    },
+    "technicalNativePermanentDelete": {
+      "currentDisposableFixture": true,
+      "actualNativeStateVerified": true,
+      "finalPermanentUiButtonClicked": false
+    },
+    "currentProjectCreateRemove": {
+      "status": "pass",
+      "sourceManifestSha256": "e0d759cb0730e7d5f1b9c8fbb41e1bc8134eec6a2f6d24b0fa4d6869acf94339",
+      "createdThroughActualProjectForm": true,
+      "actualSystemDirectoryPicker": true,
+      "actualTrustPrompt": true,
+      "observedInSidebarBeforeRemoval": true,
+      "removedThroughActualUi": true,
+      "projectFilesPreserved": true,
+      "initialHarnessMistakeRetained": "Open Folder was mistakenly used as a project-creation assertion; no source change was made for that mistaken observation. The actual named Create Project flow passed.",
+      "scope": "Actual private-desktop UI followed by its persisted frontend state, not an API-created substitute"
+    },
+    "oldDeletionAbsentAfterSourceUpgrade": true,
+    "privateSnapshotHashes": {
+      "archive-all.private.txt": {
+        "bytes": 7076,
+        "sha256": "be3f566cc7290c24bddca614ba295dbf379a9efd118234ba5433a988698a2bcf"
+      },
+      "archive-local.private.txt": {
+        "bytes": 6790,
+        "sha256": "e857686e9c11347c4b11323748a25e81fd729ac0bfc2371c5a66cdf6a111744a"
+      },
+      "archive-final.private.txt": {
+        "bytes": 7277,
+        "sha256": "19044722f11c740ee2799490e0c6508a1419c1b1c6c63673374d426e6141a35d"
+      },
+      "project-added-final.private.txt": {
+        "bytes": 17960,
+        "sha256": "46650c3d7f562f541aa56ae51cfc70466ef1a3495a44f65d24a73d02a592f9e4"
+      },
+      "actual-game-ui.private.txt": {
+        "bytes": 27516,
+        "sha256": "548c96fc07d0cd19b0aa5c5f07f56e265350c671c60a9b179374381011a99e97"
+      }
+    },
+    "knownWarnings": {
+      "sourceManifestSha256": "e0d759cb0730e7d5f1b9c8fbb41e1bc8134eec6a2f6d24b0fa4d6869acf94339",
+      "effectiveHooks": false,
+      "effectiveDeprecatedHooksAlias": false,
+      "effectiveWebSearch": "disabled",
+      "effectiveDefaultPermissions": ":read-only",
+      "scope": "Current native configuration read; known compatibility deprecations remain visible and are not hidden or claimed repaired."
+    },
+    "scope": "Actual desktop clicks and screenshots plus separately marked RPC/state checks. No claim every desktop feature, UI shortcut, arbitrary history size or DSH GUI was retested. Original stock window and original user histories retained."
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "releaseId": "20261026-r56",
+  "tag": "v0.2.0-host-preview.3-r56",
+  "asset": "AgentWorkflow-DSH-20261026-preview3-r56.zip",
+  "bytes": 674492,
+  "sha256": "32ca837edf59eff33bcc5ad49a4aba94952cba2a0cb35975bdd1869f72e81981",
+  "manifestSha256": "e0d759cb0730e7d5f1b9c8fbb41e1bc8134eec6a2f6d24b0fa4d6869acf94339",
+  "payloadFiles": 148,
+  "bootstrapCheckOnly": {
+    "status": "pass",
+    "exitCode": 0,
+    "nodeTree": {
+      "entries": 2459,
+      "bytes": 107345970,
+      "treeSha256": "8c862fa5a190b0e1a53cad0cd0b361c53d280939cb30f4342867ffbf57e0cd85"
+    },
+    "scope": "Actual extracted bootstrap CheckOnly against independently pinned official Node ZIP and complete installed Node tree; no SDK reinstall or model invocation"
+  },
+  "privateDesktopIncluded": false,
+  "credentialsIncluded": false
+}

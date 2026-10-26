@@ -23,12 +23,14 @@
 
 历史 [R39 技能清单修复](evidence/global-entry-r39-20261026/README.md) 已实际验证受控桌面的技能卡片、正文详情和选用：按 Ctrl+K → 输入“技能” → “前往技能”，聊天中输入 `$find` 可搜索。作者本机显示74个不同名称；两轮真实模型含同会话冷启动及当前项目重读，字节与哈希相符。回归516/516、零跳过。DSH包同步源码；DSH生产代码及两份Skill正文未变，没有新增付费DSH模型验收。
 
-当前 [R50 项目访问与流程修复](evidence/global-entry-r50-20261026/README.md) 支持自行发现已选项目目录，
+历史未发行的 [R50 项目访问候选](evidence/global-entry-r50-20261026/README.md) 支持自行发现已选项目目录，
 正常结束有真实证据的只读回复，同时保持制作阶段和写入门禁。544/544 本机回归零跳过；
 Codex 新会话与冷恢复、DSH 官方提供器均有当前源码的真实模型验证，并重新读取了实际游戏项目。
 本地不适配时继续公开目录/GitHub；目录错误有 GitHub 备用搜索，完整源码与安装读回要求不变。
 10 万 token 仅为测试每次回复上限，日常 DSH 保留原生和用户设置。两份 Skill 参考已实际更新。
-完整覆盖、保留失败及安装步骤见该记录；下载 [R50 安装包](https://github.com/youchibuwan-ops/agent-workflow-skills/releases/tag/v0.2.0-host-preview.3-r50)。
+R50 未完成正常桌面聊天管理验收，不能作为最终可用结论；保留其原测试记录。
+
+当前 [R56 原生管理修复](evidence/global-entry-r56-20261026/README.md) 用统一管理通道替代零散处理，将正常项目、聊天管理与模型执行分开；保留原生行为，处理删除中断恢复及跨客户端执行互斥。完整回归、两种真实模型、本机项目读取、桌面操作和发行检查分别留证，未覆盖项不冒称通过。更新安装包见 [GitHub Releases](https://github.com/youchibuwan-ops/agent-workflow-skills/releases)。
 
 **2026-10-25：SVG Skill 已撤下。**
 `crafting-reference-based-svg-assets` 已从当前可安装目录移除，单独的发布 ZIP 也撤下，

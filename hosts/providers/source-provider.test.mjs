@@ -81,6 +81,13 @@ test('catalog outage falls back to actual GitHub repository trees and still veri
  assert.equal(s.externalUsed,true);assert(s.diagnostics.some(d=>d.code==='SOURCE_TIMEOUT'));assert.equal(s.candidates.length,1);assert.equal(s.candidates[0].id,'github:owner/repo/example-method');assert.equal(s.completeSourceInspection,false);
  const acquired=await p.acquire(s.candidates[0].id);assert.equal(acquired.status,'ready');assert.equal(acquired.source.commit,remote.commit);assert(acquired.manifest.every(x=>x.gitBlob));
 });
+test('fallback preserves a hyphenated skill identifier and widens only after the name scope has no matching tree',async t=>{
+ const f=fixture(t),remote=remoteFixture(),queries=[];const p=createSourceProvider({installedRoots:[],cacheRoot:join(f.root,'quoted-fallback'),get:async(url,options)=>{
+  if(url.startsWith('https://skills.sh/'))throw Object.assign(new Error('catalog outage'),{code:'SOURCE_TIMEOUT'});
+  if(url.includes('/search/repositories?')){const q=new URL(url).searchParams.get('q');queries.push(q);return{status:200,headers:{},bytes:Buffer.from(JSON.stringify({items:q==='"example-method" in:name'?[]:[{full_name:'owner/repo'}]}))};}
+  if(url==='https://api.github.com/repos/owner/repo/git/trees/HEAD?recursive=1')return remote.get('https://api.github.com/repos/owner/repo/git/trees/'+'b'.repeat(40)+'?recursive=1',options);return remote.get(url,options);
+ }});const result=await p.search('example-method');assert.deepEqual(queries,['"example-method" in:name','"example-method" in:name,description,readme']);assert.equal(result.candidates[0]?.id,'github:owner/repo/example-method');
+});
 
 test('failed or truncated GitHub fallback remains an explicit search failure without fabricated candidates',async t=>{
  for(const truncated of[false,true]){const f=fixture(t),p=createSourceProvider({installedRoots:[],cacheRoot:join(f.root,'fallback'),get:async url=>{

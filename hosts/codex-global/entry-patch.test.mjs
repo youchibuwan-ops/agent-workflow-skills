@@ -100,3 +100,17 @@ test('metadata suppression requires each exact method anchor once and preserves 
  const context={URL,u:{h:'local'},i:{wi:'durable',zi:h=>h?.kind==='wsl',Mi:id=>id==='durable'},Egt:()=>null,l:{E:class{constructor(p){calls.push(p);}}},provider(){throw Error('provider invoked');}};vm.runInNewContext(out.source,context);
  context.fixtureAPI.factory({hostConfig:{id:'local',kind:'local'},transportKind:'standard'});assert.equal(calls.length,1);assert.throws(()=>context.fixtureAPI.factory({hostConfig:{id:'durable',kind:'local'},transportKind:'standard'}),/route denied/);assert.equal(calls.length,1);
 });
+
+const workAnchor='start(){if(this.clearingRegistrations||(this.enabled=!0,this.state={...this.state,enabled:!0}';
+const workFixture=fixture+`\nclass WorkFixture{constructor(){this.enabled=false;this.state={enabled:false};this.authorizationRevision=0;this.clearingRegistrations=false;}setEnabled(e,t=\`disabled\`){return e?this.start():(this.authorizationRevision+=1,this.enabled=!1,this.stop(t),Promise.resolve())}stop(reason){this.state={...this.state,enabled:false};this.stopped=reason;}setAuthorization(e){return this.setEnabled(e.enabled)}${workAnchor},nativeStart()))return Promise.resolve();return Promise.resolve()}};globalThis.workFixture=new WorkFixture();`;
+test('unmanaged Work execution uses its native disabled path before a process or provider can start',async()=>{
+ let starts=0,getters=0;const context={nativeStart(){starts++;throw Error('Uncontrolled native execution');}};
+ const out=patchMainTransport(workFixture,{expectedHash:sha(workFixture),gatewayUrl:url,suppressUncontrolledExecutor:true});vm.runInNewContext(out.source,context);
+ await context.workFixture.start();await context.workFixture.setAuthorization({get enabled(){getters++;return true;}});
+ assert.equal(starts,0);assert.equal(getters,1);assert.equal(context.workFixture.enabled,false);assert.equal(context.workFixture.state.enabled,false);assert.equal(context.workFixture.stopped,'workflow_host_unavailable');assert.equal(context.workFixture.authorizationRevision,2);assert.equal(out.uncontrolledExecutor,'disabled-native-manager-path');
+ await context.workFixture.setEnabled(false,'logged_out');assert.equal(context.workFixture.stopped,'logged_out');
+});
+test('unmanaged Work suppression refuses missing or duplicate native boundaries and nonboolean policy',()=>{
+ for(const source of [workFixture.replace(workAnchor,'start(){if(false||({}'),workFixture+workAnchor])assert.throws(()=>patchMainTransport(source,{expectedHash:sha(source),gatewayUrl:url,suppressUncontrolledExecutor:true}),/Work.*anchor|unique/i);
+ assert.throws(()=>patchMainTransport(workFixture,{expectedHash:sha(workFixture),gatewayUrl:url,suppressUncontrolledExecutor:'true'}),/boolean|executor/i);
+});

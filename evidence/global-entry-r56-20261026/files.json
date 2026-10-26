@@ -1,0 +1,79 @@
+{
+  "files": [
+    {
+      "path": "INDEPENDENT-REVIEW.md",
+      "bytes": 7432,
+      "sha256": "d254df309fcef288bf31f8a76826eb711781c445cbdf405f56a6450db76d889b"
+    },
+    {
+      "path": "PRIVATE-CAPABILITY-REVIEW.md",
+      "bytes": 10597,
+      "sha256": "50ed5f67cd39acd799adb2dc513fe94cb0bfdfd8f7a81fb0424bd0509d916164"
+    },
+    {
+      "path": "README.md",
+      "bytes": 8702,
+      "sha256": "54dcf709eb335af0a097d89f95cb5566d44918551ae4432ac8091d1cf134bfbe"
+    },
+    {
+      "path": "SOURCE-QUERY-REVIEW.md",
+      "bytes": 7763,
+      "sha256": "d04f3fa668690cbb3acea93ac5182f7292bbca7d92592ed0634d5a59a5346391"
+    },
+    {
+      "path": "actual-project.json",
+      "bytes": 1298,
+      "sha256": "8578572c100aa21784c21530164493fa7eaf5d18fef0fcae0cd603b189c89c53"
+    },
+    {
+      "path": "codex-model.json",
+      "bytes": 725,
+      "sha256": "33fbb5dcb46ddc3ca00db242c683912604ccd5bc1c5ce44c2cfa18ee6331af86"
+    },
+    {
+      "path": "dsh-model.json",
+      "bytes": 1121,
+      "sha256": "f42cdf33d548f9e6b8b781bca6aa16e135836a9ff29f0d8ed6f103cf2cde77e5"
+    },
+    {
+      "path": "native-management.json",
+      "bytes": 6048,
+      "sha256": "982c0437428a7b921d81036eb2ee4a0cb85c21726a684eb32e9ece64804a4831"
+    },
+    {
+      "path": "private-capabilities.json",
+      "bytes": 2655,
+      "sha256": "71ee970dfd443a7a745b0844fa8e3f37b10c69499457bcfc84e3ad75920cafc2"
+    },
+    {
+      "path": "release.json",
+      "bytes": 810,
+      "sha256": "76dceb28ed27988f170475b18d0c32c11e914ced3c51a8f3426f9269efd2be56"
+    },
+    {
+      "path": "skill-maintenance.json",
+      "bytes": 984,
+      "sha256": "b287b7ca149233d27bcea84b0a59ed6a1869ac7ce90634e30ca79bb65b8ef905"
+    },
+    {
+      "path": "source-manifest.json",
+      "bytes": 25891,
+      "sha256": "e0d759cb0730e7d5f1b9c8fbb41e1bc8134eec6a2f6d24b0fa4d6869acf94339"
+    },
+    {
+      "path": "source-network.json",
+      "bytes": 3399,
+      "sha256": "215f798a083b7b72e63a3a8db52dda638bd9e639028a870fc477413b0abb579c"
+    },
+    {
+      "path": "summary.json",
+      "bytes": 5833,
+      "sha256": "973d76b69f0293fc7a27aac86dda5ffbb5e6d16d74399baba867918ed9adaafd"
+    },
+    {
+      "path": "verify-evidence.mjs",
+      "bytes": 2763,
+      "sha256": "6236b7f4bf63f99e430cb1c9f4b837bd58fe2f64e51bac2bea50ba231ed10493"
+    }
+  ]
+}

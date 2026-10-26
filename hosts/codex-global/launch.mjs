@@ -60,7 +60,9 @@ async function verifyOwnerBootstrap(config,ownerConfigPath,gatewayUrl,verificati
    if(!hex(integrity?.hash)||expected&&integrity.hash!==expected||sha(bytes)!==integrity.hash||integrity.algorithm!=='SHA256'||integrity.blockSize!==4194304||!Array.isArray(integrity.blocks)||JSON.stringify(integrity.blocks)!==JSON.stringify(blocks))throw Error('Owner entry integrity mismatch: '+name);return bytes;
   };
   let pkg;try{pkg=JSON.parse(packed('package.json',undefined,512*1024).toString('utf8'));}catch(e){throw Error('Owner package entry rejected: '+e.message);}if(pkg.main!==report.packageMain)throw Error('Actual package main differs from the owner early entry');
-  packed(report.mainPath,report.mainSha256);early=packed(report.earlyBootstrapPath,report.earlyBootstrapSha256);bootstrap=packed(report.bootstrapPath,report.bootstrapSha256);
+  const main=packed(report.mainPath,report.mainSha256);early=packed(report.earlyBootstrapPath,report.earlyBootstrapSha256);bootstrap=packed(report.bootstrapPath,report.bootstrapSha256);
+  const policyURL=new URL('./renderer-host-policy.mjs',import.meta.url);if(verification.source&&!inside(realpathSync.native(verification.source.payloadRoot),realpathSync.native(policyURL)))throw Error('Host policy verifier outside verified source');
+  const {assertPrivateHostPolicy}=await import(policyURL.href);assertPrivateHostPolicy({report,main,readPacked:packed});
  }finally{closeSync(fd);}
  // Reuse the pinned transform's exact prefix without executing any vendor code.
  const sample='const e=require("./rolldown-runtime-CPUxUITh.js");y.app.setPath(`userData`,PN({appDataPath:y.app.getPath(`appData`),buildFlavor:vI,env:process.env}));y.app.setAppUserModelId(n.r(vI));y.app.requestSingleInstanceLock({startupTask:xI===`startup-task`});function unusedDiagnosticFixture(){let o;try{}catch(r){for(let e of y.BrowserWindow.getAllWindows())e.isDestroyed()||e.destroy();l.r().error(`Desktop bootstrap failed to start the main app`,{safe:o})}}',generated=patchBootstrapOwner(sample,{ownerBinding:bound,ownerExecutable,expectedHash:sha(sample)}),prefix=Buffer.from(generated.source).subarray(0,generated.injectedBytes);

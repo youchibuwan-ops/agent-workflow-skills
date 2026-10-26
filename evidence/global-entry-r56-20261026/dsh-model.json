@@ -1,0 +1,32 @@
+{
+  "status": "pass",
+  "sourceManifestSha256": "e0d759cb0730e7d5f1b9c8fbb41e1bc8134eec6a2f6d24b0fa4d6869acf94339",
+  "paid": true,
+  "model": "deepseek-flash",
+  "maxTokensPerResponse": 100000,
+  "scope": "Real official provider plus production factory/broker/native permission service; blind read-only project inspection. No full seven-stage creation, desktop UI, or human aesthetic acceptance claim.",
+  "projectFactsVerified": true,
+  "exactCurrentProjectReads": 3,
+  "automaticSkillSearch": true,
+  "actualDirectoryDiscovery": true,
+  "projectUnchanged": true,
+  "toolCalls": 49,
+  "nativeTermination": {
+    "kind": "completed"
+  },
+  "nativeWorkflowStatus": "pending",
+  "businessComplete": false,
+  "monitor": {
+    "actualModelRequests": 34,
+    "refusals": [],
+    "usage": {
+      "inputTokens": 124466,
+      "cacheReadTokens": 2485248,
+      "cacheWriteTokens": 0,
+      "outputTokens": 28134,
+      "totalTokens": 2637848,
+      "inputContextTokens": 2609714
+    },
+    "usageBasis": "Official provider adapter usage including cache hits; JSON bytes are a separate process guard, not billable tokens"
+  }
+}

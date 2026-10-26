@@ -30,14 +30,16 @@ The [R37 model-settings repair](evidence/global-entry-r37-20261026/README.md) ve
 
 The [R39 Skill inventory repair](evidence/global-entry-r39-20261026/README.md) restores actual installed cards, body details and selection in the controlled desktop. Use Ctrl+K → 技能 → 前往技能, or type `$find` in chat to search. Actual local UI showed 74 unique names; two live model turns, including a same-chat cold restart and current project read, verified source bytes. Regression checks passed 516/516 without skips. DSH packaging is synchronized; DSH production and both Skill texts are unchanged, with no new paid DSH model claim.
 
-The current [R50 workspace repair](evidence/global-entry-r50-20261026/README.md) adds selected-project directory discovery,
+The historical, unreleased [R50 workspace candidate](evidence/global-entry-r50-20261026/README.md) adds selected-project directory discovery,
 clean native completion for evidenced read-only replies, and a bounded GitHub search fallback when the public catalog fails.
 Production workflow stages and write gates remain locked until their requirements are met.
 Current author regression checks passed 544/544 without skips; real Codex fresh/cold sessions, the official DSH provider,
 and the actual installed game-project read have separate current-source evidence.
 The 100000-token ceiling applies only to each test response; daily DSH preserves native and caller settings.
 Both Skill references were actually updated. See the record for retained failures, limits and
-the [R50 installer](https://github.com/youchibuwan-ops/agent-workflow-skills/releases/tag/v0.2.0-host-preview.3-r50).
+current [GitHub Releases](https://github.com/youchibuwan-ops/agent-workflow-skills/releases). R50 did not complete ordinary desktop chat-management acceptance.
+
+The [R56 native management repair](evidence/global-entry-r56-20261026/README.md) replaces scattered handlers with one metadata control domain, separate from model execution. It retains native project and chat lifecycle behavior, recovers interrupted deletion, and shares lifecycle reservations with actor admission. Current regression, real-model, installed-project, UI, and distribution checks are recorded separately. Read the retained failures and coverage limits before treating a check as universal support. DSH downloads are in [GitHub Releases](https://github.com/youchibuwan-ops/agent-workflow-skills/releases).
 
 **2026-10-25: the SVG Skill has been withdrawn.**
 `crafting-reference-based-svg-assets` is removed from the current installable

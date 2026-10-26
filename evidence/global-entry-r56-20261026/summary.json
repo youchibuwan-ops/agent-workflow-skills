@@ -1,0 +1,141 @@
+{
+  "status": "pass",
+  "sourceManifestSha256": "e0d759cb0730e7d5f1b9c8fbb41e1bc8134eec6a2f6d24b0fa4d6869acf94339",
+  "sourceFiles": 147,
+  "tests": [
+    {
+      "scope": "global",
+      "counts": {
+        "tests": 508,
+        "pass": 508,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0
+      },
+      "sourceUnchanged": true,
+      "startedAt": "2026-10-26T13:51:49.566Z",
+      "finishedAt": "2026-10-26T13:53:59.299Z",
+      "logSha256": "d1bbb822dd06f29115ce9ee17cecab97ec4a6ed066a36dfa6e4fbb49b0a28c37"
+    },
+    {
+      "scope": "package",
+      "counts": {
+        "tests": 34,
+        "pass": 34,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0
+      },
+      "sourceUnchanged": true,
+      "startedAt": "2026-10-26T13:51:49.570Z",
+      "finishedAt": "2026-10-26T13:52:13.871Z",
+      "logSha256": "ea9f3de541e66f08aed1131c1dfe36c629fac036033e1ef628a44ed53667c649"
+    },
+    {
+      "scope": "codex-policy",
+      "counts": {
+        "tests": 31,
+        "pass": 31,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0
+      },
+      "sourceUnchanged": true,
+      "startedAt": "2026-10-26T13:51:49.588Z",
+      "finishedAt": "2026-10-26T13:51:55.237Z",
+      "logSha256": "ed4a58c74d088d480af8b25e02d47f7185f728289124762420b4a0e3b67f6295"
+    }
+  ],
+  "totalPass": 573,
+  "totalFail": 0,
+  "totalSkip": 0,
+  "currentFullGlobalRunClean": true,
+  "retainedFailures": {
+    "r55InitialGlobal": {
+      "counts": {
+        "tests": 507,
+        "pass": 506,
+        "fail": 1,
+        "cancelled": 0,
+        "skipped": 0
+      },
+      "status": "failed",
+      "sourceManifestSha256": "8caa71e68ab8b0a65efca2e2815df0a9b3263726738e4e3d5b1d9416d048e9c2",
+      "logSha256": "5d39c623e2e1022148c2a076c43a5720e57ca252272351c662d9ab4e8f6a3b16",
+      "cause": "Unquoted GitHub repository query split a hyphenated identifier, returned 1200291 broad matches and no matching SKILL path among the first three repositories. Quoted name-first queries fix the observed discovery failure; candidate provenance and license admission stay enforced."
+    },
+    "r54Gui": {
+      "withdrawnClaim": "Local archive filtering initially appeared clean, but delayed whole-page observation still showed phantom durable-source failure.",
+      "resolution": "Actual renderer host inventory now matches the registered local transport; new installed whole-page checks have separate current evidence. Uncontrolled Local Work start enters the native disabled/stop path."
+    },
+    "r54Cold": {
+      "cause": "Initial cold turn only promised reads; subsequent author feedback harness used an unmatched read-only prefix and was stopped. Clarified same-chat continuation passed; no claim all initial attempts passed."
+    },
+    "r53InitialGlobal": {
+      "counts": {
+        "tests": 497,
+        "pass": 496,
+        "fail": 1,
+        "cancelled": 0,
+        "skipped": 0
+      },
+      "status": "failed",
+      "logSha256": "ab98910b15e184517cdd32657fd0ce16652dff1ef3da7221988a5c4c6703ecba",
+      "cause": "GitHub HTTP 403 and actual anonymous remaining quota zero; other connectivity was available."
+    },
+    "r51IndependentReview": {
+      "verdict": "No — one fix pass",
+      "independentFocusedPass": 46,
+      "importantFindings": 3,
+      "resolution": "One author fix pass and current regressions; original review preserved without a second approval vote."
+    },
+    "r52Gui": {
+      "cause": "Archive readHistories and background attachment metadata were initially denied; later whole-history migration broke metadata for large histories.",
+      "resolution": "Unified bounded metadata routes; large source histories remain untouched."
+    },
+    "r50Ci": {
+      "runId": 40311114647,
+      "passedJobs": 8,
+      "failedJobs": 1,
+      "cause": "Documentation linked an unreleased R50 tag; historical links corrected without manufacturing that release."
+    }
+  },
+  "independentReviews": [
+    {
+      "file": "INDEPENDENT-REVIEW.md",
+      "scope": "R51 management contract, original findings retained"
+    },
+    {
+      "file": "PRIVATE-CAPABILITY-REVIEW.md",
+      "scope": "Six private capability files; 55 independent tests, vendor-byte/method probes; no GUI approval"
+    },
+    {
+      "file": "SOURCE-QUERY-REVIEW.md",
+      "scope": "Three provider files; 17 independent offline tests plus three branch probes; no independent live network rerun"
+    }
+  ],
+  "realModels": [
+    "codex-model.json",
+    "dsh-model.json"
+  ],
+  "actualProject": "actual-project.json",
+  "nativeManagement": "native-management.json",
+  "privateCapabilities": "private-capabilities.json",
+  "maintenance": "skill-maintenance.json",
+  "installation": {
+    "sourceAndSealedRuntimeVerified": true,
+    "shortcutsPreserved": true
+  },
+  "limits": [
+    "Controlled local entry only; copying a Skill remains instruction_only.",
+    "No universal semantic or aesthetic quality guarantee for every Skill or task.",
+    "Native read-only completion does not complete/unlock business stages.",
+    "No fresh full seven-stage creation task or DSH desktop GUI acceptance in this revision.",
+    "The 100000-token test ceiling is per model response only; daily DSH native/caller settings remain unchanged.",
+    "DSH official npm latest was checked on 2026-10-26 as 0.2.1-rc.2; next rc.3 was not silently installed.",
+    "Permanent deletion uses technical native RPC on disposable fixtures; the final permanent-delete UI button was not clicked.",
+    "Model-history admission still has independent 64 MiB and row limits; metadata success is not arbitrary-large-history model restoration.",
+    "Private host family fixtures and protected owner trust do not prove support for unknown vendor versions.",
+    "Publisher evidence and whole-package hashes are not independent signed provenance."
+  ]
+}

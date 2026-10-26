@@ -110,9 +110,11 @@ export function createSourceProvider(options={}){
     // GitHub search offers only actual regular SKILL.md tree entries; these
     // remain uninspected candidates until acquire pins and checks all blobs.
     try{
-     const params=new URLSearchParams({q:query+' in:name,description,readme',per_page:'3'}),repos=await gh('/search/repositories?'+params);
-     if(!Array.isArray(repos.items))fail('GITHUB_SEARCH_SCHEMA','GitHub repository search has no items array');
      const tokens=query.toLocaleLowerCase().match(/[\p{L}\p{N}_-]+/gu)??[];
+     const phrase=query.replace(/["\\]/g,' ').trim();if(!phrase)fail('INVALID_QUERY','GitHub fallback needs a literal search phrase');
+     for(const scope of ['name','name,description,readme']){
+     const params=new URLSearchParams({q:'"'+phrase+'" in:'+scope,per_page:'3'}),repos=await gh('/search/repositories?'+params);
+     if(!Array.isArray(repos.items))fail('GITHUB_SEARCH_SCHEMA','GitHub repository search has no items array');
      for(const item of repos.items.slice(0,3)){
       active();const repo=item.full_name;
       if(typeof repo!=='string'||!/^[a-z0-9][a-z0-9-]{0,38}\/[a-z0-9_.-]{1,100}$/i.test(repo)){diagnostics.push({code:'UNSUPPORTED_GITHUB_REPOSITORY',source:'github-fallback'});continue;}
@@ -130,6 +132,8 @@ export function createSourceProvider(options={}){
        }
       }catch(cause){diagnostics.push({code:cause.code??'GITHUB_TREE_UNAVAILABLE',source:'github-fallback',message:cause.message});}
       if(results.filter(r=>r.kind==='github').length>=limit)break;
+     }
+     if(results.some(r=>r.kind==='github'))break;
      }
      externalUsed=results.some(r=>r.kind==='github');
     }catch(cause){diagnostics.push({code:cause.code??'GITHUB_SEARCH_UNAVAILABLE',source:'github-fallback',message:cause.message});}

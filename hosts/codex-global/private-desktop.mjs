@@ -6,7 +6,8 @@ import {createHash} from 'node:crypto';
 import {openSync,readSync,closeSync,fstatSync,statSync,lstatSync,realpathSync,readFileSync,writeFileSync,mkdirSync,readdirSync,linkSync,symlinkSync,existsSync,createReadStream,createWriteStream,appendFileSync,copyFileSync,statfsSync,constants} from 'node:fs';
 import {resolve,relative,isAbsolute,dirname,join} from 'node:path';
 import {pipeline} from 'node:stream/promises';
-import {patchMainTransport} from './entry-patch.mjs';
+import {patchMainTransport,INSTALLED_MAIN_SHA256} from './entry-patch.mjs';
+import {patchRendererHostInventory,RENDERER_HOST_POLICIES,VENDOR_HEADER_SHA256} from './renderer-host-policy.mjs';
 import {patchBootstrapOwner,patchEarlyBootstrapOwner,validateOwnerBinding,assertOwnerBootstrapSource,OWNER_BOUNDARY_VERSION,OWNER_WINDOW_IDENTITY} from './bootstrap-owner-patch.mjs';
 const sha=b=>createHash('sha256').update(b).digest('hex');
 const digest=value=>typeof value==='string'&&/^[a-f0-9]{64}$/.test(value);
@@ -101,7 +102,11 @@ export async function buildPrivateDesktop({sourceRoot,targetRoot,expectedPEHash,
   if(archive.headerSha256!==expectedASARHeaderHash)fail('ASAR header hash mismatch');
   const entry=mainEntry(archive.header,mainPath),offset=Number(entry.offset);if(archive.dataOffset+offset+entry.size>archive.size)fail('ASAR main range exceeds archive data bounds');
   const main=exactRead(archive.fd,entry.size,archive.dataOffset+offset);if(sha(main)!==expectedMainHash)fail('Main bundle hash mismatch');
-  const transformed=patchMainTransport(new TextDecoder('utf8',{fatal:true,ignoreBOM:true}).decode(main),{gatewayUrl,expectedHash:expectedMainHash}),bytes=Buffer.from(transformed.source),dataLength=archive.size-archive.dataOffset;let packageMain,bootstrapEntry,earlyEntry,bootstrapSource,earlySource;
+  const transformed=patchMainTransport(new TextDecoder('utf8',{fatal:true,ignoreBOM:true}).decode(main),{gatewayUrl,expectedHash:expectedMainHash}),bytes=Buffer.from(transformed.source),dataLength=archive.size-archive.dataOffset,rendererPatches=[];let packageMain,bootstrapEntry,earlyEntry,bootstrapSource,earlySource;
+  if(expectedASARHeaderHash===VENDOR_HEADER_SHA256||expectedMainHash===INSTALLED_MAIN_SHA256){
+   if(expectedASARHeaderHash!==VENDOR_HEADER_SHA256||expectedMainHash!==INSTALLED_MAIN_SHA256||!bound)fail('Pinned production main, renderer family and owner binding must agree');
+   for(const policy of RENDERER_HOST_POLICIES){const entry=mainEntry(archive.header,policy.path),at=Number(entry.offset);if(archive.dataOffset+at+entry.size>archive.size)fail('Renderer range exceeds archive data bounds');const original=exactRead(archive.fd,entry.size,archive.dataOffset+at),patch=patchRendererHostInventory(new TextDecoder('utf8',{fatal:true,ignoreBOM:true}).decode(original),{asset:policy.id});rendererPatches.push({path:policy.path,entry,bytes:Buffer.from(patch.source),proof:{path:patch.path,inputSha256:patch.inputSha256,outputSha256:patch.outputSha256,policy:patch.policy}});}
+  }
   if(bound){
    const packageEntry=mainEntry(archive.header,'package.json'),packageAt=Number(packageEntry.offset);if(packageEntry.size>128*1024||archive.dataOffset+packageAt+packageEntry.size>archive.size)fail('ASAR package entry exceeds bounded data range');
    let pkg;try{pkg=JSON.parse(new TextDecoder('utf8',{fatal:true}).decode(exactRead(archive.fd,packageEntry.size,archive.dataOffset+packageAt)));}catch{fail('ASAR package JSON must be valid UTF-8');}
@@ -116,7 +121,7 @@ export async function buildPrivateDesktop({sourceRoot,targetRoot,expectedPEHash,
   }
   // All original hashes and fixed source anchors are checked before creating a
   // target or invoking the compiler. Actual prefixes wait for the bridge pin.
-  prepared={bytes,entry,bootstrapEntry,earlyEntry,bootstrapSource,earlySource,packageMain,originalHeader:archive.header,sourcePrefixBytes:archive.dataOffset,dataOffset:archive.dataOffset,dataLength,size:archive.size};
+  prepared={bytes,entry,rendererPatches,transformed,bootstrapEntry,earlyEntry,bootstrapSource,earlySource,packageMain,originalHeader:archive.header,sourcePrefixBytes:archive.dataOffset,dataOffset:archive.dataOffset,dataLength,size:archive.size};
  }finally{closeSync(archive.fd);}
  // Inspect every source directory before sharing it; source redirects and
  // special nodes are refused even if hidden below an unchanged junction share.
@@ -126,7 +131,7 @@ export async function buildPrivateDesktop({sourceRoot,targetRoot,expectedPEHash,
  const maxPrefixBytes=256*1024,plannedCopies=shareStrategy==='copy'?ordinary.reduce((n,p)=>n+statSync(p).size,0):0;
  // Reserve finite upper bounds for added integrity
  // header data and both generated prefixes before the fresh target is created.
- const appendedBudget=prepared.bytes.length+(bound?Buffer.byteLength(prepared.bootstrapSource)+Buffer.byteLength(prepared.earlySource)+2*maxPrefixBytes:0),rebuiltAsarBudget=prepared.sourcePrefixBytes+128*1024+prepared.dataLength+appendedBudget,physicalWriteBudgetBytes=plannedCopies+statSync(pePath).size+rebuiltAsarBudget+1024*1024;
+ const appendedBudget=prepared.bytes.length+prepared.rendererPatches.reduce((n,p)=>n+p.bytes.length,0)+(bound?Buffer.byteLength(prepared.bootstrapSource)+Buffer.byteLength(prepared.earlySource)+2*maxPrefixBytes:0),rebuiltAsarBudget=prepared.sourcePrefixBytes+128*1024+prepared.dataLength+appendedBudget,physicalWriteBudgetBytes=plannedCopies+statSync(pePath).size+rebuiltAsarBudget+1024*1024;
  const disk=statfsSync(dirname(target),{bigint:true}),freeBeforeBytes=Number(disk.bavail*disk.bsize);
  if(!Number.isSafeInteger(physicalWriteBudgetBytes)||physicalWriteBudgetBytes>maxCopiedBytes)fail('Planned private application exceeds the explicit copy budget');
  if(!Number.isSafeInteger(freeBeforeBytes)||freeBeforeBytes-physicalWriteBudgetBytes<minFreeAfterBytes)fail('Insufficient free space after the complete private application budget');
@@ -135,7 +140,7 @@ export async function buildPrivateDesktop({sourceRoot,targetRoot,expectedPEHash,
  if(bound&&process.platform!=='win32')fail('Private Windows owner executable binding requires Windows');
  const shared=[];let copiedBytes=0,copiedFileCount=0;mkdirSync(target);mkdirSync(join(target,'resources'));
  const ownerExecutable=bound?join(target,'ChatGPT.exe'):undefined;
- prepared.appended=[{path:mainPath,entry:prepared.entry,bytes:prepared.bytes}];
+ prepared.appended=[{path:mainPath,entry:prepared.entry,bytes:prepared.bytes},...prepared.rendererPatches];
  if(bound){
   prepared.bootstrap=patchBootstrapOwner(prepared.bootstrapSource,{ownerBinding:bound,ownerExecutable,expectedHash:expectedBootstrapHash});
   prepared.earlyBootstrap=patchEarlyBootstrapOwner(prepared.earlySource,{ownerBinding:bound,ownerExecutable,expectedHash:expectedEarlyBootstrapHash});
@@ -166,5 +171,6 @@ export async function buildPrivateDesktop({sourceRoot,targetRoot,expectedPEHash,
  if(JSON.stringify(stockBefore)!==JSON.stringify(stockAfter))fail('Original stock file hash changed during private build; target remains untrusted');
  for(const name of declaredRuntimeDirectories){const p=join(target,name),st=lstatSync(p);if(st.isSymbolicLink()||!st.isDirectory())fail('Declared runtime directories must be ordinary directories');const entries=readdirSync(p);if(name===declaredRuntimeDirectories[0]?entries.length!==1||entries[0]!=='umdlogs':entries.length!==0)fail('Declared runtime directories must retain only their initial empty layout');}
  const report={format:1,kind:'private-desktop-build-not-launch-acceptance',sourceRoot:source,targetRoot:target,mainPath,gatewayUrl,stockBefore,stockAfter,stockUnchanged:true,sourceHeaderSha256:expectedASARHeaderHash,privateHeaderSha256:prepared.header.headerSha256,privatePESha256:prepared.pe.outputSha256,privateASARSha256:await fileSha(output),mainSha256:sha(prepared.bytes),ownerBindingApplied:!!bound,...(bound?{ownerBinding:bound,ownerBoundaryVersion:OWNER_BOUNDARY_VERSION,windowIdentity:OWNER_WINDOW_IDENTITY,ownerExecutable,packageMain:prepared.packageMain,earlyBootstrapPath,sourceEarlyBootstrapSha256:expectedEarlyBootstrapHash,earlyBootstrapSha256:prepared.earlyBootstrap.outputSha256,bootstrapPath,sourceBootstrapSha256:expectedBootstrapHash,bootstrapSha256:prepared.bootstrap.outputSha256,appUserModelId:prepared.bootstrap.appUserModelId,internalRelaunch:prepared.bootstrap.internalRelaunch}:{}),shared,declaredRuntimeDirectories,shareStrategy,copiedBytes,copiedFileCount,physicalWriteBudgetBytes,freeBeforeBytes,minFreeAfterBytes,maxCopiedBytes,vendorSignatureValid:false,embeddedIntegrity:'preserved-and-rebound',fuses:'chrome.dll-bytes-unchanged',sharedPermissions:'directory-shares-preserve-stock-ACLs-owner-must-protect-entire-private-root-from-actor-writes',uiLaunched:false};
+ report.sourceMainSha256=expectedMainHash;report.rendererHostInventory=prepared.rendererPatches.map(p=>p.proof);report.uncontrolledExecutor=prepared.transformed.uncontrolledExecutor;
  writeFileSync(join(target,'private-build.json'),JSON.stringify(report,null,2),{flag:'wx'});return report;
 }

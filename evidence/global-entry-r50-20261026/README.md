@@ -1,5 +1,7 @@
 # R50 · 当前项目发现、正常只读回复与测试额度边界
 
+历史未发行候选。以下保留 R50 当时的测试范围；其后发现正常聊天管理路由缺陷，不能据此称桌面全部可用。当前交付见 [R56](../global-entry-r56-20261026/README.md)。本目录核验器须在 R50 对应源码提交运行，不能要求后续源码匹配旧清单。
+
 本版修复受控入口“知道项目已选中，却不会自行发现目录和读取文件”的缺口。
 Codex 和 DSH 共用目录分页能力，沿用原来的 15 个工具 schema，兼容旧受控历史。
 DSH 目录读取仍经过原生权限服务；中文目录名使用 ASCII JSON 转义传输。
@@ -61,8 +63,8 @@ DSH 固定在本次已验证的 npm `latest` 0.2.1-rc.2；不擅自切到 `next`
 
 ## 安装与复核
 
-从 [R50 发行页](https://github.com/youchibuwan-ops/agent-workflow-skills/releases/tag/v0.2.0-host-preview.3-r50)
-下载 ZIP，完整解压后运行 `安装DSH.cmd`。随后在自己的 PowerShell 设置自己的
+当前安装包从 [GitHub Releases](https://github.com/youchibuwan-ops/agent-workflow-skills/releases)
+下载 ZIP，完整解压后运行 `安装DSH.cmd`。R50 没有公开发行。随后在自己的 PowerShell 设置自己的
 `DEEPSEEK_API_KEY`，进入实际项目目录，运行受控入口：
 
 ```powershell

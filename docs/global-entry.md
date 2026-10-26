@@ -4,22 +4,22 @@
 
 当前安装包的准确验证状态以随包交付的验证记录为准。纯单测、真实原生调度、真实模型整链和人工界面操作分别记录；不能互相代替。
 
-当前作者本机结果见 [R37 模型设置修复记录](../evidence/global-entry-r37-20261026/README.md) 和 [完整结果](../evidence/global-entry-r37-20261026/summary.json)：实际界面选择6.1 Sol、保存档位，原生真实请求与冷启动同会话重读均确认 `gpt-6.1-sol / xhigh`。先前 Windows 设置、原生目录选择/信任、既有项目添加证据仍见 [R36](../evidence/global-entry-r36-20261026/README.md)，本版冷启动复查 ready 及当前项目访问。两份 Skill 与 DSH 生产执行代码保持 R36 身份，本轮未重跑付费 DSH 模型；历史 Web/SDK 闭环保持 [R32 证据身份](../evidence/global-entry-r32-20261026/README.md)。本机验收不代表下载者已安装或启用；请仍按下面步骤安装、启用并重开终端。
+当前版本及准确验证范围见 [R56 交付记录](../evidence/global-entry-r56-20261026/README.md)：统一分开原生界面管理与模型执行，元数据不再迁移整份大历史，界面能力清单与实际接线一致，未纳管的后台执行器关闭。完整回归、Codex 新会话/冷恢复、DSH 官方模型、实际游戏项目读取和界面操作分别留证；未覆盖项不计通过。本机验收不代表下载者已安装或启用。
 
 ## 给同学安装
 
 1. 完整解压安装 ZIP，双击 `安装DSH.cmd`。Windows x64 首次安装需联网下载固定版本的官方 Node 和 DSH 依赖，无需预装 Codex 或旧包。
-2. 安装成功后，双击 `启用默认DSH.cmd`，然后重新打开终端。脚本只调整用户 PATH、保留原值，不覆盖原来的 DSH；若其他更早的命令仍优先，会明确报告未启用。
-3. 在自己的终端设置自己的 `DEEPSEEK_API_KEY`，进入实际项目，再运行 DSH。不要把真实密钥放进安装包或发给同学。
+2. 使用下面的固定入口启动；如果希望正常终端的 `dsh` 命令也进入受控版本，再单独双击 `启用默认DSH.cmd` 并重开终端。此项会调整用户 PATH，原值保留备份；普通安装不会替换机器人或其他既有客户端的启动入口。
+3. 在自己的终端设置自己的 `DEEPSEEK_API_KEY`，再运行固定入口。不要把真实密钥放进安装包或发给同学。
 4. 打开终端输出的本机网址。在 Web 中添加并选择实际项目目录，核对顶部工作区名称后再提交任务。
 
 ```powershell
 $env:DEEPSEEK_API_KEY = '你自己的密钥'
 cd '你的项目目录'
-dsh web
+& "$env:USERPROFILE\.agent-workflow\global\dsh.cmd" web
 ```
 
-不切换默认命令时，也可直接使用固定入口：
+已选择启用默认命令时，也可运行 `dsh web`。固定入口始终为：
 
 ```powershell
 & "$env:USERPROFILE\.agent-workflow\global\dsh.cmd" web
