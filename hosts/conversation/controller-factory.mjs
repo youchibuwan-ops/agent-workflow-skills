@@ -68,13 +68,14 @@ export function createConversationFactory(options={}){
   // Native resume is published before its first prompt. Only the external owner
   // command may authorize a paused task at this pre-message boundary; actor-like
   // properties or a supplied command string are not substitutes for the grant.
-  const resumeGrant=input.kind==='resume'&&old?.failed?consumeResumeAuthorization({stateRoot:root,workspace,sessionId,expectedTaskId:old.taskId,expectedEnvelopeSha256:envelope.sha256}):null;
-  const externalMessage=input.kind==='resume'&&old?.failed?resumeGrant?.command:input.userMessage;
+  const cleanRetire=input.kind==='resume'&&old?.failed==='Native Agent disposed while idle';
+  const resumeGrant=input.kind==='resume'&&old?.failed&&!cleanRetire?consumeResumeAuthorization({stateRoot:root,workspace,sessionId,expectedTaskId:old.taskId,expectedEnvelopeSha256:envelope.sha256}):null;
+  const externalMessage=input.kind==='resume'&&old?.failed&&!cleanRetire?resumeGrant?.command:input.userMessage;
   const resumed=input.kind==='resume'||(input.kind==='auto'&&!!old&&!old.complete&&!explicitNew);
   if(resumed&&!old)throw Error('No trusted task envelope to restore; refusing actor history as authorization');
   let message=resumed?old.userMessage:externalMessage;
   if(typeof message!=='string'||!message.trim())throw Error('Actual external human task required');
-  if(old?.failed&&!/^\/workflow (?:resume|new)(?:\s|$)/.test(externalMessage??''))throw Error('Paused/failed task requires explicit external /workflow resume or /workflow new');
+  if(old?.failed&&!cleanRetire&&!/^\/workflow (?:resume|new)(?:\s|$)/.test(externalMessage??''))throw Error('Paused/failed task requires explicit external /workflow resume or /workflow new');
   if(/^\/workflow resume(?:\s|$)/.test(message)){if(!old)throw Error('No task to resume');message=old.userMessage;}
   message=message.replace(/^\/workflow new\s+/,'');
   const taskId='conversation-'+randomBytes(12).toString('hex'),taskRoot=privateDirectory(join(tasks,taskId));
@@ -107,7 +108,7 @@ export function createConversationFactory(options={}){
   const sources=createSourceProvider({cacheRoot:acquisition,installedRoots:[...options.installedRoots,managed],external:options.external!==false,...(options.sourceProviderOptions??{})});
   let host,activeMessage=message,readonlyReply=resumed?old?.readonlyReplyIntent===true:readonlyDiagnostic(message),readonlyBoundary=0;
   const retainedPlan=resumed?old?.continuationPlan:null;
-  const persist=()=>store(envelopePath,{version:2,sessionId,workspace,taskId,userMessage:activeMessage,readonlyReplyIntent:readonlyReply,continuationPlan:host?.continuationPlan??null,stage:host?.stage??'discovery',complete:host?.complete??false,failed:host?.exportAudit().failed??null,updatedAt:new Date().toISOString()});
+  const persist=()=>store(envelopePath,{version:2,sessionId,workspace,taskId,userMessage:activeMessage,readonlyReplyIntent:readonlyReply,continuationPlan:host?.continuationPlan??null,reusableDiscovery:host?.exportReusableDiscovery()??null,stage:host?.stage??'discovery',complete:host?.complete??false,failed:host?.exportAudit().failed??null,updatedAt:new Date().toISOString()});
   host=await createWorkflowHost({workspace,stateRoot:taskRoot,taskId,userMessage:message,sourceProvider:sources,workspaceIO:io,sandboxProvider:sandbox,
    protectedPrivateSubroots:true,privateRoots,hardPrivateRoots,worktreeLease,additionalWorkspaces,installedRoot:managed,
    retainedOptions:retainedPlan?.options??[],
@@ -115,11 +116,12 @@ export function createConversationFactory(options={}){
     validators:[{id:'artifact-current',type:'current-text',covers:['artifact-readable']}]},
    onCard:async card=>{persist();if(nativeBinding.onCard)await nativeBinding.onCard(card);if(options.onCard)await options.onCard({...card,sessionId,taskId});}
   });
+  if(resumed&&(!old?.failed||cleanRetire||(['Native Agent disposed','External user paused the task'].includes(old.failed)&&resumeGrant?.authorized))&&old?.reusableDiscovery&&await host.restoreReusableDiscovery(old.reusableDiscovery))restoration.strategy='authenticated-discovery-current-bytes';
   const controller={
    get toolSchemas(){return toolSchemas;},get stage(){return host.stage;},get complete(){return host.complete;},get ready(){return host.ready;},
    get blockedReason(){return host.exportAudit().failed;},
    get readOnlyReplyAllowed(){const audit=host.exportAudit(),events=audit.events.slice(readonlyBoundary);return readonlyReply&&host.ready&&host.stage==='discovery'&&!audit.failed&&events.some(e=>e.event==='observed'&&e.kind==='skill_search')&&events.some(e=>e.event==='workspace_input_delivered')&&!events.some(e=>e.event==='observed'&&e.kind==='application');},
-   get instructions(){return host.instructions+'\nConversation entry: one overall human task spans messages, questions, choice and detail feedback. '+(host.stage==='selection'?(host.selectionPublished?'The supported options are already published; explain or compare those existing options when asked, and wait for actual external choice without generating another menu. ':'Present 3–5 supported options with exact artifacts paths only while a main direction is genuinely unselected; use actual external choice. '):host.continuationPlan?'The main option is already selected; do not ask the same choice again. ':'Continue the current stage; do not present selection options before discovery is complete. ')+'Only selected paths may be written. Ordinary questions/status do not restart research. Current-draft detail feedback retains current source/method and selection evidence while requiring revised-byte validation and actual feedback. Structural validation never verifies the original task. Present the current draft and wait for actual /workflow accept.'+(restoration?'\nCold-restored session: re-verify current source facts once; prior raw read confirmations are not restored. An authenticated earlier human plan choice, if present above, is retained rather than asked again.':'');},
+   get instructions(){return host.instructions+'\nConversation entry: one overall human task spans messages, questions, choice and detail feedback. '+(host.stage==='selection'?(host.selectionPublished?'The supported options are already published; explain or compare those existing options when asked, and wait for actual external choice without generating another menu. ':'Present 3–5 supported options with exact artifacts paths only while a main direction is genuinely unselected; use actual external choice. '):host.continuationPlan?'The main option is already selected; do not ask the same choice again. ':'Continue the current stage; do not present selection options before discovery is complete. ')+'Only selected paths may be written. Ordinary questions/status do not restart research. Current-draft detail feedback retains current source/method and selection evidence while requiring revised-byte validation and actual feedback. Structural validation never verifies the original task. Present the current draft and wait for actual /workflow accept.'+(restoration?(restoration.strategy==='authenticated-discovery-current-bytes'?'\nCold restore: the host rechecked the authenticated prior research against current source bytes; continue the chosen approach.':'\nCold-restored session: re-verify current source facts once; prior raw read confirmations are not restored. An authenticated earlier human plan choice, if present above, is retained rather than asked again.'):'');},
    compactionReady:()=>host.compactionReady(),
    assertReady:()=>host.assertReady(),
    async dispatch(name,args,metadata){try{return await host.dispatch(name,args,metadata);}finally{persist();}},

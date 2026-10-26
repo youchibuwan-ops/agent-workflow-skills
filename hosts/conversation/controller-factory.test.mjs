@@ -155,6 +155,70 @@ async function publishedConversationOptions(t,configure=()=>{}){
  return{...f,factory,controller,call,cards,durable};
 }
 
+for(const mutation of ['none','skill','reference','unavailable'])test(`cold selected task reuses only authenticated research with current bytes: ${mutation}`,async t=>{
+ const f=await publishedConversationOptions(t);await f.controller.acceptUserMessage('/workflow choose A');
+ assert(f.durable().reusableDiscovery,'Only the completed inspected research is signed for reuse');
+ assert.equal((await f.call('workflow_write',{path:'result-A.md',content:'Original selected draft.'})).ok,true);
+ await f.call('workflow_validate',{validator:'artifact-current',artifact:'result-A.md'});
+ if(mutation==='skill')writeFileSync(join(f.options.installedRoots[0],'test-expert','SKILL.md'),'changed method');
+ if(mutation==='reference')f.options.sourceProviderOptions.get=async url=>({status:200,headers:{'content-type':'text/plain'},bytes:Buffer.from('Changed reference '+url)});
+ if(mutation==='unavailable')f.options.sourceProviderOptions.get=async()=>{throw Error('network unavailable');};
+ const c=await createConversationFactory(f.options)({...f.input,kind:'resume',userMessage:undefined});
+ if(mutation==='none'){
+  assert.equal(c.stage,'draft');assert.equal(c.exportAudit().restoration.strategy,'authenticated-discovery-current-bytes');
+  assert.equal((await c.dispatch('workflow_write',{path:'result-B.md',content:'Unselected plan'})).ok,false);
+  assert.equal((await c.dispatch('workflow_write',{path:'result-A.md',content:'Revised selected draft.'})).ok,true);
+  assert.equal((await c.dispatch('workflow_validate',{validator:'artifact-current',artifact:'result-A.md'})).ok,true);
+  assert.equal(c.stage,'feedback');assert.equal(c.complete,false);
+ }else{
+  assert.equal(c.stage,'discovery');assert.equal(c.exportAudit().restoration.strategy,'reverify-current-facts');
+  assert.equal((await c.dispatch('workflow_write',{path:'result-A.md',content:'Must not bypass discovery'})).ok,false);
+ }
+});
+
+test('cold restore cannot reuse pending source receipts and never invents an unchosen option',async t=>{
+ const f=await publishedConversationOptions(t),unselected=await createConversationFactory(f.options)({...f.input,kind:'resume',userMessage:undefined});
+ assert.equal(unselected.stage,'discovery');assert.equal((await unselected.dispatch('workflow_write',{path:'result-A.md',content:'No human choice'})).ok,false);
+ // Reestablish the selected live owner and leave a newly returned challenge unconfirmed.
+ await f.controller.acceptUserMessage('/workflow choose A');const ref=f.controller.exportAudit().events.find(e=>e.event==='source_delivered'&&String(e.source).startsWith('reference:'));
+ const pending=await f.call('workflow_read_source',{source:ref.source,path:ref.path});assert(pending.data.source_receipt);
+ assert.equal(f.durable().reusableDiscovery,null);
+ const c=await createConversationFactory(f.options)({...f.input,kind:'resume',userMessage:undefined});
+ assert.equal(c.stage,'discovery');assert.equal((await c.dispatch('workflow_confirm_sources',{receipts:[pending.data.source_receipt]})).ok,false);
+ assert.equal((await c.dispatch('workflow_write',{path:'result-A.md',content:'No confirmed source'})).ok,false);
+});
+
+test('disposed native task needs an owner grant before revalidating saved research',async t=>{
+ const f=await publishedConversationOptions(t);await f.controller.acceptUserMessage('/workflow choose A');f.controller.abort('Native Agent disposed');
+ assert(f.durable().reusableDiscovery);await assert.rejects(createConversationFactory(f.options)({...f.input,kind:'resume',userMessage:undefined}),/explicit external/);
+ authorizeResume({...f.options,...f.input});const c=await createConversationFactory(f.options)({...f.input,kind:'resume',userMessage:undefined});
+ assert.equal(c.stage,'draft');assert.equal(c.exportAudit().restoration.strategy,'authenticated-discovery-current-bytes');
+ assert.equal((await c.dispatch('workflow_write',{path:'result-B.md',content:'Wrong choice'})).ok,false);
+});
+
+test('clean idle shutdown restores a signed selected task without an extra user command',async t=>{
+ const f=await publishedConversationOptions(t);await f.controller.acceptUserMessage('/workflow choose A');f.controller.abort('Native Agent disposed while idle');
+ const c=await createConversationFactory(f.options)({...f.input,kind:'resume',userMessage:undefined});
+ assert.equal(c.stage,'draft');assert.equal(c.exportAudit().restoration.strategy,'authenticated-discovery-current-bytes');
+ assert.equal((await c.dispatch('workflow_write',{path:'result-B.md',content:'Wrong choice'})).ok,false);
+});
+
+test('an actual user pause remains stopped until its owner grant, then unchanged research can be revalidated',async t=>{
+ const f=await publishedConversationOptions(t);await f.controller.acceptUserMessage('/workflow choose A');await f.controller.acceptUserMessage('/workflow pause');
+ assert.match(f.durable().failed,/External user paused/);assert(f.durable().reusableDiscovery);
+ await assert.rejects(createConversationFactory(f.options)({...f.input,kind:'resume',userMessage:undefined}),/explicit external/);
+ authorizeResume({...f.options,...f.input});const c=await createConversationFactory(f.options)({...f.input,kind:'resume',userMessage:undefined});
+ assert.equal(c.stage,'draft');assert.equal(c.exportAudit().restoration.strategy,'authenticated-discovery-current-bytes');
+ assert.equal((await c.dispatch('workflow_write',{path:'result-B.md',content:'Wrong choice'})).ok,false);
+});
+
+test('restored search records the current candidate list, not the stale original list',async t=>{
+ const f=await publishedConversationOptions(t);await f.controller.acceptUserMessage('/workflow choose A');const prior=f.durable().reusableDiscovery.search.results;
+ const newer=join(f.options.installedRoots[0],'another-expert');mkdirSync(newer);writeFileSync(join(newer,'SKILL.md'),'ordinary task new candidate');writeFileSync(join(newer,'LICENSE'),'MIT fixture');
+ const c=await createConversationFactory(f.options)({...f.input,kind:'resume',userMessage:undefined});assert.equal(c.stage,'draft');
+ const current=f.durable().reusableDiscovery.search.results;assert(current.length>prior.length);assert(current.every(id=>typeof id==='string'));
+});
+
 test('one overall task keeps reviewed methods and selection through questions, choice, drafting and detail feedback',async t=>{
  const f=await publishedConversationOptions(t),initial=f.controller.exportAudit(),seenOptions=f.cards.filter(c=>c.kind==='options').length;
  await f.controller.acceptUserMessage('这几个方案有什么区别？');assert.equal(f.controller.stage,'selection');assert.equal(f.controller.exportAudit().revision,initial.revision);
@@ -163,6 +227,8 @@ test('one overall task keeps reviewed methods and selection through questions, c
  await f.call('workflow_validate',{validator:'artifact-current',artifact:'result-A.md'});assert.equal(f.controller.stage,'feedback');
  await f.controller.acceptUserMessage('为什么要这样安排？');assert.equal(f.controller.stage,'feedback');assert.equal(f.controller.exportAudit().revision,initial.revision);
  await f.controller.acceptUserMessage('保留这个方案，把说明改短一点。');assert.equal(f.controller.stage,'draft');
+ assert.doesNotMatch(f.controller.instructions,/Before reading regular project files, perform an actual workflow_search_skills/,'Retained discovery must not prompt a redundant search');
+ assert.doesNotMatch(f.controller.instructions,/Discovery: search -> open Skill/,'Completed discovery instructions do not need repeating on detail feedback');
  const after=f.controller.exportAudit();assert.equal(after.events.filter(e=>e.event==='source_delivered').length,initial.events.filter(e=>e.event==='source_delivered').length);
  assert.equal((await f.call('workflow_write',{path:'result-B.md',content:'Unselected alternative.'})).ok,false);
  assert.equal((await f.call('workflow_write',{path:'result-A.md',content:'Short revised draft.'})).ok,true);
@@ -199,12 +265,12 @@ test('a new native Agent for this live session retains the chosen plan instead o
  assert.equal((await resumed.dispatch('workflow_write',{path:'result-B.md',content:'Wrong option.'})).ok,false);
 });
 
-test('cold restoration re-verifies facts but retains the actual previous human plan choice',async t=>{
+test('cold restoration rechecks actual facts and retains the human choice without a new menu',async t=>{
  const f=await publishedConversationOptions(t);await f.controller.acceptUserMessage('/workflow choose A');
  const restored=await createConversationFactory(f.options)({...f.input,kind:'resume',userMessage:undefined});
- assert.equal(restored.stage,'discovery');assert.equal((await restored.dispatch('workflow_status')).data.selection.selected,'A');
+ assert.equal(restored.stage,'draft');assert.equal((await restored.dispatch('workflow_status')).data.selection.selected,'A');
  assert.match(restored.instructions,/already selected|selection is retained|已选/i);
- assert.equal((await restored.dispatch('workflow_write',{path:'result-A.md',content:'No source re-verification yet.'})).ok,false);
+ assert.equal((await restored.dispatch('workflow_write',{path:'result-B.md',content:'Unselected plan.'})).ok,false);
 });
 
 test('generic GUI continuations with LF CRLF and outer whitespace select exactly one plan and preserve raw audits',async t=>{

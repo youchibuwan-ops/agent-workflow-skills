@@ -147,7 +147,12 @@ export function installSessionBroker(host,{controllerFactory,toolSchemas,isInsta
   });
   host.on('agent/disposed',({agent})=>{
     const state=states.get(agent),record=state?.record;if(!state)return;
-    if(record&&!record.retired){record.retired=true;if(!record.controller.complete)record.controller.abort('Native Agent disposed');}
+    if(record&&!record.retired){record.retired=true;if(!record.controller.complete){
+      // A clean idle shutdown is a lifecycle boundary, not an external pause.
+      // Cancelled/active/failed turns keep the original explicit-resume rule.
+      const clean=agent.status==='idle'&&!state.nativeTermination&&!state.failed&&!state.pending.length;
+      record.controller.abort(clean?'Native Agent disposed while idle':'Native Agent disposed');
+    }}
     if(liveSessions.get(agent.session)===state)liveSessions.delete(agent.session);
   });
   host.on('agent/inbox/claimed',({agent,message})=>{

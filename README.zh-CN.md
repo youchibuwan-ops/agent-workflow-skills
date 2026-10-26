@@ -2,7 +2,7 @@
 
 [English](README.md)
 
-[R66 模型目录与原生 Ultra 修复记录](evidence/global-entry-r66-20261027/README.md)：受控 Codex 启动时刷新账号实际可用型号，保留原生 Ultra 委派，并兼容既有对话的工具声明。原版 Codex 的过期目录覆盖移除后仍需退出重开；DSH 安装包不包含私有 Codex 桌面。
+[R73 冷恢复与 token 对照](evidence/global-entry-r73-20261027/README.md)：宿主核对已签名研究和当前字节，材料未变时复用研究及用户选择；来源变化、未确认或无法核对时仍阻断，并保留实际模型 token 对照和范围。此前的 [R66 模型目录与 Ultra 修复](evidence/global-entry-r66-20261027/README.md)仍是受控 Codex 桌面的版本。
 
 本仓库维护 **proactive-skill-discovery** 及 **DeepSeek Harness（DSH）版**。默认当前能力尚不能满足任务目标，从任务开始
 主动寻找专业 Skill、多份相关资料和成熟实例，整理方案让用户先选，再制作初稿、根据

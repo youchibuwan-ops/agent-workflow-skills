@@ -1,0 +1,104 @@
+{
+  "format": 1,
+  "release": "20261027-r73",
+  "sourceManifestSha256": "562446b7c535d651a07fb70e509e75a51a5a7d3ca596a0003eb0e5fb21d3ebdf",
+  "modelTest": {
+    "baselineRelease": "20261027-r62",
+    "optimizedRelease": "20261027-r71",
+    "provider": "deepseek-official",
+    "model": "deepseek-flash",
+    "nativeSessionResumed": true,
+    "actualIdleShutdownVerified": true,
+    "priorResearch": "test-driver-confirmed-fixture",
+    "priorNativeModelHistory": "empty",
+    "baseline": {
+      "variant": "baseline",
+      "status": "pass",
+      "maxTokensPerTestReply": 100000,
+      "baselineAskedAgain": true,
+      "nativeStage": "feedback",
+      "skillSearches": 1,
+      "sourceReads": 12,
+      "modelRequests": 28,
+      "usage": {
+        "inputTokens": 60655,
+        "cacheReadTokens": 937088,
+        "cacheWriteTokens": 0,
+        "outputTokens": 15623,
+        "totalTokens": 1013366,
+        "inputContextTokens": 997743
+      },
+      "inputContextTokens": 997743,
+      "artifactSha256": "ea7ce973fbd9aae7a2a2cf828b6412463524152b012cba7af0e1db622b6a240f",
+      "inputUnchanged": true
+    },
+    "optimized": {
+      "variant": "optimized",
+      "status": "pass",
+      "maxTokensPerTestReply": 100000,
+      "nativeStage": "feedback",
+      "skillSearches": 0,
+      "sourceReads": 0,
+      "modelRequests": 6,
+      "usage": {
+        "inputTokens": 7310,
+        "cacheReadTokens": 29056,
+        "cacheWriteTokens": 0,
+        "outputTokens": 1067,
+        "totalTokens": 37433,
+        "inputContextTokens": 36366
+      },
+      "inputContextTokens": 36366,
+      "artifactSha256": "ae15e0d6feb39879b211db8d4d3a723512b20eb4f24987c62fe205aee0b5ecae",
+      "inputUnchanged": true
+    },
+    "inputContextReductionPercent": 96.36
+  },
+  "finalReleaseDeltaFromModelTest": [
+    "hosts/conversation/controller-factory.mjs",
+    "hosts/conversation/controller-factory.test.mjs",
+    "skills/proactive-skill-discovery-dsh/references/stage-checks.md",
+    "skills/proactive-skill-discovery/references/stage-checks.md"
+  ],
+  "scope": "One isolated cold-continuation example; input includes cached tokens; not a general bill reduction",
+  "regression": {
+    "focused": {
+      "tests": 169,
+      "pass": 168,
+      "skipped": 1,
+      "fail": 0
+    },
+    "nativeSdk": {
+      "tests": 5,
+      "pass": 5,
+      "fail": 0
+    },
+    "package": {
+      "tests": 6,
+      "pass": 6,
+      "fail": 0
+    },
+    "dshSkill": {
+      "tests": 5,
+      "pass": 5,
+      "fail": 0
+    }
+  },
+  "installedDryRun": {
+    "status": "dry-run-pass",
+    "providerCalls": 0,
+    "sourceUnchanged": true,
+    "modelCalled": false
+  },
+  "installedDsh": {
+    "status": "pass",
+    "release": "20261027-r73",
+    "runningServiceRestarted": false
+  },
+  "limitations": [
+    "Older sessions without a signed research snapshot fall back to fresh discovery",
+    "Automatic reuse currently covers one adopted Skill and at least two current unchanged HTTPS text references",
+    "Cold acceptance of an old draft was not tested",
+    "User pause or cancellation requires the existing external resume authorization"
+  ]
+}
