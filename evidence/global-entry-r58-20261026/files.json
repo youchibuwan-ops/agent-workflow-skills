@@ -1,0 +1,34 @@
+{
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 1977,
+      "sha256": "0b9385c2344028a9d012dcbade9c389a431588770c91542c04622d72b0bb409b"
+    },
+    {
+      "path": "release.json",
+      "bytes": 248,
+      "sha256": "743951f00e69367d2bd042aec58fb3f1e0ed5f585ce3cbde91c16cf0b6723103"
+    },
+    {
+      "path": "runtime-equivalence.json",
+      "bytes": 497,
+      "sha256": "2475aa17be99496dce03025fd22b72153bb825a6b9ca88210153cca34431fddd"
+    },
+    {
+      "path": "source-manifest.json",
+      "bytes": 26078,
+      "sha256": "08714e1d318f55e5261313342054bbe605db76e9a05700fd8bf1921225ac2fb9"
+    },
+    {
+      "path": "summary.json",
+      "bytes": 2066,
+      "sha256": "618f6e9449bc0475c2c57e4f4cc41582bacd995fe50d383fe885d4d12fd23b4f"
+    },
+    {
+      "path": "verify-evidence.mjs",
+      "bytes": 2971,
+      "sha256": "90a3bf849e956e1f9870e5ac6e8861619f88c4c30a98fa82ee61bedc9c3a1175"
+    }
+  ]
+}

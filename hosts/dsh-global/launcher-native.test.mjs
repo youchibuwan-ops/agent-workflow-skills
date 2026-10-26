@@ -33,10 +33,10 @@ async function fixture(template){
   return {root,workspace,home,privateRoot,profile,config,env,journal,originals,events:[],async launch(appArgs=[]){const run=await spawnGuardedDsh({config,profile,appArgs,workspace,verifyInstallation,environment:env,stdio:['pipe','pipe','pipe'],onEvent:event=>this.events.push(event)});let stdout='',stderr='';run.child.stdout.on('data',bytes=>stdout+=bytes);run.child.stderr.on('data',bytes=>stderr+=bytes);run.child.once('close',()=>{writeFileSync(join(run.prepared.runRoot,'native-stdout.txt'),stdout);writeFileSync(join(run.prepared.runRoot,'native-stderr.txt'),stderr);});return {...run,output:()=>({stdout,stderr})};},assertPreserved(){for(const item of originals)assert(readFileSync(item.path).equals(item.bytes),`Existing profile changed: ${item.path}`);assert.equal(existsSync(join(workspace,'must-not-exist.txt')),false);assert.equal(readFileSync(join(workspace,'ordinary-input.txt'),'utf8'),'\ufeffordinary project input\r\n');}};
 }
 
-function rpcClient(child){
+function rpcClient(child,{requestTimeoutMs=15000}={}){
   let nextId=1,buffer='';const pending=new Map(),notifications=[];
   child.stdout.on('data',bytes=>{buffer+=bytes.toString('utf8');let end;while((end=buffer.indexOf('\n'))>=0){const line=buffer.slice(0,end);buffer=buffer.slice(end+1);if(!line.trim())continue;const message=JSON.parse(line);if(message.id!==undefined&&pending.has(message.id)){const entry=pending.get(message.id);pending.delete(message.id);clearTimeout(entry.timer);message.error?entry.reject(Error(JSON.stringify(message.error))):entry.resolve(message.result);}else notifications.push(message);}});
-  return {notifications,request(method,params){const id=nextId++;return new Promise((resolve,reject)=>{const timer=setTimeout(()=>{pending.delete(id);reject(Error('Native RPC timed out: '+method));},15000);pending.set(id,{resolve,reject,timer});child.stdin.write(JSON.stringify({jsonrpc:'2.0',id,method,params})+'\n');});}};
+  return {notifications,request(method,params){const id=nextId++;return new Promise((resolve,reject)=>{const timer=setTimeout(()=>{pending.delete(id);reject(Error('Native RPC timed out: '+method));},requestTimeoutMs);pending.set(id,{resolve,reject,timer});child.stdin.write(JSON.stringify({jsonrpc:'2.0',id,method,params})+'\n');});}};
 }
 
 for(const mode of ['workspace-write','read-only'])test(`real DSH Windows PS5.1 ${mode} native sandbox lists and reads with an ordinary terminal PATH`,{skip:!runtimeRoot||process.platform!=='win32',timeout:90000},async()=>{
@@ -49,7 +49,9 @@ for(const mode of ['workspace-write','read-only'])test(`real DSH Windows PS5.1 $
  assert.notEqual(changed,original);assert(changed.includes('if(step>=6)'));writeFileSync(provider,changed);
  const overlay=f.config.overlays[0];writeFileSync(overlay,readFileSync(overlay,'utf8')+`\n- id: pwsh-sandbox\n  config:\n    pwshPath: ${JSON.stringify(shell)}\n- id: sandbox-policy\n  config:\n    mode: ${mode}\n`);
  f.env.PATH=[join(process.env.SystemRoot??'C:/Windows','System32'),process.env.SystemRoot??'C:/Windows'].join(';');delete f.env.PSModulePath;
- const run=await f.launch(),rpc=rpcClient(run.child);
+ // The shared Windows CI runner can take over 15s to cold-start PS5 and its
+ // signed modules. This is a test RPC deadline, not a runtime/model budget.
+ const run=await f.launch(),rpc=rpcClient(run.child,{requestTimeoutMs:60000});
  try{
   await rpc.request('initialize',{cwd:f.workspace,provider:'launcher-script',model:'no-network'});
   await rpc.request('session/prompt',{sessionId:'legacy-powershell',contentBlocks:[{type:'text',text:'List the current project and read ordinary-input.txt without changing files.'}]});

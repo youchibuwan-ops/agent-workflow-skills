@@ -1,0 +1,11 @@
+{
+  "status": "pass",
+  "priorManifest": "68451f84a15a1b2ba84ed0edc4fc34e62ee301fc2d9f8a9e5670c439971efee1",
+  "currentManifest": "08714e1d318f55e5261313342054bbe605db76e9a05700fd8bf1921225ac2fb9",
+  "changedFiles": [
+    "hosts/dsh-global/launcher-native.test.mjs"
+  ],
+  "allRuntimeAndSkillBytesIdentical": true,
+  "previousActualWebEvidence": "global-entry-r57-20261026/web-project.json",
+  "scope": "No fresh R58 paid-model/GUI claim; exact runtime bytes and permission route are unchanged."
+}

@@ -1,0 +1,72 @@
+{
+  "status": "pass",
+  "sourceManifestSha256": "08714e1d318f55e5261313342054bbe605db76e9a05700fd8bf1921225ac2fb9",
+  "sourceFiles": 148,
+  "totalPass": 579,
+  "totalFail": 0,
+  "totalSkip": 0,
+  "suites": [
+    {
+      "scope": "global",
+      "status": "pass",
+      "counts": {
+        "tests": 514,
+        "pass": 514,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0
+      },
+      "sourceUnchanged": true,
+      "logSha256": "aef8e10d4c8a616155cd2e10b6015727c37da6c7b2f014faba7a842a11faa3a0"
+    },
+    {
+      "scope": "package",
+      "status": "pass",
+      "counts": {
+        "tests": 34,
+        "pass": 34,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0
+      },
+      "sourceUnchanged": true,
+      "logSha256": "ebe8105cb092be306db8fc26e041c729207a9355862771f4fb2c03bcda9b9017"
+    },
+    {
+      "scope": "codex-policy",
+      "status": "pass",
+      "counts": {
+        "tests": 31,
+        "pass": 31,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0
+      },
+      "sourceUnchanged": true,
+      "logSha256": "7f7f2c47c7a0bf7f02e4c4c761b52190e69da7d8190c3dd75085bd86f1fb1099"
+    }
+  ],
+  "retainedR57InitialCi": {
+    "url": "https://github.com/youchibuwan-ops/agent-workflow-skills/actions/runs/40353058497",
+    "head": "8c9387d6d29e83d05911a4f9862212983b8475c2",
+    "conclusion": "failure",
+    "failedJobs": [
+      "links",
+      "global-hosts (windows-latest)"
+    ],
+    "diagnoses": [
+      "Test-only 15s RPC timeout on Windows PS5 cold start; now 60s for those cases only",
+      "Release link before publication and third-party image HTTP/2 error"
+    ]
+  },
+  "modelEvidence": {
+    "source": "../global-entry-r57-20261026/web-project.json",
+    "freshR58ModelRun": false,
+    "required": "Exact runtime equivalence except a test file; independently recomputed by verifier"
+  },
+  "localService": {
+    "version": "R57",
+    "restartedForTestOnlyChange": false
+  },
+  "scope": "Complete current author checks; CI and public-download verification recorded separately at release time"
+}
