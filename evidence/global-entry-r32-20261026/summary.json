@@ -1,0 +1,207 @@
+{
+  "format": 1,
+  "release": "20261026-preview3-r32",
+  "checkedAt": "2026-10-26T02:07:51.537Z",
+  "sourceManifestSha256": "b4780e84c1749013f4ce25dbfd4d83eaf21590456f40d2e24d22dca20bb3c6e3",
+  "behavioralSourceManifestSha256": "7fd4745e6cf459b31091d1896362792eac8235288a23ed42ec767bb5e3956370",
+  "payloadFiles": 132,
+  "sourceDelta": [
+    "hosts/core/workflow-host.test.mjs",
+    "skills/proactive-skill-discovery-dsh/references/stage-checks.md",
+    "skills/proactive-skill-discovery/references/stage-checks.md"
+  ],
+  "executableRuntimeByteIdentical": true,
+  "tests": {
+    "global": {
+      "status": "failed",
+      "tests": 426,
+      "pass": 425,
+      "fail": 1,
+      "cancelled": 0,
+      "skipped": 0,
+      "sourceUnchanged": true,
+      "originalReportSha256": "48186aa5037c75382b1c0e6c40b73294b2f030998f84acdfea11c60101e9902a"
+    },
+    "package": {
+      "status": "pass",
+      "tests": 34,
+      "pass": 34,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "sourceUnchanged": true,
+      "originalReportSha256": "b1fa9f9f653d753a4a065d25f74113fd01b63f89f3df3ed85d19eec4b976a839"
+    },
+    "codex-policy": {
+      "status": "pass",
+      "tests": 31,
+      "pass": 31,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "sourceUnchanged": true,
+      "originalReportSha256": "2880fe20f57e788e7a8452f84749669c227bce6982b62f88c1f29b5491381162"
+    }
+  },
+  "networkRetry": {
+    "status": "pass",
+    "checkedAt": "2026-10-26T02:07:51.470Z",
+    "tests": 1,
+    "pass": 1,
+    "fail": 0,
+    "skipped": 0,
+    "sourceUnchanged": true,
+    "sourceManifestSha256": "b4780e84c1749013f4ce25dbfd4d83eaf21590456f40d2e24d22dca20bb3c6e3",
+    "externalCommit": "a80e4c9d12d607631249d4d7d059f835d4b2f13a",
+    "references": [
+      {
+        "url": "https://nodejs.org/dist/v24.22.1/SHASUMS256.txt",
+        "bytes": 3171,
+        "sha256": "fdfbffc969c0f604beff0124d409b33a43b53f5c681d6220f80023e0d6df9dc4",
+        "status": "text",
+        "truncated": false,
+        "readConfirmed": false
+      },
+      {
+        "url": "https://www.iana.org/assignments/iana-ipv4-special-registry",
+        "bytes": 39095,
+        "sha256": "11209c51235a0238c1002efa22e31ad1f174c4e9e9de46e5693dae194bfa043c",
+        "status": "text",
+        "truncated": false,
+        "readConfirmed": false
+      }
+    ],
+    "modelCalled": false,
+    "originalGlobalFailurePreserved": true,
+    "originalGlobalLogSha256": "fe7d32ec7f110ed91bcc70d4032273aa1c6af8a436107367acd618c6d4903952",
+    "retryLogSha256": "56d79c1103ba7014ac20ef1ef3374ca4ca4075a92609f72767bcc23279b14722",
+    "reason": "The same production provider independently observed GitHub anonymous core rate limit exhausted (60/60); original integration test rerun once after its reset, without token injection or code changes."
+  },
+  "installation": {
+    "postflight": {
+      "status": "pass",
+      "checkedAt": "2026-10-26T02:06:36.469Z",
+      "sourceManifestSha256": "b4780e84c1749013f4ce25dbfd4d83eaf21590456f40d2e24d22dca20bb3c6e3",
+      "fullPayloadFiles": 132,
+      "allManifestExtensionsCovered": true,
+      "hosts": [
+        {
+          "host": "codex",
+          "ownerConfigSha256": "9cd14058776c4f9562698b1b979ef39f2c4c873895aa99e3a15751f3bdb4a125",
+          "sourceAndSealedRuntimeVerified": true
+        },
+        {
+          "host": "dsh",
+          "ownerConfigSha256": "14456d27f0fcbf6f85870050ecf0312ae546f5133aef3fd6b67553e1a7a43a27",
+          "sourceAndSealedRuntimeVerified": true
+        }
+      ],
+      "observed": {
+        "nativeLauncher": "3ef2230435398f3386968fc2b500413d8d6e239c42717e71dd79be1d941cf11a",
+        "codexWrapper": "09ecfefbafd0d300af31da993c3ebd87efa65cb714a455917c247a2f620bac1d",
+        "dshWrapper": "0663fd8c773651aff5175932f1024f959d935ea9b0bcefae34f8088d12581c8e",
+        "defaultDsh": "0663fd8c773651aff5175932f1024f959d935ea9b0bcefae34f8088d12581c8e",
+        "dshAlias": "e4790b748fedb20296aa2da6b97efef3ba116c6ebe896fad461931089d4bc6ea",
+        "desktopLink": "3df4d714280c7eead03ffce99720459647db750a04baf6d750932521106a4b68",
+        "startMenuLink": "3a9cb3be14707b5760a6c048a5d725ef5157552bbf74c0eca294f695d0cccf5a"
+      },
+      "scope": "Author local installed-source and dependency postflight; no signed third-party provenance claim"
+    },
+    "defaultResolution": {
+      "status": "pass",
+      "environmentSource": "expanded registry Machine plus User PATH; no forced prepend",
+      "persistentPathChanged": false,
+      "inheritedOldTerminalsNotClaimed": true
+    },
+    "coldStart": {
+      "status": "pass",
+      "checkedAt": "2026-10-26T02:06:58.541Z",
+      "sourceManifestSha256": "b4780e84c1749013f4ce25dbfd4d83eaf21590456f40d2e24d22dca20bb3c6e3",
+      "codex": {
+        "entry": "actual Desktop Codex-Controlled.lnk",
+        "windowId": 5576304,
+        "historyOpened": "delivery-r31.md completed conversation",
+        "completionVisible": true,
+        "normalExit": {
+          "format": 1,
+          "status": "completed",
+          "phase": "node-process",
+          "startedAtUtc": "2026-10-26T02:04:36.1793988Z",
+          "finishedAtUtc": "2026-10-26T02:06:37.1716811Z",
+          "childStarted": true,
+          "processAppIdVerified": true,
+          "appUserModelId": "AgentWorkflow.Codex.Guarded",
+          "exitCode": 0,
+          "stdoutChars": 129,
+          "stderrChars": 0,
+          "streamBodiesRetained": false
+        },
+        "stockWindow200428Preserved": true
+      },
+      "web": {
+        "entry": "fresh-registry default dsh web",
+        "loopbackPort": 50635,
+        "historyOpened": "Workflow-Web-20261026-r31 completed existing-file conversation",
+        "completionAndExactArtifactHashVisible": true
+      },
+      "screenshots": {
+        "codex-cold.jpg": "bae31aa6cd42e3b145b12020498e779f0050d3fccb45d1ce1e7521d0ae2bd239",
+        "web-cold.jpg": "1685e7703704f6ba5fd4a7857644528100bb713cef4a01f57927aeca172ce5f0"
+      },
+      "personalSkills": {
+        "codexFiles": 10,
+        "dshFiles": 10,
+        "exactFrozenReadback": true,
+        "changedFilesEach": [
+          "references/stage-checks.md"
+        ],
+        "backupsRetained": true
+      },
+      "paidModelReplayed": false,
+      "scope": "Author-observed actual final-entry startup and history rendering; not a new paid-model acceptance or a replay of previous receipts"
+    }
+  },
+  "personalSkills": {
+    "filesEach": 10,
+    "exactReadback": true,
+    "changed": [
+      "references/stage-checks.md"
+    ],
+    "backupsRetained": true
+  },
+  "actual": {
+    "codex": {
+      "model": "gpt-6-astra",
+      "turns": 5,
+      "tools": 59,
+      "rejected": 9,
+      "writes": 2
+    },
+    "web": {
+      "model": "DeepSeek-V4.1-Flash",
+      "turns": 5,
+      "tools": 88,
+      "rejected": 16,
+      "writes": 2
+    },
+    "sdk": {
+      "providerRequests": 21,
+      "turns": 3,
+      "replyLimit": 100000,
+      "firstDraftPassed": true
+    }
+  },
+  "scope": {
+    "authorDriven": true,
+    "humanEditorialApproval": false,
+    "stockChatsRetroactivelyGuarded": false,
+    "runtimeSkillMaintenanceDefault": "no-increment-only unless a trusted behavior validator is configured",
+    "installer": "DSH Windows x64; no private Codex vendor app or credentials"
+  },
+  "uncovered": [
+    "Stock Codex/root chat and DeepSeek website are outside the controlled entry.",
+    "Unsupported binary/visual inspection and SDK-minimal PTY remain refused.",
+    "WSL native Python E_ACCESSDENIED is retained as an unsupported boundary.",
+    "No general semantic, visual-quality, universal filesystem atomicity or third-party signature guarantee."
+  ]
+}

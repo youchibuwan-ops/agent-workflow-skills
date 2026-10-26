@@ -1,0 +1,10 @@
+# 小型技术交流会 / Small Technical Exchange
+
+欢迎参加本次小型技术交流会。请于 2026 年 11 月 5 日前通过 test@example.invalid 报名。
+
+Join us for a small technical exchange. Please register by 5 November 2026 at test@example.invalid.
+
+- **时间 / Time:** 2026 年 11 月 8 日 14:30 / 8 November 2026, 14:30
+- **地点 / Venue:** 松林会议室 / Songlin Meeting Room
+- **报名截止 / Registration deadline:** 2026 年 11 月 5 日 / 5 November 2026
+- **联系邮箱 / Contact email:** test@example.invalid

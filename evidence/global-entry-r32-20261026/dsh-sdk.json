@@ -1,0 +1,86 @@
+{
+  "status": "pass",
+  "sourceManifestSha256": "7fd4745e6cf459b31091d1896362792eac8235288a23ed42ec767bb5e3956370",
+  "providerRequests": 21,
+  "usage": {
+    "inputTokens": 45146,
+    "cacheReadTokens": 671616,
+    "cacheWriteTokens": 0,
+    "outputTokens": 11570,
+    "totalTokens": 728332,
+    "inputContextTokens": 716762
+  },
+  "maxTokensBound": 100000,
+  "nativeTurns": 3,
+  "stages": [
+    "scope",
+    "discovery",
+    "selection",
+    "draft",
+    "feedback",
+    "delivery",
+    "learning"
+  ],
+  "finalRevision": 1,
+  "complete": true,
+  "sourceUnchanged": true,
+  "artifact": {
+    "path": "announcement.md",
+    "bytes": 551,
+    "sha256": "25ba3e1dd22fc3781b93e7e976d5b7b5707587d448fc2b85a702d501de364629",
+    "crlf": 10,
+    "lf": 0,
+    "bom": false
+  },
+  "firstDraftPassed": true,
+  "feedbackCorrectionRequired": false,
+  "uncovered": [
+    "No human editorial approval",
+    "No automatically updated runtime Skill",
+    "Structural artifact validation does not prove general semantic correctness"
+  ],
+  "manualEditorialFinding": "Bounded original event facts, dates, email and venue independently read and preserved. English Songlin Meeting Room is a transliteration of 松林会议室. This synthetic probe is not general editorial-quality or human acceptance.",
+  "writeEvidence": {
+    "callId": "call_00_rPTb3wuBulUPIq5fik8B1948",
+    "eventSeq": 148,
+    "turn": 2,
+    "outcome": "successful",
+    "resultSeq": 153,
+    "newline": "CRLF",
+    "normalizationRequested": true,
+    "arguments": {
+      "length": 541,
+      "sha256": "40006d0b8ad4b91548d7336200f01a988ed10bc95a3ad113e5b1eb5ae5dcebe4",
+      "bom": false,
+      "crlf": 0,
+      "lf": 10,
+      "bareCR": 0,
+      "literalCRLF": 0
+    },
+    "declaredOutput": {
+      "length": 551,
+      "sha256": "25ba3e1dd22fc3781b93e7e976d5b7b5707587d448fc2b85a702d501de364629",
+      "bom": false,
+      "crlf": 10,
+      "lf": 0,
+      "bareCR": 0,
+      "literalCRLF": 0
+    },
+    "actualOutput": {
+      "length": 551,
+      "sha256": "25ba3e1dd22fc3781b93e7e976d5b7b5707587d448fc2b85a702d501de364629",
+      "bom": false,
+      "crlf": 10,
+      "lf": 0,
+      "bareCR": 0,
+      "literalCRLF": 0
+    },
+    "matchesRawActual": false,
+    "matchesDeclaredOutput": true,
+    "reportedNormalization": {
+      "newline": "CRLF",
+      "raw_input_sha256": "40006d0b8ad4b91548d7336200f01a988ed10bc95a3ad113e5b1eb5ae5dcebe4",
+      "output_sha256": "25ba3e1dd22fc3781b93e7e976d5b7b5707587d448fc2b85a702d501de364629"
+    }
+  }
+}

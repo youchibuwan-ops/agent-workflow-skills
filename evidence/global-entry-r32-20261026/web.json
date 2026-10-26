@@ -1,0 +1,49 @@
+{
+  "status": "complete-actual-default-dsh-web-workflow",
+  "checkedAt": "2026-10-26T02:03:25.622Z",
+  "sourceManifestSha256": "7fd4745e6cf459b31091d1896362792eac8235288a23ed42ec767bb5e3956370",
+  "nativeSession": "session-09f0e505-4943-42a2-931f-e0817b322c16",
+  "task": "conversation-1ed213a4a623175aeeb1eb53",
+  "revision": 2,
+  "stage": "complete",
+  "nativeTurns": 5,
+  "toolCalls": 88,
+  "rejectedCalls": 16,
+  "successfulWrites": 2,
+  "onlySelectedOutput": true,
+  "independentlyExpectedBytesMatch": true,
+  "preexistingInput": {
+    "bytes": 262,
+    "sha256": "fee0898fa2942f84e516ab03f019617c66df319f9f4cc60e3d30fc0231efadbb"
+  },
+  "artifact": {
+    "path": "web-notice.md",
+    "bytes": 262,
+    "sha256": "5bd069c891ff98db8f64c2dd78467e05deb43b08374bed48d8741f3447d42a2e"
+  },
+  "providerMaxTokens": [
+    100000
+  ],
+  "humanApproval": false,
+  "scope": "Author-driven actual browser UI using default fresh-environment DSH entry; not third-party reproduction or stock DeepSeek website",
+  "orderedStages": [
+    "scope",
+    "discovery",
+    "selection",
+    "draft",
+    "feedback",
+    "delivery",
+    "learning"
+  ],
+  "learning": {
+    "decision": "no_increment",
+    "evidence": [
+      "User accepted the validated draft via /workflow accept",
+      "web-notice.md: 262 bytes, SHA-256 5bd069c891ff98db8f64c2dd78467e05deb43b08374bed48d8741f3447d42a2e; write raw_input_sha256 == output_sha256",
+      "Readback shows only 19:00–20:00 → 19:30–20:30 in both sections; 图书馆C室 and Library Room C preserved",
+      "artifact-current structural validation passed; RFC 3629 and Unicode Normalization FAQ guided byte-preserving, non-normalizing replacement"
+    ],
+    "reason": "The amended edit reused the installed writing-shape minimal in-place edit discipline and the two authoritative references; it required no new or corrected method. A literal same-length replacement of the four minute digits, verified by identical 262-byte size and hash-consistent write, does not justify a skill increment."
+  },
+  "externalDriverAcceptance": true
+}

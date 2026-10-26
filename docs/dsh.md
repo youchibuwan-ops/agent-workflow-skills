@@ -86,7 +86,7 @@ DeepSeek 模型**。接入方式和真实 Codex 模型测试见[阶段检查报�
 以及项目安装、个人安装和拒绝覆盖。具体内容见[宿主适配](../skills/proactive-skill-discovery-dsh/references/dsh-host.md)。
 
 这些加载测试不是 DeepSeek 模型任务质量或你机器环境的验收。搜索凭证、联网、视觉与终端能力
-依实际 DSH 配置而定。另见 [R30 实测](../evidence/global-entry-r30-20261026/README.md)：受控 SDK 真实模型及实际 Web 已通过指定文本任务闭环，Web 还验证了已有文件连续两回合修改；这不代表任意领域质量或其他客户端已验收。
+依实际 DSH 配置而定。另见 [R32 交付记录](../evidence/global-entry-r32-20261026/README.md)：受控 SDK 真实模型及实际 Web 已通过指定文本任务闭环，Web 还验证了已有文件连续两回合修改；这不代表任意领域质量或其他客户端已验收。
 参考[官方 Skill 文档](https://github.com/deepseek-ai/deepseek-harness/blob/22ddee3792402c3e70ec5f86a63c3e3e895a2f60/docs/subsystems/skills.md)。
 
 ## 维护者复验

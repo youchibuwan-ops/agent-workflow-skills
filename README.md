@@ -26,7 +26,7 @@ native launcher, ordinary conversation controller, full installed-dependency
 verification and an opt-in user PATH alias. Read its current acceptance record;
 installing the Skill alone still does not activate this host integration.
 
-The [R30 author acceptance record](evidence/global-entry-r30-20261026/README.md) covers actual Codex desktop and DSH Web selection/feedback workflows, plus a separate paid DSH SDK probe. Local regression passed 426/426, packaging 33/33 and Codex policy 31/31 with zero skips. Source, installed dependencies, exact artifacts and native entries are checked separately. Download from [GitHub Releases](https://github.com/youchibuwan-ops/agent-workflow-skills/releases); copying a Skill alone remains `instruction_only`.
+The [R32 delivery record](evidence/global-entry-r32-20261026/README.md) preserves actual Codex desktop, DSH Web and paid SDK traces under their original source identity, plus final installation and cold-start checks. Packaging passed 34/34 and Codex policy 31/31. Of 426 global cases, one external request initially returned 403; the unchanged case passed after its observed rate-limit reset. All nine Windows/Linux CI jobs passed. Download the [preview.3 installer](https://github.com/youchibuwan-ops/agent-workflow-skills/releases/tag/v0.2.0-host-preview.3); copying a Skill alone remains `instruction_only`.
 
 **2026-10-25: the SVG Skill has been withdrawn.**
 `crafting-reference-based-svg-assets` is removed from the current installable

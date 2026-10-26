@@ -1,0 +1,104 @@
+{
+  "status": "pass",
+  "testSha256": "dbfc6e04ecd23768b009aede4c8c9b1ff44a1f922b75e0b3ef3376023f0c2952",
+  "productionCore": {
+    "before": "9f7f67f926d199ea78a0495c6e6e3b5aba9900012a38437b65abaa9f7d6b3d84",
+    "after": "9f7f67f926d199ea78a0495c6e6e3b5aba9900012a38437b65abaa9f7d6b3d84",
+    "unchanged": true
+  },
+  "originalCi": {
+    "reportedCase": "unstable",
+    "expectedFatal": true,
+    "actualFatal": "undefined",
+    "actualMetadataDelta": "not captured in original CI; coarse timestamp remains an unconfirmed explanation"
+  },
+  "oldAlgorithmLocalReplay": {
+    "samples": 100,
+    "unexpectedNonFatal": 0,
+    "pairsWithNoCtimeChange": 0,
+    "sourceUnchanged": true,
+    "scope": "Private exact original chmod-pair algorithm against actual production core and temporary real NTFS files; no clock/stat stubs, model/owner/UI"
+  },
+  "fix": {
+    "productionCodeEdited": false,
+    "methods": "Only current fixture: observe actual ctime change using a 2000ms polling deadline, 10ms retry interval, strict dev/ino/mode/nlink/size/mtime preservation. Record observed status changes and assert their count outside dispatch before interpreting fatal.",
+    "originalAssertionsRetained": [
+      "fatal===true",
+      "reads===2",
+      "host.ready===false",
+      "no recovery",
+      "no workspace_input_delivered"
+    ],
+    "newSkips": 0,
+    "allModesFirstTransitionObserved": true,
+    "unstableSecondTransitionObserved": true
+  },
+  "controls": {
+    "scope": "Private execution of the exact revised test case with real core/filesystem; only helper status observer may hide a ctime change on read1/read2. No production stat/clock patch. Real 2s deadline is exercised; negative fixtures must fail outside core.",
+    "sourceUnchanged": true,
+    "outcomes": [
+      {
+        "hideObservedCtimeOnRead": null,
+        "fixtureAccepted": true,
+        "visibleTransitions": [
+          1,
+          2
+        ],
+        "highestRead": 2,
+        "hostFatal": true,
+        "oldAssertionsWouldPass": true,
+        "elapsedMs": 13.051300000000005,
+        "fixtureError": null,
+        "expected": true
+      },
+      {
+        "hideObservedCtimeOnRead": 1,
+        "fixtureAccepted": false,
+        "visibleTransitions": [],
+        "highestRead": 1,
+        "hostFatal": true,
+        "oldAssertionsWouldPass": false,
+        "elapsedMs": 2018.3675999999998,
+        "fixtureError": {
+          "code": "ERR_ASSERTION",
+          "message": "{\"error\":\"Collector/controller failure: Fixture could not produce a ctime-only change within 2 seconds\",\"reads\":1,\"statusChanges\":[]}\n\n0 !== 2\n"
+        },
+        "expected": true
+      },
+      {
+        "hideObservedCtimeOnRead": 2,
+        "fixtureAccepted": false,
+        "visibleTransitions": [
+          1
+        ],
+        "highestRead": 2,
+        "hostFatal": true,
+        "oldAssertionsWouldPass": true,
+        "elapsedMs": 2013.1432000000004,
+        "fixtureError": {
+          "code": "ERR_ASSERTION",
+          "message": "{\"error\":\"Collector/controller failure: Fixture could not produce a ctime-only change within 2 seconds\",\"reads\":2,\"statusChanges\":[{\"read\":1,\"before\":\"1792979900323732900\",\"after\":\"1792979900324738300\"}]}\n\n1 !== 2\n"
+        },
+        "expected": true
+      }
+    ],
+    "criticalFinding": "When second status transition cannot be observed, host fatal+2reads+no-delivery alone would pass. Revised external count assertion rejects the fixture."
+  },
+  "verification": {
+    "targeted": {
+      "pass": 4,
+      "fail": 0,
+      "skip": 0
+    },
+    "fullCore": {
+      "pass": 107,
+      "fail": 0,
+      "skip": 0,
+      "DSH_RUNTIME_ROOT": "fixed existing sealed 0.2.1-rc.2",
+      "WORKFLOW_REAL_SANDBOX_TEST": 1
+    },
+    "diffCheck": "pass",
+    "wholeGlobal": "root delegated; not rerun here"
+  },
+  "scope": "Author-machine separate-agent test work; no paid/UI acceptance or third-party signature"
+}

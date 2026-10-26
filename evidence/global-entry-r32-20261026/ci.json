@@ -1,0 +1,45 @@
+{
+  "headSha": "c3968702e627d86a2d55879e53dc718d15e03514",
+  "url": "https://github.com/youchibuwan-ops/agent-workflow-skills/actions/runs/40257253973",
+  "status": "completed",
+  "conclusion": "success",
+  "jobs": [
+    {
+      "name": "links",
+      "conclusion": "success"
+    },
+    {
+      "name": "package (windows-latest)",
+      "conclusion": "success"
+    },
+    {
+      "name": "legacy-preview (ubuntu-24.04)",
+      "conclusion": "success"
+    },
+    {
+      "name": "global-build (windows-latest)",
+      "conclusion": "success"
+    },
+    {
+      "name": "legacy-preview (windows-latest)",
+      "conclusion": "success"
+    },
+    {
+      "name": "global-hosts (ubuntu-24.04)",
+      "conclusion": "success"
+    },
+    {
+      "name": "global-hosts (windows-latest)",
+      "conclusion": "success"
+    },
+    {
+      "name": "global-build (ubuntu-24.04)",
+      "conclusion": "success"
+    },
+    {
+      "name": "package (ubuntu-24.04)",
+      "conclusion": "success"
+    }
+  ],
+  "scope": "Exact executable/test/Skill payload source commit; later public evidence/docs commit is separately checked"
+}

@@ -1,0 +1,187 @@
+{
+  "unicode": {
+    "format": 1,
+    "status": "pass",
+    "scope": "Independent read-only key ABI/Unicode/RCW/pin/exclusive-copy audit, plus one actual targeted metadata-only compile/COM stage/reopen. No real shortcut deployment, UI, owner or model.",
+    "frozenExpected": {
+      "packaging/native-shortcut.cs": "b294c969758436cc5b8175e8af0249ede2cabfd564a959cfac85083134f3f4d6",
+      "packaging/native-entry.test.mjs": "ed6eda26a937e597d4d489b5859a6880b9678fef7e0c9a5a56cdcc58186507d4"
+    },
+    "frozenActual": {
+      "packaging/native-shortcut.cs": "b294c969758436cc5b8175e8af0249ede2cabfd564a959cfac85083134f3f4d6",
+      "packaging/native-entry.test.mjs": "ed6eda26a937e597d4d489b5859a6880b9678fef7e0c9a5a56cdcc58186507d4"
+    },
+    "sourceMatches": true,
+    "findings": [
+      {
+        "area": "COM identity and vtable",
+        "result": "PASS",
+        "detail": "ShellLink CLSID and Unicode F9 IID; 18 IShellLinkW methods after IUnknown match native header order and widths. LPWSTR input explicitly marshalled; output char arrays are U2 with count parameter at index 1. WORD ushort, DWORD uint, int32 and borrowed pointer positions match."
+      },
+      {
+        "area": "Read return contract",
+        "result": "PASS",
+        "detail": "GetPath uses raw-path flag 4 and NULL findData, documented valid. Only S_OK accepted, S_FALSE/no valid path refuses. NUL termination checked; metadata target/args/workdir/icon/AppID compared to pinned plan."
+      },
+      {
+        "area": "IPersistFile",
+        "result": "PASS",
+        "detail": "Framework definition supplies LPWStr Load/Save/SaveCompleted and BOOL Save flag; Save true then SaveCompleted for the same file. No handmade replacement interface."
+      },
+      {
+        "area": "Memory and lifetime",
+        "result": "PASS",
+        "detail": "One RCW object per Create/Read released once in finally; interface aliases not separately FinalReleased. Existing IPropertyStore Get/Set/Commit and VT_LPWSTR CoTaskMem allocation/PropVariantClear nested finally unchanged."
+      },
+      {
+        "area": "Authority and deployment",
+        "result": "PASS",
+        "detail": "Main byte-identical to committed baseline: fixed actions, real-known-folder staging refusal, all config/manifest/entry/launcher/icon pins, fixed targets, exclusive CopyFileW true, fresh readback retained."
+      }
+    ],
+    "actualTargeted": {
+      "name": "explicit Unicode ShellLink survives paths outside the machine ANSI codepage without a scripting host",
+      "pass": 1,
+      "fail": 0,
+      "skip": 0,
+      "nonAnsiPath": "𠮷 😀",
+      "operation": "Temporary genuine build, staged links and fresh readback; empty argv/fixedAppID/exact target/workdir/icon; no fixture application marker created."
+    },
+    "authorFullSuite": "Root reports 15/15; reviewer did not repeat the full suite.",
+    "sourceAfterTargeted": {
+      "packaging/native-shortcut.cs": "b294c969758436cc5b8175e8af0249ede2cabfd564a959cfac85083134f3f4d6",
+      "packaging/native-entry.test.mjs": "ed6eda26a937e597d4d489b5859a6880b9678fef7e0c9a5a56cdcc58186507d4"
+    },
+    "mainSecurityBodyByteIdentical": true,
+    "references": [
+      {
+        "title": "Microsoft WinSDK recompiled shobjidl_core.h",
+        "url": "https://raw.githubusercontent.com/microsoft/win32metadata/main/generation/WinSDK/RecompiledIdlHeaders/um/ShObjIdl_core.h",
+        "reviewedLines": "12802-12896"
+      },
+      {
+        "title": "Microsoft IShellLinkW GetPath",
+        "url": "https://learn.microsoft.com/en-us/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelllinkw-getpath",
+        "finding": "NULL pfd permitted; count is characters including NUL; S_FALSE means no valid path."
+      },
+      {
+        "title": "Microsoft Framework reference source IPersistFile",
+        "url": "https://raw.githubusercontent.com/microsoft/referencesource/main/mscorlib/system/runtime/interopservices/ComTypes/ipersistfile.cs",
+        "reviewedLines": "18-32"
+      }
+    ],
+    "skills": {
+      "used": "dotnet-pinvoke for actual P/Invoke/memory only; Skill excludes COM, so COM review relies on the Microsoft primary header/framework interface.",
+      "filesChanged": []
+    },
+    "artifacts": [
+      {
+        "file": "r31-unicode-shortcut-targeted-independent-20261026.txt",
+        "sha256": "56a9a6f6b640cc744fdec9fa36f2fcc08c3d548c9d8e346c389a1da1ed86f8dc"
+      }
+    ],
+    "limitations": [
+      "Metadata-only roundtrip does not prove Explorer/taskbar UI or whole installer rollout.",
+      "No general path length beyond MAX_PATH claim.",
+      "Did not independently instrument old WScript internals or rerun the author old-source RED.",
+      "No new runtime, CS or test changes by this reviewer during this audit."
+    ]
+  },
+  "native": {
+    "status": "pass",
+    "scope": "Independent R30 focused review; no production source/owner/config changes, browser UI or paid/HTTP model provider. Actual official SDK Web SessionController service, local scripted adapter and original native tools; trusted fixture controller is not a full seven-stage generic task.",
+    "frozenExpected": {
+      "hosts/providers/native-workspace-io.mjs": "8434e130c5095c3c553db826f8ac445aacbfeb46e74f5d747e7db4b259589e2a",
+      "hosts/providers/native-workspace-io.test.mjs": "d236eccee517380c82a074faaf62d6153d8d4f50cab38e4592608cde963e71c0",
+      "hosts/dsh-global/broker.test.mjs": "ccb868a2177b944cef5208af7a8780bb0d88ccea05c7f14f0186995990cf6999"
+    },
+    "allSourceMatches": true,
+    "actualIndependentNative": {
+      "pass": true,
+      "firstTargetAlreadyExisted": true,
+      "unicodeFilePaths": true,
+      "twoFreshAgentsDiffer": true,
+      "thirdTurnUsesFirstAgent": true,
+      "successfulNativeReadRegistrations": 3,
+      "successfulNativeWrites": 3,
+      "artifacts": [
+        {
+          "turn": 0,
+          "bytes": 67,
+          "sha256": "6547497c85cf61f2a7ec8a7f0096d36b88e21916d573ea99168be9d462401c91"
+        },
+        {
+          "turn": 1,
+          "bytes": 67,
+          "sha256": "c7bd65bb15957b9e88dfaf7f7a48c35940c9e118a0eddc663836abe97b38fed9"
+        },
+        {
+          "turn": 2,
+          "bytes": 67,
+          "sha256": "1cde3658b3059675d90db55a05867a753887d1b7c65b806bc7d8303259ea7c61"
+        }
+      ],
+      "exactBomCrlfLiteralBackslashPreserved": true,
+      "agentlessRawWriteDenied": true,
+      "sourceUnchanged": true
+    },
+    "independentExecutorDouble": {
+      "pass": 10,
+      "fail": 0,
+      "scope": "Independent actual production bridge with a controlled native-executor schema double and own real temporary files. Mock filesystem writes are inside executor only, not production fallback. No actual SDK/model/UI/owner.",
+      "cases": [
+        {
+          "name": "fresh selected target without earlier baseline uses only native protocol",
+          "pass": true
+        },
+        {
+          "name": "same-size-restored-mtime",
+          "actualNativeWriteAttempts": 0,
+          "pass": true
+        },
+        {
+          "name": "inode-restored-mtime",
+          "actualNativeWriteAttempts": 0,
+          "pass": true
+        },
+        {
+          "name": "case-alias",
+          "actualNativeWriteAttempts": 0,
+          "pass": true
+        },
+        {
+          "name": "register-race",
+          "actualNativeWriteAttempts": 0,
+          "pass": true
+        },
+        {
+          "name": "register-denied",
+          "actualNativeWriteAttempts": 0,
+          "pass": true
+        },
+        {
+          "name": "register-unknown",
+          "actualNativeWriteAttempts": 0,
+          "pass": true
+        },
+        {
+          "name": "missing-read",
+          "actualNativeWriteAttempts": 0,
+          "pass": true
+        },
+        {
+          "name": "writer-denied",
+          "actualNativeWriteAttempts": 1,
+          "pass": true
+        },
+        {
+          "name": "raw-denied",
+          "actualNativeWriteAttempts": 0,
+          "pass": true
+        }
+      ]
+    }
+  },
+  "sourceRuntimeUnchangedInR32": true,
+  "thirdPartySignature": false
+}

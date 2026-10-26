@@ -1,0 +1,21 @@
+{
+  "name": "AgentWorkflow-DSH-20261026-preview3-r32-verified.zip",
+  "bytes": 607129,
+  "sha256": "a5f34e66bd6e45f60a63b9b4683956fb62c75ea9abb4ab58dbfd55d27f15a0c7",
+  "payloadFiles": 132,
+  "outerFiles": 5,
+  "manifestSha256": "b4780e84c1749013f4ce25dbfd4d83eaf21590456f40d2e24d22dca20bb3c6e3",
+  "payloadUnchanged": true,
+  "bootstrap": {
+    "status": "verified-no-sdk-or-model-called",
+    "actualExtractedInstaller": true,
+    "nodeTree": {
+      "entries": 2459,
+      "bytes": 107345970,
+      "treeSha256": "8c862fa5a190b0e1a53cad0cd0b361c53d280939cb30f4342867ffbf57e0cd85"
+    },
+    "noSdkOrModelInvoked": true
+  },
+  "url": "https://github.com/youchibuwan-ops/agent-workflow-skills/releases/download/v0.2.0-host-preview.3/AgentWorkflow-DSH-20261026-preview3-r32-verified.zip",
+  "scope": "Final exact ZIP and outer CheckOnly preflight; no classmate-machine installation claim"
+}

@@ -9,7 +9,8 @@
 - Separate recoverable actor mistakes from integrity/executor failures, preserve the original fatal cause, and make declared LF/CRLF materialization independently verifiable.
 - Restore original native read observations across DSH Web Agents before existing-file writes without refreshing away the earlier byte/identity baseline or bypassing native CAS and permissions.
 - Verify actual Codex GUI and default-entry DSH Web selection, feedback, exact edits, acceptance and learning; retain earlier failures and editorial/unsupported-capability limits.
-- Synchronize both installed Skill variants with tested host-integration lessons and publish source-bound R30 evidence with a separately finalized DSH installer.
+- Synchronize both installed Skill variants with tested host-integration lessons and publish R32 delivery evidence while retaining the original R31 model-trace identity.
+- Use explicit Unicode ShellLink interfaces, verify real non-ANSI paths, and assert observed fixture preconditions outside fail-closed handlers; retain original CI failures and bounded negative controls.
 
 ### Controlled Codex / DSH host preview — 2026-10-25
 
