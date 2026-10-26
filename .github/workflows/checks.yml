@@ -81,6 +81,17 @@ jobs:
       - run: npm ci --ignore-scripts
       - run: npm ci --prefix hosts/codex --ignore-scripts
       - run: npm ci --prefix hosts/dsh --ignore-scripts --omit=dev
+      - name: Expose the lock-installed pnpm required by the real DSH plugin CLI
+        run: >-
+          node --input-type=module -e "import {appendFileSync} from 'node:fs';
+          import {resolve} from 'node:path';
+          appendFileSync(process.env.GITHUB_PATH,resolve('hosts/dsh/node_modules/.bin')+'\n');"
+      - name: Require the installed pnpm version instead of a runner-global fallback
+        run: >-
+          node --input-type=module -e "import {execSync} from 'node:child_process';
+          const version=execSync('pnpm --version',{encoding:'utf8'}).trim();
+          if(version!=='11.25.0') throw Error('Expected lock-installed pnpm 11.25.0');
+          console.log('Real DSH plugin CLI prerequisite pnpm '+version);"
       - run: npm audit --prefix hosts/codex --audit-level=low
       - run: npm audit --prefix hosts/dsh --audit-level=low
       - name: Require the installed DSH runtime before scripted native tests
@@ -129,6 +140,9 @@ jobs:
       - name: Preserve the historical builder and original evidence bytes
         run: node scripts/check-frozen-preview.mjs
       - run: npm run test:global-package
+      - name: Diagnose a Windows shortcut failure in isolated pinned fixture copies
+        if: failure() && runner.os == 'Windows'
+        run: node scripts/diagnose-native-shortcut-ci.mjs
       - name: Build the current global source package with its own manifest
         run: npm run build:global -- "${{ runner.temp }}/AgentWorkflow-global-preview2.zip"
       - name: Export the new manifest from the verified ZIP
