@@ -1,0 +1,93 @@
+{
+  "release": "20261027-r62",
+  "manifestSha256": "c5db7abc36d5f6cd1df8240de9b264530cc28e6eb2ba8c0794c6ef5f24438b10",
+  "files": 160,
+  "testProvenance": {
+    "inheritedR61Global": {
+      "tests": 548,
+      "pass": 542,
+      "fail": 0,
+      "skip": 6
+    },
+    "finalR62Focused": {
+      "pass": 47,
+      "fail": 0,
+      "skip": 0
+    },
+    "finalProbeHarness": {
+      "pass": 43,
+      "fail": 0
+    },
+    "packageAndSkillChecks": {
+      "pass": 24,
+      "fail": 0
+    },
+    "countsOverlap": true
+  },
+  "realDsh": {
+    "status": "pass",
+    "testDriverApproval": true,
+    "humanEditorialApproval": false,
+    "maxTokensPerTestReply": 100000,
+    "turnStages": [
+      "selection",
+      "selection",
+      "feedback",
+      "feedback",
+      "feedback",
+      "complete"
+    ],
+    "modelRequests": 28,
+    "toolCalls": 36,
+    "optionPublications": 1,
+    "skillSearchBefore": 1,
+    "skillSearchAfter": 1,
+    "sourceReadsBefore": 9,
+    "sourceReadsAfter": 9,
+    "originalInputUnchanged": true,
+    "revisionMarkerPresent": true,
+    "currentArtifactSha256": "be0537c706e5cee62ba5697e828dac6a539a7167b42cbd206ce88b55f6b9548e",
+    "semantic": {
+      "ok": true,
+      "missing": []
+    }
+  },
+  "offlineStateProjection": {
+    "snapshot": {
+      "compressedSha256": "33aac7061b56ac5baa2fa560286fbeed95c7ecda02215330db6ccaebe93eaa0d",
+      "compressedBytes": 1526479,
+      "decompressedSha256": "b8a36007849737b460e7473876da54029edabc85fc3893ec6d5817b379212d8d",
+      "decompressedBytes": 4823830,
+      "records": 1311
+    },
+    "measurement": "Historical all-result state-only projection upper bound; live eligibility and pending/unconfirmed protection are enforced separately by the native broker.",
+    "totals": {
+      "toolResults": 203,
+      "toolTextBlocks": 203,
+      "jsonToolTextBlocks": 203,
+      "stateResults": 203,
+      "rawToolTextBytes": 1561834,
+      "originalCanonicalBytes": 1561834,
+      "compactCanonicalBytes": 821837,
+      "originalStateBytes": 774618,
+      "compactStateBytes": 34621,
+      "rawProjectedBytes": 821837,
+      "dataPreservationChecks": 203,
+      "canonicalDataFragmentChecks": 174,
+      "rawProjectionChanges": 203
+    },
+    "rawReductionPercent": 47.38000325258638,
+    "stateReductionPercent": 95.5305711976742
+  },
+  "local": {
+    "codexInstalled": true,
+    "dshInstalled": true,
+    "codexNoForcedCompactionKnobs": true,
+    "originalCodexPreserved": true,
+    "dshSameRuntimeHomeStateCredentialsAndWorktreeAuthorization": true
+  },
+  "failuresRetained": {
+    "r61CompoundQuestionFoundByRealModel": true,
+    "privateFixtureCorrectlyRefusedBeforeProviderCall": true
+  }
+}

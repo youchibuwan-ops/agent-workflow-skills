@@ -157,7 +157,8 @@ function promisedFormat(option){
   }
   const unique=[...new Set(claims)];return{newline:unique.length>1?'ambiguous':unique[0]??null,noBom:/\bno\s+BOM\b|\bwithout\s+(?:a\s+)?BOM\b|无\s*BOM|不带\s*BOM/i.test(text)};
 }
-export function visibleDraftText(frames,{sessionId,turn,afterSeq=0,endSeq=Infinity}){return frames.filter(frame=>frame.method==='session.event'&&frame.params?.sessionId===sessionId&&frame.params.event?.type==='assistant/message'&&frame.params.event.seq>afterSeq&&frame.params.event.seq<=endSeq&&frame.params.event.data?.turn<=turn&&frame.params.event.data.message?.source?.kind==='model').flatMap(frame=>frame.params.event.data.message.content.filter(block=>block.type==='text').map(block=>block.text)).join('\n');}
+function currentDraftBoundary(frames,{sessionId,afterSeq=0,endSeq=Infinity}){return frames.reduce((boundary,frame)=>frame.method==='session.event'&&frame.params?.sessionId===sessionId&&frame.params.event?.type==='plugin:workflow/card'&&frame.params.event.data?.kind==='revision'&&frame.params.event.data.stage==='draft'&&frame.params.event.seq>boundary&&frame.params.event.seq<=endSeq?frame.params.event.seq:boundary,afterSeq);}
+export function visibleDraftText(frames,{sessionId,turn,afterSeq=0,endSeq=Infinity}){afterSeq=currentDraftBoundary(frames,{sessionId,afterSeq,endSeq});return frames.filter(frame=>frame.method==='session.event'&&frame.params?.sessionId===sessionId&&frame.params.event?.type==='assistant/message'&&frame.params.event.seq>afterSeq&&frame.params.event.seq<=endSeq&&frame.params.event.data?.turn<=turn&&frame.params.event.data.message?.source?.kind==='model').flatMap(frame=>frame.params.event.data.message.content.filter(block=>block.type==='text').map(block=>block.text)).join('\n');}
 export function inspectDraftEvidence({input,expectedInputSha256,output,selectedOption,requiredFormat,visibleAssistantText=''}){
   const bytes=byteFacts(output),inputBytes=byteFacts(input),format=requiredFormat??promisedFormat(selectedOption),missing=[];
   if(inputBytes.sha256!==expectedInputSha256)missing.push('original-input-changed');let text='';try{text=new TextDecoder('utf8',{fatal:true}).decode(output);}catch{missing.push('invalid-utf8');}
@@ -171,6 +172,32 @@ export function inspectDraftEvidence({input,expectedInputSha256,output,selectedO
   const notes=text+'\n'+visibleAssistantText,actualNewline=bytes.crlf&&!bytes.lf&&!bytes.bareCR?'CRLF':bytes.lf&&!bytes.crlf&&!bytes.bareCR?'LF':null;
   if(actualNewline&&!new RegExp('\\b'+actualNewline+'\\b','i').test(notes))missing.push('actual-newline-explanation-missing');
   return{ok:missing.length===0,fatal:missing.includes('original-input-changed'),missing:[...new Set(missing)],bytes,inputBytes,requiredFormat:format,actualNewline};
+}
+function completedStageLineage(cards) {
+  const stages=['scope','discovery','selection','draft','feedback','delivery','learning'];
+  const checkpoints=cards.filter(card=>card.kind==='checkpoint'&&card.result?.ok===true),task=checkpoints.at(-1)?.report?.task;
+  let revision,cursor=0,started=false;const accepted=[];
+  const invalid=()=>{throw Error('Real model chain lacks an ordered seven-stage host checkpoint lineage');};
+  for(const card of cards) {
+    if(card.kind==='revision'&&started) {
+      if(card.stage!=='draft'||card.revision!==revision+1||card.selection_retained!==true||card.discovery_retained!==true||accepted.length<3)invalid();
+      revision=card.revision;cursor=3;accepted.length=3;continue;
+    }
+    if(card.kind!=='checkpoint'||card.result?.ok!==true||card.report?.task!==task)continue;
+    const report=card.report;
+    if(!Number.isSafeInteger(report.revision)||report.revision<1)invalid();
+    if(!started||report.revision!==revision) {
+      // A scope reopen can establish a fresh full chain; a partial suffix needs
+      // the explicit native retention card handled above, never an inferred merge.
+      if(report.stage!=='scope'||started&&report.revision<=revision)invalid();
+      revision=report.revision;cursor=0;accepted.length=0;started=true;
+    }
+    if(report.stage!==stages[cursor])invalid();
+    accepted.push(card);cursor++;
+  }
+  if(cursor!==stages.length)invalid();
+  return {stages:accepted.map(card=>card.report.stage),finalRevision:revision,
+    stageTimeline:checkpoints.map(card=>({seq:card.seq,task:card.report.task,revision:card.report.revision,stage:card.report.stage}))};
 }
 export async function runDraftFeedback({current,outputPath,send,getCards,inspect,saveAttempt=()=>{},verifyAccepted=()=>{},feedback=[],maxRepeatedFailures=4,maxContinuations=128}){
   if(!Number.isSafeInteger(maxRepeatedFailures)||maxRepeatedFailures<1)throw Error('A bounded repeated-failure guard is required');
@@ -206,14 +233,14 @@ export async function runDraftFeedback({current,outputPath,send,getCards,inspect
     if(check.fatal)throw Error('Independent fatal artifact check: '+check.missing.join(', '));
     if(check.ok){
       const accepted={kind:'accept',origin:'test-external-driver',humanApproval:false,sessionId,turn:current.turn,command:'/workflow accept',artifactSha256:check.bytes.sha256,reason:'Independent current bilingual facts, selected format, visible explanation and protected-input checks passed; not human editorial approval'};feedback.push(accepted);current=await sendSame(accepted.command);await settle(true);await verifyAccepted(check);
-      const cards=getCards().filter(card=>card.kind==='checkpoint'&&card.result?.ok===true),last=cards.at(-1)?.report,finalCards=cards.filter(card=>card.report?.task===last?.task&&card.report?.revision===last?.revision),stages=finalCards.map(card=>card.report.stage);
-      if(current.status?.complete!==true||JSON.stringify(stages)!==JSON.stringify(['scope','discovery','selection','draft','feedback','delivery','learning']))throw Error('Real model chain stopped without the final revision ordered seven-stage host cards');
-      return{current,artifact:check.bytes,stages,finalRevision:last.revision,stageTimeline:cards.map(card=>({seq:card.seq,task:card.report.task,revision:card.report.revision,stage:card.report.stage})),revisions,continuations};
+      if(current.status?.complete!==true)throw Error('Real model chain stopped without an ordered complete host stage lineage');
+      const lineage=completedStageLineage(getCards());
+      return{current,artifact:check.bytes,...lineage,revisions,continuations};
     }
     noteFailure('draft',{missing:check.missing,artifactSha256:check.bytes.sha256,requiredFormat});
     const raw=check.writeEvidence?` The original native workflow_write evidence was ${JSON.stringify(check.writeEvidence)}; ${check.writeEvidence.matchesDeclaredOutput?(check.writeEvidence.newline!=='preserve'?'explicitly requested newline normalization matches the independently computed declared output; a difference from raw content is expected, not an unexplained host rewrite.':'the actual output exactly matches the submitted content under preserve, so no host newline conversion is shown.'):'the actual output does not match the independently computed declared output; inspect the native write result and subsequent writes before attributing a host change.'}`:'';
     const newlineHelp=check.missing.some(value=>/newline|literal/.test(value))?" JSON工具参数中的content需要真实换行：可提交含普通真实LF的content，并显式设置 newline:'CRLF'（所选承诺为LF时设置 newline:'LF'）；仅实际ASCII换行被转换，不会反转义字面量反斜杠r/n，也不会添加或删除BOM。省略newline或preserve要求content字节原样。手写CRLF时JSON wire每个CRLF仅用一层转义，经JSON解析后为U+000D/U+000A，不要双重转义。真正CRLF是0D 0A，字面量是5C 72 5C 6E。提交后实际读回统计crlf/lf/literalCRLF；显式转换符合声明或默认原样相等均不得归咎宿主。":'';
-    const command=`独立外部技术反馈（测试driver，非真人审美认可）：当前 ${outputPath} 未通过，缺项 ${check.missing.join(', ')}。实际当前输出字节 ${JSON.stringify(check.bytes)}。已选方案的输出承诺 ${JSON.stringify(requiredFormat)}。${raw}${newlineHelp} 请实际修正这些差异，不得仅口头说明或改称验收通过；保持中英文全部事实、原输入字节与相同输出路径。此真实反馈会由生产宿主重开 scope、清除旧来源/安装/核验事实：请按真实 state 重新发现、完整核读确认并安装、观察参考，再提出3–5个保持上述输出承诺且 artifacts 仍仅为 ["${outputPath}"] 的方案，等待实际 /workflow choose；选中后提交修好的当前草稿、重新独立结构验证并等待实际 /workflow accept。`;
+    const command=`独立外部技术反馈（测试driver，非真人审美认可）：当前 ${outputPath} 未通过，缺项 ${check.missing.join(', ')}。实际当前输出字节 ${JSON.stringify(check.bytes)}。已选方案的输出承诺 ${JSON.stringify(requiredFormat)}。${raw}${newlineHelp} 请实际修正这些差异，不得仅口头说明或改称验收通过；保持中英文全部事实、原输入字节与相同输出路径。这是同一已选方案的稿件细节反馈；保留已完成的来源核读、安装和实际选择，按宿主当前 draft 阶段直接修正当前草稿，重新验证当前产物后等待真实外部验收。`;
     feedback.push({kind:'correction',origin:'test-external-driver',humanApproval:false,sessionId,turn:current.turn,command,missing:check.missing,artifactSha256:check.bytes.sha256});revisions++;current=await sendSame(command);
   }
 }
@@ -246,10 +273,11 @@ export async function runPreparedRealModelProbe(planFile,{dryRun=false}={}){
       inspect:(current,selectedOption,requiredFormat)=>{
         const input=readFileSync(join(plan.workspace,plan.input.path));latestOutput=readFileSync(join(plan.workspace,plan.output));
         const scope=nativeCards().filter(card=>card.kind==='checkpoint'&&card.report?.stage==='scope'&&card.result?.ok===true&&card.seq<=current.endSeq).at(-1);if(!scope)throw Error('Current native revision has no trusted scope checkpoint');
-        const visibleAssistantText=visibleDraftText(request.frames,{sessionId,turn:current.turn,afterSeq:scope.seq,endSeq:current.endSeq});
+        const afterSeq=currentDraftBoundary(request.frames,{sessionId,afterSeq:scope.seq,endSeq:current.endSeq});
+        const visibleAssistantText=visibleDraftText(request.frames,{sessionId,turn:current.turn,afterSeq,endSeq:current.endSeq});
         const check=inspectDraftEvidence({input,expectedInputSha256:plan.input.sha256,output:latestOutput,selectedOption,requiredFormat,visibleAssistantText});
-        Object.assign(check,collectWriteEvidence(request.frames,{sessionId,turn:current.turn,afterSeq:scope.seq,endSeq:current.endSeq,path:plan.output,output:latestOutput}));
-        return{...check,visibleAssistantText,notesWindow:{scopeSeq:scope.seq,draftEndSeq:current.endSeq},selectedOptionId:selectedOption.id};
+        Object.assign(check,collectWriteEvidence(request.frames,{sessionId,turn:current.turn,afterSeq,endSeq:current.endSeq,path:plan.output,output:latestOutput}));
+        return{...check,visibleAssistantText,notesWindow:{scopeSeq:scope.seq,revisionSeq:afterSeq,draftEndSeq:current.endSeq},selectedOptionId:selectedOption.id};
       },
       saveAttempt:check=>{const rawOutputPath=join(plan.privateRoot,'draft-attempt-'+check.attempt+'.bin');writeFileSync(rawOutputPath,latestOutput,{flag:'wx'});report.artifactCheck=check;report.artifactChecks.push({...check,rawOutputPath});},
       verifyAccepted:check=>{const input=readFileSync(join(plan.workspace,plan.input.path)),output=readFileSync(join(plan.workspace,plan.output));report.finalInput=byteFacts(input);if(sha(input)!==plan.input.sha256||sha(output)!==check.bytes.sha256)throw Error('Protected input or reviewed artifact bytes changed during actual acceptance');}

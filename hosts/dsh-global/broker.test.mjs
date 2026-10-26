@@ -8,9 +8,26 @@ import {tmpdir} from 'node:os';
 import {pathToFileURL} from 'node:url';
 import {runtimeImporter,runtimeBin} from './runtime.mjs';
 import {requiredSessionPolicy} from './policy.mjs';
-import {installSessionBroker} from './broker.mjs';
-
+import {installSessionBroker,recoverDeliveredCallIds} from './broker.mjs';
 const runtimeRoot=process.env.DSH_RUNTIME_ROOT;
+
+test('cold native history requires later model step proof and excludes log upload ACKs and reused pending IDs',{skip:!runtimeRoot},async()=>{
+  const load=runtimeImporter(runtimeRoot),{Session,SessionId}=await load('@deepseek-ai/dsh-session');
+  const {createToolResultMessage,createAssistantMessage,ToolCallId}=await load('@deepseek-ai/dsh-llm');
+  const session=Session.create(SessionId('cold-history-delivery-proof'));
+  const result=(id,step)=>{session.append('tool/call',{turn:1,step,callId:ToolCallId(id),name:'workflow_read_source',arguments:'{}'});session.append('tool/result',{turn:1,step,message:createToolResultMessage({callId:ToolCallId(id),isError:false,content:[{type:'text',text:'{"ok":true,"data":{"content":"raw"},"state":{"task":"t","candidates":["old"]}}'}]})},{surfaceOp:'append'});};
+  const assistant=step=>session.append('assistant/message',{turn:1,step,stream:[],message:createAssistantMessage({source:{provider:'offline',model:'native'},content:[{type:'text',text:'Fixture native model response.'}]})},{surfaceOp:'append'});
+  result('old',1);assistant(1);assert.deepEqual([...recoverDeliveredCallIds(session)],[]);
+  result('same-step',2);
+  session.append('session-log-deepseek/delivery-accepted',{sessionId:session.id,sessionFormatVersion:4,throughSeq:session.seq-1});
+  assert.deepEqual([...recoverDeliveredCallIds(session)],[]);
+  assistant(2);assert.deepEqual([...recoverDeliveredCallIds(session)],['old']);
+  result('old',3);assert.deepEqual([...recoverDeliveredCallIds(session)],[]);
+  const restored=Session.create(session.id,session.snapshotEvents(),session.header);
+  assert.deepEqual([...recoverDeliveredCallIds(restored)],[]);
+  assistant(4);assert.deepEqual([...recoverDeliveredCallIds(session)].sort(),['old','same-step']);
+});
+
 for(const sandboxMode of ['read-only','workspace-write'])test('actual DSH native project discovery lists unknown directories before reading their current file ('+sandboxMode+')',{skip:!runtimeRoot,timeout:60000},async()=>{
  const f=await setup({genericFactory:true,sandboxMode});let handle;
  try{
@@ -23,7 +40,7 @@ for(const sandboxMode of ['read-only','workspace-write'])test('actual DSH native
    const tool=step===0?'workflow_search_skills':'workflow_read_workspace',args=JSON.stringify(step===0?{query:'inspect current project'}:{path:step===1?'.':step===2?result.data.entries.find(e=>e.type==='directory')?.path:result.data.entries.find(e=>e.type==='file')?.path}),id=ToolCallId('blind-discovery-'+step++);yield{type:'block-start',index:0,blockType:'tool-call'};yield{type:'tool-call-delta',index:0,id,name:tool,argumentsDelta:args};yield{type:'block-end',index:0,block:{type:'tool-call',id,name:tool,arguments:args}};yield{type:'finish',reason:{kind:'tool-calls'}};
   }}());
   const selection={provider:'blind-project',model:'no-network'};handle=await f.ctx.agents.create({sessionId:SessionId('unknown-native-project'),meta:{cwd:f.workspace},agentOptions:selection,setup(ctx){installModelSelection(ctx,{current:selection,assembled:undefined});}});handle.agent.followup(createUserMessage({content:[{type:'text',text:'Inspect the current selected project and report what its scene contains. I have not supplied a filename.'}],source:{kind:'user'}}));await handle.agent.whenIdle();
-  assert.equal(results.length,3,JSON.stringify({results,native,step,root:f.root,status:f.ctx.workflowBrokerReady.status(handle.agent),audit:f.ctx.workflowBrokerReady.exportAudit(handle.agent)}));assert.equal(searches.length,1);assert.equal(searches[0].ok,true);assert.ok(results.every(r=>r.ok),JSON.stringify(results));assert.equal(results[0].state.workspace.root,resolve(f.workspace));assert.equal(results[0].data.entries[0].path,folder);assert.equal(results[1].data.entries[0].path,folder+'/'+name);assert.equal(results[2].data.content,bytes.toString('utf8'));assert.equal(results[2].data.sha256,createHash('sha256').update(bytes).digest('hex'));assert.ok(native.length>=3,'directory and byte reads must use original native operations');assert.ok(native.every(r=>r.isError===false),JSON.stringify(native));assert.ok(readFileSync(resolve(f.workspace,folder,name)).equals(bytes));assert.equal(f.ctx.workflowBrokerReady.status(handle.agent).complete,false);
+  assert.equal(results.length,3,JSON.stringify({results,native,step,root:f.root,status:f.ctx.workflowBrokerReady.status(handle.agent),audit:f.ctx.workflowBrokerReady.exportAudit(handle.agent)}));assert.equal(searches.length,1);assert.equal(searches[0].ok,true);assert.ok(results.every(r=>r.ok),JSON.stringify(results));assert.equal(results[0].state.workspace,undefined);const statusResult=await f.ctx.tools.execute({name:'workflow_status',arguments:{},agent:handle.agent,callId:'workspace-status',signal:new AbortController().signal});assert.equal(JSON.parse(statusResult.content[0].text).data.workspace.root,resolve(f.workspace));assert.equal(results[0].data.entries[0].path,folder);assert.equal(results[1].data.entries[0].path,folder+'/'+name);assert.equal(results[2].data.content,bytes.toString('utf8'));assert.equal(results[2].data.sha256,createHash('sha256').update(bytes).digest('hex'));assert.ok(native.length>=3,'directory and byte reads must use original native operations');assert.ok(native.every(r=>r.isError===false),JSON.stringify(native));assert.ok(readFileSync(resolve(f.workspace,folder,name)).equals(bytes));assert.equal(f.ctx.workflowBrokerReady.status(handle.agent).complete,false);
  }finally{await handle?.dispose();await f.close();}
 });
 test('actual SDK disposal retires a pending production task, rejects the stale Agent and requires explicit resume',{skip:!runtimeRoot,timeout:45000},async()=>{
@@ -40,7 +57,7 @@ test('actual SDK retires a fully completed production chain without rewriting th
   const beforeResumeRequests=streamCalls;handle=await f.ctx.agents.resume({resumeSessionId:SessionId(sessionId),agentOptions:selection,setup});await handle.agent.whenIdle();assert(readFileSync(envelopePath).equals(completedBytes),'history-only resume changed the signed complete envelope bytes');assert.equal(streamCalls,beforeResumeRequests,'history-only resume reached the provider');assert.equal(readEnvelope().complete,true,'opening completed native history re-opened the old task');assert.equal(readEnvelope().taskId,completedTask);assert.equal(readEnvelope().failed,null);const historyTool=await f.ctx.tools.execute({name:'workflow_status',arguments:{},agent:handle.agent,callId:'completed-history-no-task',signal:new AbortController().signal});assert.equal(historyTool.isError,true,'history-only Agent obtained model tool authority');handle.agent.followup(createUserMessage({content:[{type:'text',text:'Untrusted producer work cannot open a new task.'}],source:{kind:'lifecycle-untrusted-probe'}}));await handle.agent.whenIdle();assert.equal(streamCalls,beforeResumeRequests,'unbound plugin work reached a provider');assert(readFileSync(envelopePath).equals(completedBytes));await send('A separate natural external task after completed disposal.');const next=readEnvelope();assert.notEqual(next.taskId,completedTask);assert.equal(next.failed,null);assert.equal(next.userMessage,'A separate natural external task after completed disposal.');assert.equal(broker.status(handle.agent).stage,'selection');
  }finally{await handle?.dispose();await f.close();}
 });
-async function setup({missing=false,nativeMode=false,sandboxMode,longOutput=false,template='headless',detachedNative=false,mandatory,complete=true,genericFactory=false,lifecycleReferences=false,initialModel}={}){
+async function setup({missing=false,nativeMode=false,sandboxMode,longOutput=false,template='headless',detachedNative=false,mandatory,complete=true,genericFactory=false,lifecycleReferences=false,initialModel,compactionFixture=false}={}){
   mkdirSync(resolve(import.meta.dirname,'.runtime-tests'),{recursive:true});
   const fixtureParent=genericFactory?resolve(tmpdir(),'dsh-global-native-boundary'):resolve(import.meta.dirname,'.runtime-tests');mkdirSync(fixtureParent,{recursive:true});const root=mkdtempSync(resolve(fixtureParent,'session-'));if(genericFactory)writeFileSync(resolve(import.meta.dirname,'.runtime-tests',`location-${root.split(/[\\/]/).at(-1)}.json`),JSON.stringify({root}));
   const home=resolve(root,'home'),workspace=resolve(root,'workspace');mkdirSync(workspace);
@@ -57,13 +74,13 @@ let seq=0;
 export async function controllerFactory(input){
  appendFileSync(${JSON.stringify(log)},JSON.stringify({event:input.kind,sessionId:input.sessionId,text:input.userMessage,resumed:input.resumed})+'\\n');
  if(input.kind==='resume')return input.previousController;
- const task=++seq; return {toolSchemas,instructions:'Use workflow_note once, then answer.',ready:true,complete:false,assertReady(){if(!this.ready)throw new Error('inactive task')},
+ const task=++seq; return {toolSchemas,instructions:'Use workflow_note once, then answer.',ready:true,complete:false,compactionReady(){return true},assertReady(){if(!this.ready)throw new Error('inactive task')},
  async dispatch(name,args,meta){appendFileSync(${JSON.stringify(log)},JSON.stringify({event:'dispatch',task,sessionId:input.sessionId,actor:meta.agentId})+'\\n');
  if(${JSON.stringify(nativeMode)}==='workspace-io'){const {createNativeWorkspaceIO}=await import(${JSON.stringify(pathToFileURL(resolve(import.meta.dirname,'../providers/native-workspace-io.mjs')).href)});const io=createNativeWorkspaceIO({workspace:input.workspace,nativeExecutor:input.nativeExecutor});const bytes=await io.read('bom-input.txt');appendFileSync(${JSON.stringify(log)},JSON.stringify({event:'native-workspace-read',bytes:bytes.length})+'\\n');const written=await io.write('bom-output.txt',bytes);appendFileSync(${JSON.stringify(log)},JSON.stringify({event:'native-workspace-io',bytes:written.length})+'\\n');this.complete=true;return {ok:true,bytes:written.length};}
  if(${JSON.stringify(detachedNative)}){void input.nativeExecutor.execute('write',{file_path:'detached-output.txt',content:'late-write'}).catch(()=>{});this.complete=true;return {ok:true,detached:true};}
  if(${JSON.stringify(nativeMode)}==='shell'){const result=await input.nativeExecutor.execute('pwsh',{description:'Return a short native process envelope',command:"[Console]::Out.Write('native-stdout'); [Console]::Error.Write('native-stderr')",timeoutMs:10000});appendFileSync(${JSON.stringify(log)},JSON.stringify({event:'native-shell',result})+'\\n');this.complete=!result.isError;return {ok:!result.isError,native:result};}
  if(${JSON.stringify(nativeMode)}){await input.nativeExecutor.execute('read',{file_path:'native-output.txt'});const written=await input.nativeExecutor.execute('write',{file_path:'native-output.txt',content:'permission-aware-native-output'});appendFileSync(${JSON.stringify(log)},JSON.stringify({event:'native-write',isError:written.isError})+'\\n');this.complete=!written.isError;return {ok:!written.isError,native:written};}
- this.complete=${JSON.stringify(complete)};return {ok:true,task,session:input.sessionId,...(${JSON.stringify(longOutput)}?{sourceBytes:'original-source-'.repeat(2000)}:{})};},
+ this.complete=${JSON.stringify(complete)};return {ok:true,task,session:input.sessionId,...(${JSON.stringify(compactionFixture)}?{state:{task:'fixture',revision:1,stage:'discovery',complete:false,needs_input:false,evidence:['proof'],candidates:['repeated-state-'.repeat(1000)]},data:{content:'\\ufeffsource bytes\\r\\n',source_receipt:'pending-source-proof'}}:{}),...(${JSON.stringify(longOutput)}?{sourceBytes:'original-source-'.repeat(2000)}:{})};},
  async acceptUserMessage(text){appendFileSync(${JSON.stringify(log)},JSON.stringify({event:'external-continuation',task,text})+'\\n')},abort(){this.ready=false},exportAudit(){return {task}}};}
 `);
   if(genericFactory){
@@ -315,6 +332,40 @@ test('native pruning cannot remove controlled source bytes before the next model
   }finally{await handle?.dispose();await f.close();}
 });
 
+test('actual SDK emits compact workflow state and replaces delivered legacy state before a later native request',{skip:!runtimeRoot,timeout:30000},async()=>{
+  const f=await setup({compactionFixture:true,complete:false});let handle;
+  try{
+    const {LlmAdapter,ToolCallId,createUserMessage,freezeMessage}=await f.load('@deepseek-ai/dsh-llm');
+    const {SessionId}=await f.load('@deepseek-ai/dsh-session');
+    const {installModelSelection}=await f.load('@deepseek-ai/dsh-agent');
+    const responses=[],requests=[];let calls=0;
+    f.ctx.on('tools/result',(exec,result)=>{if(exec.name==='workflow_note')responses.push(JSON.parse(result.content[0].text));});
+    f.ctx.llm.registerAdapter(['compact-state-script'],new class extends LlmAdapter{
+      async resolveModel(provider,id){return{provider,id,name:id}}
+      async*stream(options){requests.push(options);if(calls++===0){const id=ToolCallId('compact-delivered');yield{type:'block-start',index:0,blockType:'tool-call'};yield{type:'tool-call-delta',index:0,id,name:'workflow_note',argumentsDelta:'{}'};yield{type:'block-end',index:0,block:{type:'tool-call',id,name:'workflow_note',arguments:'{}'}};yield{type:'finish',reason:{kind:'tool-calls'}};}else yield{type:'finish',reason:{kind:'stop'}};}
+    }());
+    const selection={provider:'compact-state-script',model:'offline'};
+    handle=await f.ctx.agents.create({sessionId:SessionId('compact-native-state'),meta:{cwd:f.workspace},agentOptions:selection,setup(ctx){installModelSelection(ctx,{current:selection,assembled:undefined});}});
+    const send=async text=>{handle.agent.followup(createUserMessage({content:[{type:'text',text}],source:{kind:'user'}}));await handle.agent.whenIdle();};
+    await send('Inspect current source without changing its bytes.');
+    assert.equal(responses.length,1);assert.equal(responses[0].state.candidates,undefined);
+    assert.deepEqual(responses[0].data,{content:'\ufeffsource bytes\r\n',source_receipt:'pending-source-proof'});
+    const session=handle.agent.session,old=session.snapshotEvents().find(e=>e.type==='tool/result'&&e.data.message.toolCallId==='compact-delivered');
+    const legacy={...responses[0],state:{...responses[0].state,candidates:['historical-catalog-'.repeat(1000)]}};
+    const legacyText=JSON.stringify(legacy);
+    const inserted=session.append('tool/result',{...old.data,message:freezeMessage({...old.data.message,content:[{type:'text',text:legacyText}]})},{surfaceOp:{op:'replace',startSeq:old.seq,endSeq:old.seq},sourceEventSeqs:[old.seq]});
+    const originalPrefix=JSON.stringify(session.snapshotEvents());
+    await send('Continue the current authorized task.');
+    assert.equal(f.ctx.workflowBrokerReady.status(handle.agent).failed,null);
+    assert.equal(JSON.stringify(session.snapshotEvents().slice(0,JSON.parse(originalPrefix).length)),originalPrefix);
+    assert.equal(session.eventAt(inserted.seq).data.message.content[0].text,legacyText);
+    const delivered=requests.at(-1).messages.find(m=>m.toolCallId==='compact-delivered');
+    assert.equal(JSON.parse(delivered.content[0].text).state.candidates,undefined);
+    assert.deepEqual(JSON.parse(delivered.content[0].text).data,responses[0].data);
+    assert(session.snapshotEvents().some(e=>e.type==='compaction/prune'&&e.data.shadowedSeqs.includes(inserted.seq)));
+  }finally{await handle?.dispose();await f.close();}
+});
+
 test('the ordinary CLI headless driver starts with the broker on its first external user task',{skip:!runtimeRoot,timeout:30000},async()=>{
   const f=await setup();
   try{
@@ -367,7 +418,7 @@ test('actual SDK cancellation publishes this turn pending with its cause and a l
 
 test('broker ignores delayed old-turn abort notifications after a newer turn has started',async()=>{
   const hooks=new Map(),records=[],definitions=new Map(),schemas=[{name:'workflow_note',description:'unit controlled tool',inputSchema:{type:'object'}}];let api;
-  const session={id:'unit-session',header:{cwd:tmpdir()}},agent={id:'unit-session',session,ctx:{tools:{presentAs(){}}},cancel(){}};
+  const session={id:'unit-session',header:{cwd:tmpdir()},snapshotEvents:()=>[]},agent={id:'unit-session',session,ctx:{tools:{presentAs(){}}},cancel(){}};
   const host={on:(name,fn)=>hooks.set(name,fn),emit(){},get:name=>name==='agents'?{get:()=>agent}:name==='workflowBrokerReady'?api:undefined,tools:{get:name=>definitions.get(name),register:definition=>definitions.set(definition.name,definition),guard(){}}};
   api=installSessionBroker(host,{toolSchemas:schemas,isInstalled:()=>true,isAgentLoopRequest:()=>true,appendStatusRecord:(_session,status)=>records.push(status),appendCardRecord(){},controllerFactory:async()=>({toolSchemas:schemas,instructions:'fixture',stage:'draft',complete:false,assertReady(){},dispatch(){},acceptUserMessage(){},abort(){},exportAudit:()=>({})})});api.attachServices();
   await hooks.get('agent/created')({agent,source:'new'});hooks.get('agent/inbox/claimed')({agent,message:{id:'human-1',source:{kind:'user'},content:[{type:'text',text:'unit task'}]}});await hooks.get('agent/pre-step')({agent},()=>{});

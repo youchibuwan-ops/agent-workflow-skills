@@ -5,6 +5,8 @@ import {createDesktopControls,NOT_DESKTOP_CONTROL} from './desktop-controls.mjs'
 import {protectedProjectSegment} from '../security/project-path.mjs';
 import {createSkillInventory} from './skill-inventory.mjs';
 import {createNativeManagement,NOT_NATIVE_MANAGEMENT} from './native-management.mjs';
+import {compactToolResult} from '../core/tool-result-view.mjs';
+import {observeContextCompaction,assertContextToolDelivery} from './context-compaction.mjs';
 const realpathSync=fsRealpathSync.native;
 const digest=s=>createHash('sha256').update(s).digest('hex');
 export async function createDesktopGateway(options={}){
@@ -47,7 +49,7 @@ export async function createDesktopGateway(options={}){
  const failureKey=readFileSync(failureFile(failureKeyPath));if(failureKey.length!==32)throw Error('Invalid admission failure authority');const failureMac=body=>createHmac('sha256',failureKey).update(JSON.stringify(body)).digest('hex');
  const loadFailure=id=>{const file=path.join(failuresRoot,digest(id)+'.json');if(!existsSync(file))return null;const bytes=readFileSync(failureFile(file));if(bytes.length>2048)throw Error('Admission failure record exceeds bounded authority');const saved=JSON.parse(bytes),body=saved.body,mac=failureMac(body);if(body?.version!==1||body.threadId!==id||body.kind!=='native-turn-admission-failed'||typeof saved.signature!=='string'||!/^[a-f0-9]{64}$/.test(saved.signature)||!timingSafeEqual(Buffer.from(mac),Buffer.from(saved.signature)))throw Error('Admission failure record integrity mismatch');return body.kind;};
  const saveFailure=id=>{const file=path.join(failuresRoot,digest(id)+'.json');if(existsSync(file)){loadFailure(id);return;}const body={version:1,threadId:id,kind:'native-turn-admission-failed',at:new Date().toISOString()};writeFileSync(file,JSON.stringify({body,signature:failureMac(body)}),{flag:'wx',mode:0o600});};
- const cardCallback=t=>async card=>{t.cards.push(structuredClone(card));record('card',{threadId:t.id,card});await onCard?.({threadId:t.id,...card});broadcast({method:'workflow/card',params:{threadId:t.id,...card}},t.id);};
+ const cardCallback=t=>async card=>{record('card',{threadId:t.id,card});await onCard?.({threadId:t.id,...card});broadcast({method:'workflow/card',params:{threadId:t.id,...card}},t.id);};
  async function owned(id,{load=false}={}){
   nativeManagement?.assertActorAvailable(id);
   if(typeof id!=='string'||!id||id.length>200)throw Error('Invalid thread identity');let t=threads.get(id);
@@ -104,7 +106,7 @@ export async function createDesktopGateway(options={}){
      if(!controller||JSON.stringify(controller.toolSchemas)!==JSON.stringify(schemas))throw Error('Controller schema mismatch');
      if(typeof controller.assertReady!=='function')throw Error('Controller readiness assertion required');if(controller===previous)await controller.acceptUserMessage(text);t.controller=controller;await controller.assertReady();if(controller.ready===false)throw Error('Controller not ready');
     }catch(e){fatal(e);throw e;}
-    t.active=true;t.turnId=null;record('turn_allowed',{threadId:t.id,stage:t.controller.stage});
+    t.active=true;t.turnId=null;t.contextCompaction={toolDelivered:false,pending:null};record('turn_allowed',{threadId:t.id,stage:t.controller.stage});
     try{const result=await native.rpc('turn/start',turnParams(request,cwd,t.controller.instructions,models,prepared.hints));if(typeof result?.turn?.id!=='string')throw Error('Native turn identity absent');if(t.turnId&&t.turnId!==result.turn.id)throw Error('Native turn identity mismatch');t.turnId=result.turn.id;commitWorkspace(t,cwd);t.provisional=false;return result;}catch(e){t.active=false;t.admissionFailure='native-turn-admission-failed';try{saveFailure(t.id);await t.controller.abort('Native turn admission failed: '+e.message);}catch(abortError){fatal(abortError);}const state={status:'blocked',stage:t.controller.stage,complete:false,blockedReason:'Native turn admission failed; start a new thread'};record('turn_admission_failed',{threadId:t.id,...state,reason:e.message});broadcast({method:'workflow/state',params:{threadId:t.id,...state}},t.id);throw e;}
     }finally{t.admitting=false;}
    }
@@ -118,14 +120,14 @@ export async function createDesktopGateway(options={}){
    onRequest:async m=>{const p=m.params??{},t=threads.get(p.threadId);
     if(m.method!=='item/tool/call'||!t?.active||!t.controller||p.turnId!==t.turnId||p.namespace||!schemas.some(s=>s.name===p.tool))throw Error(`Unknown native request/tool: ${m.method}/${p.tool??''}`);
     const requestKey=generation+':'+m.id;if(requestIds.has(requestKey)||typeof p.callId!=='string'||callIds.has(p.callId)||!p.arguments||typeof p.arguments!=='object'||Array.isArray(p.arguments))throw Error('Malformed/replayed native tool call');requestIds.add(requestKey);callIds.add(p.callId);
-    await t.controller.assertReady();const result=await t.controller.dispatch(p.tool,p.arguments,{callId:p.callId});if(!result||typeof result.ok!=='boolean'||result.fatal===true)throw Error('Fatal host controller result');
-    const response={...result,...(t.cards.length?{hostCards:t.cards.splice(0)}:{})},text=JSON.stringify(response);if(Buffer.byteLength(text)>65536)throw Error('Tool result exceeds complete-delivery 64KiB boundary');record('dispatch',{threadId:t.id,tool:p.tool,callId:p.callId,stage:t.controller.stage,ok:result.ok});return {success:result.ok,contentItems:[{type:'inputText',text}]};
+    assertContextToolDelivery(t);await t.controller.assertReady();const result=await t.controller.dispatch(p.tool,p.arguments,{callId:p.callId});if(!result||typeof result.ok!=='boolean'||result.fatal===true)throw Error('Fatal host controller result');
+    const text=JSON.stringify(compactToolResult(result,{toolName:p.tool}));if(Buffer.byteLength(text)>65536)throw Error('Tool result exceeds complete-delivery 64KiB boundary');record('dispatch',{threadId:t.id,tool:p.tool,callId:p.callId,stage:t.controller.stage,ok:result.ok});return {success:result.ok,contentItems:[{type:'inputText',text}]};
    },onNotification:async m=>{
     if(generation!==nativeGeneration)return;if(await desktopControls.notify(m))return;nativeManagement?.notify(m);
-    if(/compact/i.test(m.method)||/compact/i.test(m.params?.item?.type??''))throw Error('Compaction is forbidden for current workflow evidence');const id=m.params?.threadId,t=threads.get(id);
+    const id=m.params?.threadId,t=threads.get(id);if(observeContextCompaction(m,t))record('context_compaction',{threadId:id,method:m.method,itemId:m.params?.item?.id??null});
     if(m.method==='turn/started'){if(!t?.active)throw Error('Native unsolicited turn');t.turnId=m.params.turn?.id;}
     if(m.method==='thread/project/updated'&&t?.metadata)t.metadata={...t.metadata,projectId:m.params.projectId??null};
-    if(m.method==='turn/completed'){if(!t?.controller||!t.active)throw Error('Unowned native completion');t.active=false;const state=finalState(t.controller);record('turn_finished',{threadId:id,...state});broadcast({method:'workflow/state',params:{threadId:id,...state}},id);m={...m,params:{...m.params,workflow:state,turn:{...m.params.turn}}};if(state.status==='blocked'){m.params.turn.status='failed';m.params.turn.error={message:`Workflow incomplete at ${state.stage}`,codexErrorInfo:null,additionalDetails:state.blockedReason};}}
+    if(m.method==='turn/completed'){if(!t?.controller||!t.active)throw Error('Unowned native completion');if(t.contextCompaction?.pending)throw Error('Native turn completion during unfinished compaction');t.active=false;const state=finalState(t.controller);record('turn_finished',{threadId:id,...state});broadcast({method:'workflow/state',params:{threadId:id,...state}},id);m={...m,params:{...m.params,workflow:state,turn:{...m.params.turn}}};if(state.status==='blocked'){m.params.turn.status='failed';m.params.turn.error={message:`Workflow incomplete at ${state.stage}`,codexErrorInfo:null,additionalDetails:state.blockedReason};}}
     if(m.method==='item/tool/call')throw Error('Tool calls cannot be notifications');broadcast(m,/^(?:thread\/(?:archived|unarchived|deleted|name\/updated|project\/updated|section\/)|project\/|threadSection\/)/.test(m.method)?undefined:id);
    }});
  }

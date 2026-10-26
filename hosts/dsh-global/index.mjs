@@ -14,11 +14,12 @@ export async function apply(ctx,config={}) {
     if(typeof fn!=='function')throw new Error(`Native ${id}.${key} identity is unavailable`);return fn;
   };
   const isAgentLoopRequest=request=>nativeExport('llm','isAgentLoopRequest')(request);
+  const freezeMessage=message=>nativeExport('llm','freezeMessage')(message);
   const appendPluginRecord=(...args)=>nativeExport('session','appendPluginRecord')(...args);
   const module=await import(pathToFileURL(resolve(config.factoryModule)).href);
   const stamp=Object.freeze({owner:name});
   const record=(session,type,data)=>{appendPluginRecord(session,type,data);if(config.eventFile)appendFileSync(config.eventFile,JSON.stringify({type,sessionId:String(session.id),data})+'\n');};
-  const broker=installSessionBroker(ctx.root,{controllerFactory:module.controllerFactory,toolSchemas:module.toolSchemas,isAgentLoopRequest,appendStatusRecord:(session,status)=>record(session,'plugin:workflow/status',status),appendCardRecord:(session,card)=>record(session,'plugin:workflow/card',card),
+  const broker=installSessionBroker(ctx.root,{controllerFactory:module.controllerFactory,toolSchemas:module.toolSchemas,isAgentLoopRequest,freezeMessage,appendStatusRecord:(session,status)=>record(session,'plugin:workflow/status',status),appendCardRecord:(session,card)=>record(session,'plugin:workflow/card',card),
     isInstalled:()=>ctx.root.get('workflowBrokerInstalled')===stamp});
   ctx.provide('workflowBrokerInstalled',stamp);
   ctx.root.inject(['tools','llm','agents','systemPrompt'],host=>{

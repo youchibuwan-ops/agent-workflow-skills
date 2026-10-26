@@ -4,7 +4,7 @@ import {createHash,createHmac,randomBytes,timingSafeEqual} from 'node:crypto';
 import {mkdirSync,readFileSync,writeFileSync,renameSync,existsSync,lstatSync,realpathSync} from 'node:fs';
 import {resolve,join,dirname,relative,isAbsolute} from 'node:path';
 import {fileURLToPath} from 'node:url';
-import {createWorkflowHost,WORKFLOW_TOOL_SCHEMAS,isWorkflowProgressQuery} from '../core/workflow-host.mjs';
+import {createWorkflowHost,WORKFLOW_TOOL_SCHEMAS,isWorkflowProgressQuery,isConversationQuestion} from '../core/workflow-host.mjs';
 import {createSourceProvider} from '../providers/source-provider.mjs';
 import {createNativeWorkspaceIO} from '../providers/native-workspace-io.mjs';
 import {createSandboxProvider} from '../providers/sandbox-provider.mjs';
@@ -49,6 +49,14 @@ export function createConversationFactory(options={}){
   const previous=input.previousController;
   if(previous&&!owned.has(previous))throw Error('Previous controller belongs to another factory authority');
   if(previous){const origin=origins.get(previous);if(origin.workspace!==workspace||origin.sessionId!==sessionId)throw Error('Cross-session controller reuse denied');origin.pathPolicy.assertCurrent();}
+  if(previous&&input.kind==='resume'&&!previous.complete&&previous.exportAudit().failed==null){
+   const origin=origins.get(previous);
+   if(Boolean(origin.nativeBinding.executor)!==Boolean(input.nativeExecutor))throw Error('Native permission delegate presence changed across Agent resume');
+   // The session's task/evidence stays alive; only its native Agent capability
+   // and card callback are rebound. Never retain the disposed Agent executor.
+   origin.nativeBinding.executor=input.nativeExecutor;origin.nativeBinding.onCard=input.onCard;
+   return previous;
+  }
   const explicitNew=input.kind!=='resume'&&typeof input.userMessage==='string'&&/^\/workflow new\s+/.test(input.userMessage);
   if(previous&&input.kind!=='resume'&&isWorkflowProgressQuery(input.userMessage))return previous;
   if(previous&&!previous.complete&&previous.exportAudit().failed==null&&!explicitNew&&input.kind!=='resume')return previous;
@@ -74,7 +82,9 @@ export function createConversationFactory(options={}){
   // not deserialize model claims, old nonces or stale installed-source proofs.
   const restoration=resumed?{strategy:'reverify-current-facts',previousTask:old.taskId,previousStage:old.stage}:null;
   const privateRoots=[root,resolve(dirname(fileURLToPath(import.meta.url)),'../..'),dirname(process.execPath),...(options.privateRoots??[])].map(p=>existsSync(p)?realpathSync.native(p):resolve(p));
-  const io=input.nativeExecutor?createNativeWorkspaceIO({workspace,privateRoots,hardPrivateRoots,worktreeLease,nativeExecutor:input.nativeExecutor}):options.workspaceIOFactory?.({...input,worktreeLease});
+  const nativeBinding={executor:input.nativeExecutor,onCard:input.onCard};
+  const nativeExecutor=input.nativeExecutor?Object.freeze({get catalog(){return nativeBinding.executor.catalog;},execute:(...args)=>nativeBinding.executor.execute(...args)}):null;
+  const io=nativeExecutor?createNativeWorkspaceIO({workspace,privateRoots,hardPrivateRoots,worktreeLease,nativeExecutor}):options.workspaceIOFactory?.({...input,worktreeLease});
   // Existing owner worktree authorizations describe one project, not separate
   // chat silos. Attach only roots sharing that verified common Git directory.
   const ownerWorktrees=options.worktreeAuthorizations??[],equal=(a,b)=>projectPathKey(resolve(a))===projectPathKey(resolve(b))||(existsSync(a)&&existsSync(b)&&projectPathKey(realpathSync(a))===projectPathKey(realpathSync(b))),group=row=>projectPathKey(resolve(row.expectedCommonGitDir));
@@ -83,7 +93,7 @@ export function createConversationFactory(options={}){
   const attach=(target,lease)=>{
    target=realpathSync(target);if(attached.has(projectPathKey(target)))return;attached.add(projectPathKey(target));
    const id='related-'+sha(Buffer.from(projectPathKey(target))).slice(0,12);
-   const workspaceIO=input.nativeExecutor?createNativeWorkspaceIO({workspace:target,privateRoots,hardPrivateRoots,worktreeLease:lease,nativeExecutor:input.nativeExecutor}):options.workspaceIOFactory?.({...input,workspace:target,worktreeLease:lease});
+   const workspaceIO=nativeExecutor?createNativeWorkspaceIO({workspace:target,privateRoots,hardPrivateRoots,worktreeLease:lease,nativeExecutor}):options.workspaceIOFactory?.({...input,workspace:target,worktreeLease:lease});
    additionalWorkspaces.push({id,workspace:target,worktreeLease:lease,workspaceIO});
   };
   for(const row of ownerWorktrees){if(!groups.has(group(row)))continue;const lease=worktreeAuthority.leaseForWorkspace(row.workspace);if(!lease)throw Error('Related project worktree requires current owner verification');attach(dirname(row.expectedCommonGitDir),null);attach(row.workspace,lease);}
@@ -96,24 +106,27 @@ export function createConversationFactory(options={}){
   const sandbox=typeof io?.invoke==='function'?createSandboxProvider({stateRoot:join(root,'sandbox'),privateRoots,hardPrivateRoots,worktreeLease,invoke:io.invoke,resolveInput:resolveProjectInput,readInput:({path})=>{const scope=projectAccess.select(path);if(!scope.io)throw Error('Original native reader unavailable for project directory');return scope.io.read(scope.path);}}):undefined;
   const sources=createSourceProvider({cacheRoot:acquisition,installedRoots:[...options.installedRoots,managed],external:options.external!==false,...(options.sourceProviderOptions??{})});
   let host,activeMessage=message,readonlyReply=resumed?old?.readonlyReplyIntent===true:readonlyDiagnostic(message),readonlyBoundary=0;
-  const persist=()=>store(envelopePath,{version:1,sessionId,workspace,taskId,userMessage:activeMessage,readonlyReplyIntent:readonlyReply,stage:host?.stage??'discovery',complete:host?.complete??false,failed:host?.exportAudit().failed??null,updatedAt:new Date().toISOString()});
+  const retainedPlan=resumed?old?.continuationPlan:null;
+  const persist=()=>store(envelopePath,{version:2,sessionId,workspace,taskId,userMessage:activeMessage,readonlyReplyIntent:readonlyReply,continuationPlan:host?.continuationPlan??null,stage:host?.stage??'discovery',complete:host?.complete??false,failed:host?.exportAudit().failed??null,updatedAt:new Date().toISOString()});
   host=await createWorkflowHost({workspace,stateRoot:taskRoot,taskId,userMessage:message,sourceProvider:sources,workspaceIO:io,sandboxProvider:sandbox,
    protectedPrivateSubroots:true,privateRoots,hardPrivateRoots,worktreeLease,additionalWorkspaces,installedRoot:managed,
-   contract:{requirements:['artifact-readable','original-user-task'],constraints:['Preserve actual external scope; never certify original task semantics with a structural check.'],stopAfter:'learning',protectedInputs:[],writeAllowlist:[],selection:{mode:'pending'},feedback:{mode:'required'},learning:{required:false},conversationMode:true,
+   retainedOptions:retainedPlan?.options??[],
+   contract:{requirements:['artifact-readable','original-user-task'],constraints:['Preserve actual external scope; never certify original task semantics with a structural check.'],stopAfter:'learning',protectedInputs:[],writeAllowlist:retainedPlan?.writeAllowlist??[],selection:retainedPlan?.selection??{mode:'pending'},feedback:{mode:'required'},learning:{required:false},conversationMode:true,
     validators:[{id:'artifact-current',type:'current-text',covers:['artifact-readable']}]},
-   onCard:async card=>{persist();if(input.onCard)await input.onCard(card);if(options.onCard)await options.onCard({...card,sessionId,taskId});}
+   onCard:async card=>{persist();if(nativeBinding.onCard)await nativeBinding.onCard(card);if(options.onCard)await options.onCard({...card,sessionId,taskId});}
   });
   const controller={
    get toolSchemas(){return toolSchemas;},get stage(){return host.stage;},get complete(){return host.complete;},get ready(){return host.ready;},
    get blockedReason(){return host.exportAudit().failed;},
    get readOnlyReplyAllowed(){const audit=host.exportAudit(),events=audit.events.slice(readonlyBoundary);return readonlyReply&&host.ready&&host.stage==='discovery'&&!audit.failed&&events.some(e=>e.event==='observed'&&e.kind==='skill_search')&&events.some(e=>e.event==='workspace_input_delivered')&&!events.some(e=>e.event==='observed'&&e.kind==='application');},
-   get instructions(){return host.instructions+'\nConversation entry: original human scope is frozen above. Present 3–5 supported options with explicit artifacts arrays listing exact edit/output paths, then wait for actual /workflow choose <id>. Only selected paths may be written. Structural validation never verifies the original task. Present the current draft and wait for actual /workflow accept. Ordinary chat may be answered, but an unfinished production task remains pending. Corrections reopen scope and invalidate earlier proofs.'+(restoration?'\nRestored session: redo discovery and verification; prior read confirmations have been invalidated.':'');},
+   get instructions(){return host.instructions+'\nConversation entry: one overall human task spans messages, questions, choice and detail feedback. '+(host.stage==='selection'?(host.selectionPublished?'The supported options are already published; explain or compare those existing options when asked, and wait for actual external choice without generating another menu. ':'Present 3–5 supported options with exact artifacts paths only while a main direction is genuinely unselected; use actual external choice. '):host.continuationPlan?'The main option is already selected; do not ask the same choice again. ':'Continue the current stage; do not present selection options before discovery is complete. ')+'Only selected paths may be written. Ordinary questions/status do not restart research. Current-draft detail feedback retains current source/method and selection evidence while requiring revised-byte validation and actual feedback. Structural validation never verifies the original task. Present the current draft and wait for actual /workflow accept.'+(restoration?'\nCold-restored session: re-verify current source facts once; prior raw read confirmations are not restored. An authenticated earlier human plan choice, if present above, is retained rather than asked again.':'');},
+   compactionReady:()=>host.compactionReady(),
    assertReady:()=>host.assertReady(),
    async dispatch(name,args,metadata){try{return await host.dispatch(name,args,metadata);}finally{persist();}},
-   async acceptUserMessage(text){try{if(!isWorkflowProgressQuery(text)){readonlyReply=readonlyDiagnostic(text);readonlyBoundary=host.exportAudit().events.length;}const before=host.exportAudit().revision,value=await host.acceptUserMessage(text);if(host.exportAudit().revision>before&&!host.exportAudit().failed)activeMessage+='\n\nActual external user correction/addition:\n'+text;return value;}finally{persist();}},
+   async acceptUserMessage(text){try{if(!isWorkflowProgressQuery(text)&&!isConversationQuestion(text)){readonlyReply=readonlyDiagnostic(text);readonlyBoundary=host.exportAudit().events.length;}const value=await host.acceptUserMessage(text);if(!host.exportAudit().failed)activeMessage=host.taskInstruction;return value;}finally{persist();}},
    abort(reason){host.abort(reason);persist();},exportAudit:()=>({...host.exportAudit(),sessionId,restoration})
   };
-  owned.add(controller);origins.set(controller,{workspace,sessionId,pathPolicy});persist();
+  owned.add(controller);origins.set(controller,{workspace,sessionId,pathPolicy,nativeBinding});persist();
   if(resumed&&typeof externalMessage==='string'&&externalMessage.trim()&&!/^\/workflow resume(?:\s|$)/.test(externalMessage))await controller.acceptUserMessage(externalMessage);
   return controller;
  };

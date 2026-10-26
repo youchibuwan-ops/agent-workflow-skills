@@ -18,7 +18,7 @@ test('file and CLI select the built-in readonly default while preserving every n
  const args=strictArguments('C:/private/models.json'),cli={};for(let i=0;i<args.length;i+=2){assert.equal(args[i],'-c');const at=args[i+1].indexOf('=');cli[args[i+1].slice(0,at)]=JSON.parse(args[i+1].slice(at+1));}
  for(const config of [file,cli]){
   assert.equal(config.default_permissions,':read-only');assert.equal(config.approval_policy,undefined);assert.equal(config.sandbox_mode,undefined);
-  for(const name of ['apps','plugins','remote_plugin','multi_agent','code_mode','code_mode_only','browser_use','computer_use','image_generation','tool_suggest','sleep_tool','shell_tool','view_image','goals','hooks','codex_hooks','plugin_hooks','async_compaction'])assert.equal(config['features.'+name],false,name);
+  for(const name of ['apps','plugins','remote_plugin','multi_agent','code_mode','code_mode_only','browser_use','computer_use','image_generation','tool_suggest','sleep_tool','shell_tool','view_image','goals','hooks','codex_hooks','plugin_hooks'])assert.equal(config['features.'+name],false,name);
   for(const name of ['cloud.skills.enabled','orchestrator.mcp.enabled','tools.update_plan.enabled','tools.experimental_request_user_input.enabled'])assert.equal(config[name],false,name);
   assert.equal(config.web_search,'disabled');assert.deepEqual(config.notify,[]);
  }

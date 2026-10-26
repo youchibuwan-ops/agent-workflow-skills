@@ -1,9 +1,33 @@
 import {randomUUID,createHash} from 'node:crypto';
 import {AsyncLocalStorage} from 'node:async_hooks';
+import {compactToolResult} from '../core/tool-result-view.mjs';
+import {compactSessionToolResultStates} from './context-projection.mjs';
+
+// Restore only native call/result pairs followed by a later completed model
+// step. Same-step assistant messages precede tool execution and prove nothing.
+// Log-upload delivery-accepted events are deliberately not model-read evidence.
+export function recoverDeliveredCallIds(session) {
+  const calls=new Map(),results=new Map(),delivered=new Set();
+  for(const event of session.snapshotEvents()) {
+    const data=event.data;
+    if(event.type==='tool/call'&&/^workflow_[a-z0-9_]+$/.test(data.name))calls.set(String(data.callId),data);
+    if(event.type==='tool/result') {
+      const message=data.message,id=String(message?.source?.callId),prior=results.get(id),call=calls.get(id);
+      if(message?.source?.kind!=='tool'||message.toolCallId!==id||!call||call.turn!==data.turn||call.step!==data.step)continue;
+      if(!prior||!event.sourceEventSeqs?.includes(prior.seq))delivered.delete(id);
+      results.set(id,{seq:event.seq,turn:data.turn,step:data.step});
+    }
+    if(event.type==='assistant/message'&&!data.interrupted&&data.message?.source?.kind==='model'
+      &&Number.isSafeInteger(data.turn)&&Number.isSafeInteger(data.step)) {
+      for(const [id,result]of results)if(result.seq<event.seq&&(result.turn<data.turn||result.turn===data.turn&&result.step<data.step))delivered.add(id);
+    }
+  }
+  return delivered;
+}
 
 // All authority enters from native inbox/lifecycle facts and this host-owned
 // factory. This module is never a model tool and accepts no actor receipts.
-export function installSessionBroker(host,{controllerFactory,toolSchemas,isInstalled,isAgentLoopRequest,appendStatusRecord,appendCardRecord}) {
+export function installSessionBroker(host,{controllerFactory,toolSchemas,isInstalled,isAgentLoopRequest,appendStatusRecord,appendCardRecord,freezeMessage}) {
   if(typeof controllerFactory!=='function'||typeof isInstalled!=='function'||typeof isAgentLoopRequest!=='function'
     ||typeof appendStatusRecord!=='function'||typeof appendCardRecord!=='function'||!Array.isArray(toolSchemas)||!toolSchemas.length)throw new Error('Trusted factory, schemas, status/card writers and native request identity are required');
   const schemas=structuredClone(toolSchemas),names=new Set(schemas.map(s=>s.name));
@@ -80,17 +104,17 @@ export function installSessionBroker(host,{controllerFactory,toolSchemas,isInsta
     if(input.kind==='resume'&&produced?.awaitingUserTask===true){
       if(state.record)state.record.retired=true;
       state.record=undefined;state.failed=null;state.pendingDeliveries.clear();
-      sessions.set(String(state.agent.id),{record:undefined,seen:state.seen,pendingDeliveries:state.pendingDeliveries});
+      sessions.set(String(state.agent.id),{record:undefined,seen:state.seen,pendingDeliveries:state.pendingDeliveries,deliveredCallIds:state.deliveredCallIds});
       return;
     }
     const controller=validateController(produced?.controller??produced);
-    if(controller===prior){
+    if(controller===prior&&input.kind!=='resume'){
       if(input.kind==='user-task')await controller.acceptUserMessage(input.userMessage);
       state.failed=null;return;
     }
     if(state.record)state.record.retired=true;
     state.record={taskId:randomUUID(),controller,retired:false};state.failed=null;
-    sessions.set(String(state.agent.id),{record:state.record,seen:state.seen,pendingDeliveries:state.pendingDeliveries});
+    sessions.set(String(state.agent.id),{record:state.record,seen:state.seen,pendingDeliveries:state.pendingDeliveries,deliveredCallIds:state.deliveredCallIds});
   }
   async function drain(state){
     state.chain=state.chain.catch(()=>{}).then(async()=>{
@@ -110,7 +134,7 @@ export function installSessionBroker(host,{controllerFactory,toolSchemas,isInsta
   }
   host.on('agent/created',async({agent,source})=>{
     installed();const previous=sessions.get(String(agent.id));
-    const state={agent,source,record:source==='resume'?previous?.record:undefined,seen:source==='resume'?(previous?.seen??new Set()):new Set(),pending:[],pendingDeliveries:source==='resume'?(previous?.pendingDeliveries??new Map()):new Map(),chain:Promise.resolve(),failed:null,currentTurn:0,nativeTermination:null,publishedTerminalSeq:0};
+    const state={agent,source,record:source==='resume'?previous?.record:undefined,seen:source==='resume'?(previous?.seen??new Set()):new Set(),pending:[],pendingDeliveries:source==='resume'?(previous?.pendingDeliveries??new Map()):new Map(),deliveredCallIds:source==='resume'?(previous?.deliveredCallIds??recoverDeliveredCallIds(agent.session)):recoverDeliveredCallIds(agent.session),chain:Promise.resolve(),failed:null,currentTurn:0,nativeTermination:null,publishedTerminalSeq:0};
     states.set(agent,state);liveSessions.set(agent.session,state);
     // Do not mask registry visibility: the trusted native executor must retain
     // the Agent's ORIGINAL native capability/permission view. Filter only the
@@ -137,7 +161,17 @@ export function installSessionBroker(host,{controllerFactory,toolSchemas,isInsta
     return {...result,sections:[...result.sections.filter(s=>s.name!=='workflow-session-policy'),{name:'workflow-session-policy',text:state.record.controller.instructions,interpolate:false}],
       tools:result.tools.filter(schema=>names.has(schema.name)&&host.tools.get(schema.name,agent)===definitions.get(schema.name))};
   });
-  host.on('agent/pre-step',async({agent},next)=>{await drain(stateOf(agent));assertAgent(agent);return next();});
+  host.on('agent/pre-step',async({agent},next)=>{
+    const state=stateOf(agent);await drain(state);assertAgent(agent);
+    // No mutation of a frozen provider request: use official append-only surface
+    // replacement before native assembly, and never touch pending delivery IDs.
+    if(typeof freezeMessage==='function'&&state.record.controller.compactionReady?.()===true&&state.deliveredCallIds.size) {
+      const meter=host.get('tokenMeter');
+      if(typeof meter?.estimateMessage!=='function')throw new Error('Native token meter is unavailable for workflow state projection');
+      compactSessionToolResultStates(agent.session,{eligibleCallIds:state.deliveredCallIds,protectedCallIds:state.pendingDeliveries.keys(),freezeMessage,estimateMessage:message=>meter.estimateMessage(message)});
+    }
+    return next();
+  });
   host.on('agent/request',async({agent},next)=>{
     assertAgent(agent);const request=await next();assertAgent(agent);
     // Output controls belong to the original model/user settings. Test budgets
@@ -153,6 +187,12 @@ export function installSessionBroker(host,{controllerFactory,toolSchemas,isInsta
   host.on('session/event',(session,event)=>{
     const state=liveSessions.get(session);if(!state||host.get('agents')?.get(state.agent.id)!==state.agent)return;
     const turn=event.data?.turn;
+    if(event.type==='tool/result') {
+      const id=String(event.data.message?.source?.callId);
+      // A fresh call with a reused provider ID must acquire new delivery proof.
+      // Native state-only replacements preserve the original source linkage.
+      if(!event.sourceEventSeqs?.some(seq=>session.eventAt(seq)?.type==='tool/result'&&String(session.eventAt(seq).data.message?.source?.callId)===id))state.deliveredCallIds.delete(id);
+    }
     if(event.type==='turn/start'&&Number.isSafeInteger(turn)&&turn>state.currentTurn){state.currentTurn=turn;state.nativeTermination=null;}
     if(event.type==='turn/end'&&turn===state.currentTurn&&event.data?.reason?.kind==='aborted'&&event.seq>state.publishedTerminalSeq){state.nativeTermination={turn,seq:event.seq,reason:structuredClone(event.data.reason)};}
   });
@@ -185,6 +225,7 @@ export function installSessionBroker(host,{controllerFactory,toolSchemas,isInsta
         throw new Error(state.failed);
       }
     }
+    for(const callId of state.pendingDeliveries.keys())state.deliveredCallIds.add(callId);
     state.pendingDeliveries.clear();
     yield*next();
   })());
@@ -219,6 +260,7 @@ export function installSessionBroker(host,{controllerFactory,toolSchemas,isInsta
               finally{run.live=false;run.lifetime.abort(new Error('Guarded controller dispatch ended'));}
               if(!result||typeof result.ok!=='boolean')throw new Error('Workflow dispatcher integrity failure');
               if(result.fatal===true)throw new Error(`Workflow dispatcher fatal: ${typeof result.error==='string'?result.error:'Unspecified controller integrity failure'}`);
+              result=compactToolResult(result,{toolName:schema.name});
               const serialized=JSON.stringify(result);
               deliveries.set(exec.token,serialized);
               state.pendingDeliveries.set(String(exec.callId),JSON.stringify([{type:'text',text:serialized}]));

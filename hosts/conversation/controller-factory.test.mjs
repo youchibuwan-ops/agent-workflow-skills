@@ -62,10 +62,13 @@ test('automatic native rebind preserves unfinished scope and adds the actual new
  assert.match(first.instructions,/genuinely new actual user task/);assert.equal(first.exportAudit().restoration,null);
 });
 
-test('same-process native resume creates a fresh controller instead of retaining the old Agent executor',async t=>{
- const f=fixture(t),factory=createConversationFactory(f.options),old=await factory(f.input);
- const resumed=await factory({...f.input,kind:'resume',userMessage:undefined,previousController:old});
- assert.notEqual(resumed,old);assert.equal(resumed.stage,'discovery');assert.equal(resumed.exportAudit().restoration.strategy,'reverify-current-facts');
+test('same-process native resume retains task evidence while rebinding every read to the new Agent executor',async t=>{
+ const f=fixture(t),bytes=Buffer.from('CURRENT NATIVE BYTES');writeFileSync(join(f.workspace,'native.txt'),bytes);let first=0,second=0;
+ const executor=which=>({catalog:[{name:'pwsh'}],execute:async()=>{if(which===1)first++;else second++;return{isError:false,value:{kind:'foreground',exitCode:0,stdout:{text:JSON.stringify({offset:0,total:bytes.length,sha256:createHash('sha256').update(bytes).digest('hex'),base64:bytes.toString('base64')}),truncated:false},stderr:{text:'',truncated:false}}};}});
+ const factory=createConversationFactory(f.options),old=await factory({...f.input,nativeExecutor:executor(1)});
+ await old.dispatch('workflow_search_skills',{query:'ordinary task'});assert.equal((await old.dispatch('workflow_read_workspace',{path:'native.txt'})).ok,true);assert.equal(first,1);
+ const resumed=await factory({...f.input,kind:'resume',userMessage:undefined,previousController:old,nativeExecutor:executor(2)});
+ assert.equal(resumed,old);assert.equal(resumed.stage,'discovery');assert.equal((await resumed.dispatch('workflow_read_workspace',{path:'native.txt'})).data.content,'CURRENT NATIVE BYTES');assert.equal(first,1);assert.equal(second,1);
 });
 
 test('a broad home-like workspace cannot read the nested private controller state',async t=>{
@@ -151,6 +154,58 @@ async function publishedConversationOptions(t,configure=()=>{}){
  const durable=()=>JSON.parse(readFileSync(join(f.options.stateRoot,'sessions',readdirSync(join(f.options.stateRoot,'sessions'))[0]))).body;
  return{...f,factory,controller,call,cards,durable};
 }
+
+test('one overall task keeps reviewed methods and selection through questions, choice, drafting and detail feedback',async t=>{
+ const f=await publishedConversationOptions(t),initial=f.controller.exportAudit(),seenOptions=f.cards.filter(c=>c.kind==='options').length;
+ await f.controller.acceptUserMessage('这几个方案有什么区别？');assert.equal(f.controller.stage,'selection');assert.equal(f.controller.exportAudit().revision,initial.revision);
+ await f.controller.acceptUserMessage('/workflow choose A');assert.equal(f.controller.stage,'draft');
+ assert.equal((await f.call('workflow_write',{path:'result-A.md',content:'First selected draft.'})).ok,true);
+ await f.call('workflow_validate',{validator:'artifact-current',artifact:'result-A.md'});assert.equal(f.controller.stage,'feedback');
+ await f.controller.acceptUserMessage('为什么要这样安排？');assert.equal(f.controller.stage,'feedback');assert.equal(f.controller.exportAudit().revision,initial.revision);
+ await f.controller.acceptUserMessage('保留这个方案，把说明改短一点。');assert.equal(f.controller.stage,'draft');
+ const after=f.controller.exportAudit();assert.equal(after.events.filter(e=>e.event==='source_delivered').length,initial.events.filter(e=>e.event==='source_delivered').length);
+ assert.equal((await f.call('workflow_write',{path:'result-B.md',content:'Unselected alternative.'})).ok,false);
+ assert.equal((await f.call('workflow_write',{path:'result-A.md',content:'Short revised draft.'})).ok,true);
+ await f.call('workflow_validate',{validator:'artifact-current',artifact:'result-A.md'});assert.equal(f.controller.stage,'feedback');
+ await f.controller.acceptUserMessage('/workflow accept');assert.equal(f.controller.stage,'learning');
+ assert.equal((await f.call('workflow_learn',{decision:'no_increment',reason:'Same inspected method and revised selected artifact, no new reusable mechanism.',evidence:['Current revised bytes and actual external acceptance.']})).ok,true);
+ assert.equal(f.controller.complete,true);assert.equal(f.cards.filter(c=>c.kind==='options').length,seenOptions);
+ assert.equal(f.controller.exportAudit().events.filter(e=>e.event==='observed'&&e.kind==='skill_search').length,initial.events.filter(e=>e.event==='observed'&&e.kind==='skill_search').length);
+});
+
+test('published options are explained without another menu and mixed questions retain actual detail corrections',async t=>{
+ const f=await publishedConversationOptions(t),menus=f.cards.filter(c=>c.kind==='options').length;
+ assert.match(f.controller.instructions,/already published.*explain/i);assert.doesNotMatch(f.controller.instructions,/Present 3–5 supported options/);
+ await f.controller.acceptUserMessage('这几个方案有什么区别？');assert.equal(f.controller.stage,'selection');assert.equal(f.cards.filter(c=>c.kind==='options').length,menus);
+ await f.controller.acceptUserMessage('/workflow choose A');await f.call('workflow_write',{path:'result-A.md',content:'Current draft.'});await f.call('workflow_validate',{validator:'artifact-current',artifact:'result-A.md'});assert.equal(f.controller.stage,'feedback');
+ await f.controller.acceptUserMessage('为什么这样安排？把说明改短一点。');assert.equal(f.controller.stage,'draft');assert.match(f.controller.instructions,/把说明改短一点/);assert.equal(f.cards.filter(c=>c.kind==='options').length,menus);
+ await f.controller.acceptUserMessage('先停一下可以吗？');assert.match(f.controller.blockedReason,/paused/i);
+});
+
+test('explicit revocation of a selected plan clears old write authority instead of treating it as detail feedback',async t=>{
+ for(const text of ['取消方案 A，重新给我三个选择。','不要这个方案了，改用方案 B。','Why this design? Discard the current approach.']){
+  const f=await publishedConversationOptions(t);await f.controller.acceptUserMessage('/workflow choose A');
+  await f.controller.acceptUserMessage(text);assert.equal(f.controller.stage,'discovery',text);assert.equal(f.durable().continuationPlan,null,text);
+  assert.equal((await f.call('workflow_write',{path:'result-A.md',content:'Revoked old option.'})).ok,false,text);
+  assert.equal((await f.call('workflow_status')).data.selection,null,text);
+ }
+});
+
+test('a new native Agent for this live session retains the chosen plan instead of restarting discovery',async t=>{
+ const f=await publishedConversationOptions(t);await f.controller.acceptUserMessage('/workflow choose A');
+ const resumed=await f.factory({...f.input,kind:'resume',previousController:f.controller,userMessage:undefined});
+ assert.equal(resumed,f.controller);assert.equal(resumed.stage,'draft');
+ assert.equal((await resumed.dispatch('workflow_write',{path:'result-A.md',content:'Continue the already selected approach.'})).ok,true);
+ assert.equal((await resumed.dispatch('workflow_write',{path:'result-B.md',content:'Wrong option.'})).ok,false);
+});
+
+test('cold restoration re-verifies facts but retains the actual previous human plan choice',async t=>{
+ const f=await publishedConversationOptions(t);await f.controller.acceptUserMessage('/workflow choose A');
+ const restored=await createConversationFactory(f.options)({...f.input,kind:'resume',userMessage:undefined});
+ assert.equal(restored.stage,'discovery');assert.equal((await restored.dispatch('workflow_status')).data.selection.selected,'A');
+ assert.match(restored.instructions,/already selected|selection is retained|已选/i);
+ assert.equal((await restored.dispatch('workflow_write',{path:'result-A.md',content:'No source re-verification yet.'})).ok,false);
+});
 
 test('generic GUI continuations with LF CRLF and outer whitespace select exactly one plan and preserve raw audits',async t=>{
  for(const [raw,accept]of [['/workflow choose A\n','/workflow accept\n'],['/workflow choose A\r\n','/workflow accept\r\n'],[' \t/workflow choose A \r\n',' \t/workflow accept \r\n']])await t.test(JSON.stringify(raw),async t=>{
