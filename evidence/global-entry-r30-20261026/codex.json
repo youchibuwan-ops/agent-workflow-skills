@@ -1,0 +1,62 @@
+{
+  "status": "complete-actual-desktop-workflow",
+  "checkedAt": "2026-10-26T01:26:02.756Z",
+  "sourceManifestSha256": "c1620d7674122dfb90be51d83467c651480b28e58a78cec1c3f26b2c05185fd1",
+  "task": "conversation-3cd3c589f0af1a419e287ac0",
+  "revision": 2,
+  "stage": "complete",
+  "successfulWrites": 2,
+  "onlySelectedPath": true,
+  "protectedPriorFileUnchanged": true,
+  "actualSuccessfulWriteMatchesDeclaredOutput": true,
+  "allScopedBilingualFactsPresent": true,
+  "artifact": {
+    "path": "delivery-r30.md",
+    "bytes": 269,
+    "sha256": "6d10b94660f90b5faac02ec11f6061f64ca4b712c2ea7522c5d4831ce0c288d6"
+  },
+  "humanApproval": false,
+  "designApproval": false,
+  "onlyRequestedPlaceChanged": true,
+  "orderedStages": [
+    "scope",
+    "discovery",
+    "selection",
+    "draft",
+    "feedback",
+    "delivery",
+    "learning"
+  ],
+  "toolCalls": 59,
+  "toolCounts": {
+    "workflow_status": 5,
+    "workflow_read_workspace": 4,
+    "workflow_search_skills": 2,
+    "workflow_open_skill": 2,
+    "workflow_read_source": 20,
+    "workflow_confirm_sources": 4,
+    "workflow_review_skill": 3,
+    "workflow_install_skill": 2,
+    "workflow_open_reference": 6,
+    "workflow_observe_reference": 4,
+    "workflow_checkpoint": 2,
+    "workflow_write": 2,
+    "workflow_validate": 2,
+    "workflow_learn": 1
+  },
+  "actualRejectedCalls": 9,
+  "nativeModelTurns": 5,
+  "model": "gpt-6-astra",
+  "learning": {
+    "decision": "no_increment",
+    "evidence": [
+      "receipt-17",
+      "receipt-18",
+      "receipt-19",
+      "receipt-20"
+    ],
+    "reason": "本次为已选双语通知的两处地点A到C精确更正；保留269字节长度、原换行和其他内容，宿主验证可读性，用户已验收。现有doc-coauthoring精确编辑方法足够，未发现需要新增或修改Skill的通用能力缺口；不新增文件。"
+  },
+  "externalDriverAcceptance": true,
+  "scope": "Author-driven actual private Codex GUI; not stock-chat retroactive guarding or human aesthetic acceptance"
+}

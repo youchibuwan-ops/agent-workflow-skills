@@ -1,0 +1,28 @@
+// Owner-authorized filesystem exception, never an actor tool or serialized receipt.
+// Git linkage proves identity only; the exact owner tuple is the authorization.
+import {existsSync,lstatSync,readFileSync,realpathSync} from 'node:fs';import path from 'node:path';import {createHash} from 'node:crypto';
+const leases=new WeakMap(),key=p=>process.platform==='win32'?p.toLowerCase():p;
+const same=(a,b)=>key(a)===key(b),inside=(root,p)=>{const r=path.relative(root,p);return r===''||(!r.startsWith('..'+path.sep)&&r!=='..'&&!path.isAbsolute(r));};
+const absolute=p=>{if(typeof p!=='string'||!path.isAbsolute(p)||/[\0]/.test(p))throw Error('Absolute owner worktree authorization path required');return path.resolve(p);};
+function plain(p,directory){p=absolute(p);let current=p;while(true){const st=lstatSync(current,{bigint:true});if(st.isSymbolicLink())throw Error('Worktree metadata or ancestor redirected');const parent=path.dirname(current);if(parent===current)break;current=parent;}const st=lstatSync(p,{bigint:true});if(directory?!st.isDirectory():!st.isFile()||st.nlink!==1n||st.size>4096n)throw Error('Worktree metadata must be bounded regular single-link files and plain directories');return{path:realpathSync.native(p),dev:String(st.dev),ino:String(st.ino)};}
+function pointer(file,prefix=''){const identity=plain(file,false),bytes=readFileSync(file);let text;try{text=new TextDecoder('utf8',{fatal:true}).decode(bytes);}catch{throw Error('Invalid worktree metadata encoding');}text=text.replace(/\r?\n$/,'');if(!text||/[\r\n\0]/.test(text)||prefix&&!text.startsWith(prefix))throw Error('Invalid worktree pointer metadata');return{...identity,sha256:createHash('sha256').update(bytes).digest('hex'),value:text.slice(prefix.length)};}
+function proof(tuple){
+ const workspace=plain(tuple.workspace,true),legacy=plain(tuple.legacyRoot,true),common=plain(tuple.expectedCommonGitDir,true),git=pointer(path.join(workspace.path,'.git'),'gitdir: '),admin=plain(path.resolve(path.dirname(git.path),git.value),true),back=pointer(path.join(admin.path,'gitdir')),commondir=pointer(path.join(admin.path,'commondir'));
+ if(!same(path.dirname(admin.path),path.join(common.path,'worktrees'))||!same(realpathSync.native(path.resolve(admin.path,back.value)),git.path)||!same(realpathSync.native(path.resolve(admin.path,commondir.value)),common.path))throw Error('Worktree reciprocal metadata identity mismatch');
+ return{workspace,legacy,common,git,admin,back,commondir};
+}
+export function createVerifiedWorktreeAuthority({authorizations=[]}={}){
+ if(!Array.isArray(authorizations)||authorizations.length>100)throw Error('Bounded exact owner worktree authorizations required');const tuples=new Map();
+ for(const value of authorizations){if(!value||Object.keys(value).sort().join(',')!=='expectedCommonGitDir,legacyRoot,workspace')throw Error('Exact owner worktree authorization tuple required');const tuple=Object.fromEntries(Object.entries(value).map(([k,v])=>[k,absolute(v)]));
+  const managed=path.join(tuple.legacyRoot,'worktrees');if(!inside(managed,tuple.workspace)||same(managed,tuple.workspace)||key(path.basename(tuple.expectedCommonGitDir))!==key('.git')||tuples.has(key(tuple.workspace)))throw Error('Owner worktree authorization must identify one managed worktree');tuples.set(key(tuple.workspace),tuple);
+ }
+ const authority=Object.freeze({leaseForWorkspace(workspace){workspace=absolute(workspace);const tuple=tuples.get(key(workspace))??(existsSync(workspace)?tuples.get(key(realpathSync.native(workspace))):null);if(!tuple)return null;const snapshot=proof(tuple);if(!same(snapshot.workspace.path,realpathSync.native(workspace))||!inside(snapshot.legacy.path,snapshot.workspace.path))throw Error('Worktree authorization canonical root mismatch');const lease=Object.freeze(Object.create(null));leases.set(lease,{tuple,snapshot,authority});return lease;},acceptsLease(lease,workspace){const r=leases.get(lease);return !!r&&r.authority===authority&&same(r.snapshot.workspace.path,realpathSync.native(absolute(workspace)));}});return authority;
+}
+function physical(p){let parent=absolute(p),tail=[];while(!existsSync(parent)){tail.unshift(path.basename(parent));const next=path.dirname(parent);if(next===parent)throw Error('Private path has no filesystem anchor');parent=next;}return path.join(realpathSync.native(parent),...tail);}
+export function createWorkspacePathPolicy({workspace,privateRoots=[],hardPrivateRoots=[],worktreeLease}={}){
+ workspace=realpathSync.native(absolute(workspace));const record=worktreeLease==null?null:leases.get(worktreeLease);if(worktreeLease!=null&&!record||record&&!same(record.snapshot.workspace.path,workspace))throw Error('Foreign or forged worktree lease for workspace');
+ if(!Array.isArray(privateRoots)||!Array.isArray(hardPrivateRoots))throw Error('Private workspace roots required');
+ const assertCurrent=()=>{if(record&&JSON.stringify(proof(record.tuple))!==JSON.stringify(record.snapshot))throw Error('Worktree metadata or filesystem identity changed; fresh owner verification required');};
+ const deniesPrivate=target=>{assertCurrent();target=absolute(target);if(hardPrivateRoots.map(physical).some(root=>inside(root,target)))return true;return privateRoots.map(physical).some(root=>inside(root,target)&&!(record&&same(root,record.snapshot.legacy.path)&&inside(workspace,target)));};
+ return Object.freeze({workspace,assertCurrent,deniesPrivate,assertWorkspace({allowPrivateSubroots=false}={}){assertCurrent();if(deniesPrivate(workspace)||!allowPrivateSubroots&&[...privateRoots,...hardPrivateRoots].map(physical).some(p=>inside(workspace,p)))throw Error('Workspace overlaps private host state without an exact verified worktree lease');}});
+}

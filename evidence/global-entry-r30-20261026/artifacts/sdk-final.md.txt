@@ -1,0 +1,11 @@
+# 中文 | English
+
+**主题 / Topic：小型技术交流会（Mini Tech Meetup）**
+
+## 中文
+
+小型技术交流会将于 2026 年 11 月 8 日 14:30 在松林会议室举办。请在 11 月 5 日前发送邮件至 test@example.invalid 报名。希望这份通知简短清晰，同时完整保留时间、地点与联系方式。
+
+## English
+
+The Mini Tech Meetup will be held at 14:30 on 8 November 2026 in the Pine Conference Room. Please register by emailing test@example.invalid before 5 November. We want this notice to stay brief and clear while keeping every time, venue, and contact detail.

@@ -1,5 +1,8 @@
 # 给 DeepSeek Harness 同学的安装与使用说明
 
+需要每次启动自动接入工具门禁，请先看[默认受控入口的安装说明](global-entry.md)。
+下文是单独复制 Skill 的方式，属于 `instruction_only`，不安装宿主拦截器。
+
 这是 **DeepSeek Harness（DSH）工具环境**使用的 Skill，名称为
 `proactive-skill-discovery-dsh`。仅使用 DeepSeek 网页聊天时，不能直接安装本目录。
 先使用你已经配置好的 DSH；本包不包含模型账户或凭证，也不要求安装 Codex。
@@ -82,8 +85,8 @@ DeepSeek 模型**。接入方式和真实 Codex 模型测试见[阶段检查报�
 **0.2.1-rc.2**，实际检查项目发现、模型/用户调用元数据、正文与相对引用加载，
 以及项目安装、个人安装和拒绝覆盖。具体内容见[宿主适配](../skills/proactive-skill-discovery-dsh/references/dsh-host.md)。
 
-这些不是 DeepSeek 模型任务质量或你机器环境的验收。搜索凭证、联网、视觉与终端能力
-依实际 DSH 配置而定；本次未通过真实 DeepSeek 模型对话测试完整任务闭环。
+这些加载测试不是 DeepSeek 模型任务质量或你机器环境的验收。搜索凭证、联网、视觉与终端能力
+依实际 DSH 配置而定。另见 [R30 实测](../evidence/global-entry-r30-20261026/README.md)：受控 SDK 真实模型及实际 Web 已通过指定文本任务闭环，Web 还验证了已有文件连续两回合修改；这不代表任意领域质量或其他客户端已验收。
 参考[官方 Skill 文档](https://github.com/deepseek-ai/deepseek-harness/blob/22ddee3792402c3e70ec5f86a63c3e3e895a2f60/docs/subsystems/skills.md)。
 
 ## 维护者复验

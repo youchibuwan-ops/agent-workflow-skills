@@ -1,0 +1,9 @@
+// Temporary metadata-only test fixture; never points at a user's repository.
+import {mkdirSync,writeFileSync} from 'node:fs';import {join} from 'node:path';
+import {execFileSync} from 'node:child_process';
+export function worktreeFixture(root){const legacyRoot=join(root,'.codex'),workspace=join(legacyRoot,'worktrees','managed','project'),expectedCommonGitDir=join(root,'original','.git'),admin=join(expectedCommonGitDir,'worktrees','project');mkdirSync(workspace,{recursive:true});mkdirSync(admin,{recursive:true});writeFileSync(join(workspace,'.git'),'gitdir: '+admin+'\n');writeFileSync(join(admin,'gitdir'),join(workspace,'.git')+'\n');writeFileSync(join(admin,'commondir'),'../..\n');return{workspace,legacyRoot,expectedCommonGitDir,admin,authorization:{workspace,legacyRoot,expectedCommonGitDir}};}
+export function realGitWorktreeFixture(root){const legacyRoot=join(root,'.codex'),workspace=join(legacyRoot,'worktrees','managed','project'),repo=join(root,'original'),expectedCommonGitDir=join(repo,'.git'),empty=join(root,'empty-git-hooks'),global=join(root,'empty-git-config');mkdirSync(empty,{recursive:true});writeFileSync(global,'');mkdirSync(join(legacyRoot,'worktrees','managed'),{recursive:true});
+ const env={...Object.fromEntries(Object.entries(process.env).filter(([k])=>!/^GIT_/i.test(k))),HOME:root,USERPROFILE:root,GIT_CONFIG_NOSYSTEM:'1',GIT_CONFIG_GLOBAL:global,GIT_TERMINAL_PROMPT:'0'};
+ const git=(...args)=>execFileSync('git',['-c','core.hooksPath='+empty,'-c','init.templateDir='+empty,'-c','user.name=Lease fixture','-c','user.email=lease@example.invalid','-c','commit.gpgsign=false',...args],{env,stdio:'pipe',windowsHide:true});git('init',repo);git('-C',repo,'commit','--allow-empty','-m','Fixture initial identity');git('-C',repo,'worktree','add','-b','codex/lease',workspace);
+ return{workspace,legacyRoot,expectedCommonGitDir,authorization:{workspace,legacyRoot,expectedCommonGitDir}};
+}

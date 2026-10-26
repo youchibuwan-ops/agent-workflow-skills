@@ -4,10 +4,10 @@ import {createHash} from 'node:crypto';
 import {mkdirSync,mkdtempSync,readFileSync,writeFileSync,lstatSync,realpathSync,existsSync,rmSync} from 'node:fs';
 import {resolve,relative,isAbsolute,join,dirname,basename} from 'node:path';
 import {protectedProjectSegment,projectPathKey} from '../security/project-path.mjs';
+import {createWorkspacePathPolicy} from '../security/verified-worktree.mjs';
 
 const sha=b=>createHash('sha256').update(b).digest('hex');
 const inside=(root,p)=>{const r=relative(root,p);return r===''||(!r.startsWith('..')&&!isAbsolute(r));};
-function privatePath(path){const absolute=resolve(path);let parent=absolute;while(!existsSync(parent)){const next=dirname(parent);if(next===parent)throw Error('Private path has no existing filesystem anchor');parent=next;}return resolve(realpathSync.native(parent),relative(parent,absolute));}
 function member(p){
  if(typeof p!=='string'||!p||isAbsolute(p)||/[:\0\\]/.test(p)||p.split('/').some(x=>!x||x==='.'||x==='..'))throw Error('Expected a scoped relative path; traversal rejected');
  if(p.split('/').some(protectedProjectSegment))throw Error('Credential or protected path rejected');
@@ -69,11 +69,10 @@ try:print(json.dumps(run(json.load(sys.stdin))))
 except Exception as e:print(json.dumps({'ok':False,'exitCode':-1,'stdout':'','stderr':str(e),'outputs':{},'providerError':True}))
 `;
 
-export function createSandboxProvider({stateRoot,privateRoots=[],executionPolicy='native-permission',invoke,readInput,timeoutMs=5000}={}){
+export function createSandboxProvider({stateRoot,privateRoots=[],hardPrivateRoots=[],worktreeLease,executionPolicy='native-permission',invoke,readInput,timeoutMs=5000}={}){
  if(!stateRoot)throw Error('A host-owned sandbox state root is required');
  mkdirSync(stateRoot,{recursive:true});const root=realpathSync.native(stateRoot);
  if(!['native-permission','test-only-direct'].includes(executionPolicy))throw Error('Unknown sandbox execution policy');
- const secrets=[root,...privateRoots.map(privatePath)];
  const env=Object.fromEntries(Object.entries(process.env).filter(([k])=>/^(PATH|SYSTEMROOT|WINDIR|TEMP|TMP|USERPROFILE|LOCALAPPDATA)$/i.test(k)));
  const direct=request=>spawnSync(request.command,request.args,{input:request.input,encoding:'utf8',env,windowsHide:true,timeout:20000,maxBuffer:4*1024*1024});
  async function invokeChecked(request){
@@ -97,11 +96,12 @@ export function createSandboxProvider({stateRoot,privateRoots=[],executionPolicy
   if(inputPaths.length>64||outputPaths.length>16||new Set(outputPaths.map(projectPathKey)).size!==outputPaths.length)throw Error('Sandbox manifest exceeds reviewed limits');
   if(!Number.isInteger(taskTimeout)||taskTimeout<100||taskTimeout>10000)throw Error('Sandbox timeout must be between 100 and 10000 ms');
   const project=realpathSync(workspace),physicalProject=realpathSync.native(workspace),method=realpathSync.native(methodRoot);
+  const policy=createWorkspacePathPolicy({workspace,privateRoots,hardPrivateRoots:[root,...hardPrivateRoots],worktreeLease});policy.assertCurrent();
   const selected=resolve(method,script);if(!inside(method,realpathSync(selected))||lstatSync(selected).isSymbolicLink())throw Error('Method path escaped inspected bundle');
   let total=0;const inputs=[];
   for(const p of inputPaths){
    const path=resolve(project,p),actual=realpathSync.native(path);
-   if(!inside(physicalProject,actual)||secrets.some(s=>inside(s,actual))||!lstatSync(path).isFile()||lstatSync(path).isSymbolicLink()||lstatSync(path).nlink>1)throw Error('Protected input or linked alias escaped the workspace');
+   if(!inside(physicalProject,actual)||policy.deniesPrivate(actual)||!lstatSync(path).isFile()||lstatSync(path).isSymbolicLink()||lstatSync(path).nlink>1)throw Error('Protected input or linked alias escaped the workspace');
    total+=lstatSync(path).size;if(total>8*1024*1024)throw Error('Sandbox input limit exceeded');
    const delivered=executionPolicy==='native-permission'?await readInput({workspace:project,path:p,absolutePath:actual}):readFileSync(actual);
    if(!Buffer.isBuffer(delivered))throw Error('Native read delegate must return exact untruncated bytes');

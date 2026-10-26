@@ -1,0 +1,11 @@
+{
+  "version": "20261026-preview3-r30",
+  "filename": "AgentWorkflow-DSH-20261026-preview3-r30-verified.zip",
+  "bytes": 605126,
+  "sha256": "58dd6ae8034ee03f7d6fd68fda2e3fb770e5ce36da57e158d927db1a78b7711f",
+  "payloadManifestSha256": "c1620d7674122dfb90be51d83467c651480b28e58a78cec1c3f26b2c05185fd1",
+  "payloadFiles": 132,
+  "payloadUnchanged": true,
+  "outerFiles": 5,
+  "scope": "DSH Windows x64 installer; author current payload and ZIP roundtrip; first install downloads pinned official runtimes"
+}

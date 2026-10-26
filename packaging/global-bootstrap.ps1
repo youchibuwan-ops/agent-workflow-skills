@@ -72,5 +72,7 @@ try{
  Write-Host 'Controlled DSH installed. No model, API-key copy or browser launch occurred.'
  Write-Host 'Set your own key in your PowerShell window; never share the real key:'
  Write-Host '$env:DEEPSEEK_API_KEY = ''YOUR_OWN_KEY'''
- Write-Host ('Then cd to your project and run: & "'+(Join-Path $workflowOwner 'dsh.cmd')+'" headless ''Inspect the current project and propose options''')
+ Write-Host ('Then cd to your project and run: & "'+(Join-Path $workflowOwner 'dsh.cmd')+'" web')
+ Write-Host 'Open the printed local URL manually. In Web, add/select the actual project workspace and verify its name before submitting a task.'
+ Write-Host 'Use the same Web conversation for choice, feedback and acceptance. Headless is one-shot and cannot complete that interaction.'
 }catch{Write-Error ('Installation blocked: '+$_.Exception.Message);exit 1}

@@ -19,7 +19,7 @@
 安装后完整依赖核验及用户 PATH 启用脚本。具体安装包以当前验证记录为准；
 只安装 Skill 不会自动启用这套宿主接入。
 
-当前 [R08 作者实测记录](evidence/global-entry-20261026/README.md) 包含 DSH 的真实反馈修订整链、Codex 原生 WebSocket 整链、完整依赖篡改拒绝和本机默认入口验证；界面操作及第三方客户端的未覆盖项单独列出。
+当前 [R30 作者实测记录](evidence/global-entry-r30-20261026/README.md) 包含 Codex 实际桌面、DSH 实际 Web 的方案选择与反馈修订整链，以及独立的 DSH 真实模型探针。完整回归 426/426、打包 33/33、Codex 策略 31/31，均零跳过；源码、依赖、产物字节和原生入口分别核验。安装包见 [GitHub Releases](https://github.com/youchibuwan-ops/agent-workflow-skills/releases)，仅复制 Skill 仍是 `instruction_only`。
 
 **2026-10-25：SVG Skill 已撤下。**
 `crafting-reference-based-svg-assets` 已从当前可安装目录移除，单独的发布 ZIP 也撤下，

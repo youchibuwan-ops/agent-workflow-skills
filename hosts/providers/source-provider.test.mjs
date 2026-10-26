@@ -47,6 +47,18 @@ test('installed source hard links cannot launder private external text as an ins
 test('cache payload tampering fails instead of treating directory existence as availability',async t=>{
  const f=fixture(t),s=await f.provider.search('example');const a=await f.provider.acquire(s.candidates[0].id);writeFileSync(join(a.path,'LICENSE'),'tampered');await assert.rejects(()=>f.provider.acquire(s.candidates[0].id),e=>e.code==='CACHE_INTEGRITY');
 });
+
+test('an oversized existing cache is integrity failure while a genuinely oversized new source remains a bounded source refusal',async t=>{
+ const f=fixture(t),p=createSourceProvider({installedRoots:[f.installed],cacheRoot:join(f.root,'bounded-cache'),external:false,maxBytes:1024});
+ const found=await p.search('example'),id=found.candidates[0].id,acquired=await p.acquire(id);
+ assert.equal((await p.acquire(id)).path,acquired.path);
+ writeFileSync(join(acquired.path,'unexpected.txt'),Buffer.alloc(2048,0x61));
+ await assert.rejects(()=>p.acquire(id),e=>e.code==='CACHE_INTEGRITY'&&e.cause?.code==='SOURCE_LIMIT');
+ const g=fixture(t),q=createSourceProvider({installedRoots:[g.installed],cacheRoot:join(g.root,'new-cache'),external:false,maxBytes:1024});
+ writeFileSync(join(g.skill,'new-resource.txt'),Buffer.alloc(2048,0x62));const offered=await q.search('example');
+ await assert.rejects(()=>q.acquire(offered.candidates[0].id),e=>e.code==='SOURCE_LIMIT');
+ assert(!existsSync(join(g.root,'new-cache/bundles')));
+});
 test('cache directory redirection and unresolved outside references are not accepted',async t=>{
  const f=fixture(t),foreign=join(f.root,'foreign');mkdirSync(foreign);mkdirSync(join(f.root,'cache'),{recursive:true});symlinkSync(foreign,join(f.root,'cache/bundles'),process.platform==='win32'?'junction':'dir');
  const s=await f.provider.search('example');await assert.rejects(()=>f.provider.acquire(s.candidates[0].id),e=>e.code==='CACHE_INTEGRITY');assert.deepEqual([...readFileSync(join(f.skill,'LICENSE'))].slice(0,3),[77,73,84]);

@@ -1,5 +1,6 @@
 import {randomUUID,createHash} from 'node:crypto';
 import {AsyncLocalStorage} from 'node:async_hooks';
+const MAX_MODEL_OUTPUT_TOKENS=100000;
 
 // All authority enters from native inbox/lifecycle facts and this host-owned
 // factory. This module is never a model tool and accepts no actor receipts.
@@ -77,6 +78,12 @@ export function installSessionBroker(host,{controllerFactory,toolSchemas,isInsta
         installed();const data={...structuredClone(card),sessionId:String(state.agent.id)};
         appendCardRecord(state.agent.session,data);host.emit('workflow/card',{agent:state.agent,card:data});
       }});
+    if(input.kind==='resume'&&produced?.awaitingUserTask===true){
+      if(state.record)state.record.retired=true;
+      state.record=undefined;state.failed=null;state.pendingDeliveries.clear();
+      sessions.set(String(state.agent.id),{record:undefined,seen:state.seen,pendingDeliveries:state.pendingDeliveries});
+      return;
+    }
     const controller=validateController(produced?.controller??produced);
     if(controller===prior){
       if(input.kind==='user-task')await controller.acceptUserMessage(input.userMessage);
@@ -115,6 +122,11 @@ export function installSessionBroker(host,{controllerFactory,toolSchemas,isInsta
       catch(error){fail(state,`Session restore is not authorized: ${error.message}`);throw error;}
     }
   });
+  host.on('agent/disposed',({agent})=>{
+    const state=states.get(agent),record=state?.record;if(!state)return;
+    if(record&&!record.retired){record.retired=true;if(!record.controller.complete)record.controller.abort('Native Agent disposed');}
+    if(liveSessions.get(agent.session)===state)liveSessions.delete(agent.session);
+  });
   host.on('agent/inbox/claimed',({agent,message})=>{
     if(message.source?.kind==='user'||message.source?.kind==='user-question-reply')stateOf(agent).pending.push(message);
   });
@@ -127,7 +139,21 @@ export function installSessionBroker(host,{controllerFactory,toolSchemas,isInsta
       tools:result.tools.filter(schema=>names.has(schema.name)&&host.tools.get(schema.name,agent)===definitions.get(schema.name))};
   });
   host.on('agent/pre-step',async({agent},next)=>{await drain(stateOf(agent));assertAgent(agent);return next();});
-  host.on('agent/request',async({agent},next)=>{assertAgent(agent);return next();});
+  host.on('agent/request',async({agent,signal},next)=>{
+    const state=assertAgent(agent),request=await next();let requested=request?.maxTokens;
+    if(!request||typeof request!=='object'||(requested!==undefined&&(!Number.isSafeInteger(requested)||requested<=0)))throw new Error('Native model output limit must be a positive safe integer');
+    // The Models UI may provide a lower model default without AgentOptions.
+    // Resolve only metadata; native prepareCall still owns its bound dispatch.
+    const defaulted=requested===undefined||(agent.options?.maxTokens===undefined&&state.outputBudget?.defaulted&&requested===state.outputBudget.maxTokens);
+    if(defaulted)requested=(await host.get('llm').resolveModelInfo(request.provider,request.model,signal)).defaultMaxTokens;
+    assertAgent(agent);
+    // Set the ceiling before native prepareCall resolves provider/model defaults.
+    // Keep caller-owned Agent options, model selection and message bytes intact.
+    const maxTokens=Math.min(requested??MAX_MODEL_OUTPUT_TOKENS,MAX_MODEL_OUTPUT_TOKENS);
+    // Native history persists concrete controls. Remember our own derived cap
+    // so it cannot hide a later, lower (or raised) live Models setting.
+    state.outputBudget={defaulted,maxTokens};return{...request,maxTokens};
+  });
   host.on('agent/error',({agent,error})=>{
     const state=states.get(agent);if(state&&!state.failed)fail(state,`Native Agent error: ${error instanceof Error?error.message:String(error)}`);
   });
@@ -156,6 +182,9 @@ export function installSessionBroker(host,{controllerFactory,toolSchemas,isInsta
   host.on('llm/stream',(options,next)=>(async function*(){
     installed();const agent=host.get('agents')?.currentInitiator();const state=assertAgent(agent);
     if(!isAgentLoopRequest(options))throw new Error('Direct LLM APIs require a native bound AgentLoop request');
+    if(!Number.isSafeInteger(options.maxTokens)||options.maxTokens<=0||options.maxTokens>MAX_MODEL_OUTPUT_TOKENS){
+      fail(state,'Native model output limit exceeds the authorized 100000 per-response ceiling');throw new Error(state.failed);
+    }
     // AgentLoop freezes this real request. Check the exact pending tool bytes
     // after session projection/compaction, immediately before provider dispatch.
     // A tools/result observer alone cannot detect later surface pruning.

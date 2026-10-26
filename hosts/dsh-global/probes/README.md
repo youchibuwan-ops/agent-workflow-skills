@@ -124,7 +124,14 @@ Correctable draft differences send precise external test-driver feedback through
 the same live native session. Production corrections reopen scope and invalidate
 old source/installation/validation facts; the model must redo those actions,
 present new actual options for the same artifact and receive another actual
-driver choice. At most two complete revisions are allowed. Each draft retains
+driver choice. Correctable option regressions also return precise external
+feedback in the same live session, preserving the previously chosen commitment;
+the driver neither edits the observed options nor chooses an incompatible one.
+There is no fixed two-revision cutoff. Four consecutive failures with identical
+independent evidence may receive correction; a fifth identical failure stops
+with its concrete measurements as a no-progress guard. Changed facts, bytes or
+option evidence reset that counter. The model-request, input-size and prompt
+deadline guards still bound the whole run. Each draft retains
 raw bytes, hashes, measurements, native write-argument evidence, visible text,
 checks and exact feedback before acceptance. Changed original input is fatal and
 never accepted. Completion requires the final revision's ordered seven host
@@ -149,9 +156,91 @@ Native max-tokens is recorded as truncation, not fatal abortion or completion.
 Actual selection/feedback cards and current independently checked artifacts
 remain usable. Discovery/draft/unfinished acceptance can continue with a real
 same-session /workflow status turn, which preserves the existing scope. The
-task explicitly requests continued current work on that progress turn. At most
-four such continuations are allowed; genuine aborted/error turns still stop.
+task explicitly requests continued current work on that progress turn. The paid
+driver binds the continuation ceiling to its verified `plan.maxRequests`
+(currently 128); the helper defaults to 128 and requires a positive safe integer.
+Progress after more than four truncations can therefore finish without an old
+four-turn cutoff. The actual provider still has its unchanged 128-request,
+96 MiB cumulative/2 MiB per-request JSON and 20-minute prompt guards; continuation
+does not enlarge them. Explicit lower ceilings are used only by boundary tests.
+The separate repeated-identical-failure guard remains four corrections, and
+genuine aborted/error turns still stop.
 The real-controller regression starts with discovery truncation, verifies a
 scope-preserving progress turn, then handles a truncated feedback draft through
 real correction/reinspection/reselection and acceptance. No truncated prose
 can substitute for actual stage cards, current artifact checks or acceptance.
+
+The preserved R21 attempt made 44 real provider streams with 100000 maxTokens,
+no budget refusal and unchanged 219-byte input. Its initial 397-byte draft used
+LF despite the chosen CRLF promise, matching its original write arguments.
+After real correction, all four revision-two options still explicitly promised
+UTF-8, no BOM and physical CRLF. Their erroneous readback expression `crlf=lf`
+was mistaken for an LF format alternative by the former promise parser. That
+was a grader false negative, not evidence that the plans changed to LF. The
+old process was ended and its failed report is retained. The parser now
+distinguishes metric assignments from actual format alternatives; a genuine
+CRLF-to-LF option regression still requires real same-session correction.
+
+A production conversation-factory regression performs five scope revisions,
+fresh source delivery/confirmation and real external choices after a genuine
+LF-only option regression. Four independently checked drafts include format
+and explanation failures before the final actual CRLF/UTF-8 artifact, original
+input preservation, external acceptance and ordered seven-stage completion.
+Only source acquisition and the actor's actions are scripted: this is a free
+business-controller regression, not a new native SDK or paid-model run.
+
+The retained R25 paid attempt made 82 provider streams and remains failed:
+draft LF/literal escapes did not satisfy the chosen physical CRLF promise.
+A separate free official-SDK/production-controller proof wrote actual CRLF
+through the original native permission path (34 bytes, two CRLFs, zero bare LF),
+matching raw workflow and native write arguments. Python-method execution on
+that native route was blocked by `Wsl/E_ACCESSDENIED` before Python started;
+direct Python and explicit test-only Bwrap staging do not establish availability.
+No augmented Python fixture was used for paid execution.
+
+For fresh R26 preparation the local test Skill describes the optional
+`workflow_write.newline` declaration: `preserve` (also the omitted default),
+`LF`, or `CRLF`. The same guarded native writer converts only actual decoded
+ASCII line endings when requested; it never unescapes literal backslashes or
+changes BOM. The independent probe uses successive split/join passes, not the
+production materializer, to derive expected UTF-8 bytes. Each observed write
+records raw argument byte facts, declared expected byte facts, actual file byte
+facts, `matchesRawActual` and `matchesDeclaredOutput`. A requested conversion
+may legitimately make the first comparison false and the second true; feedback
+does not label that an unexplained host rewrite. Under omitted/preserve the two
+expected byte sequences are identical. This evidence does not relax independent
+facts, selected CRLF/LF commitments, input preservation or actual acceptance.
+All old payloads/plans and failure reports stay unchanged. R26 model acceptance
+requires a fresh source freeze, free dry witness and separately prepared run.
+
+R27 pairs each write with its actual native result by exact call ID, tool-source
+ID, turn and sequence within the current revision. Only an `ok:true` non-error
+result supplies materialization evidence. Refused, native-error or unconfirmed
+calls remain separate diagnostics, so a later business refusal (including an
+unknown newline mode) cannot replace a successful write or kill artifact review.
+No successful observed write means no write-argument attribution; current artifact
+facts and the production controller's phase requirements still apply.
+
+The year is part of the original date fact: the current activity must retain
+2026, and an explicit conflicting activity/deadline year is rejected in either
+language. A year on the activity date, an event heading or a labeled year field
+may be shared by both language blocks. Both dates reduced to month/day alone
+cannot borrow 2026 from an unrelated reference-update date. This adds no fixed
+heading, sentence or bilingual layout requirement. Common parenthesized and
+`year 2027` date suffixes also participate in the conflict check. This is a
+bounded fixture oracle; final manual review must still check all original facts,
+contradictions and invented additions rather than treating keywords as general
+semantic approval.
+
+R28 completed the real SDK chain, but its first 421-byte draft was already a
+valid concise bilingual labeled notice. The former parser falsely reported
+missing Chinese contact and an English statement: bold bilingual labels hid
+the shared email from label recognition, and `Date & Time` was not accepted as
+a date label. The real external correction happened, but its reason was wrong;
+the initial draft must not be described as a model defect. Its raw bytes, the
+final 377-byte artifact and all paid evidence stay unchanged. R29 normalizes
+Markdown emphasis only in a label-recognition copy and accepts `Date & Time`
+with shared neutral contact values. This neither rewrites content nor requires
+a full English sentence when a complete labeled brief supplies all facts.
+Exact initial bytes and missing-fact, Chinese-only and keyword-only neighbors
+calibrate the change. New-source real-model acceptance remains separate.

@@ -25,6 +25,7 @@ export function pinVerifierBootstrap(config){
 function dirnameLocal(path){return resolve(path,'..');}
 
 export function parseLaunchArguments(argv){
+  if(argv[0]==='authorize-resume'){if(argv.length!==2||typeof argv[1]!=='string'||!/^[a-zA-Z0-9][a-zA-Z0-9._:-]{0,127}$/.test(argv[1]))throw Error('authorize-resume requires exactly one native sessionId');return{command:'authorize-resume',sessionId:argv[1],profile:'headless',appArgs:[]};}
   let profile='headless',args=[...argv];
   if(args[0]==='--profile'){profile=profileName(args[1]);args=args.slice(2);}
   else if(args[0]&&!args[0].startsWith('-')){profile=profileName(args[0]);args=args.slice(1);}
@@ -103,12 +104,26 @@ export async function spawnGuardedDsh(options){
 }
 
 export async function runOwnerCli({ownerConfigPath=ownerConfigurationPath(),argv=process.argv.slice(2)}={}){
-  const {profile,appArgs}=parseLaunchArguments(argv),configPath=regular(absolute(ownerConfigPath,'launcher config'),'launcher config');
+  const {profile,appArgs,command,sessionId}=parseLaunchArguments(argv),configPath=regular(absolute(ownerConfigPath,'launcher config'),'launcher config');
   const config=JSON.parse(readFileSync(configPath,'utf8'));
   const modulePath=regular(absolute(config.integrityVerifierModule,'integrityVerifierModule'),'integrity verifier');
   if(!/^[a-f0-9]{64}$/.test(config.integrityVerifierSha256??'')||sha(readFileSync(modulePath))!==config.integrityVerifierSha256)throw Error('Pinned installation verifier SHA256 mismatch');
   pinVerifierBootstrap(config);
   const module=await import(pathToFileURL(modulePath).href);if(typeof module.verifyInstallation!=='function')throw Error('Trusted verifier module lacks verifyInstallation');
+  if(command==='authorize-resume'){
+    const verified=await module.verifyInstallation({config,profile});if(verified?.ok!==true)throw Error('Installation verification refused resume authorization');
+    try{
+      if(process.env.NODE_OPTIONS)throw Error('Unsafe preload environment');
+      const ownerRoot=realpathSync.native(dirnameLocal(configPath)),controllerFile=regular(absolute(config.controllerConfigFile,'controllerConfigFile'),'controllerConfigFile');
+      if(lstatSync(controllerFile).nlink!==1||!inside(ownerRoot,realpathSync.native(controllerFile)))throw Error('Controller config is not owned');
+      const conversation=JSON.parse(readFileSync(controllerFile,'utf8')),state=realpathSync.native(absolute(conversation.stateRoot,'conversation stateRoot'));
+      if(!inside(ownerRoot,state)||(config.conversation&&realpathSync.native(config.conversation.stateRoot)!==state))throw Error('Conversation authority differs');
+      const helper=regular(join(absolute(config.integrity.payloadRoot,'payloadRoot'),'hosts/conversation/resume-authorization.mjs'),'resume authority helper');
+      if(lstatSync(helper).nlink!==1)throw Error('Resume authority helper must have a single owned file identity');
+      const {authorizeResume}=await import(pathToFileURL(helper).href),report=authorizeResume({stateRoot:state,workspace:process.cwd(),sessionId});
+      process.stdout.write(JSON.stringify(report)+'\n');return{...report,exitCode:0};
+    }catch{throw Error('Resume authorization refused: a current trusted paused session in this workspace is required');}
+  }
   const run=await spawnGuardedDsh({config,profile,appArgs,verifyInstallation:module.verifyInstallation});
   let interrupted;const interrupt=signal=>{interrupted=signal==='SIGINT'?130:143;run.child.kill(signal);};
   const stopInt=()=>interrupt('SIGINT'),stopTerm=()=>interrupt('SIGTERM');process.once('SIGINT',stopInt);process.once('SIGTERM',stopTerm);

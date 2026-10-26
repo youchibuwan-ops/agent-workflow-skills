@@ -8,6 +8,8 @@ import {createWorkflowHost,WORKFLOW_TOOL_SCHEMAS,isWorkflowProgressQuery} from '
 import {createSourceProvider} from '../providers/source-provider.mjs';
 import {createNativeWorkspaceIO} from '../providers/native-workspace-io.mjs';
 import {createSandboxProvider} from '../providers/sandbox-provider.mjs';
+import {createVerifiedWorktreeAuthority,createWorkspacePathPolicy} from '../security/verified-worktree.mjs';
+import {consumeResumeAuthorization} from './resume-authorization.mjs';
 export const toolSchemas=WORKFLOW_TOOL_SCHEMAS;
 const sha=x=>createHash('sha256').update(x).digest('hex');
 const inside=(root,p)=>{const r=relative(root,p);return r===''||(!r.startsWith('..')&&!isAbsolute(r));};
@@ -15,30 +17,43 @@ function privateDirectory(path){mkdirSync(path,{recursive:true});if(lstatSync(pa
 
 export function createConversationFactory(options={}){
  if(typeof options.stateRoot!=='string'||!Array.isArray(options.installedRoots))throw Error('Trusted conversation stateRoot and installedRoots required');
+ const worktreeAuthority=options.worktreeAuthority??createVerifiedWorktreeAuthority({authorizations:options.worktreeAuthorizations??[]});
  const root=privateDirectory(options.stateRoot),sessions=privateDirectory(join(root,'sessions')),tasks=privateDirectory(join(root,'tasks'));
  const managed=privateDirectory(join(root,'managed-skills')),acquisition=privateDirectory(join(root,'acquisition'));
  const keyPath=join(root,'envelope.key');if(!existsSync(keyPath))try{writeFileSync(keyPath,randomBytes(32),{flag:'wx',mode:0o600});}catch(error){if(error.code!=='EEXIST')throw error;}
  if(lstatSync(keyPath).isSymbolicLink())throw Error('Private envelope key redirected');const key=readFileSync(keyPath);if(key.length!==32)throw Error('Invalid private envelope key');
  const owned=new WeakSet(),origins=new WeakMap();
  const signature=body=>createHmac('sha256',key).update(JSON.stringify(body)).digest('hex');
- function load(path){if(!existsSync(path))return null;if(lstatSync(path).isSymbolicLink())throw Error('Session envelope redirected');const stored=JSON.parse(readFileSync(path,'utf8')),expected=signature(stored.body);if(typeof stored.signature!=='string'||stored.signature.length!==expected.length||!timingSafeEqual(Buffer.from(stored.signature),Buffer.from(expected)))throw Error('Session envelope integrity signature mismatch');return stored.body;}
+ function load(path){if(!existsSync(path))return null;if(lstatSync(path).isSymbolicLink())throw Error('Session envelope redirected');const bytes=readFileSync(path),stored=JSON.parse(bytes),expected=signature(stored.body);if(typeof stored.signature!=='string'||stored.signature.length!==expected.length||!timingSafeEqual(Buffer.from(stored.signature),Buffer.from(expected)))throw Error('Session envelope integrity signature mismatch');return{body:stored.body,sha256:sha(bytes)};}
  function store(path,body){const temp=path+'.'+randomBytes(8).toString('hex')+'.tmp';writeFileSync(temp,JSON.stringify({body,signature:signature(body)}),{mode:0o600});renameSync(temp,path);}
  return async function conversationFactory(input){
   const workspace=realpathSync(input.workspace),sessionId=String(input.sessionId??input.threadId??'');if(!sessionId)throw Error('Real native session/thread identity required');
+  if(input.worktreeLease!=null&&!worktreeAuthority.acceptsLease(input.worktreeLease,workspace))throw Error('Foreign worktree lease authority denied');
+  const worktreeLease=input.worktreeLease??worktreeAuthority.leaseForWorkspace(workspace);
+  const hardPrivateRoots=[root,resolve(dirname(fileURLToPath(import.meta.url)),'../..'),dirname(process.execPath),...(options.hardPrivateRoots??[])];
+  const pathPolicy=createWorkspacePathPolicy({workspace,privateRoots:options.privateRoots??[],hardPrivateRoots,worktreeLease});pathPolicy.assertWorkspace({allowPrivateSubroots:true});
   const sessionKey=sha(Buffer.from(sessionId)),envelopePath=join(sessions,sessionKey+'.json');
   const previous=input.previousController;
   if(previous&&!owned.has(previous))throw Error('Previous controller belongs to another factory authority');
-  if(previous){const origin=origins.get(previous);if(origin.workspace!==workspace||origin.sessionId!==sessionId)throw Error('Cross-session controller reuse denied');}
-  const explicitNew=typeof input.userMessage==='string'&&/^\/workflow new\s+/.test(input.userMessage);
+  if(previous){const origin=origins.get(previous);if(origin.workspace!==workspace||origin.sessionId!==sessionId)throw Error('Cross-session controller reuse denied');origin.pathPolicy.assertCurrent();}
+  const explicitNew=input.kind!=='resume'&&typeof input.userMessage==='string'&&/^\/workflow new\s+/.test(input.userMessage);
   if(previous&&input.kind!=='resume'&&isWorkflowProgressQuery(input.userMessage))return previous;
   if(previous&&!previous.complete&&previous.exportAudit().failed==null&&!explicitNew&&input.kind!=='resume')return previous;
   if(previous&&explicitNew)previous.abort('Actual external user explicitly opened a new task');
-  const old=load(envelopePath);if(old&&(old.sessionId!==sessionId||old.workspace!==workspace))throw Error('Durable session scope mismatch');
+  const envelope=load(envelopePath),old=envelope?.body;if(old&&(old.sessionId!==sessionId||old.workspace!==workspace))throw Error('Durable session scope mismatch');
+  // Opening completed native history supplies no new external task. Preserve
+  // the signed completion verbatim and wait for the next actual user message.
+  if(input.kind==='resume'&&old?.complete===true)return{awaitingUserTask:true};
+  // Native resume is published before its first prompt. Only the external owner
+  // command may authorize a paused task at this pre-message boundary; actor-like
+  // properties or a supplied command string are not substitutes for the grant.
+  const resumeGrant=input.kind==='resume'&&old?.failed?consumeResumeAuthorization({stateRoot:root,workspace,sessionId,expectedTaskId:old.taskId,expectedEnvelopeSha256:envelope.sha256}):null;
+  const externalMessage=input.kind==='resume'&&old?.failed?resumeGrant?.command:input.userMessage;
   const resumed=input.kind==='resume'||(input.kind==='auto'&&!!old&&!old.complete&&!explicitNew);
   if(resumed&&!old)throw Error('No trusted task envelope to restore; refusing actor history as authorization');
-  let message=resumed?old.userMessage:input.userMessage;
+  let message=resumed?old.userMessage:externalMessage;
   if(typeof message!=='string'||!message.trim())throw Error('Actual external human task required');
-  if(old?.failed&&!/^\/workflow (?:resume|new)(?:\s|$)/.test(input.userMessage??''))throw Error('Paused/failed task requires explicit external /workflow resume or /workflow new');
+  if(old?.failed&&!/^\/workflow (?:resume|new)(?:\s|$)/.test(externalMessage??''))throw Error('Paused/failed task requires explicit external /workflow resume or /workflow new');
   if(/^\/workflow resume(?:\s|$)/.test(message)){if(!old)throw Error('No task to resume');message=old.userMessage;}
   message=message.replace(/^\/workflow new\s+/,'');
   const taskId='conversation-'+randomBytes(12).toString('hex'),taskRoot=privateDirectory(join(tasks,taskId));
@@ -46,13 +61,13 @@ export function createConversationFactory(options={}){
   // not deserialize model claims, old nonces or stale installed-source proofs.
   const restoration=resumed?{strategy:'reverify-current-facts',previousTask:old.taskId,previousStage:old.stage}:null;
   const privateRoots=[root,resolve(dirname(fileURLToPath(import.meta.url)),'../..'),dirname(process.execPath),...(options.privateRoots??[])].map(p=>existsSync(p)?realpathSync.native(p):resolve(p));
-  const io=input.nativeExecutor?createNativeWorkspaceIO({workspace,privateRoots,nativeExecutor:input.nativeExecutor}):options.workspaceIOFactory?.(input);
-  const sandbox=typeof io?.invoke==='function'?createSandboxProvider({stateRoot:join(root,'sandbox'),privateRoots,invoke:io.invoke,readInput:({path})=>io.read(path)}):undefined;
+  const io=input.nativeExecutor?createNativeWorkspaceIO({workspace,privateRoots,hardPrivateRoots,worktreeLease,nativeExecutor:input.nativeExecutor}):options.workspaceIOFactory?.({...input,worktreeLease});
+  const sandbox=typeof io?.invoke==='function'?createSandboxProvider({stateRoot:join(root,'sandbox'),privateRoots,hardPrivateRoots,worktreeLease,invoke:io.invoke,readInput:({path})=>io.read(path)}):undefined;
   const sources=createSourceProvider({cacheRoot:acquisition,installedRoots:[...options.installedRoots,managed],external:options.external!==false,...(options.sourceProviderOptions??{})});
   let host,activeMessage=message;
   const persist=()=>store(envelopePath,{version:1,sessionId,workspace,taskId,userMessage:activeMessage,stage:host?.stage??'discovery',complete:host?.complete??false,failed:host?.exportAudit().failed??null,updatedAt:new Date().toISOString()});
   host=await createWorkflowHost({workspace,stateRoot:taskRoot,taskId,userMessage:message,sourceProvider:sources,workspaceIO:io,sandboxProvider:sandbox,
-   protectedPrivateSubroots:true,privateRoots,installedRoot:managed,
+   protectedPrivateSubroots:true,privateRoots,hardPrivateRoots,worktreeLease,installedRoot:managed,
    contract:{requirements:['artifact-readable','original-user-task'],constraints:['Preserve actual external scope; never certify original task semantics with a structural check.'],stopAfter:'learning',protectedInputs:[],writeAllowlist:[],selection:{mode:'pending'},feedback:{mode:'required'},learning:{required:false},conversationMode:true,
     validators:[{id:'artifact-current',type:'current-text',covers:['artifact-readable']}]},
    onCard:async card=>{persist();if(input.onCard)await input.onCard(card);if(options.onCard)await options.onCard({...card,sessionId,taskId});}
@@ -65,8 +80,8 @@ export function createConversationFactory(options={}){
    async acceptUserMessage(text){try{const before=host.exportAudit().revision,value=await host.acceptUserMessage(text);if(host.exportAudit().revision>before&&!host.exportAudit().failed)activeMessage+='\n\nActual external user correction/addition:\n'+text;return value;}finally{persist();}},
    abort(reason){host.abort(reason);persist();},exportAudit:()=>({...host.exportAudit(),sessionId,restoration})
   };
-  owned.add(controller);origins.set(controller,{workspace,sessionId});persist();
-  if(resumed&&typeof input.userMessage==='string'&&input.userMessage.trim()&&!/^\/workflow resume(?:\s|$)/.test(input.userMessage))await controller.acceptUserMessage(input.userMessage);
+  owned.add(controller);origins.set(controller,{workspace,sessionId,pathPolicy});persist();
+  if(resumed&&typeof externalMessage==='string'&&externalMessage.trim()&&!/^\/workflow resume(?:\s|$)/.test(externalMessage))await controller.acceptUserMessage(externalMessage);
   return controller;
  };
 }

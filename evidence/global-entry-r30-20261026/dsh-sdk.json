@@ -1,0 +1,43 @@
+{
+  "status": "pass",
+  "sourceManifestSha256": "c1620d7674122dfb90be51d83467c651480b28e58a78cec1c3f26b2c05185fd1",
+  "providerRequests": 27,
+  "usage": {
+    "inputTokens": 48506,
+    "cacheReadTokens": 839040,
+    "cacheWriteTokens": 0,
+    "outputTokens": 17483,
+    "totalTokens": 905029,
+    "inputContextTokens": 887546
+  },
+  "maxTokensBound": 100000,
+  "nativeTurns": 3,
+  "stages": [
+    "scope",
+    "discovery",
+    "selection",
+    "draft",
+    "feedback",
+    "delivery",
+    "learning"
+  ],
+  "finalRevision": 1,
+  "complete": true,
+  "sourceUnchanged": true,
+  "artifact": {
+    "path": "announcement.md",
+    "bytes": 613,
+    "sha256": "fe9f245420da9f536a778925c430dff3ddec531bbda5e2cc038873b2011756fc",
+    "crlf": 11,
+    "lf": 0,
+    "bom": false
+  },
+  "firstDraftPassed": true,
+  "feedbackCorrectionRequired": false,
+  "uncovered": [
+    "No human editorial approval",
+    "No automatically updated runtime Skill",
+    "Structural artifact validation does not prove general semantic correctness"
+  ],
+  "manualEditorialFinding": "All scoped event facts preserved; two unnecessary sentences about the writing brief remain. This transport/gate probe is not editorial quality acceptance."
+}

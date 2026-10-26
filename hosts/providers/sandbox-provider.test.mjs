@@ -4,6 +4,14 @@ import {mkdtempSync,mkdirSync,writeFileSync,readFileSync,rmSync} from 'node:fs';
 import {tmpdir} from 'node:os';
 import {join,dirname,resolve,basename} from 'node:path';
 import {createSandboxProvider} from './sandbox-provider.mjs';
+import {worktreeFixture} from '../security/verified-worktree.test-support.mjs';import {createVerifiedWorktreeAuthority} from '../security/verified-worktree.mjs';
+test('sandbox stages leased project bytes but never weakens independent private or metadata checks',async t=>{
+ const f=fixture(t),w=worktreeFixture(f.root),lease=createVerifiedWorktreeAuthority({authorizations:[w.authorization]}).leaseForWorkspace(w.workspace);writeFileSync(join(w.workspace,'input.txt'),'public');writeFileSync(join(f.methodRoot,'run.py'),'pass');let reads=0,invoked=0;
+ const provider=createSandboxProvider({stateRoot:f.stateRoot,privateRoots:[w.legacyRoot],worktreeLease:lease,readInput:async()=>{reads++;return Buffer.from('public');},invoke:async()=>{invoked++;throw Error('AUTHORIZED_STAGING_REACHED');}});
+ await assert.rejects(provider.execute({...f,workspace:w.workspace,script:'run.py',inputPaths:['input.txt']}),/AUTHORIZED_STAGING_REACHED/);assert.equal(reads,1);assert.equal(invoked,1);
+ const denied=createSandboxProvider({stateRoot:f.stateRoot,privateRoots:[w.legacyRoot],hardPrivateRoots:[w.workspace],worktreeLease:lease,readInput:async()=>{throw Error('must not read');},invoke:async()=>{throw Error('must not invoke');}});await assert.rejects(denied.execute({...f,workspace:w.workspace,script:'run.py',inputPaths:['input.txt']}),/private|protected/i);
+ writeFileSync(join(w.admin,'commondir'),'changed');await assert.rejects(provider.execute({...f,workspace:w.workspace,script:'run.py',inputPaths:['input.txt']}),/metadata|worktree|identity/i);assert.equal(reads,1);assert.equal(invoked,1);
+});
 
 function fixture(t){
  const root=mkdtempSync(join(tmpdir(),'workflow-sandbox-test-'));

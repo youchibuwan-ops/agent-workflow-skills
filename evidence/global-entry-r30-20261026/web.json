@@ -1,0 +1,51 @@
+{
+  "status": "complete-actual-default-dsh-web-workflow",
+  "checkedAt": "2026-10-26T01:26:07.235Z",
+  "sourceManifestSha256": "c1620d7674122dfb90be51d83467c651480b28e58a78cec1c3f26b2c05185fd1",
+  "nativeSession": "session-7f9f7318-fc31-42e8-8964-00745a454da9",
+  "task": "conversation-70fd13674806c2ebc6660b28",
+  "revision": 2,
+  "stage": "complete",
+  "nativeTurns": 5,
+  "toolCalls": 70,
+  "rejectedCalls": 8,
+  "successfulWrites": 2,
+  "onlySelectedOutput": true,
+  "independentlyExpectedBytesMatch": true,
+  "preexistingInput": {
+    "bytes": 262,
+    "sha256": "fee0898fa2942f84e516ab03f019617c66df319f9f4cc60e3d30fc0231efadbb"
+  },
+  "artifact": {
+    "path": "web-notice.md",
+    "bytes": 262,
+    "sha256": "5bd069c891ff98db8f64c2dd78467e05deb43b08374bed48d8741f3447d42a2e"
+  },
+  "providerMaxTokens": [
+    100000
+  ],
+  "humanApproval": false,
+  "scope": "Author-driven actual browser UI using default fresh-environment DSH entry; not third-party reproduction or stock DeepSeek website",
+  "orderedStages": [
+    "scope",
+    "discovery",
+    "selection",
+    "draft",
+    "feedback",
+    "delivery",
+    "learning"
+  ],
+  "learning": {
+    "decision": "no_increment",
+    "evidence": [
+      "web-notice.md after the accepted time edit: 262 bytes, sha256 5bd069c891ff98db8f64c2dd78467e05deb43b08374bed48d8741f3447d42a2e, unchanged length versus the pre-edit 262 bytes / sha256 048db30fcc48e9ebb0720550b0b797e2060184f2138319594523203f19925216",
+      "writer normalization record reports newline=preserve with raw_input_sha256 == output_sha256, so no CRLF/LF conversion or BOM insertion occurred on the write path",
+      "readback shows exactly the two requested time substitutions (时间：19:30–20:30 and Time: 19:30–20:30) while 地点：图书馆C室 and Venue: Library Room C are preserved from the previous accepted revision",
+      "host validator artifact-current returned validated=true for web-notice.md and explicitly reported semantic_goal_verified=false; the human then supplied /workflow accept",
+      "the adopted writing-shape skill supplied the only procedural rules used (re-read from disk before every write, edit only the named passage, leave the rest alone), and both were exercised in this revision; its article-shaping loop remains out of scope",
+      "RFC 3629 (fixed UTF-8 encoded length per code point range, mutually exclusive encodings, BOM = EF BB BF) and the Unicode UTF-8/BOM FAQ (lossless unique round-tripping, BOM is only a signature and may be unwanted) already cover every invariant this second substitution needed"
+    ],
+    "reason": "This revision reused the same two inspected references and the same narrowly-adopted skill rule set as the first pass; it introduced no new technique, no new constraint, and no gap that the existing sources fail to state. The line-anchored variant of the edit is a local implementation choice, not a reusable procedure worth cataloguing. Recording no_increment therefore avoids adding a near-duplicate of writing-shape's re-read-before-write rule to the catalog while keeping the audit trail of what was verified."
+  },
+  "externalDriverAcceptance": true
+}

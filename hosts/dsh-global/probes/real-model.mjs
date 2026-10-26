@@ -22,7 +22,7 @@ export async function prepareRealModelProbe({baseOwnerConfigPath,outputParent=jo
   mkdirSync(workspace);mkdirSync(skill,{recursive:true});
   const input=Buffer.from('\ufeff小型技术交流会将于2026年11月8日14:30在松林会议室举办。请在11月5日前联系 test@example.invalid 报名。我们希望通知简短清晰，同时保留全部时间、地点和联系方式。\r\n');
   writeFileSync(join(workspace,'announcement-input.txt'),input);
-  writeFileSync(join(skill,'SKILL.md'),'---\nname: technical-announcement-editing\ndescription: Revise factual bilingual announcements while preserving original input bytes and complete factual fields.\nlicense: MIT\n---\n# Technical announcement editing test method\n\nThis is an explicit local test Skill, not an independently reviewed external publication.\n\nRead the actual input first. Identify event, date, time, venue, registration deadline and contact. Do not invent missing facts. Offer 3–5 supported editorial plans with the exact output path. Compare two primary technical references for the UTF-8/newline note; read and confirm their full source bytes before citing. Wait for the external choice. Write a new bilingual announcement; retain every factual field and leave original input bytes untouched. Explain encoding/newline decisions briefly without claiming that a structural validator proves semantic correctness. Validate the actual output, present the draft, wait for external feedback, and state any genuine reusable learning or bounded no-increment decision.\n\nJSON write method: content is a JSON string. Escape each CRLF once on the JSON wire so that after JSON parsing content contains actual U+000D and U+000A, not literal U+005C-r/U+005C-n characters. Read back actual output bytes and compare CRLF/LF/literal escape counts. Compare the original tool arguments before attributing any change to the host.\n');
+  writeFileSync(join(skill,'SKILL.md'),'---\nname: technical-announcement-editing\ndescription: Revise factual bilingual announcements while preserving original input bytes and complete factual fields.\nlicense: MIT\n---\n# Technical announcement editing test method\n\nThis is an explicit local test Skill, not an independently reviewed external publication.\n\nRead the actual input first. Identify event, date, time, venue, registration deadline and contact. Do not invent missing facts. Offer 3–5 supported editorial plans with the exact output path. Compare two primary technical references for the UTF-8/newline note; read and confirm their full source bytes before citing. Wait for the external choice. Write a new bilingual announcement; retain every factual field and leave original input bytes untouched. Explain encoding/newline decisions briefly without claiming that a structural validator proves semantic correctness. Validate the actual output, present the draft, wait for external feedback, and state any genuine reusable learning or bounded no-increment decision.\n\nJSON write method: workflow_write accepts ordinary real LF line breaks in its content JSON string and an optional newline argument. When the actually selected output plan promises CRLF, set newline to CRLF; for an LF promise, set newline to LF. This explicitly converts only actual ASCII line breaks; it never unescapes literal backslash-r/backslash-n or adds/removes a BOM. Omitting newline or setting preserve keeps decoded content bytes unchanged. If manually writing CRLF, escape it once on the JSON wire so parsing yields actual U+000D/U+000A rather than literal U+005C-r/U+005C-n. Read back actual bytes and compare raw content with the independently expected declared-normalized bytes and CRLF/LF/literal counts before attributing any unexplained change to the host. This method requires no Python process or extra permission.\n');
   writeFileSync(join(skill,'LICENSE'),'MIT License\n\nCopyright (c) 2026 AgentWorkflow test fixture contributors\n\nPermission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.\n');
   const payload=config.integrity.payloadRoot,{resolveDshRuntime}=await import(pathToFileURL(join(payload,'hosts/dsh-global/runtime.mjs')).href),runtime=resolveDshRuntime(config.runtimeRoot),profile='ordinary-model-probe';
   const expectedToolNames=(await import(pathToFileURL(join(payload,'hosts/core/tool-schemas.mjs')).href)).WORKFLOW_TOOL_SCHEMAS.map(tool=>tool.name),sourceSnapshot=snapshot(payload);
@@ -67,7 +67,10 @@ function bilingualParts(text){
   const chinese=[],english=[],tableRows=[];let language=null;
   for(const line of text.split(/\r?\n/)){
     if(/^\s*\|.*\|\s*$/.test(line)){const cells=line.trim().slice(1,-1).split('|').map(cell=>cell.trim());if(!cells.every(cell=>/^:?-+:?$/.test(cell)))tableRows.push(cells);continue;}
-    const field=line.match(/^\s*(?:[-*]\s*)?([^:：\n]*[\u3400-\u9fff][^:：\n]*?)\s*\/\s*([A-Za-z][A-Za-z\s/&-]*)\s*[:：]\s*(.+)$/);
+    // Normalize emphasis in the label-recognition copy only. Neither value
+    // text nor the original artifact bytes are rewritten.
+    const fieldLine=line.replace(/^([^:：\n]*)([:：])/,(_match,label,colon)=>label.replace(/\*\*|__/g,'')+colon);
+    const field=fieldLine.match(/^\s*(?:[-*]\s*)?([^:：\n]*[\u3400-\u9fff][^:：\n]*?)\s*\/\s*([A-Za-z][A-Za-z\s/&-]*)\s*[:：]\s*(.+)$/);
     if(field){const values=field[3].split(/\s+\/\s*|\s*\/\s+/),englishValue=values.length>1?values.slice(1).join(' / '):!han.test(values[0])?values[0]:null;chinese.push(field[1]+': '+values[0]);if(englishValue&&!han.test(englishValue))english.push(field[2]+': '+englishValue);continue;}
     for(const part of line.split(/\s+\/\s+/)){
       const clean=part.trim();if(!clean)continue;
@@ -83,24 +86,72 @@ function bilingualParts(text){
 }
 export function hasBasicEnglishParagraph(text){
   const {english,englishTable}=bilingualParts(text);if(!english||brokenText.test(text))return false;
-  const plain=english.replace(/[*_#>]/g,'').replaceAll('：',':'),brief=englishEvent.test(plain)&&/^\s*(?:when|date(?:\s+and\s+time)?|time)\s*:/im.test(plain)&&/^\s*(?:where|venue|location)\s*:/im.test(plain)&&/^\s*(?:registration(?:\s+deadline)?|register|deadline|contact|RSVP\s+by)\s*:/im.test(plain);
+  const plain=english.replace(/[*_#>]/g,'').replaceAll('：',':'),brief=englishEvent.test(plain)&&/^\s*(?:when|date(?:\s*(?:and|&)\s*time)?|time)\s*:/im.test(plain)&&/^\s*(?:where|venue|location)\s*:/im.test(plain)&&/^\s*(?:registration(?:\s+deadline)?|register|deadline|contact(?:\s+email)?|RSVP\s+by)\s*:/im.test(plain);
   return englishTable||brief||/\b(?:please\s+)?(?:join|attend|register|sign\s+up|contact|email|send|reply|participate)\b[^\n.!?]*\b(?:by|on|at|in|before|for|to|us|the|our|a|an)\b/i.test(english)||/\b(?:we\s+(?:invite|welcome)|(?:will\s+be|is|are)\s+(?:held|scheduled|welcome|invited)|(?:takes|will\s+take)\s+place)\b/i.test(english);
+}
+function noticeYearProblems(text){
+  const yearsFor=day=>{
+    const suffix='(?:[ ,]*(?:[（(][ \\t]*)?(?:year[ \\t]*[:：]?[ \\t]*)?(\\d{4})\\b[ \\t]*[）)]?)?';
+    const years=[];for(const pattern of [new RegExp('(\\d{4})\\s*年\\s*11\\s*月\\s*0?'+day+'\\s*日','g'),new RegExp('\\b(\\d{4})[-/]11[-/]0?'+day+'\\b','g'),new RegExp('\\b(?:(\\d{4})\\s+)?'+day+'(?:th)?\\s+Nov(?:ember)?\\.?'+suffix,'gi'),new RegExp('\\b(?:(\\d{4})\\s+)?Nov(?:ember)?\\.?\\s+'+day+'(?:th)?'+suffix,'gi')])for(const match of text.matchAll(pattern))years.push(...match.slice(1).filter(Boolean).map(Number));return years;
+  };
+  const activity=yearsFor(8),deadline=yearsFor(5),shared=[];
+  for(const line of text.split(/\r\n|\r|\n/)){
+    const labeled=line.match(/(?:年份|年度|year)(?:\s*\/\s*(?:年份|年度|year))?\s*[:：]\s*(\d{4})\b/i);if(labeled)shared.push(Number(labeled[1]));
+    if(/技术交流(?:会|活动|会议)/.test(line)||englishEvent.test(line)){
+      // A year in an event heading can be shared by both language blocks.
+      // An unrelated dated reference/footer cannot supply the activity year.
+      const heading=line.replace(/\b\d{4}[-/]\d{1,2}[-/]\d{1,2}\b|\d{4}\s*年\s*\d{1,2}\s*月\s*\d{1,2}\s*日/g,'');
+      shared.push(...(heading.match(/\b\d{4}\b/g)??[]).map(Number));
+    }
+  }
+  const missing=[];if(![...activity,...shared].includes(2026))missing.push('activity-year-2026-missing');if([...activity,...deadline,...shared].some(year=>year!==2026))missing.push('activity-or-deadline-year-conflict');return missing;
 }
 export function inspectAnnouncementText(text,{visibleAssistantText=''}={}){
   const {chinese,english}=bilingualParts(text),missing=[];
   const fields={chinese:{event:/技术交流(?:会|活动|会议)/,date:/11\s*月\s*0?8\s*日|2026[-/]11[-/]0?8\b/,time:/14:30|下午\s*2[:：]30/,venue:/松林会议室/,deadline:/11\s*月\s*0?5\s*日|11[-/]0?5\b/,contact:/test@example\.invalid/i},english:{event:englishEvent,date:/\b(?:8(?:th)?\s+Nov(?:ember)?\.?|Nov(?:ember)?\.?\s+8(?:th)?|2026[-/]11[-/]0?8)\b/i,time:/\b14:30\b|\b2:30\s*p\.?m\.?\b/i,venue:/\b(?:Pine(?:\s+Forest)?|Songlin)\s+(?:Conference|Meeting)\s+Room\b/i,deadline:/\b(?:5(?:th)?\s+Nov(?:ember)?\.?|Nov(?:ember)?\.?\s+5(?:th)?|(?:2026[-/])?11[-/]0?5)\b/i,contact:/test@example\.invalid/i}};
   if(brokenText.test(text))missing.push('invalid-unicode');
   for(const [language,patterns]of Object.entries(fields))for(const [field,pattern]of Object.entries(patterns))if(!pattern.test(language==='chinese'?chinese:english))missing.push(language+'-'+field);
+  missing.push(...noticeYearProblems(text));
   if(!hasBasicEnglishParagraph(text))missing.push('independent-english-statement');
   const notes=text+'\n'+visibleAssistantText;if(!/UTF[-\s]?8/i.test(notes)||!/\b(?:CRLF|LF)\b/i.test(notes))missing.push('encoding-newline-note');
   return{ok:missing.length===0,missing};
 }
 function byteFacts(bytes){const text=bytes.toString('utf8');return{length:bytes.length,sha256:sha(bytes),bom:bytes.subarray(0,3).equals(Buffer.from([239,187,191])),crlf:(text.match(/\r\n/g)??[]).length,lf:(text.match(/(?<!\r)\n/g)??[]).length,bareCR:(text.match(/\r(?!\n)/g)??[]).length,literalCRLF:(text.match(/\\r\\n/g)??[]).length};}
+export function inspectWriteEvidence(args,output){
+  if(typeof args?.content!=='string')throw Error('Native workflow_write content must be a string');
+  const newline=Object.hasOwn(args,'newline')?args.newline:'preserve';if(!['preserve','LF','CRLF'].includes(newline))throw Error('Unknown native workflow_write newline declaration');
+  // Independent oracle: successive split/join passes, never the production
+  // materializer. Only actual ASCII newlines change; BOM and literal escapes stay.
+  const expected=newline==='preserve'?args.content:args.content.split('\r\n').join('\n').split('\r').join('\n').split('\n').join(newline==='CRLF'?'\r\n':'\n');
+  const rawBytes=Buffer.from(args.content,'utf8'),expectedBytes=Buffer.from(expected,'utf8'),actualBytes=Buffer.from(output);
+  return{newline,normalizationRequested:Object.hasOwn(args,'newline'),arguments:byteFacts(rawBytes),declaredOutput:byteFacts(expectedBytes),actualOutput:byteFacts(actualBytes),matchesRawActual:rawBytes.equals(actualBytes),matchesDeclaredOutput:expectedBytes.equals(actualBytes)};
+}
+export function collectWriteEvidence(frames,{sessionId,turn,afterSeq=0,endSeq=Infinity,path,output}){
+  const events=frames.filter(frame=>frame.method==='session.event'&&frame.params?.sessionId===sessionId&&frame.params.event?.seq>afterSeq&&frame.params.event.seq<=endSeq&&frame.params.event.data?.turn<=turn).map(frame=>frame.params.event),writeCalls=[],successful=[];
+  for(const call of events.filter(event=>event.type==='tool/call'&&event.data.name==='workflow_write')){
+    let args;try{args=typeof call.data.arguments==='string'?JSON.parse(call.data.arguments):call.data.arguments;}catch{continue;}if(args?.path!==path)continue;
+    const callId=call.data.callId,record={callId:callId??null,eventSeq:call.seq,turn:call.data.turn,outcome:'unconfirmed'};
+    const matches=typeof callId==='string'&&callId?events.filter(event=>event.type==='tool/result'&&event.seq>call.seq&&event.data.turn===call.data.turn&&event.data.message?.toolCallId===callId&&event.data.message.source?.kind==='tool'&&event.data.message.source.callId===callId):[];
+    if(matches.length===1){
+      const result=matches[0],message=result.data.message;record.resultSeq=result.seq;
+      if(message.isError!==false)record.outcome='native-error';
+      else{let body;try{if(message.content?.length!==1||message.content[0].type!=='text')throw Error('Not an exact result');body=JSON.parse(message.content[0].text);}catch{record.outcome='unreadable-result';}
+        if(body?.ok===false){record.outcome='refused';record.error=body.error??null;}
+        else if(body?.ok===true){record.outcome='successful';successful.push({...record,...inspectWriteEvidence(args,output),...(body.data?.normalization?{reportedNormalization:body.data.normalization}:{})});}
+      }
+    }
+    writeCalls.push(record);
+  }
+  return{writeEvidence:successful.sort((a,b)=>a.resultSeq-b.resultSeq).at(-1)??null,writeCalls};
+}
 function promisedFormat(option){
   const text=option?.description??'',claims=[];
   for(let clause of text.split(/[。;；，,\n]|\.(?=\s|$)/)){
     const original=/\b(?:original|input|source\s+(?:file|text|bytes|document)|existing\s+(?:file|text|bytes))\b|原(?:始)?(?:输入|文件|文档|稿)/i.test(clause),output=/\b(?:new|output|draft)\b|announcement\.md|新(?:文件|稿)|输出|产物/i.test(clause);
     if(original&&!output)continue;
+    // These are readback measurements, not output-format alternatives. R21's
+    // actual plan promised CRLF but contained the erroneous counter crlf=lf.
+    clause=clause.replace(/\b(?:crlf|lf|bareCR|literalCRLF)\s*(?:==?|[<>]=?|!=)\s*(?:\b(?:crlf|lf|bareCR|literalCRLF)\b|\d+)/gi,'');
     clause=clause.replace(/(?:rather\s+than|instead\s+of|not|而不是|而非|不是|非)\s*\b(?:CRLF|LF)\b/gi,'');
     claims.push(...(clause.match(/\b(?:CRLF|LF)\b/gi)??[]).map(value=>value.toUpperCase()));
   }
@@ -121,20 +172,32 @@ export function inspectDraftEvidence({input,expectedInputSha256,output,selectedO
   if(actualNewline&&!new RegExp('\\b'+actualNewline+'\\b','i').test(notes))missing.push('actual-newline-explanation-missing');
   return{ok:missing.length===0,fatal:missing.includes('original-input-changed'),missing:[...new Set(missing)],bytes,inputBytes,requiredFormat:format,actualNewline};
 }
-export async function runDraftFeedback({current,outputPath,send,getCards,inspect,saveAttempt=()=>{},verifyAccepted=()=>{},feedback=[],maxRevisions=2,maxContinuations=4}){
-  const sessionId=current.sessionId;let revisions=0,continuations=0,selectedOption,requiredFormat,initialChoiceId;
+export async function runDraftFeedback({current,outputPath,send,getCards,inspect,saveAttempt=()=>{},verifyAccepted=()=>{},feedback=[],maxRepeatedFailures=4,maxContinuations=128}){
+  if(!Number.isSafeInteger(maxRepeatedFailures)||maxRepeatedFailures<1)throw Error('A bounded repeated-failure guard is required');
+  if(!Number.isSafeInteger(maxContinuations)||maxContinuations<1)throw Error('Continuation limit must be a positive safe integer');
+  const sessionId=current.sessionId;let revisions=0,continuations=0,selectedOption,requiredFormat,initialChoiceId,lastFailure,repeatedFailures=0;
+  const noteFailure=(kind,details)=>{const signature=JSON.stringify({kind,details});repeatedFailures=signature===lastFailure?repeatedFailures+1:1;lastFailure=signature;if(repeatedFailures>maxRepeatedFailures)throw Error('Repeated identical independent '+kind+' failure without progress: '+JSON.stringify(details));};
   const sendSame=async text=>{const next=await send(text);if(next.sessionId!==sessionId)throw Error('External feedback left the original live session');return next;};
   const continueSame=async reason=>{if(continuations>=maxContinuations)throw Error('Same-session truncation continuation limit reached without readiness');feedback.push({kind:'continuation',origin:'test-external-driver',humanApproval:false,sessionId,turn:current.turn,reason,stage:current.status?.stage,command:'/workflow status'});continuations++;current=await sendSame('/workflow status');};
   const settle=async afterAccept=>{if(current.reason?.kind!=='max-tokens')return;while(afterAccept?(current.reason?.kind==='max-tokens'||current.status?.complete!==true):!['selection','feedback'].includes(current.status?.stage)){if(current.status?.failed||current.status?.status==='blocked'||['aborted','error'].includes(current.reason?.kind))throw Error('Native workflow cannot recover a genuine failure');await continueSame('max-tokens left current task unfinished');}};
   while(true){
     await settle(false);
+    if(['aborted','error'].includes(current.reason?.kind))throw Error('Native workflow cannot recover a genuine failure: '+JSON.stringify(current.reason));
     if(current.status?.failed||current.status?.status==='blocked')throw Error('Native workflow is blocked: '+JSON.stringify(current.status));
     if(current.status?.stage==='selection'){
       const scope=getCards().filter(card=>card.kind==='checkpoint'&&card.report?.stage==='scope'&&card.result?.ok===true&&(card.seq??0)<=(current.endSeq??Infinity)).at(-1);
       const options=getCards().filter(card=>card.kind==='options'&&(card.seq??Infinity)>(scope?.seq??0)&&(card.seq??0)<=(current.endSeq??Infinity)).at(-1)?.options;
-      if(!Array.isArray(options)||options.length<3||options.length>5||options.some(option=>JSON.stringify(option.artifacts)!==JSON.stringify([outputPath]))){if(current.reason?.kind==='max-tokens'){await continueSame('max-tokens interrupted actual option publication');continue;}throw Error('The real model did not present a current acceptable actual plan card');}
-      const compatible=options.filter(option=>promisedFormat(option).newline!=='ambiguous'&&(!requiredFormat?.newline||!promisedFormat(option).newline||promisedFormat(option).newline===requiredFormat.newline));
-      selectedOption=compatible.find(option=>option.id===initialChoiceId)??compatible[0];if(!selectedOption)throw Error('Current options do not preserve the actual previously selected newline commitment');
+      const validOptions=Array.isArray(options)&&options.length>=3&&options.length<=5&&options.every(option=>JSON.stringify(option.artifacts)===JSON.stringify([outputPath]));
+      if(!validOptions&&current.reason?.kind==='max-tokens'){await continueSame('max-tokens interrupted actual option publication');continue;}
+      const compatible=validOptions?options.filter(option=>promisedFormat(option).newline!=='ambiguous'&&(!requiredFormat?.newline||!promisedFormat(option).newline||promisedFormat(option).newline===requiredFormat.newline)):[];
+      selectedOption=compatible.find(option=>option.id===initialChoiceId)??compatible[0];
+      if(!selectedOption){
+        const missing=[validOptions?'selected-format-option-regression':'current-plan-card-invalid'];noteFailure('options',{missing,options:options??null,requiredFormat:requiredFormat??null});
+        const commitment=requiredFormat?`之前实际选中的输出承诺仍是 ${JSON.stringify(requiredFormat)}，不能加入矛盾格式或改输出路径。`:'此前尚未实际选择任何方案，不要编造已有格式承诺；请给出符合原任务且无矛盾的清楚说明。';
+        const measurements=requiredFormat?.newline==='CRLF'?'已选 CRLF 的正确读回标准是 crlf>0、lf=0、bareCR=0、literalCRLF=0。':'';
+        const command=`独立外部技术反馈（测试driver，非真人审美认可）：当前真实方案缺项 ${missing.join(', ')}。当前方案原文 ${JSON.stringify(options??null)}。${commitment}读回计量字段 crlf/lf 不是新的换行许可。${measurements}保持原业务目标、中英全部事实与原输入字节，输出仍仅 ["${outputPath}"]。此反馈会由生产宿主重开 scope：请按实际 state 重新核读确认来源并安装，重新发出3–5个保留原约定的真实方案，等待实际 /workflow choose；我没有选择或接受这些失约方案。`;
+        feedback.push({kind:'correction',origin:'test-external-driver',humanApproval:false,sessionId,turn:current.turn,stage:'selection',command,missing,observedOptions:options??null,requiredFormat});revisions++;current=await sendSame(command);continue;
+      }
       initialChoiceId??=selectedOption.id;requiredFormat??=promisedFormat(selectedOption);
       const choice={kind:'choice',origin:'test-external-driver',humanApproval:false,sessionId,turn:current.turn,command:'/workflow choose '+selectedOption.id,observedOptions:options,requiredFormat};feedback.push(choice);current=await sendSame(choice.command);await settle(false);
     }
@@ -147,9 +210,9 @@ export async function runDraftFeedback({current,outputPath,send,getCards,inspect
       if(current.status?.complete!==true||JSON.stringify(stages)!==JSON.stringify(['scope','discovery','selection','draft','feedback','delivery','learning']))throw Error('Real model chain stopped without the final revision ordered seven-stage host cards');
       return{current,artifact:check.bytes,stages,finalRevision:last.revision,stageTimeline:cards.map(card=>({seq:card.seq,task:card.report.task,revision:card.report.revision,stage:card.report.stage})),revisions,continuations};
     }
-    if(revisions>=maxRevisions)throw Error('Independent draft check still fails after '+maxRevisions+' complete revisions: '+check.missing.join(', '));
-    const raw=check.writeEvidence?` The original native workflow_write arguments were ${JSON.stringify(check.writeEvidence)}; ${check.writeEvidence.matchesActualOutput?'the actual output exactly matches the submitted content, so no host newline conversion is shown.':'only a verified byte difference can support attribution.'}`:'';
-    const newlineHelp=check.missing.some(value=>/newline|literal/.test(value))?' JSON工具参数中的content需要真实换行：JSON wire里每个CRLF仅用一层转义（U+005C r、U+005C n），经JSON解析后必须成为U+000D/U+000A；不要双重转义成字面量反斜杠r/n。真正CRLF是字节0D 0A，字面量则是5C 72 5C 6E。提交后实际读回并统计crlf/lf/literalCRLF，原参数与落盘相同不得归咎宿主。':'';
+    noteFailure('draft',{missing:check.missing,artifactSha256:check.bytes.sha256,requiredFormat});
+    const raw=check.writeEvidence?` The original native workflow_write evidence was ${JSON.stringify(check.writeEvidence)}; ${check.writeEvidence.matchesDeclaredOutput?(check.writeEvidence.newline!=='preserve'?'explicitly requested newline normalization matches the independently computed declared output; a difference from raw content is expected, not an unexplained host rewrite.':'the actual output exactly matches the submitted content under preserve, so no host newline conversion is shown.'):'the actual output does not match the independently computed declared output; inspect the native write result and subsequent writes before attributing a host change.'}`:'';
+    const newlineHelp=check.missing.some(value=>/newline|literal/.test(value))?" JSON工具参数中的content需要真实换行：可提交含普通真实LF的content，并显式设置 newline:'CRLF'（所选承诺为LF时设置 newline:'LF'）；仅实际ASCII换行被转换，不会反转义字面量反斜杠r/n，也不会添加或删除BOM。省略newline或preserve要求content字节原样。手写CRLF时JSON wire每个CRLF仅用一层转义，经JSON解析后为U+000D/U+000A，不要双重转义。真正CRLF是0D 0A，字面量是5C 72 5C 6E。提交后实际读回统计crlf/lf/literalCRLF；显式转换符合声明或默认原样相等均不得归咎宿主。":'';
     const command=`独立外部技术反馈（测试driver，非真人审美认可）：当前 ${outputPath} 未通过，缺项 ${check.missing.join(', ')}。实际当前输出字节 ${JSON.stringify(check.bytes)}。已选方案的输出承诺 ${JSON.stringify(requiredFormat)}。${raw}${newlineHelp} 请实际修正这些差异，不得仅口头说明或改称验收通过；保持中英文全部事实、原输入字节与相同输出路径。此真实反馈会由生产宿主重开 scope、清除旧来源/安装/核验事实：请按真实 state 重新发现、完整核读确认并安装、观察参考，再提出3–5个保持上述输出承诺且 artifacts 仍仅为 ["${outputPath}"] 的方案，等待实际 /workflow choose；选中后提交修好的当前草稿、重新独立结构验证并等待实际 /workflow accept。`;
     feedback.push({kind:'correction',origin:'test-external-driver',humanApproval:false,sessionId,turn:current.turn,command,missing:check.missing,artifactSha256:check.bytes.sha256});revisions++;current=await sendSame(command);
   }
@@ -179,14 +242,13 @@ export async function runPreparedRealModelProbe(planFile,{dryRun=false}={}){
     const initialTurn=await send(plan.task);
     if(dryRun){const records=readFileSync(plan.monitorFile,'utf8').trim().split('\n').map(JSON.parse),observed=records.filter(entry=>entry.event==='request_observed'),stop=records.find(entry=>entry.event==='dry_run_stop');if(observed.length!==1||observed[0].valid!==true||observed[0].maxTokens!==plan.maxTokens||!stop||records.some(entry=>['model_request','model_chunk'].includes(entry.event)))throw Error('Actual first native request did not pass the zero-provider dry-run check');report.status='dry-run-pass';report.observed=observed[0];report.providerCalls=stop.providerCalls;report.nextCalls=stop.nextCalls;await request('shutdown',{});report.nativeOutcome=await run.finished;return report;}
     report.artifactChecks=[];let latestOutput;
-    const result=await runDraftFeedback({current:initialTurn,outputPath:plan.output,send,getCards:nativeCards,feedback,
+    const result=await runDraftFeedback({current:initialTurn,outputPath:plan.output,send,getCards:nativeCards,feedback,maxContinuations:plan.maxRequests,
       inspect:(current,selectedOption,requiredFormat)=>{
         const input=readFileSync(join(plan.workspace,plan.input.path));latestOutput=readFileSync(join(plan.workspace,plan.output));
-        const writeFrame=request.frames.filter(frame=>frame.method==='session.event'&&frame.params?.sessionId===sessionId&&frame.params.event?.type==='tool/call'&&frame.params.event.data?.turn===current.turn&&frame.params.event.data.name==='workflow_write').filter(frame=>{try{const args=typeof frame.params.event.data.arguments==='string'?JSON.parse(frame.params.event.data.arguments):frame.params.event.data.arguments;return args.path===plan.output;}catch{return false;}}).at(-1);
         const scope=nativeCards().filter(card=>card.kind==='checkpoint'&&card.report?.stage==='scope'&&card.result?.ok===true&&card.seq<=current.endSeq).at(-1);if(!scope)throw Error('Current native revision has no trusted scope checkpoint');
         const visibleAssistantText=visibleDraftText(request.frames,{sessionId,turn:current.turn,afterSeq:scope.seq,endSeq:current.endSeq});
         const check=inspectDraftEvidence({input,expectedInputSha256:plan.input.sha256,output:latestOutput,selectedOption,requiredFormat,visibleAssistantText});
-        if(writeFrame){const event=writeFrame.params.event,args=typeof event.data.arguments==='string'?JSON.parse(event.data.arguments):event.data.arguments;check.writeEvidence={eventSeq:event.seq,turn:event.data.turn,arguments:byteFacts(Buffer.from(args.content,'utf8')),matchesActualOutput:sha(Buffer.from(args.content,'utf8'))===check.bytes.sha256};}
+        Object.assign(check,collectWriteEvidence(request.frames,{sessionId,turn:current.turn,afterSeq:scope.seq,endSeq:current.endSeq,path:plan.output,output:latestOutput}));
         return{...check,visibleAssistantText,notesWindow:{scopeSeq:scope.seq,draftEndSeq:current.endSeq},selectedOptionId:selectedOption.id};
       },
       saveAttempt:check=>{const rawOutputPath=join(plan.privateRoot,'draft-attempt-'+check.attempt+'.bin');writeFileSync(rawOutputPath,latestOutput,{flag:'wx'});report.artifactCheck=check;report.artifactChecks.push({...check,rawOutputPath});},

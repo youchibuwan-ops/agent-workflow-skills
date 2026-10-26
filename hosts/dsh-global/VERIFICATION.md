@@ -1,4 +1,29 @@
-# DSH native boundary verification — 2026-10-26
+# Historical R04 DSH native boundary verification — 2026-10-26
+
+This retained record describes the R04 attempt and its then-current limits.
+It does not set the current launcher's token limit or validate later sources.
+See the [current probe method](probes/README.md) and [release-specific acceptance](../../docs/global-entry.md).
+
+## Later R25 capability evidence (separate from historical R04)
+
+The retained R25 paid attempt made 82 provider streams and failed its original
+selected-format checks. It is not rewritten as a pass. A separate free official
+SDK/production-controller probe proved that the guarded native writer preserves
+physical CRLF: actual workflow/native arguments and the 34-byte file were equal,
+with two CRLFs, zero bare LF and zero literal CRLF escapes. Actor arguments
+containing literal backslashes instead produced the same literal bytes. This
+disproves a serialization impossibility claim, without excusing the failed draft.
+
+The proposed Python fixture was not added to any paid plan. Its native
+permission route stopped at `wslpath` with `Wsl/E_ACCESSDENIED` before Python
+execution. That route is **blocked**, not an available method merely because
+the provider is configured. Direct Python tests and an explicitly test-only
+Bwrap staging test passed their own bounded checks; neither is native-permission
+acceptance or a fallback. Original input bytes and failed reports were preserved.
+The R26 probe adds independent declared-newline evidence for the optional guarded
+writer argument; it still requires fresh release-specific model acceptance.
+
+## Historical R04 evidence
 
 R04 real-model verification was attempted through the production owner launcher
 and official `deepseek-official/deepseek-flash` provider. It made 22 actual paid

@@ -1,0 +1,234 @@
+{
+  "format": 1,
+  "release": "20261026-preview3-r30",
+  "checkedAt": "2026-10-26T01:28:47.935Z",
+  "sourceManifestSha256": "c1620d7674122dfb90be51d83467c651480b28e58a78cec1c3f26b2c05185fd1",
+  "payloadFiles": 132,
+  "tests": {
+    "global": {
+      "tests": 426,
+      "pass": 426,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "sourceUnchanged": true,
+      "sourceFiles": 131,
+      "command": [
+        "node",
+        "--test",
+        "hosts/core/*.test.mjs",
+        "hosts/providers/*.test.mjs",
+        "hosts/security/*.test.mjs",
+        "hosts/conversation/*.test.mjs",
+        "hosts/codex-global/*.test.mjs",
+        "hosts/dsh-global/*.test.mjs",
+        "hosts/codex-global/probes/*.test.mjs",
+        "hosts/dsh-global/probes/*.test.mjs"
+      ],
+      "optIns": {
+        "nativeCodex": true,
+        "explicitModelCatalog": true,
+        "sealedDshSdk": true,
+        "actualOsSandbox": true,
+        "publicSourceNetwork": true
+      },
+      "originalPrivateReportSha256": "8e9fe88c63e06bbdff7ac3c19d7e07b0481e9e7ad4acdf424f905d5afa44c59e"
+    },
+    "package": {
+      "tests": 33,
+      "pass": 33,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "sourceUnchanged": true,
+      "sourceFiles": 131,
+      "command": [
+        "node",
+        "--test",
+        "scripts/check-frozen-preview.test.mjs",
+        "scripts/build-global-package.test.mjs",
+        "packaging/global-install.test.mjs",
+        "packaging/sealed-sdk-install.test.mjs",
+        "packaging/native-entry.test.mjs",
+        "packaging/activate-dsh-default.test.mjs"
+      ],
+      "optIns": {
+        "nativeCodex": true,
+        "explicitModelCatalog": true,
+        "sealedDshSdk": true,
+        "actualOsSandbox": true,
+        "publicSourceNetwork": true
+      },
+      "originalPrivateReportSha256": "5e614bac31bddae3571a7be73d2423a4a1573722d61af68a148174e640243e6f"
+    },
+    "codex-policy": {
+      "tests": 31,
+      "pass": 31,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "sourceUnchanged": true,
+      "sourceFiles": 131,
+      "command": [
+        "node",
+        "--test",
+        "hosts/codex/*.test.mjs"
+      ],
+      "optIns": {
+        "nativeCodex": true,
+        "explicitModelCatalog": true,
+        "sealedDshSdk": true,
+        "actualOsSandbox": true,
+        "publicSourceNetwork": true
+      },
+      "originalPrivateReportSha256": "99ec5b3c8b5d164adaadf2b99f0f58ffbafd93a8b67885e08ec9497c0108d407"
+    }
+  },
+  "skillChecks": {
+    "tests": 29,
+    "pass": 29,
+    "fail": 0,
+    "skipped": 0,
+    "markdownFiles": 87,
+    "lintErrors": 0,
+    "scope": "Actual post-R30-personal-install behavior runs; 87-file lint before adding the public evidence documents. Final public-document lint is reported separately."
+  },
+  "actual": {
+    "codex": {
+      "file": "codex.json",
+      "model": "gpt-6-astra",
+      "nativeTurns": 5,
+      "toolCalls": 59,
+      "revision": 2,
+      "orderedStages": [
+        "scope",
+        "discovery",
+        "selection",
+        "draft",
+        "feedback",
+        "delivery",
+        "learning"
+      ],
+      "normalNativeExit": 0,
+      "processAppIdVerified": true,
+      "currentShortcutColdRestart": {
+        "actualDesktopShortcutStarted": true,
+        "newPrivateWindowObserved": true,
+        "currentCompletedThreadOpenedInActualUI": true,
+        "artifactUnchanged": true,
+        "stockWindowPreserved": true
+      }
+    },
+    "web": {
+      "file": "web.json",
+      "model": "deepseek-flash / DeepSeek-V4.1-Flash",
+      "nativeTurns": 5,
+      "toolCalls": 70,
+      "revision": 2,
+      "orderedStages": [
+        "scope",
+        "discovery",
+        "selection",
+        "draft",
+        "feedback",
+        "delivery",
+        "learning"
+      ],
+      "successfulExistingFileWrites": 2,
+      "defaultProviderMaxTokens": [
+        100000
+      ]
+    },
+    "sdk": {
+      "file": "dsh-sdk.json",
+      "model": "deepseek-flash",
+      "providerRequests": 27,
+      "nativeTurns": 3,
+      "stages": [
+        "scope",
+        "discovery",
+        "selection",
+        "draft",
+        "feedback",
+        "delivery",
+        "learning"
+      ],
+      "replyTokenCeiling": 100000,
+      "revision": 1,
+      "feedbackCorrectionRequired": false
+    }
+  },
+  "integrity": {
+    "allManifestExtensionsCovered": true,
+    "fullPayloadFiles": 132,
+    "installedCodexAndDshSourceAndSealedRuntimeVerified": true,
+    "nodeTreeSha256": "8c862fa5a190b0e1a53cad0cd0b361c53d280939cb30f4342867ffbf57e0cd85",
+    "dshTreeSha256": "f1951e35d605a4d102757499774961c5eaa228069623b57e54924c372d0fb856",
+    "privateAppFiles": 4191,
+    "privateAppReused": "R10 immutable v4 build",
+    "observedWrapperAndShortcutSha256": {
+      "nativeLauncher": "766aaddaed8f85b98a43f12906e591211a983ec1e4a026c8ce20f53bf31fd9bf",
+      "codexWrapper": "ae2787d4bd7dec2ed07d712f71366388c9d37311d5b33b7321e4a0cd8bc05913",
+      "dshWrapper": "3829f1b8f324d3c5a7cd7ab0c71780785a2960fc747f92bdb74be2ea95d32325",
+      "defaultDsh": "3829f1b8f324d3c5a7cd7ab0c71780785a2960fc747f92bdb74be2ea95d32325",
+      "dshAlias": "e4790b748fedb20296aa2da6b97efef3ba116c6ebe896fad461931089d4bc6ea",
+      "desktopLink": "a9c156081a363c6957a1ba6bc1faa1c620ea2aa821570527460e6d64c483842e",
+      "startMenuLink": "db3eaa70e9ee887b3e363c66081d924f2e4c2b7d4b3d87846af42f29086b5fd3"
+    },
+    "defaultResolution": {
+      "whereFirst": "%USERPROFILE%/.agent-workflow/global/bin/dsh.cmd",
+      "getCommandFirst": "%USERPROFILE%/.agent-workflow/global/bin/dsh.cmd",
+      "environmentSource": "expanded registry Machine plus User PATH; no forced prepend",
+      "persistentPathChangedInThisVerification": false,
+      "inheritedOldTerminalsNotClaimed": true
+    }
+  },
+  "independentReview": {
+    "kind": "Separate-agent source review and rerun on author machine; not a third-party signature",
+    "originalPrivateReportSha256": "7f5599406f8addc1efaf958354e37062f36c512bcfb3ca3429664086d3b54b8f",
+    "sourceBound": true,
+    "originalNativeReadRegistrations": 3,
+    "originalNativeSuccessfulWriters": 3,
+    "independentDoubleCases": 10,
+    "replayedUnitTests": 8,
+    "replayedActualNativeCases": 3,
+    "skip": 0,
+    "scope": "Cross-Agent existing-file writes plus readonly/CAS/permit and baseline/race neighbors; actual browser/model acceptance is separately author-driven",
+    "actualDistinctWebAgents": 2,
+    "actualNativeWriteTurns": 3,
+    "thirdTurnReturnedToFirstAgent": true
+  },
+  "personalSkills": {
+    "codexFiles": 10,
+    "dshFiles": 10,
+    "exactFrozenReadback": true,
+    "changed": [
+      "references/stage-checks.md"
+    ],
+    "backupsRetained": true
+  },
+  "scope": {
+    "authorDriven": true,
+    "externalDriverAcceptance": true,
+    "humanEditorialOrAestheticApproval": false,
+    "allOldStockChatsGuarded": false,
+    "automaticallyRewrittenRuntimeSkills": false,
+    "arbitrarySemanticQuality": false,
+    "installer": "DSH Windows x64 only; does not distribute the private Codex vendor app"
+  },
+  "uncovered": [
+    "Existing stock Codex/root chat is instruction_only; enter through Codex-Controlled for guarded messages.",
+    "Stock DeepSeek website, directly loaded SDK, remote/cloud, unsupported RPC and nontext UI inputs are outside this local route.",
+    "Generic Skill maintenance needs a trusted behavior validator; default actor capability is no-increment-only and required updates fail closed.",
+    "WSL native Python currently denies with E_ACCESSDENIED; test-only direct execution is not native permission acceptance.",
+    "SDK-minimal PTY, binary/visual inspection and unsupported methods remain refused.",
+    "No universal filesystem atomicity, semantic truth or visual-quality guarantee.",
+    "DSH SDK sample retained two unnecessary brief-related sentences; fact/format gate pass is not editorial quality acceptance.",
+    "R29 original cleanup EPERM cause/lock owner remains unknown; fresh R30 full pass and normal actual GUI exit do not rewrite that failure."
+  ],
+  "publicDocumentLint": {
+    "files": 90,
+    "errors": 0,
+    "rawArtifactsPreservedAs": "md.txt"
+  }
+}

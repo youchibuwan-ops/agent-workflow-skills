@@ -6,12 +6,30 @@ import { tmpdir } from 'node:os';
 import { WorkflowGate, sealEvidence, STAGES } from '../../skills/proactive-skill-discovery/scripts/workflow-gate.mjs';
 import { WORKFLOW_TOOL_SCHEMAS } from './tool-schemas.mjs';
 import {protectedProjectSegment,projectPathKey,projectPathEquals} from '../security/project-path.mjs';
+import {createWorkspacePathPolicy} from '../security/verified-worktree.mjs';
+import {SourceError} from '../providers/source-provider.http.mjs';
 export { WORKFLOW_TOOL_SCHEMAS };
 
 const hash = (bytes) => createHash('sha256').update(bytes).digest('hex');
 const nonempty = (value) => typeof value === 'string' && value.trim().length > 0;
 const inside = (root, path) => { const rel = relative(resolve(root), resolve(path)); return rel === '' || (!rel.startsWith('..') && !isAbsolute(rel)); };
-const blocked = (message) => Object.assign(new Error(message), { business: true });
+const businessRefusals=new WeakSet();
+const blocked = (message) => {const error=new Error(message);businessRefusals.add(error);return error;};
+// Only a failed acquisition may be retried with another source. Never demote
+// collector failures, changed snapshots, cache/Git integrity, cancellation or
+// an unknown exception merely because it carries a SourceError-looking name.
+const recoverableSourceCodes=new Set([
+  'AMBIGUOUS_SKILL_PATH','UNKNOWN_CANDIDATE','INVALID_QUERY','CATALOG_SCHEMA',
+  'INVALID_REMOTE_JSON','TRUNCATED_TREE','HTTP_STATUS','REMOTE_LIMIT_OR_DENIED',
+  'SOURCE_TIMEOUT','TRUNCATED_RESPONSE','SOURCE_LIMIT','UNSUPPORTED_ENCODING',
+  'EMPTY_SOURCE','INVALID_URL','UNSAFE_URL','SSRF_BLOCKED','SSRF_DNS_BLOCKED','REDIRECT_BLOCKED'
+]);
+async function sourceCall(operation,action){
+  try{return await action();}catch(error){
+    if(!(error instanceof SourceError)||!recoverableSourceCodes.has(error.code))throw new Error(error?.message??'Unknown source provider failure',{cause:error});
+    throw Object.assign(blocked(`Source acquisition refused (${error.code}): ${error.message}`),{code:error.code,sourceOperation:operation});
+  }
+}
 export const isWorkflowProgressQuery=text=>typeof text==='string'&&/^(?:\/workflow status|(?:现在|目前|当前)?的?(?:进度(?:怎么样|如何|怎样|到哪一步了)?|(?:弄好|做完|完成)了?(?:吗|没(?:有)?))|status(?: update)?|what(?:'s| is) (?:the )?status)[?？。.!！]*$/i.test(text.trim().replace(/\s+/g,' '));
 function safeRelative(value) {
   if (!nonempty(value) || value.includes('\0') || isAbsolute(value) || /^[a-z]:/i.test(value)) throw blocked('Expected a relative path');
@@ -52,7 +70,7 @@ function validate(value, schema, label = 'arguments') {
 }
 
 class GuardedWorkflowHost {
-  #config; #root; #workspace; #gate; #key = randomBytes(32); #seq = 0; #pending = []; #sources = new Map();
+  #config; #root; #workspace; #pathPolicy; #gate; #key = randomBytes(32); #seq = 0; #pending = []; #sources = new Map();
   #candidates = new Map(); #installed = new Map(); #protected = new Map(); #artifacts = new Map(); #validated = new Map();
   #audit = []; #failed = null; #ready = false; #options = []; #selection = null; #feedback = null;
   #queue = Promise.resolve(); #sourceReceipts = new Map();
@@ -60,6 +78,8 @@ class GuardedWorkflowHost {
     if (!nonempty(config?.workspace) || !nonempty(config?.userMessage)) throw new Error('Trusted workspace and original external user message required');
     this.#workspace = realpathSync(config.workspace);
     this.#root = resolve(config.stateRoot ?? join(tmpdir(), `workflow-state-${randomBytes(12).toString('hex')}`));
+    this.#pathPolicy=createWorkspacePathPolicy({workspace:this.#workspace,privateRoots:config.privateRoots??[],hardPrivateRoots:[this.#root,config.installedRoot,...(config.hardPrivateRoots??[])].filter(Boolean),worktreeLease:config.worktreeLease});
+    this.#pathPolicy.assertWorkspace({allowPrivateSubroots:!!config.protectedPrivateSubroots});
     if (inside(this.#workspace, this.#root) && !config.protectedPrivateSubroots) throw new Error('Trusted state must remain outside the actor workspace');
     mkdirSync(this.#root, { recursive: true });
     this.#root = realpathSync.native(this.#root);
@@ -96,6 +116,7 @@ class GuardedWorkflowHost {
       + (this.#config.contract.autoAdvance ? `Stage reports are automatic: after actual prerequisites are satisfied the HOST emits each ordered checkpoint and advances. Read the state returned by each tool; do not repeatedly call workflow_status/checkpoint or fill seven report forms. workflow_checkpoint is needed only to submit real unresolved selection options.\n`
         : `This trusted test contract uses manual stage requests: checkpoint draft, feedback, delivery and learning using host-issued evidence IDs.\n`)
       + `Correctable refusals keep the stage open. Do not claim completion while host.complete is false. Pending choice/feedback must be reported as waiting.\n`
+      + `A correctable refusal is work to do, not a stopping point: follow its recovery.next_tools while capability remains available. If installed candidates do not fit, state the concrete gap and search external sources; never adopt an irrelevant Skill merely to satisfy a gate. Search results alone do not complete discovery. Do not submit selection options until discovery has actually advanced; options must differ in the requested approach, retain the requested output path, and cite inspected sources. Stop only for actual external choice/feedback, a genuine unavailable capability, the authorized stop boundary, or task completion.\n`
       + `Original external user task:\n${this.#config.userMessage}\n`
       + `Host contract: ${JSON.stringify({ requirements: this.#config.contract.requirements, selection: this.#config.contract.selection,
         feedback: this.#config.contract.feedback, writeAllowlist: this.#config.contract.writeAllowlist,
@@ -118,7 +139,11 @@ class GuardedWorkflowHost {
     return this;
   }
   assertReady() { if (!this.ready) throw new Error(`Workflow host unavailable: ${this.#failed ?? 'not initialized'}`); return true; }
-  abort(reason) { this.#failed = String(reason); this.#ready = false; this.#gate.stop(String(reason)); this.#audit.push({ event: 'aborted', reason: String(reason) }); }
+  abort(reason) {
+    const detail=String(reason);this.#ready=false;
+    if(this.#failed!==null){this.#audit.push({event:'abort_cleanup',reason:detail,primaryReason:this.#failed});return;}
+    this.#failed=detail;this.#gate.stop(detail);this.#audit.push({event:'aborted',reason:detail});
+  }
   exportAudit() { return structuredClone({ task: this.#config.taskId, revision:this.#gate.revision, stage: this.stage, complete: this.complete, failed: this.#failed, events: this.#audit }); }
   #state() { return { task: this.#config.taskId, revision: this.#gate.revision, stage: this.stage, complete: this.complete,
     blockedReason: this.#failed, evidence: this.#pending.map((x) => x.id),
@@ -129,6 +154,24 @@ class GuardedWorkflowHost {
     capabilities: { source_confirmation: 'returned-challenge', checkpoints: this.#config.contract.autoAdvance ? 'host-automatic' : 'manual-test-mode',
       acquisition: this.#config.sourceProvider?'installed-first-and-public-HTTPS':'configured-local-only', method_execution: this.#config.sandboxProvider?'native-permission-OS-sandbox-Python':'unavailable', skill_maintenance: 'no-increment-only', validators: ['json-export','exact-text','current-text-structural-only'] },
     options: this.#options, needs_input: this.stage === 'selection' && !this.#selection || this.stage === 'feedback' && !this.#feedback };
+  }
+  #recovery() {
+    const answer=(mode,next_tools,next_action)=>({mode,next_tools,next_action});
+    if(!this.ready||this.complete||STAGES.indexOf(this.stage)>STAGES.indexOf(this.#config.contract.stopAfter))return answer('stop',[],'Report the actual stopped state; no further task action is authorized.');
+    if(this.stage==='discovery'){
+      if(!this.#pending.some(x=>x.kind==='skill_search'))return answer('continue',['workflow_search_skills'],'Search installed Skills for this task before trying to advance.');
+      const skills=[...this.#sources.values()].filter(x=>x.type==='skill');
+      if(skills.some(x=>!this.#fullyRead(x)))return answer('continue',['workflow_read_source','workflow_confirm_sources'],'Receive every required file range and confirm only receipts already returned in prior tool results; then review applicability.');
+      if(skills.some(x=>!x.review))return answer('continue',['workflow_review_skill'],'Review the fully received Skill against every scoped requirement and its actual license; reject unsuitable methods.');
+      if(skills.some(x=>x.review?.decision==='adopt'&&!this.#installed.has(x.candidate)))return answer('continue',['workflow_install_skill'],'Install and read back the adopted current method before advancing.');
+      if(!this.#installed.size)return answer('continue',['workflow_open_skill','workflow_search_skills'],'Open an actually relevant returned candidate. If none fits, search externally with the concrete installed-capability gap; do not stop after search alone or adopt an irrelevant candidate.');
+      return answer('continue',['workflow_open_reference','workflow_read_source','workflow_confirm_sources','workflow_observe_reference'],'Acquire and completely inspect at least two relevant references, recording concrete observations. Automatic checkpoints advance only after actual evidence exists.');
+    }
+    if(this.stage==='selection'&&!this.#selection)return this.#options.length?answer('wait_for_user',[],'Present the exact registered options and wait for actual external /workflow choose <id>; never manufacture approval.'):answer('continue',['workflow_checkpoint'],'Submit 3–5 actually supported options with inspected source handles and exact output paths, then present them for external choice.');
+    if(this.stage==='feedback'&&!this.#feedback)return answer('wait_for_user',[],'Present the current validated draft and wait for actual external feedback or /workflow accept.');
+    if(this.stage==='draft')return answer('continue',['workflow_write','workflow_validate'],'Write only selected artifact paths and run the current-artifact validator; correct any actual validation failures.');
+    if(this.stage==='learning')return answer('continue',['workflow_learn'],'Record only evidenced reusable learning or a concrete no-increment reason; unsupported maintenance cannot be claimed.');
+    return answer('continue',['workflow_status'],'Read the current host state and satisfy only the next authorized prerequisite.');
   }
   async #card(card) {
     this.#audit.push({ event: 'card', ...structuredClone(card) });
@@ -149,13 +192,12 @@ class GuardedWorkflowHost {
     if (rel.split('/').some(protectedProjectSegment)) throw blocked('Host/configuration, ambiguous Windows aliases or credential paths are unavailable to the actor');
     const absolute = resolve(this.#workspace, rel);
     if (!inside(this.#workspace, absolute)) throw blocked('Workspace escape denied');
-    const privateRoots=[this.#root,this.#config.installedRoot,...(this.#config.privateRoots??[])].filter(Boolean).map(p=>existsSync(p)?realpathSync.native(p):resolve(p));
-    if(privateRoots.some(p=>inside(p,absolute)))throw blocked('Private host state and dependencies are unavailable to the actor');
+    if(this.#pathPolicy.deniesPrivate(absolute))throw blocked('Private host state and dependencies are unavailable to the actor');
     let parent = writing ? dirname(absolute) : absolute;
     while (!existsSync(parent)) parent = dirname(parent);
     const actualParent=realpathSync.native(parent);
     if (!inside(realpathSync.native(this.#workspace),actualParent)) throw blocked('Symlink escape denied');
-    if(privateRoots.some(p=>inside(p,actualParent)))throw blocked('Project path resolves into private host state');
+    if(this.#pathPolicy.deniesPrivate(actualParent))throw blocked('Project path resolves into private host state');
     if (existsSync(absolute) && lstatSync(absolute).isSymbolicLink()) throw blocked('Symlinked output denied');
     if(existsSync(absolute)&&lstatSync(absolute).isFile()&&lstatSync(absolute).nlink>1)throw blocked('Hard-linked project files cannot bypass private/protected path identity');
     return absolute;
@@ -174,6 +216,7 @@ class GuardedWorkflowHost {
     return { path, relative_path: bundlePath, bytes: bytes.length, returned_bytes: bytes.length, truncated: false, sha256: hash(bytes) };
   }
   async #integrity() {
+    try{
     for (const [path, digest] of this.#protected) if (hash(await this.#readWorkspace(path)) !== digest) throw new Error(`Protected input changed externally: ${path}`);
     for (const entry of this.#installed.values()) {
       const names = regularFiles(entry.path).map((x) => relative(entry.path, x).replaceAll('\\', '/')).sort();
@@ -186,6 +229,7 @@ class GuardedWorkflowHost {
         || source.files.some((x) => hash(readFileSync(join(source.originRoot, x.path))) !== hash(x.bytes))) throw new Error('Acquired current source changed externally');
     } else if (source.originFile && hash(readFileSync(source.originFile)) !== hash(source.files[0].bytes)) throw new Error('Reference source changed externally');
     for (const [path, entry] of this.#artifacts) if (hash(await this.#readWorkspace(path)) !== entry.sha256) throw new Error(`Artifact changed outside its guarded writer: ${path}`);
+    }catch(cause){throw new Error(`Trusted integrity verification failed: ${cause.message}`,{cause});}
   }
   dispatch(name, args = {}, meta = {}) {
     const run = this.#queue.then(() => this.#performDispatch(name, args, meta));
@@ -213,7 +257,7 @@ class GuardedWorkflowHost {
       await this.#autoAdvance();
       return { ok: true, state: this.#state(), data };
     } catch (error) {
-      if (error.business) return { ok: false, error: error.message, missing: [error.message], state: this.#state() };
+      if (businessRefusals.has(error)) return { ok: false, error: error.message, missing: [error.message], ...(error.sourceOperation?{code:error.code,source_operation:error.sourceOperation}:{}), state: this.#state(), recovery:this.#recovery() };
       this.abort(`Collector/controller failure: ${error.message}`);
       return { ok: false, fatal: true, error: this.#failed, state: this.#state() };
     }
@@ -224,7 +268,31 @@ class GuardedWorkflowHost {
       const path = safeRelative(args.path);
       const allowed = this.#config.contract.readAllowlist;
       if (allowed && !allowed.some(x=>projectPathEquals(x,path))) throw blocked('Input is outside the host-approved read allowlist');
-      const bytes = await this.#readWorkspace(path);
+      const key=projectPathKey(path),knownDigest=this.#protected.get(key)??this.#artifacts.get(key)?.sha256;let absolute,entry;
+      try{absolute=this.#workspaceFile(path,false);}catch(cause){if(knownDigest!==undefined)throw new Error('Known project path failed integrity before actor read',{cause});throw cause;}
+      try{entry=lstatSync(absolute,{bigint:true});}catch(error){
+        if(knownDigest===undefined&&(error.code==='ENOENT'||error.code==='ENOTDIR'))throw blocked('Requested project input does not exist as a regular file; a new output need not be read before it is written.');
+        throw error;
+      }
+      if(!entry.isFile()){if(knownDigest!==undefined)throw new Error('Known project file changed type before actor read');throw blocked('Requested project input must be a regular file, not a directory or another resource type.');}
+      let bytes;
+      try{
+        bytes=await this.#readWorkspace(path);
+        const after=lstatSync(this.#workspaceFile(path,false),{bigint:true});
+        const stableFields=['dev','ino','mode','nlink','size','mtimeNs'],changedFields=stableFields.filter(field=>entry[field]!==after[field]);
+        if(!after.isFile()||changedFields.length)throw new Error('Project file changed during authorized native read ['+(!after.isFile()?'type':changedFields.join(','))+']');
+        if(knownDigest!==undefined&&hash(bytes)!==knownDigest)throw new Error('Known project file bytes differ from the trusted digest');
+        // Real Windows permission bookkeeping may change only status time.
+        // Re-confirm once through the SAME permission-aware reader; never use
+        // a direct filesystem content fallback or trust ctime as byte identity.
+        if(entry.ctimeNs!==after.ctimeNs){
+          const confirmed=await this.#readWorkspace(path),final=lstatSync(this.#workspaceFile(path,false),{bigint:true});
+          const changedAgain=[...stableFields,'ctimeNs'].filter(field=>after[field]!==final[field]);
+          if(!final.isFile()||changedAgain.length||!confirmed.equals(bytes))throw new Error('Project file did not stabilize through authorized native read confirmation ['+(!final.isFile()?'type':changedAgain.join(',')||'bytes')+']');
+          if(knownDigest!==undefined&&hash(confirmed)!==knownDigest)throw new Error('Confirmed project bytes differ from the trusted digest');
+          this.#audit.push({event:'workspace_input_reconfirmed',path,changed_fields:['ctimeNs'],sha256:hash(bytes)});
+        }
+      }catch(cause){if(businessRefusals.has(cause))throw new Error('Project path policy changed after read preflight',{cause});throw cause;}
       const chunk = this.#textChunk(bytes, args.offset ?? 0, args.length ?? 12000);
       this.#audit.push({ event: 'workspace_input_delivered', path, start: chunk.start, end: chunk.end, sha256: hash(bytes) });
       return { path, ...chunk, bytes: bytes.length, sha256: hash(bytes) };
@@ -234,7 +302,7 @@ class GuardedWorkflowHost {
       this.#require('discovery');
       if (this.#config.sourceProvider) {
         if (args.external && (!this.#pending.some(x=>x.kind==='skill_search' && x.data.source==='installed-provider') || !nonempty(args.gap))) throw blocked('Search installed Skills first and state the actual local capability gap before external discovery');
-        const result = await this.#config.sourceProvider.search(args.query, { external: !!args.external });
+        const result = await sourceCall('search',()=>this.#config.sourceProvider.search(args.query, { external: !!args.external }));
         for (const candidate of result.candidates) this.#candidates.set(candidate.id, {...candidate, providerCandidate: true});
         this.#record('skill_search', {source:args.external?'public-provider':'installed-provider',query:args.query,results:result.candidates.map(x=>x.id),...(args.external?{gap:args.gap}:{})});
         return result;
@@ -250,7 +318,7 @@ class GuardedWorkflowHost {
       if (!candidate) throw blocked('Candidate was not returned by this catalog');
       if (!this.#pending.some((x) => x.kind === 'skill_search' && x.data.results.includes(candidate.id))) throw blocked('Actual candidate search is required first');
       if (candidate.providerCandidate) {
-        const acquired = await this.#config.sourceProvider.acquire(candidate.id);
+        const acquired = await sourceCall('acquire',()=>this.#config.sourceProvider.acquire(candidate.id));
         if (acquired.status !== 'ready') throw blocked(`Acquired bundle remains ${acquired.status}: ${(acquired.missing??[]).join(', ')}. Binary material needs a verified viewer; no text-only substitute is allowed`);
         const root = realpathSync(acquired.path);
         const files = regularFiles(root);
@@ -281,7 +349,7 @@ class GuardedWorkflowHost {
       this.#require('discovery');
       let ref = this.#config.contract.references.find((x) => x.id === args.reference);
       if (!ref && this.#config.sourceProvider) {
-        const acquired = await this.#config.sourceProvider.fetchReference(args.reference);
+        const acquired = await sourceCall('fetchReference',()=>this.#config.sourceProvider.fetchReference(args.reference));
         if (acquired.status!=='text') throw blocked('This reference requires a verified native viewer; binary-to-text reading cannot prove inspection');
         ref={id:hash(Buffer.from(acquired.url)),path:acquired.path,url:acquired.url,label:acquired.url};
         if (hash(readFileSync(ref.path))!==acquired.sha256) throw new Error('Reference bytes differ from acquired digest');
@@ -305,7 +373,7 @@ class GuardedWorkflowHost {
       if (refs.length >= 2) this.#record('references', { sources: refs.map((x) => ({ url: x.reference.url ?? `configured-reference:${x.reference.id}`, observation: x.observation })) });
       return { observed: true, inspected_references: refs.length };
     }
-    if (name === 'workflow_write') return this.#write(args.path, args.content);
+    if (name === 'workflow_write') return this.#write(args.path, args.content, args.newline);
     if (name === 'workflow_apply_method') return this.#applyMethod(args);
     if (name === 'workflow_validate') return this.#validateArtifact(args);
     if (name === 'workflow_learn') return this.#learn(args);
@@ -393,7 +461,7 @@ class GuardedWorkflowHost {
     this.#record('skill_install', { candidate, version: source.version, mode: exists ? 'reuse' : 'install', files });
     return { installed: true, mode: exists ? 'reuse' : 'install', catalog: 'host-managed-discoverable-skills', files: manifest };
   }
-  async #write(path, content) {
+  async #write(path, content, newline) {
     this.#require('draft');
     const rel = safeRelative(path);
     if (this.#protected.has(projectPathKey(rel))) throw blocked('Protected input cannot be written');
@@ -403,7 +471,10 @@ class GuardedWorkflowHost {
     const method = [...this.#installed.entries()].find(([, item]) => item.source.review?.decision === 'adopt');
     if (!method) throw blocked('No inspected installed method is active');
     const absolute = this.#workspaceFile(rel, true);
-    const expected=Buffer.from(content);
+    let existing;try{existing=lstatSync(absolute);}catch(error){if(error.code!=='ENOENT')throw error;}
+    if(existing&&!existing.isFile())throw blocked('Artifact output path must be a regular file or a new file, not a directory or another resource type.');
+    const raw=Buffer.from(content),expected=newline==='LF'||newline==='CRLF'?Buffer.from(content.replace(/\r\n|\r|\n/g,newline==='LF'?'\n':'\r\n')):raw;
+    if(expected.length>2*1024*1024)throw blocked('Materialized artifact exceeds allowed size');
     if(this.#config.workspaceIO) await this.#config.workspaceIO.write(rel,expected);
     else {
       mkdirSync(dirname(absolute), { recursive: true });
@@ -411,12 +482,14 @@ class GuardedWorkflowHost {
       writeFileSync(temp, expected); renameSync(temp, absolute);
     }
     const actual=await this.#readWorkspace(rel);if(!actual.equals(expected))throw new Error('Guarded artifact write readback mismatch');
+    const normalization=newline===undefined?undefined:{newline,raw_input_sha256:hash(raw),output_sha256:hash(actual)};
     const artifact = this.#snapshot(`artifacts/${rel}`, actual, rel);
     this.#pending = this.#pending.filter((x) => !(['application','validation'].includes(x.kind) && x.data.artifact?.relative_path && projectPathEquals(x.data.artifact.relative_path,rel)));
     this.#artifacts.set(projectPathKey(rel), { ...artifact, workspacePath: rel }); this.#validated.delete(projectPathKey(rel));
     this.#record('application', { candidate: method[0], version: method[1].source.version,
-      method: `Artifact physically produced after the selected inspected method; semantic correspondence requires independent validation. ${method[1].source.review.reason}`, artifact });
-    return { artifact: rel, sha256: artifact.sha256, bytes: artifact.bytes };
+      method: `Artifact physically produced after the selected inspected method; semantic correspondence requires independent validation. ${method[1].source.review.reason}`, artifact, ...(normalization?{normalization}:{}) });
+    if(normalization)this.#audit.push({event:'write_normalization',path:rel,...normalization});
+    return { artifact: rel, sha256: artifact.sha256, bytes: artifact.bytes, ...(normalization?{normalization}:{}) };
   }
   async #applyMethod(args){
     this.#require('draft');
@@ -424,6 +497,7 @@ class GuardedWorkflowHost {
     if(args.args?.length)throw blocked('This reviewed Python sandbox does not accept unreviewed script arguments');
     const method=this.#installed.get(args.candidate),script=safeRelative(args.path);
     if(!method||method.source.review?.decision!=='adopt'||!method.files.some(x=>x.path===script))throw blocked('Execute only an actually inspected installed script');
+    if(!script.endsWith('.py'))throw blocked('Only inspected installed .py Python scripts can be executed. Skill documents are instructions, not executable methods; use workflow_write and workflow_validate for an authorized text draft.');
     const inputs=(args.inputs??[]).map(safeRelative),outputs=(args.outputs??[]).map(safeRelative);
     if(!outputs.length)throw blocked('Declare the exact staged artifact output paths');
     if(new Set(outputs.map(projectPathKey)).size!==outputs.length)throw blocked('Duplicate method output aliases rejected');
@@ -538,7 +612,7 @@ class GuardedWorkflowHost {
         await this.#checkpoint({ done: [`Host verified the actual prerequisites for ${stage}; generated this report from observed receipts.`],
           evidence: this.#pending.map((x) => x.id), next_action: 'Continue only at the next authorized stage; wait for any required human input.' });
       } catch (error) {
-        if (!error.business) throw error;
+        if (!businessRefusals.has(error)) throw error;
         this.#audit.push({ event: 'automatic_checkpoint_waiting', stage, reason: error.message }); break;
       }
     }
@@ -546,8 +620,11 @@ class GuardedWorkflowHost {
   async acceptUserMessage(text) {
     // This method is deliberately absent from model tool schemas.
     if (!nonempty(text)) throw new Error('External input must be nonempty');
+    // Editors may append a newline. Normalize only control recognition; keep
+    // the original external bytes in authorization, corrections and audit.
+    const command=text.trim();
     if(isWorkflowProgressQuery(text)){this.#audit.push({event:'external_status_query',text,stage:this.stage});return this.#state();}
-    const choice = text.match(/^\/workflow choose ([a-z0-9_-]+)$/i);
+    const choice = command.match(/^\/workflow choose ([a-z0-9_-]+)$/i);
     if (choice) {
       const selected = choice[1];
       if (this.stage !== 'selection' || !this.#options.length || !this.#options.some((x) => x.id === selected))
@@ -555,7 +632,7 @@ class GuardedWorkflowHost {
       this.#selection = { mode: 'chosen', selected,
         options: this.#options.map((x) => x.id), instruction: text };
       if(this.#config.contract.conversationMode)this.#config.contract.writeAllowlist=this.#options.find(x=>x.id===selected).artifacts.map(safeRelative);
-    } else if (text.trim() === '/workflow accept') {
+    } else if (command === '/workflow accept') {
       if (this.stage !== 'feedback' || !this.#validated.size) throw blocked('Accept only the current independently validated draft at feedback');
       if(this.#config.workspaceIO)this.#feedback={mode:'pending_external_accept',instruction:text};
       else{await this.#integrity();this.#acceptCurrentGoal(text);}

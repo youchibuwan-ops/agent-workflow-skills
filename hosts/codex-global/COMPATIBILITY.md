@@ -1,6 +1,6 @@
 # Installed desktop / native compatibility
 
-Target: installed desktop 26.1021.3705.0, native `codex-cli 0.164.0-alpha.11.1`. This directory is development work, not an installed default route. No global settings or original history are changed.
+Target: installed desktop 26.1021.3705.0, native `codex-cli 0.164.0-alpha.11.1`. The owner may install a separate controlled local entry and private profile. This inventory records compatibility, not current-release model or UI acceptance. The stock entry and original history remain separate.
 
 | Entry | Exact observed behavior | Gateway treatment |
 | --- | --- | --- |
@@ -30,6 +30,8 @@ Official exact source: [Codex 0.164.0-alpha.11.1](https://github.com/openai/code
 
 Original `.codex-global-state.json`: 73 cached thread-project memberships point to local; a separate durable sidebar cache contains 13 threads; cloud access is `enabled_needs_setup`. Both environment catalogs are empty. No websocket/SSH/distro transport descriptors were found recursively in this state file; this is not proof that remote routes cannot later be configured. A connection-before guard must classify every host descriptor at the main transport factory, allow only the authenticated local gateway, and throw for durable/SSH/WSL/remote-control/unknown before process, socket, or HTTP creation. Startup must reject an unrecognized app bundle hash. Environment override alone cannot fulfill all-route control.
 
-## Current blockers to calling it a default installation
+## Installation acceptance boundary
 
-The native gateway and selected-thread migration now have actual native deterministic-provider tests, including multi-client concurrency, selected legacy import, restart and the production conversation controller's early-write rejection. The main-factory pure patch has fixture tests; it must still be installed and validated in an isolated desktop instance before any current-profile switch. A private profile is possible with `CODEX_ELECTRON_USER_DATA_PATH`, but background mode is not guaranteed hidden. Current desktop must not be restarted by this work. Actual route-switch installation and UI acceptance remain separate from native deterministic-provider tests. See README.md for the frozen owner API and explicit unsupported RPC/input scope.
+The native gateway and selected-thread migration have actual native deterministic-provider tests, including multi-client concurrency, selected legacy import, restart and the production conversation controller's early-write rejection. A separate native launcher pins owner configuration, source, Node and the complete private desktop tree. The true `package.main` bootstrap binds the private profile and process AppID before vendor JavaScript; actual shortcut metadata carries the matching relaunch identity. This installed Owl build has no `BrowserWindow.setAppDetails` or window-message hook API, so production does not depend on those methods or the historical window bridge. Direct native startup paths that precede JavaScript remain a separate boundary.
+
+Cold start, warm activation, normal quit, actual messages and completed feedback must be recorded for the current release. A started window, fixture bridge test or protocol test cannot substitute for those observations. The current stock desktop must not be restarted or hot-switched by this work. See README.md for the owner API and explicit unsupported RPC/input scope; current acceptance belongs to the separate release record.

@@ -2,6 +2,15 @@
 
 ## Unreleased
 
+### Guarded daily entries and actual desktop/Web verification — 2026-10-26
+
+- Add the pinned native Codex launcher and shortcut metadata, early private-app bootstrap, fixed owner activation and current-schema history recovery.
+- Enforce the DSH 100,000-token per-reply ceiling at the provider boundary; keep lower caller limits and reject unsupported routes.
+- Separate recoverable actor mistakes from integrity/executor failures, preserve the original fatal cause, and make declared LF/CRLF materialization independently verifiable.
+- Restore original native read observations across DSH Web Agents before existing-file writes without refreshing away the earlier byte/identity baseline or bypassing native CAS and permissions.
+- Verify actual Codex GUI and default-entry DSH Web selection, feedback, exact edits, acceptance and learning; retain earlier failures and editorial/unsupported-capability limits.
+- Synchronize both installed Skill variants with tested host-integration lessons and publish source-bound R30 evidence with a separately finalized DSH installer.
+
 ### Controlled Codex / DSH host preview — 2026-10-25
 
 - Add independently launched Codex WS and DSH native-root guarded task entries; retain the unchanged daily desktop and explicit capability limits.

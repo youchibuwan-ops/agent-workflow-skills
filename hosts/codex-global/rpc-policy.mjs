@@ -3,6 +3,14 @@ const pick=(p,keys)=>Object.fromEntries(keys.filter(k=>p[k]!==undefined).map(k=>
 const page=p=>({...pick(p,['cursor']),...(p.limit==null?{}:{limit:Math.max(1,Math.min(100,Number.isSafeInteger(p.limit)?p.limit:20))})});
 const simple=new Set(['configRequirements/read','account/rateLimits/read','collaborationMode/list','modelProvider/capabilities/read']);
 export function readParams(method,p={}){
+ if(method==='account/gatewayOAuth/read'){
+  if(p!==null&&(typeof p!=='object'||Array.isArray(p)||Object.keys(p).length!==0))throw Error('Gateway OAuth read does not accept parameters');
+  return {};
+ }
+ if(method==='windowsSandbox/readiness'){
+  if(p!==null&&(typeof p!=='object'||Array.isArray(p)||Object.keys(p).length!==0))throw Error('Windows sandbox readiness does not accept parameters');
+  return {};
+ }
  if(simple.has(method))return {};
  if(method==='getAuthStatus')return {includeToken:p.includeToken===true,refreshToken:false};
  if(method==='account/read')return {refreshToken:false};
@@ -21,18 +29,19 @@ export function readParams(method,p={}){
 }
 export function threadParams(p,cwd,schemas,models){
  if(p.model&&!models.has(p.model))throw Error('Unknown model denied');
- return {cwd,ephemeral:false,historyMode:'paginated',environments:[],approvalPolicy:'never',sandbox:'read-only',dynamicTools:structuredClone(schemas),developerInstructions:instruction,...pick(p,['model'])};
+ if(p.projectId!=null&&(typeof p.projectId!=='string'||! /^[A-Za-z0-9][A-Za-z0-9._:-]{0,199}$/.test(p.projectId)))throw Error('Invalid bounded native project identity');
+ return {cwd,ephemeral:false,historyMode:'paginated',environments:[],approvalPolicy:'never',sandbox:'read-only',dynamicTools:structuredClone(schemas),developerInstructions:instruction,...pick(p,['model']),...(p.projectId==null?{}:{projectId:p.projectId})};
 }
 export function resumeParams(p,cwd){return {threadId:p.threadId,cwd,approvalPolicy:'never',sandbox:'read-only',developerInstructions:instruction,excludeTurns:p.excludeTurns===true,...(p.initialTurnsPage?{initialTurnsPage:pick(p.initialTurnsPage,['limit','sortDirection','itemsView'])}:{})};}
 export function turnParams(p,cwd,instructions){
  if(!Array.isArray(p.input)||!p.input.length||p.input.length>64||p.input.some(x=>x.type!=='text'||typeof x.text!=='string'||!x.text.trim())||p.input.reduce((n,x)=>n+Buffer.byteLength(x.text),0)>1024*1024)throw Error('Only bounded genuine text input supported');
  return {threadId:p.threadId,cwd,environments:[],approvalPolicy:'never',effort:'low',input:p.input.map(x=>({type:'text',text:x.text})),additionalContext:{workflow_host:{kind:'application',value:instructions||instruction}}};
 }
-export function settingsParams(p,models){
+export function settingsParams(p,models,cwd){
  if(p.model&&!models.has(p.model))throw Error('Unknown model denied');
- return {threadId:p.threadId,approvalPolicy:'never',sandboxPolicy:{type:'readOnly'},...pick(p,['model'])};
+ return {threadId:p.threadId,approvalPolicy:'never',sandboxPolicy:{type:'readOnly'},...pick(p,['model']),...(cwd===undefined?{}:{cwd})};
 }
 export function classifyRoute(host,allowedHostId='local'){
- const local=host&&host.id===allowedHostId&&!host.distro&&!host.transportKind&&!host.transport_kind&&!host.websocket_url&&!host.ssh&&!host.ssh_host;
+ const local=allowedHostId==='local'&&host&&host.id==='local'&&host.kind==='local'&&host.distro==null&&host.transportKind==null&&host.transport_kind==null&&host.websocket_url==null&&host.ssh==null&&host.ssh_host==null;
  return {allowed:!!local,reason:local?'ordinary-local-gateway':'Unsupported transport denied before connection creation'};
 }

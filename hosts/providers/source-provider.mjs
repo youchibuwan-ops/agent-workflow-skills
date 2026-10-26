@@ -158,8 +158,13 @@ export function createSourceProvider(options={}){
   if(manifest.length>limits.maxFiles||bytes>limits.maxBytes)fail('SOURCE_LIMIT','Complete source exceeds resource limits');
   const key=sha(Buffer.from(JSON.stringify({version:bundle.version,source:bundle.source.url,manifest}))),container=cacheChild('bundles',key),path=cacheChild('bundles',key,'bundle');
   if(existsSync(path)){
-   const current=listFiles(path,{...limits,skipGenerated:false});
-   if(current.length!==files.length||current.some(f=>!manifest.some(m=>m.path===f.path&&m.sha256===sha(f.bytes))))fail('CACHE_INTEGRITY','Cached source payload differs from its current verified manifest');
+   try{
+    const current=listFiles(path,{...limits,skipGenerated:false});
+    if(current.length!==files.length||current.some(f=>!manifest.some(m=>m.path===f.path&&m.sha256===sha(f.bytes))))fail('CACHE_INTEGRITY','Cached source payload differs from its current verified manifest');
+   }catch(cause){
+    const error=new SourceError('CACHE_INTEGRITY','Existing cached source payload could not be verified against its current manifest');
+    Object.defineProperty(error,'cause',{value:cause});throw error;
+   }
   }else{
    mkdirSync(path,{recursive:true});for(const file of files){const target=join(path,file.path);mkdirSync(dirname(target),{recursive:true});writeFileSync(target,file.bytes,{flag:'wx',mode:0o600});}
    writeFileSync(join(container,'source.json'),JSON.stringify({version:bundle.version,source:bundle.source,manifest},null,2),{flag:'wx',mode:0o600});

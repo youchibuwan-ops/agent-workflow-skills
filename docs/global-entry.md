@@ -4,27 +4,32 @@
 
 当前安装包的准确验证状态以随包交付的验证记录为准。纯单测、真实原生调度、真实模型整链和人工界面操作分别记录；不能互相代替。
 
-当前作者本机结果见 [R08 验收记录](../evidence/global-entry-20261026/README.md) 和 [完整结果](../evidence/global-entry-20261026/summary.json)。本机启用默认入口的结果，不表示下载者已经启用；请仍按下面步骤安装、启用并重开终端。
+当前作者本机结果见 [R30 验收记录](../evidence/global-entry-r30-20261026/README.md) 和 [完整结果](../evidence/global-entry-r30-20261026/summary.json)。Codex 桌面与 DSH Web 均实际走完选择、反馈、验收及学习；Web 从已有文件开始，连续两个回合精确修改。本机启用默认入口的结果，不表示下载者已经启用；请仍按下面步骤安装、启用并重开终端。
 
 ## 给同学安装
 
 1. 完整解压安装 ZIP，双击 `安装DSH.cmd`。Windows x64 首次安装需联网下载固定版本的官方 Node 和 DSH 依赖，无需预装 Codex 或旧包。
 2. 安装成功后，双击 `启用默认DSH.cmd`，然后重新打开终端。脚本只调整用户 PATH、保留原值，不覆盖原来的 DSH；若其他更早的命令仍优先，会明确报告未启用。
 3. 在自己的终端设置自己的 `DEEPSEEK_API_KEY`，进入实际项目，再运行 DSH。不要把真实密钥放进安装包或发给同学。
+4. 打开终端输出的本机网址。在 Web 中添加并选择实际项目目录，核对顶部工作区名称后再提交任务。
 
 ```powershell
 $env:DEEPSEEK_API_KEY = '你自己的密钥'
 cd '你的项目目录'
-dsh headless '请先检查当前项目并提供方案'
+dsh web
 ```
 
 不切换默认命令时，也可直接使用固定入口：
 
 ```powershell
-& "$env:USERPROFILE\.agent-workflow\global\dsh.cmd" headless '请先检查项目'
+& "$env:USERPROFILE\.agent-workflow\global\dsh.cmd" web
 ```
 
-安装器准备官方 `headless`、`sdk`、`acp`、`web` 四种配置。多轮客户端通过原生会话接口继续同一会话；单次 headless 命令停在等待选择时，不等于完整任务结束。不要用反复创建新会话代替同会话反馈，否则旧来源核读需要重做。安装器不自动调用付费模型。
+该入口不会自动打开浏览器。Web 的默认工作区可能在文档目录，**不能只凭终端的 `cd` 判断保存位置**。
+先在 Web 中选择正确目录，再提交任务、选择方案和反馈；也可连接受控 SDK 或 ACP 客户端。
+安装器准备官方 `headless`、`sdk`、`acp`、`web` 四种配置。`headless` 只处理一次提示后退出，
+不会交互等待后续选择；不能用它反复退出重开来完成同一套方案与反馈流程。
+冷恢复会重新核验事实并重新提供方案，旧选项和回执不能重放。安装器不自动调用付费模型。
 
 ## 日常操作
 
@@ -40,6 +45,6 @@ dsh headless '请先检查当前项目并提供方案'
 
 每次启动先核发行源码，再核实际安装的完整依赖树。锁文件和下载摘要不代替安装后核验。安装文件、状态及 PATH 备份放在用户目录 `.agent-workflow/global`；账号和密钥不随包分发。升级保留旧版本。安装 DSH 按钮不替换 Codex 原应用或自动接管其窗口。
 
-Codex 的私有桌面启动与原生 WebSocket 调度有独立测试；桌面点击、登录和真实消息 UI 的覆盖范围单独说明。不能用协议测试宣称所有桌面交互已验证。
+本机 Codex 使用 `Codex-Controlled` 快捷方式进入已核验的私有桌面。R30 已实际验证普通文字任务、方案选择、反馈修订和验收；原版窗口与此聊天不会被追溯接管。DSH 安装按钮不分发或替换 Codex 桌面，不能把本机 Codex 验收当作同学电脑已安装它的证明。
 
 开发者复测见 [验证边界](global-testing.md)、[DSH 原生边界](../hosts/dsh-global/VERIFICATION.md) 与 [真实模型探针](../hosts/dsh-global/probes/README.md)。历史 preview1 的证据继续固定在其原提交，不能转给这个入口。

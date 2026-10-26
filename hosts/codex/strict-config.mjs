@@ -1,4 +1,5 @@
-import {readFileSync} from 'node:fs';
+import {readFileSync,realpathSync,statSync} from 'node:fs';import path from 'node:path';
+function desktopWorkspace(value){if(value===undefined)return undefined;if(typeof value!=='string'||!path.isAbsolute(value)||/[\x00-\x1f]/.test(value))throw Error('Absolute trusted default workspace required');const actual=realpathSync.native(value);if(!statSync(actual).isDirectory())throw Error('Trusted default workspace directory required');return actual.replaceAll('\\','/');}
 export function restrictCatalog(input){
  const catalog=structuredClone(typeof input==='string'?JSON.parse(readFileSync(input,'utf8')):input);
  if(!Array.isArray(catalog?.models)||!catalog.models.length)throw new Error('Nonempty model catalog required');
@@ -15,12 +16,14 @@ export function validateStrictCatalog(input){
  }
  return catalog;
 }
-export function strictConfig(catalogPath){return `model_catalog_json = ${JSON.stringify(catalogPath.replaceAll('\\','/'))}\nmodel_reasoning_effort = "low"\nweb_search = "disabled"\ntool_output_token_limit = 262144\nmodel_auto_compact_token_limit = 1000000000\nmodel_post_turn_compact_threshold_percent = 0\nnotify = []\n[cloud.skills]\nenabled = false\n[orchestrator.mcp]\nenabled = false\n[features]\n${['apps','plugins','remote_plugin','multi_agent','code_mode','code_mode_only','browser_use','computer_use','image_generation','tool_suggest','sleep_tool','shell_tool','view_image','goals','hooks','codex_hooks','plugin_hooks','async_compaction'].map(x=>`${x} = false`).join('\n')}\n[tools.update_plan]\nenabled = false\n[tools.experimental_request_user_input]\nenabled = false\n`;}
+export function strictConfig(catalogPath,{defaultWorkspace}={}){const workspace=desktopWorkspace(defaultWorkspace);return `model_catalog_json = ${JSON.stringify(catalogPath.replaceAll('\\','/'))}\ndefault_permissions = ":read-only"\nmodel_reasoning_effort = "low"\nweb_search = "disabled"\ntool_output_token_limit = 262144\nmodel_auto_compact_token_limit = 1000000000\nmodel_post_turn_compact_threshold_percent = 0\nnotify = []\n[cloud.skills]\nenabled = false\n[orchestrator.mcp]\nenabled = false\n[features]\n${['apps','plugins','remote_plugin','multi_agent','code_mode','code_mode_only','browser_use','computer_use','image_generation','tool_suggest','sleep_tool','shell_tool','view_image','goals','hooks','codex_hooks','plugin_hooks','async_compaction'].map(x=>`${x} = false`).join('\n')}\n[tools.update_plan]\nenabled = false\n[tools.experimental_request_user_input]\nenabled = false\n${workspace===undefined?'':'[desktop]\nprojectlessWorkspaceRoot = '+JSON.stringify(workspace)+'\n'}`;}
 
 // CLI overrides have higher precedence than workspace/user config layers.
-export function strictArguments(catalogPath){
- const settings={model_catalog_json:catalogPath.replaceAll('\\','/'),model_reasoning_effort:'low',web_search:'disabled',notify:[],tool_output_token_limit:262144,model_auto_compact_token_limit:1000000000,model_post_turn_compact_threshold_percent:0,
+export function strictArguments(catalogPath,{defaultWorkspace}={}){
+ const workspace=desktopWorkspace(defaultWorkspace);
+ const settings={model_catalog_json:catalogPath.replaceAll('\\','/'),default_permissions:':read-only',model_reasoning_effort:'low',web_search:'disabled',notify:[],tool_output_token_limit:262144,model_auto_compact_token_limit:1000000000,model_post_turn_compact_threshold_percent:0,
   'cloud.skills.enabled':false,'orchestrator.mcp.enabled':false,'tools.update_plan.enabled':false,'tools.experimental_request_user_input.enabled':false};
  for(const name of ['apps','plugins','remote_plugin','multi_agent','code_mode','code_mode_only','browser_use','computer_use','image_generation','tool_suggest','sleep_tool','shell_tool','view_image','goals','hooks','codex_hooks','plugin_hooks','async_compaction'])settings['features.'+name]=false;
+ if(workspace!==undefined)settings['desktop.projectlessWorkspaceRoot']=workspace;
  return Object.entries(settings).flatMap(([name,value])=>['-c',`${name}=${JSON.stringify(value)}`]);
 }

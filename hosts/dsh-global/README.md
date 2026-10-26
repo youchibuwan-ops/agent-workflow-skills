@@ -7,9 +7,11 @@ contain another DSH runtime or a model provider, and reads no API key.
 
 Tests include controller doubles and the production conversation factory,
 actual project byte I/O, separate sessions, continuations and cold restoration.
-LLM providers in these regressions are explicitly scripted; the new generic
-entry has not yet passed a real model run. Installation must pin and deploy the
-owner launcher before claiming that a user's daily entry has changed.
+LLM providers in these regressions are explicitly scripted. Earlier frozen
+generic releases have separate real-model evidence; that evidence does not
+validate later source changes or this resume authorization addition. Installation
+must pin and deploy the owner launcher before claiming that a user's daily
+entry has changed.
 
 ## Native lifecycle
 
@@ -27,6 +29,18 @@ first model request. This ordering matters: native prompt assembly precedes
 The factory may return the existing controller for a continuation. A native
 late `user-question-reply` is routed to that controller's `acceptUserMessage`.
 Unbound plugin work and direct agentless LLM calls are denied.
+
+Every bound native AgentLoop request has an output ceiling of 100000 tokens per
+model response. The required broker clamps the native request controls before
+provider dispatch and checks the final native frozen request again. It preserves
+an explicitly lower Agent limit and a lower configured model default, including
+live Models-setting changes. It does not rewrite the user's text, model choice
+or caller-owned Agent options, and adds no aggregate task-token budget. This is
+mandatory broker policy for the friend installer too; it does not depend on a
+UI-only default or an optional profile overlay. The sealed upstream adapter's
+256000 default and editable model settings cannot raise this boundary ceiling.
+Free official Web SessionController and SDK regressions check the actual
+provider-entry options; these are not paid-model or browser-rendering evidence.
 
 Model tool assembly contains only the exact supplied workflow schemas. Native
 visibility remains intact for host operations, but raw shell, PTC, unknown
@@ -56,6 +70,45 @@ absence of a restorable controller fails closed. Same-process resume creates a
 new controller and native executor bound to the new live Agent. Actual native
 reads after resume and separate-process restoration are tested; current facts
 are reverified rather than trusting old receipts.
+
+For a paused/failed Session, authorize its next resume from an external terminal
+in the **original workspace**, using the installed controlled entry:
+
+```text
+dsh-guarded.cmd authorize-resume <sessionId>
+dsh-guarded.cmd headless --session-id <sessionId> "Continue the original task."
+```
+
+The authorization command performs full source/dependency verification, reads the
+owner's fixed `controllerConfigFile`, and checks the current signed conversation
+envelope. It starts no model or DSH driver and prints only status, Session ID and
+expiry. No owner/config/state/profile overrides are accepted. The private grant
+lasts five minutes, binds the exact current envelope bytes, task and canonical
+workspace, and can be consumed once. The same grant is consumed before the next
+SDK, Web, ACP or headless Agent resumes that Session. Facts and source receipts
+are reverified; this does not reuse earlier read proofs or enlarge the scope.
+Another interruption or changed envelope needs a fresh authorization.
+
+Restoration starts discovery again for the original task. It does not restore
+the previous selection stage, options or nonces unchanged. Use a live Web,
+SDK or ACP session for the full choice/draft/feedback conversation. The official
+headless driver sends one prompt, waits for native idle and exits; it does not
+wait interactively for a later plan choice. A headless continuation is another
+one-shot run, so an old `/workflow choose` is not a shortcut past rediscovery
+and newly presented options. This command provides reachable resume authority,
+not complete cold restoration of an in-flight multi-turn workflow.
+
+Typing `/workflow resume` after a native resume has already failed is too late;
+the external command supplies authority before Agent publication. Model tools,
+actor fields and Session history cannot create it. New Sessions do not require a
+grant. This command resumes the original task; it does not add `/workflow new`
+rebinding for an old native Session identity. Completed tasks retain their
+completed durable state when their Agent is retired normally.
+Opening completed Session history does not reopen its task. The trusted factory
+returns `{awaitingUserTask:true}` only for that resume boundary; the broker
+retires the old binding without aborting it and grants no model/tool authority.
+The next actual external user message creates a new task with its own original
+goal. History, replayed receipts and other producer messages cannot supply it.
 
 Controllers expose identical `toolSchemas`, `instructions`, `stage`, `complete`,
 `assertReady()`, `dispatch(name,args,metadata)`, `acceptUserMessage(text)`,
@@ -100,7 +153,22 @@ process data is in `value`: `exitCode`, `signal`, `timedOut`, `aborted`, and
 stdout protocol. Process bridges must reject errors, background results,
 nonzero exit, timeout, cancellation and any truncation. Native Windows sandbox
 reports `enforcement: partial`; this is not an OS isolation guarantee. The
-separate Bwrap provider supplies stronger isolated method execution.
+separate Bwrap provider supplies isolated method execution only when its actual
+native permission chain can execute WSL. In the R25 current-owner capability
+probe, that chain returned nonzero `Wsl/E_ACCESSDENIED` at `wslpath`, before
+Python ran. It correctly failed closed. Configuring a Python method is not
+evidence that it is available in that daily environment; no permission downgrade
+or direct Windows Python fallback is enabled. A separate explicit test-only
+Bwrap invocation verified staging, without covering native permission or
+establishing daily availability.
+
+The original guarded native writer can submit physical CRLF: a free official
+SDK/production-controller probe wrote 34 bytes with two CRLFs and zero bare LFs,
+identical to both the workflow arguments and native write arguments. Literal
+backslash-r/backslash-n submitted by an actor remains literal. The optional
+`workflow_write.newline` (`preserve`, `LF`, `CRLF`) declares conversion of actual
+ASCII newlines through that same guarded writer; it does not unescape literal
+backslashes or change BOM. The default remains byte preservation.
 
 ## Installation boundary
 

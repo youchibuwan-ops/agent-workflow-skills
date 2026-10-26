@@ -4,6 +4,7 @@ import {createHash} from 'node:crypto';
 import {existsSync,lstatSync,realpathSync} from 'node:fs';
 import {resolve,relative,isAbsolute,dirname} from 'node:path';
 import {protectedProjectSegment} from '../security/project-path.mjs';
+import {createWorkspacePathPolicy} from '../security/verified-worktree.mjs';
 const sha=x=>createHash('sha256').update(x).digest('hex');
 const inside=(root,p)=>{const r=relative(root,p);return r===''||(!r.startsWith('..')&&!isAbsolute(r));};
 const quoted=x=>"'"+String(x).replaceAll("'","''")+"'";
@@ -16,23 +17,27 @@ function processValue(result){
  if(typeof v.stdout.text!=='string'||typeof v.stderr.text!=='string')throw Error('Native process result lacks exact output');
  return v;
 }
-export function createNativeWorkspaceIO({workspace,privateRoots=[],nativeExecutor,maxBytes=8*1024*1024}={}){
+export function createNativeWorkspaceIO({workspace,privateRoots=[],hardPrivateRoots=[],worktreeLease,nativeExecutor,maxBytes=8*1024*1024}={}){
  if(!nativeExecutor?.execute||!Array.isArray(nativeExecutor.catalog))throw Error('Host-only original native executor required');
- const root=realpathSync(workspace),physicalRoot=realpathSync.native(workspace),privatePaths=privateRoots.map(p=>existsSync(p)?realpathSync.native(p):resolve(p));
+ const root=realpathSync(workspace),physicalRoot=realpathSync.native(workspace),policy=createWorkspacePathPolicy({workspace,privateRoots,hardPrivateRoots,worktreeLease});
  const names=new Set(nativeExecutor.catalog.map(x=>x.name));
+ const observations=new Map(),stableFields=['dev','ino','mode','nlink','size','mtimeNs'];
+ const observationKey=p=>process.platform==='win32'?p.toLowerCase():p;
+ const identity=p=>{const value=lstatSync(p,{bigint:true});if(!value.isFile()||value.isSymbolicLink()||value.nlink!==1n)throw Error('Native artifact identity changed');return value;};
+ const sameIdentity=(a,b)=>stableFields.every(key=>a[key]===b[key]);
  if(!names.has('pwsh'))throw Error('Verified Windows pwsh/readback capability required');
  function pathFor(value){
   if(typeof value!=='string'||!value||isAbsolute(value)||/[\x00:]/.test(value))throw Error('Scoped project-relative path required');
   const parts=value.replaceAll('\\','/').split('/');
   if(parts.some(x=>!x||x==='.'||x==='..'||protectedProjectSegment(x)))throw Error('Protected project path denied');
-  const p=resolve(root,...parts);if(!inside(root,p)||privatePaths.some(s=>inside(s,p)))throw Error('Private host path denied');
+  const p=resolve(root,...parts);if(!inside(root,p)||policy.deniesPrivate(p))throw Error('Private host path denied');
   let current=p;while(!existsSync(current))current=dirname(current);
-  const actual=realpathSync.native(current);if(!inside(physicalRoot,actual)||privatePaths.some(s=>inside(s,actual))||lstatSync(current).isSymbolicLink())throw Error('Redirected project path denied');
+  const actual=realpathSync.native(current);if(!inside(physicalRoot,actual)||policy.deniesPrivate(actual)||lstatSync(current).isSymbolicLink())throw Error('Redirected project path denied');
   if(existsSync(p)&&lstatSync(p).isFile()&&lstatSync(p).nlink>1)throw Error('Hard-linked project path denied');
   return p;
  }
  async function nativeProcess(command,description){return processValue(await nativeExecutor.execute('pwsh',{command,description,workdir:root,timeoutMs:20000}));}
- async function read(path){
+ async function readExact(path,observe=true){
   const p=pathFor(path),chunks=[];let offset=0,identity;
   do{
    // Only a fixed reader and a base64 path enter the original process service.
@@ -50,12 +55,28 @@ export function createNativeWorkspaceIO({workspace,privateRoots=[],nativeExecuto
    if(chunk.length!==Math.min(limit,entry.total-offset))throw Error('Native byte chunk is incomplete');
    chunks.push(chunk);offset+=chunk.length;
   }while(offset<identity.total);
-  const bytes=Buffer.concat(chunks);if(sha(bytes)!==identity.sha256)throw Error('Native exact read digest mismatch');return bytes;
+  const bytes=Buffer.concat(chunks);if(sha(bytes)!==identity.sha256)throw Error('Native exact read digest mismatch');
+  if(observe&&existsSync(p)){const entry=lstatSync(p,{bigint:true});if(entry.isFile()&&!entry.isSymbolicLink()&&entry.nlink===1n)observations.set(observationKey(p),{sha256:sha(bytes),identity:entry});}
+  return bytes;
  }
+ const read=path=>readExact(path);
  async function write(path,bytes){
   if(!names.has('write'))throw Error('Original native writer capability is unavailable; no process write fallback');
   const p=pathFor(path);if(!Buffer.isBuffer(bytes)||bytes.length>2*1024*1024)throw Error('Bounded text artifact bytes required');
   let content;try{content=new TextDecoder('utf8',{fatal:true,ignoreBOM:true}).decode(bytes);}catch{throw Error('Native text writer cannot commit binary artifacts');}
+  if(existsSync(p)){
+   if(!names.has('read'))throw Error('Original native reader capability is unavailable; existing artifact cannot be observed');
+   // Retain the earlier trusted observation before either fresh native read can
+   // update it. A new Agent's read registration must not bless an external edit.
+   const key=observationKey(p),prior=observations.get(key),before=identity(p),initial=await readExact(path,false);
+   const expected=prior??{sha256:sha(initial),identity:before};
+   if(!sameIdentity(expected.identity,before)||sha(initial)!==expected.sha256||!sameIdentity(before,identity(pathFor(path))))throw Error('Native artifact changed since its authorized read');
+   if(!prior)observations.set(key,expected);
+   const registered=await nativeExecutor.execute('read',{file_path:p,limit:1});
+   if(registered?.isError!==false)throw Error('Native artifact reader denied or failed');
+   const confirmed=await readExact(path,false);
+   if(!confirmed.equals(initial)||sha(confirmed)!==expected.sha256||!sameIdentity(before,identity(pathFor(path))))throw Error('Native artifact changed during native read registration');
+  }
   const result=await nativeExecutor.execute('write',{file_path:p,content});if(result?.isError)throw Error('Native artifact writer denied or failed');
   const actual=await read(path);if(!actual.equals(bytes))throw Error('Native write readback mismatch');return actual;
  }
