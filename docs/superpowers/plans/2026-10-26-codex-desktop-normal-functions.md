@@ -18,7 +18,7 @@ Review focus: config tampering during async setup; frontend disconnect and concu
 - [x] Implement exact desktop routes and workspace/project/read boundaries; preserve original actor tool restrictions.
 - [x] Run targeted and whole affected suites, including actual native protocol cases; resolve all failures.
 - [x] Review the source independently, then stage a new immutable local release, update the fixed launcher and run actual UI setup/project access against the existing game directory. Preserve the original entry and game bytes.
-- [ ] Maintain both Skill variants with demonstrated usability-verification lessons, verify installation, publish corrected scope/evidence and synchronize authorized GitHub source.
+- [x] Maintain both Skill variants with demonstrated usability-verification lessons, verify installation, publish corrected scope/evidence and synchronize authorized GitHub source.
 
 Ledger:
 
@@ -28,4 +28,4 @@ Ledger:
 - R35: 442/442 local global, 34/34 package, 31/31 policy. Actual same-session recovery exposed queue/list hydration refusal, which prevented clearing the local failed draft. This was not called desktop completion.
 - R36: bounded owned queue/list only; queue writes/execution remain denied. Red/green boundary test and independent 1/1 read-only review. Exact immutable source: 443/443 global, 34/34 package, 31/31 policy, zero skips. Both installed Skill variants match current frozen bytes.
 - Actual R36 acceptance: the original affected native conversation was recovered through the existing external `/workflow new` path, read both current files, exited normally without changing its signed pending state to failure, reopened through the actual desktop shortcut, then performed another genuine model/tool turn reading both files to EOF. Independent per-chunk byte/hash comparison passed; original project and private entry preserved. The nested read-only task remains discovery/complete=false, as required.
-- Detailed public scope and retained failures: `evidence/global-entry-r36-20261026/README.md`. GitHub publication remains the final delivery step.
+- Detailed public scope and retained failures: `evidence/global-entry-r36-20261026/README.md`. Verified source, both Skill variants and sanitized evidence were synchronized to GitHub in e830f627ffb247cd3fec8cc9fff27de072b132d6. Release download verification and remote CI are separate delivery checks, not substitutes for the completed real desktop acceptance.
