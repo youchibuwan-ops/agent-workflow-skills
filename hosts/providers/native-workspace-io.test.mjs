@@ -1,7 +1,7 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {createHash} from 'node:crypto';
-import {mkdtempSync,mkdirSync,rmSync,writeFileSync,readFileSync,linkSync,statSync,utimesSync,renameSync} from 'node:fs';
+import {mkdtempSync,mkdirSync,rmSync,writeFileSync,readFileSync,linkSync,statSync,utimesSync,renameSync,symlinkSync} from 'node:fs';
 import {tmpdir} from 'node:os';
 import {join,dirname,resolve} from 'node:path';
 import {createNativeWorkspaceIO} from './native-workspace-io.mjs';
@@ -9,6 +9,31 @@ import {worktreeFixture} from '../security/verified-worktree.test-support.mjs';i
 const sha=x=>createHash('sha256').update(x).digest('hex');
 function setup(t,execute){const root=mkdtempSync(join(tmpdir(),'native-io-test-'));t.after(()=>{assert.equal(dirname(root),resolve(tmpdir()));rmSync(root,{recursive:true,force:true});});const workspace=join(root,'workspace'),privateRoot=join(workspace,'host-private');mkdirSync(privateRoot,{recursive:true});return createNativeWorkspaceIO({workspace,privateRoots:[privateRoot],nativeExecutor:{catalog:[{name:'pwsh'},{name:'write'}],execute}});}
 const result=stdout=>({isError:false,value:{kind:'foreground',exitCode:0,timedOut:false,aborted:false,stdout:{text:stdout,truncated:false},stderr:{text:'',truncated:false}}});
+test('native directory metadata uses the original permission route with bounded pages',async t=>{
+ let calls=0;const io=setup(t,async(name,args)=>{calls++;assert.equal(name,'pwsh');assert.ok(args.command.includes('Get-ChildItem -LiteralPath'));assert.ok(args.command.includes('Select-Object -Skip 2 -First 1'));assert.ok(args.command.includes('-EscapeHandling EscapeNonAscii'),'directory names must survive native legacy-codepage/ConstrainedLanguage output');return result('{"offset":2,"total":3,"names":["\\u80cc\\u666f.tscn"]}');});assert.equal(typeof io.list,'function','native workspace IO must expose directory enumeration');assert.deepEqual(await io.list('.',{offset:2,limit:1}),{offset:2,total:3,names:['背景.tscn']});assert.equal(calls,1);
+});
+test('native directory permission denial and incomplete output cannot use a Node fallback',async t=>{
+ const denied=setup(t,async()=>({isError:true}));assert.equal(typeof denied.list,'function');await assert.rejects(denied.list('.'),/denied|failed/);const incomplete=setup(t,async()=>result(JSON.stringify({offset:0,total:2,names:['only-one']})));await assert.rejects(incomplete.list('.',{limit:2}),/incomplete|malformed/);
+});
+test('native directory paths reject protected metadata before dispatch',async t=>{
+ let calls=0;const io=setup(t,async()=>{calls++;throw Error('must not run');});assert.equal(typeof io.list,'function');for(const p of ['../escape','host-private','.git','.env'])await assert.rejects(io.list(p));assert.equal(calls,0);
+});
+
+test('native directory and file IO reject replacement of their originally bound root before dispatch',async t=>{
+ for(const mode of ['plain','junction']){
+  const root=mkdtempSync(join(tmpdir(),'native-root-replaced-'));t.after(()=>rmSync(root,{recursive:true,force:true}));const workspace=join(root,'project');mkdirSync(workspace);let calls=0;const io=createNativeWorkspaceIO({workspace,nativeExecutor:{catalog:[{name:'pwsh'}],execute:async()=>{calls++;return result(JSON.stringify({offset:0,total:0,names:[]}));}}});renameSync(workspace,join(root,'original'));if(mode==='plain')mkdirSync(workspace);else{const outside=join(root,'outside');mkdirSync(outside);symlinkSync(outside,workspace,process.platform==='win32'?'junction':'dir');}await assert.rejects(io.list('.'),/workspace.*(?:identity|changed|replaced)/i);await assert.rejects(io.read('file.txt'),/workspace.*(?:identity|changed|replaced)/i);assert.equal(calls,0);
+ }
+});
+
+test('native IO accepts legal dot-dot prefixes through the original process service',async t=>{
+ const bytes=Buffer.from('ordinary');let calls=0;const io=setup(t,async()=>{calls++;return result(JSON.stringify({offset:0,total:bytes.length,sha256:sha(bytes),base64:bytes.toString('base64')}));});assert.deepEqual(await io.read('..notes.txt'),bytes);assert.equal(calls,1);
+});
+
+test('native enumeration confirms a ctime-only transition once through the same service and rejects unstable repeats',async t=>{
+ for(const mode of ['stable','changed-names','changes-again']){
+  let io,calls=0;io=setup(t,async()=>{calls++;if(calls===1||mode==='changes-again'){await new Promise(r=>setTimeout(r,2));const before=statSync(io.workspace,{bigint:true});renameSync(io.workspace,io.workspace+'-moved');renameSync(io.workspace+'-moved',io.workspace);const after=statSync(io.workspace,{bigint:true});assert.equal(before.mtimeNs,after.mtimeNs);assert.notEqual(before.ctimeNs,after.ctimeNs);}return result(JSON.stringify({offset:0,total:1,names:[mode==='changed-names'&&calls>1?'b':'a']}));});if(mode==='stable')assert.deepEqual(await io.list('.'),{offset:0,total:1,names:['a']});else await assert.rejects(io.list('.'),/changed|stabiliz/i);assert.equal(calls,2);
+ }
+});
 test('native IO uses the same opaque worktree lease without exposing legacy private bytes',async t=>{
  const root=mkdtempSync(join(tmpdir(),'native-io-worktree-'));t.after(()=>rmSync(root,{recursive:true,force:true}));const w=worktreeFixture(root),bytes=Buffer.from('exact public bytes'),lease=createVerifiedWorktreeAuthority({authorizations:[w.authorization]}).leaseForWorkspace(w.workspace);let calls=0;
  const nativeExecutor={catalog:[{name:'pwsh'},{name:'write'}],execute:async()=>{calls++;return result(JSON.stringify({offset:0,total:bytes.length,sha256:sha(bytes),base64:bytes.toString('base64')}));}};

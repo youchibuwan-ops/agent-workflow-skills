@@ -2,11 +2,13 @@
 // DSH scheduler/permission service; no direct filesystem content fallback.
 import {createHash} from 'node:crypto';
 import {existsSync,lstatSync,realpathSync} from 'node:fs';
-import {resolve,relative,isAbsolute,dirname} from 'node:path';
+import {resolve,relative,isAbsolute,dirname,sep} from 'node:path';
 import {protectedProjectSegment} from '../security/project-path.mjs';
 import {createWorkspacePathPolicy} from '../security/verified-worktree.mjs';
+import {listingPath} from './workspace-directory.mjs';
+import {bindWorkspaceRoot} from '../security/workspace-root.mjs';
 const sha=x=>createHash('sha256').update(x).digest('hex');
-const inside=(root,p)=>{const r=relative(root,p);return r===''||(!r.startsWith('..')&&!isAbsolute(r));};
+const inside=(root,p)=>{const r=relative(root,p);return r===''||(r!=='..'&&!r.startsWith('..'+sep)&&!isAbsolute(r));};
 const quoted=x=>"'"+String(x).replaceAll("'","''")+"'";
 const decoded=x=>`[Text.Encoding]::UTF8.GetString([Convert]::FromBase64String('${Buffer.from(x).toString('base64')}'))`;
 function processValue(result){
@@ -19,7 +21,7 @@ function processValue(result){
 }
 export function createNativeWorkspaceIO({workspace,privateRoots=[],hardPrivateRoots=[],worktreeLease,nativeExecutor,maxBytes=8*1024*1024}={}){
  if(!nativeExecutor?.execute||!Array.isArray(nativeExecutor.catalog))throw Error('Host-only original native executor required');
- const root=realpathSync(workspace),physicalRoot=realpathSync.native(workspace),policy=createWorkspacePathPolicy({workspace,privateRoots,hardPrivateRoots,worktreeLease});
+ const binding=bindWorkspaceRoot(workspace),root=binding.root,physicalRoot=root,policy=createWorkspacePathPolicy({workspace:root,privateRoots,hardPrivateRoots,worktreeLease});
  const names=new Set(nativeExecutor.catalog.map(x=>x.name));
  const observations=new Map(),stableFields=['dev','ino','mode','nlink','size','mtimeNs'];
  const observationKey=p=>process.platform==='win32'?p.toLowerCase():p;
@@ -27,6 +29,7 @@ export function createNativeWorkspaceIO({workspace,privateRoots=[],hardPrivateRo
  const sameIdentity=(a,b)=>stableFields.every(key=>a[key]===b[key]);
  if(!names.has('pwsh'))throw Error('Verified Windows pwsh/readback capability required');
  function pathFor(value){
+  binding.assertCurrent();
   if(typeof value!=='string'||!value||isAbsolute(value)||/[\x00:]/.test(value))throw Error('Scoped project-relative path required');
   const parts=value.replaceAll('\\','/').split('/');
   if(parts.some(x=>!x||x==='.'||x==='..'||protectedProjectSegment(x)))throw Error('Protected project path denied');
@@ -36,7 +39,30 @@ export function createNativeWorkspaceIO({workspace,privateRoots=[],hardPrivateRo
   if(existsSync(p)&&lstatSync(p).isFile()&&lstatSync(p).nlink>1)throw Error('Hard-linked project path denied');
   return p;
  }
- async function nativeProcess(command,description){return processValue(await nativeExecutor.execute('pwsh',{command,description,workdir:root,timeoutMs:20000}));}
+ async function nativeProcess(command,description){binding.assertCurrent();const result=await nativeExecutor.execute('pwsh',{command,description,workdir:root,timeoutMs:20000});binding.assertCurrent();return processValue(result);}
+ async function list(path='.',{offset=0,limit=40}={}){
+  binding.assertCurrent();
+  const relative=listingPath(path);if(!Number.isSafeInteger(offset)||offset<0||offset>1000000||!Number.isSafeInteger(limit)||limit<1||limit>100)throw Error('Bounded native directory page required');policy.assertCurrent();const p=relative==='.'?root:pathFor(relative);
+  const observe=()=>{binding.assertCurrent();const current=relative==='.'?root:pathFor(relative),s=lstatSync(current,{bigint:true});if(!s.isDirectory()||s.isSymbolicLink()||policy.deniesPrivate(current))throw Error('Scoped plain native directory required');return s;};
+  let before=observe(),prior;
+  for(let attempt=0;attempt<2;attempt++){
+   const names=[];let total,after=before;
+   do{
+    // ASCII JSON survives ConstrainedLanguage/legacy-codepage stdout.
+    const start=offset+names.length,count=Math.min(20,limit-names.length),command=`$ErrorActionPreference='Stop'; $items=@(Get-ChildItem -LiteralPath ${quoted(p)} -Force | Sort-Object -Property Name); $names=@($items | Select-Object -Skip ${start} -First ${count} | ForEach-Object { $_.Name }); @{offset=${start};total=$items.Count;names=$names}|ConvertTo-Json -Depth 4 -Compress -EscapeHandling EscapeNonAscii`;
+    const v=await nativeProcess(command,'List bounded authorized project directory metadata');let page;try{page=JSON.parse(v.stdout.text);}catch{throw Error('Native directory reader returned malformed JSON');}
+    if(!page||page.offset!==start||!Number.isSafeInteger(page.total)||page.total<0||page.total>1000000||!Array.isArray(page.names)||page.names.length!==Math.min(count,Math.max(0,page.total-start))||page.names.some(n=>typeof n!=='string'||!n||n==='.'||n==='..'||/[\\/\x00]/.test(n)))throw Error('Native directory page is incomplete or malformed');
+    total??=page.total;if(page.total!==total)throw Error('Native directory changed between pages');names.push(...page.names);after=observe();const changed=['dev','ino','mode','mtimeNs'].filter(k=>before[k]!==after[k]);if(changed.length)throw Error('Native directory identity changed during listing ['+changed.join(',')+']');
+   }while(names.length<Math.min(limit,Math.max(0,total-offset)));
+   if(new Set(names).size!==names.length)throw Error('Native directory page repeats entries');const page={offset,total,names};
+   if(prior&&JSON.stringify(page)!==JSON.stringify(prior))throw Error('Native directory names changed during ctime confirmation');
+   if(before.ctimeNs===after.ctimeNs)return page;
+   if(attempt)throw Error('Native directory did not stabilize through ctime confirmation');
+   // Original Windows permission bookkeeping can change only ctime. Receive
+   // the complete SAME page again through that service before accepting it.
+   prior=page;before=after;
+  }
+ }
  async function readExact(path,observe=true){
   const p=pathFor(path),chunks=[];let offset=0,identity;
   do{
@@ -86,5 +112,5 @@ export function createNativeWorkspaceIO({workspace,privateRoots=[],hardPrivateRo
   const command=`$ErrorActionPreference='Stop'; $OutputEncoding=[Text.UTF8Encoding]::new($false); $d=${decoded(request.input)}; $a=@(${request.args.map(quoted).join(',')}); $d | & 'wsl.exe' @a; if($LASTEXITCODE -ne 0){exit $LASTEXITCODE}`;
   const v=await nativeProcess(command,'Run the reviewed isolated workflow method');return {status:v.exitCode,stdout:v.stdout.text,stderr:v.stderr.text};
  }
- return Object.freeze({read,write,invoke,workspace:root});
+ return Object.freeze({read,write,list,invoke,workspace:root});
 }

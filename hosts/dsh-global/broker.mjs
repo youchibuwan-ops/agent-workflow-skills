@@ -1,6 +1,5 @@
 import {randomUUID,createHash} from 'node:crypto';
 import {AsyncLocalStorage} from 'node:async_hooks';
-const MAX_MODEL_OUTPUT_TOKENS=100000;
 
 // All authority enters from native inbox/lifecycle facts and this host-owned
 // factory. This module is never a model tool and accepts no actor receipts.
@@ -139,20 +138,11 @@ export function installSessionBroker(host,{controllerFactory,toolSchemas,isInsta
       tools:result.tools.filter(schema=>names.has(schema.name)&&host.tools.get(schema.name,agent)===definitions.get(schema.name))};
   });
   host.on('agent/pre-step',async({agent},next)=>{await drain(stateOf(agent));assertAgent(agent);return next();});
-  host.on('agent/request',async({agent,signal},next)=>{
-    const state=assertAgent(agent),request=await next();let requested=request?.maxTokens;
-    if(!request||typeof request!=='object'||(requested!==undefined&&(!Number.isSafeInteger(requested)||requested<=0)))throw new Error('Native model output limit must be a positive safe integer');
-    // The Models UI may provide a lower model default without AgentOptions.
-    // Resolve only metadata; native prepareCall still owns its bound dispatch.
-    const defaulted=requested===undefined||(agent.options?.maxTokens===undefined&&state.outputBudget?.defaulted&&requested===state.outputBudget.maxTokens);
-    if(defaulted)requested=(await host.get('llm').resolveModelInfo(request.provider,request.model,signal)).defaultMaxTokens;
-    assertAgent(agent);
-    // Set the ceiling before native prepareCall resolves provider/model defaults.
-    // Keep caller-owned Agent options, model selection and message bytes intact.
-    const maxTokens=Math.min(requested??MAX_MODEL_OUTPUT_TOKENS,MAX_MODEL_OUTPUT_TOKENS);
-    // Native history persists concrete controls. Remember our own derived cap
-    // so it cannot hide a later, lower (or raised) live Models setting.
-    state.outputBudget={defaulted,maxTokens};return{...request,maxTokens};
+  host.on('agent/request',async({agent},next)=>{
+    assertAgent(agent);const request=await next();assertAgent(agent);
+    // Output controls belong to the original model/user settings. Test budgets
+    // are applied only by the explicitly configured private probe monitor.
+    return request;
   });
   host.on('agent/error',({agent,error})=>{
     const state=states.get(agent);if(state&&!state.failed)fail(state,`Native Agent error: ${error instanceof Error?error.message:String(error)}`);
@@ -182,8 +172,8 @@ export function installSessionBroker(host,{controllerFactory,toolSchemas,isInsta
   host.on('llm/stream',(options,next)=>(async function*(){
     installed();const agent=host.get('agents')?.currentInitiator();const state=assertAgent(agent);
     if(!isAgentLoopRequest(options))throw new Error('Direct LLM APIs require a native bound AgentLoop request');
-    if(!Number.isSafeInteger(options.maxTokens)||options.maxTokens<=0||options.maxTokens>MAX_MODEL_OUTPUT_TOKENS){
-      fail(state,'Native model output limit exceeds the authorized 100000 per-response ceiling');throw new Error(state.failed);
+    if(options.maxTokens!==undefined&&(!Number.isSafeInteger(options.maxTokens)||options.maxTokens<=0)){
+      fail(state,'Native model output limit must be a positive safe integer when specified');throw new Error(state.failed);
     }
     // AgentLoop freezes this real request. Check the exact pending tool bytes
     // after session projection/compaction, immediately before provider dispatch.

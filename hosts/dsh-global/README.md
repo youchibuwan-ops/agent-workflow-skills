@@ -30,17 +30,15 @@ The factory may return the existing controller for a continuation. A native
 late `user-question-reply` is routed to that controller's `acceptUserMessage`.
 Unbound plugin work and direct agentless LLM calls are denied.
 
-Every bound native AgentLoop request has an output ceiling of 100000 tokens per
-model response. The required broker clamps the native request controls before
-provider dispatch and checks the final native frozen request again. It preserves
-an explicitly lower Agent limit and a lower configured model default, including
-live Models-setting changes. It does not rewrite the user's text, model choice
-or caller-owned Agent options, and adds no aggregate task-token budget. This is
-mandatory broker policy for the friend installer too; it does not depend on a
-UI-only default or an optional profile overlay. The sealed upstream adapter's
-256000 default and editable model settings cannot raise this boundary ceiling.
-Free official Web SessionController and SDK regressions check the actual
-provider-entry options; these are not paid-model or browser-rendering evidence.
+Daily bound native AgentLoop requests retain the original model defaults and
+explicit caller/user output settings, including live Models-setting changes.
+The workflow broker does not impose the private test's 100000-token ceiling on
+ordinary conversations or rewrite caller-owned Agent options. The explicitly
+prepared private model probe sets and checks 100000 tokens per test response;
+that is not an aggregate test-token budget or an installer-wide daily policy.
+Free official Web SessionController and SDK regressions verify normal defaults
+above 100000 and explicitly lower limits at the actual provider-entry boundary.
+These checks use a local scripted adapter, not a paid model or browser renderer.
 
 Model tool assembly contains only the exact supplied workflow schemas. Native
 visibility remains intact for host operations, but raw shell, PTC, unknown
@@ -298,3 +296,11 @@ Repeated `runProfile` within one test process triggers upstream process-listener
 warnings after ten roots. All disposable contexts and child processes are
 closed; this warning is retained in the evidence rather than hidden by raising
 the listener limit.
+
+### 中文项目目录与外部技能
+
+DSH 与 Codex 共用项目发现能力：实际绑定目录通过 `workflow_read_workspace` 的根目录/子目录分页发现，再读取真实文件。DSH 的枚举和内容读取都经过原生权限服务；缺失、拒绝或截断时不降级到直接文件读取。目录结果使用 ASCII JSON 转义，避免受限 PowerShell/旧代码页把中文路径变成乱码。
+
+生产对话必须先实际检索当前任务的技能，才可读取普通项目文件。先核本地，存在能力缺口则继续外部公开目录/GitHub；正文、配套文件、许可证及安装读回仍分别核验。搜过本地、拿到下载文件或读过旧快照都不能代替这条路径。这个独立 DSH 入口不会自动改造 QQ 机器人或其他既有 Harness 的入口。
+
+仅 ctime 变化时，经同一原生权限服务完整重读同一页，并要求名称、总数、对象身份、mtime 及第二次状态稳定；名称变化、对象替换、mtime 变化或重复不稳定仍拒绝。此分支不放宽作用域，也不使用直接文件读取降级。

@@ -1,0 +1,112 @@
+{
+  "status": "pass",
+  "sourceManifestSha256": "b67b98caee9e50970c798ad68c9dc43c6c8ae36da083f845c3b8b8a4406f4af4",
+  "sourceFiles": 142,
+  "tests": [
+    {
+      "scope": "global",
+      "counts": {
+        "tests": 479,
+        "pass": 479,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0
+      },
+      "sourceUnchanged": true,
+      "startedAt": "2026-10-26T10:41:56.514Z",
+      "finishedAt": "2026-10-26T10:44:13.677Z",
+      "logSha256": "3ec301b493d413b6d4dbcec8c3233978ec3bd3c068d33d7e98ec8780bebb4bf5"
+    },
+    {
+      "scope": "package",
+      "counts": {
+        "tests": 34,
+        "pass": 34,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0
+      },
+      "sourceUnchanged": true,
+      "startedAt": "2026-10-26T10:41:56.539Z",
+      "finishedAt": "2026-10-26T10:42:19.929Z",
+      "logSha256": "346629be0911a504da862ac5a8f390e79c994e31de06bde9480564abd0c094f9"
+    },
+    {
+      "scope": "codex-policy",
+      "counts": {
+        "tests": 31,
+        "pass": 31,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0
+      },
+      "sourceUnchanged": true,
+      "startedAt": "2026-10-26T10:42:20.191Z",
+      "finishedAt": "2026-10-26T10:42:22.432Z",
+      "logSha256": "dbeb2c867533f0926d677eb13ad27e169dd06397180d78869ffff12a3fc304bd"
+    }
+  ],
+  "totalPass": 544,
+  "totalFail": 0,
+  "totalSkip": 0,
+  "singleCleanFullGlobalRun": true,
+  "realModels": [
+    "codex-model.json",
+    "dsh-model.json"
+  ],
+  "actualProject": "actual-project.json",
+  "uiObservation": {
+    "status": "pass",
+    "sourceManifestSha256": "b67b98caee9e50970c798ad68c9dc43c6c8ae36da083f845c3b8b8a4406f4af4",
+    "controlledWindowOpened": true,
+    "selectedActualProject": true,
+    "modelAndEffortVisible": "GPT-6.1 Sol 极高",
+    "existingTestChatVisible": true,
+    "visibleCurrentFacts": [
+      "project-name",
+      "engine-features-4.5",
+      "main-scene",
+      "root-Node2D",
+      "script-reference",
+      "README-1506-bytes",
+      "project-config-584-bytes",
+      "main-scene-173-bytes",
+      "AGENTS-16682-bytes"
+    ],
+    "scope": "Actual native desktop navigation and AX-visible current reply; model request sent by technical RPC driver. Screenshot stays private; no UI composer submission or every control retest claim."
+  },
+  "installation": {
+    "sourceAndSealedRuntimeVerified": true,
+    "shortcutsPreserved": true
+  },
+  "maintenance": "skill-maintenance.json",
+  "retainedPriorFailures": {
+    "r49": {
+      "global": {
+        "tests": 476,
+        "pass": 474,
+        "fail": 2
+      },
+      "sequentialNetworkRetest": {
+        "tests": 2,
+        "pass": 0,
+        "fail": 2
+      },
+      "cause": "Two skills.sh catalog timeouts; GitHub and other internet connectivity worked. No whole-computer network outage claim. Later live calls recovered. Failures retained privately without overwriting their original reports."
+    },
+    "r48Review": {
+      "verdict": "With fixes",
+      "mustFix": 2,
+      "currentResolution": "Signed current read-only intent and quoted/mixed-intent regressions fixed and checked in R50. Reviewer did not rerun or approve R50."
+    }
+  },
+  "limits": [
+    "Selected controlled entry only; copying SKILL.md alone remains instruction_only.",
+    "No guarantee of semantic quality for every Skill or arbitrary task.",
+    "Readonly answers complete native turns while the business workflow stays pending; writes and later stages remain gated.",
+    "No full seven-stage new creative task or DSH desktop GUI acceptance in this revision.",
+    "Test token limit is per response, not aggregate and not a daily DSH policy.",
+    "DSH npm latest checked 2026-10-26: 0.2.1-rc.2; next channel rc.3 is not silently installed.",
+    "Evidence is a publisher record, not a third-party digital signature."
+  ]
+}

@@ -40,4 +40,7 @@ test('incomplete final can never masquerade as delivery',()=>{
  assert.equal(finalState({stage:'draft',complete:false}).status,'blocked');
  assert.equal(finalState({stage:'selection',complete:false}).status,'needs_input');
  assert.equal(finalState({stage:'delivery',complete:true}).status,'complete');
+ assert.equal(finalState({stage:'draft',complete:false,readOnlyReplyAllowed:true}).status,'blocked');
+ assert.equal(finalState({stage:'discovery',complete:false,readOnlyReplyAllowed:true,blockedReason:'Actual failure'}).status,'blocked');
+ const readonly=finalState({stage:'discovery',complete:false,readOnlyReplyAllowed:true});assert.equal(readonly.status,'pending');assert.equal(readonly.complete,false);
 });

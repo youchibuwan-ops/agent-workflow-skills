@@ -69,6 +69,30 @@ test('actual remote catalog hit pins current commit and verifies every acquired 
  const search=await p.search('example');assert.equal(search.candidates.length,1);const acquired=await p.acquire(search.candidates[0].id);assert.equal(acquired.status,'ready');assert.equal(acquired.source.commit,remote.commit);assert.equal(acquired.license.originPath,'LICENSE');assert.equal(acquired.manifest.length,3);
  assert(remote.requests.some(u=>u.includes(remote.commit)));assert(acquired.manifest.every(x=>x.originPath));
 });
+
+test('catalog outage falls back to actual GitHub repository trees and still verifies current source blobs',async t=>{
+ const f=fixture(t),remote=remoteFixture(),get=async(url,options)=>{
+  if(url.startsWith('https://skills.sh/'))throw Object.assign(new Error('catalog unreachable'),{code:'SOURCE_TIMEOUT'});
+  if(url.startsWith('https://api.github.com/search/repositories?'))return {status:200,headers:{},bytes:Buffer.from(JSON.stringify({items:[{full_name:'owner/repo'}]}))};
+  if(url==='https://api.github.com/repos/owner/repo/git/trees/HEAD?recursive=1')return remote.get('https://api.github.com/repos/owner/repo/git/trees/'+'b'.repeat(40)+'?recursive=1',options);
+  return remote.get(url,options);
+ };
+ const p=createSourceProvider({installedRoots:[],cacheRoot:join(f.root,'fallback'),get}),s=await p.search('example');
+ assert.equal(s.externalUsed,true);assert(s.diagnostics.some(d=>d.code==='SOURCE_TIMEOUT'));assert.equal(s.candidates.length,1);assert.equal(s.candidates[0].id,'github:owner/repo/example-method');assert.equal(s.completeSourceInspection,false);
+ const acquired=await p.acquire(s.candidates[0].id);assert.equal(acquired.status,'ready');assert.equal(acquired.source.commit,remote.commit);assert(acquired.manifest.every(x=>x.gitBlob));
+});
+
+test('failed or truncated GitHub fallback remains an explicit search failure without fabricated candidates',async t=>{
+ for(const truncated of[false,true]){const f=fixture(t),p=createSourceProvider({installedRoots:[],cacheRoot:join(f.root,'fallback'),get:async url=>{
+  if(url.startsWith('https://skills.sh/'))throw Object.assign(new Error('catalog unreachable'),{code:'SOURCE_TIMEOUT'});
+  if(!truncated)throw Object.assign(new Error('GitHub unavailable'),{code:'ECONNRESET'});
+  return {status:200,headers:{},bytes:Buffer.from(JSON.stringify(url.includes('/search/')?{items:[{full_name:'owner/repo'}]}:{truncated:true,tree:[]}))};
+ }}),s=await p.search('example');assert.equal(s.externalUsed,false);assert.equal(s.candidates.length,0);assert(s.diagnostics.some(d=>d.code==='SOURCE_TIMEOUT'));assert(s.diagnostics.some(d=>d.source==='github-fallback'));}
+});
+
+test('external false never contacts catalog or GitHub fallback',async t=>{
+ const f=fixture(t),p=createSourceProvider({installedRoots:[f.installed],cacheRoot:join(f.root,'no-network'),get:async()=>{throw Error('Network forbidden');}}),s=await p.search('example',{external:false});assert.equal(s.externalAttempted,false);assert.equal(s.externalUsed,false);assert.equal(s.candidates.length,1);assert.deepEqual(s.diagnostics,[]);
+});
 test('remote missing license, truncated tree and symlink resources never become complete bundles',async t=>{
  const f=fixture(t);
  for(const options of [{missingLicense:true},{truncated:true},{symlink:true}]){

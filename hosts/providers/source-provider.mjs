@@ -104,7 +104,36 @@ export function createSourceProvider(options={}){
      if(typeof item.source!=='string'||!/^[a-z0-9][a-z0-9-]{0,38}\/[a-z0-9_.-]{1,100}$/i.test(item.source)||typeof item.skillId!=='string'||!/^[a-z0-9][a-z0-9_.-]{0,127}$/i.test(item.skillId)){diagnostics.push({code:'UNSUPPORTED_CATALOG_SOURCE'});continue;}
      const candidate={id:'github:'+item.source+'/'+item.skillId,kind:'github',repo:item.source,skillId:item.skillId,nameHint:String(item.name??item.skillId).replaceAll(/[\x00-\x1f\x7f]/g,'').slice(0,200),source:'https://github.com/'+item.source,installs:Number.isSafeInteger(item.installs)&&item.installs>=0?item.installs:undefined};results.push(offer(candidate));
     }
-   }catch(error){diagnostics.push({code:error.code??'EXTERNAL_SEARCH_UNAVAILABLE',message:error.message});}
+   }catch(error){
+    diagnostics.push({code:error.code??'EXTERNAL_SEARCH_UNAVAILABLE',message:error.message});
+    // The catalog is a search aid, not the only public source. A bounded
+    // GitHub search offers only actual regular SKILL.md tree entries; these
+    // remain uninspected candidates until acquire pins and checks all blobs.
+    try{
+     const params=new URLSearchParams({q:query+' in:name,description,readme',per_page:'3'}),repos=await gh('/search/repositories?'+params);
+     if(!Array.isArray(repos.items))fail('GITHUB_SEARCH_SCHEMA','GitHub repository search has no items array');
+     const tokens=query.toLocaleLowerCase().match(/[\p{L}\p{N}_-]+/gu)??[];
+     for(const item of repos.items.slice(0,3)){
+      active();const repo=item.full_name;
+      if(typeof repo!=='string'||!/^[a-z0-9][a-z0-9-]{0,38}\/[a-z0-9_.-]{1,100}$/i.test(repo)){diagnostics.push({code:'UNSUPPORTED_GITHUB_REPOSITORY',source:'github-fallback'});continue;}
+      try{
+       const tree=await gh('/repos/'+repo+'/git/trees/HEAD?recursive=1');
+       if(tree.truncated===true)fail('TRUNCATED_TREE','GitHub fallback tree cannot prove complete search coverage');
+       if(!/^(?:[a-f0-9]{40}|[a-f0-9]{64})$/.test(tree.sha??'')||!Array.isArray(tree.tree))fail('INVALID_GIT_TREE','GitHub fallback tree is invalid');
+       for(const entry of tree.tree){
+        if(entry.type!=='blob'||!['100644','100755'].includes(entry.mode)||typeof entry.path!=='string'||!(entry.path==='SKILL.md'||entry.path.endsWith('/SKILL.md')))continue;
+        const path=safePath(entry.path),skillId=path==='SKILL.md'?repo.split('/')[1]:posix.basename(posix.dirname(path));
+        if(!/^[a-z0-9][a-z0-9_.-]{0,127}$/i.test(skillId)||!tokens.some(t=>(repo+'/'+path).toLocaleLowerCase().includes(t)))continue;
+        const candidate={id:'github:'+repo+'/'+skillId,kind:'github',repo,skillId,nameHint:skillId,source:'https://github.com/'+repo};
+        if(!results.some(r=>r.id===candidate.id))results.push(offer(candidate));
+        if(results.filter(r=>r.kind==='github').length>=limit)break;
+       }
+      }catch(cause){diagnostics.push({code:cause.code??'GITHUB_TREE_UNAVAILABLE',source:'github-fallback',message:cause.message});}
+      if(results.filter(r=>r.kind==='github').length>=limit)break;
+     }
+     externalUsed=results.some(r=>r.kind==='github');
+    }catch(cause){diagnostics.push({code:cause.code??'GITHUB_SEARCH_UNAVAILABLE',source:'github-fallback',message:cause.message});}
+   }
   }
   return {query,candidates:results,diagnostics,externalAttempted:external,externalUsed,completeSourceInspection:false};
  }

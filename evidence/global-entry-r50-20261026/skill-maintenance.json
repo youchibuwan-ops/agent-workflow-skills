@@ -1,0 +1,23 @@
+{
+  "status": "pass",
+  "sourceManifestSha256": "b67b98caee9e50970c798ad68c9dc43c6c8ae36da083f845c3b8b8a4406f4af4",
+  "scope": "Only the two installed stage-check reference files changed; both main SKILL.md files and all other personal Skill files unchanged",
+  "files": [
+    {
+      "skill": "proactive-skill-discovery",
+      "resource": "references/stage-checks.md",
+      "beforeSha256": "b6f5dee4149ae034bbb98d08c7778faa1411288f1d295cf67b6c412341d2f8a1",
+      "afterSha256": "963ab06d0e49f38c3319b4e16d8efeebf89f7c5fb3497d1bfa918c1135478628",
+      "exactReadback": true,
+      "otherResourcesUnchanged": true
+    },
+    {
+      "skill": "proactive-skill-discovery-dsh",
+      "resource": "references/stage-checks.md",
+      "beforeSha256": "0fee00bdbbd60d29d48ffb968d24242a8e05ad269fa9573f1e63601d6412b217",
+      "afterSha256": "23c653fa31f31aec0e9d1ae60052a5b32c44194f6c561dc979fa498504582d6e",
+      "exactReadback": true,
+      "otherResourcesUnchanged": true
+    }
+  ]
+}

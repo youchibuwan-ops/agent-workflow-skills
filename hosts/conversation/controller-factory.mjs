@@ -12,6 +12,16 @@ import {createVerifiedWorktreeAuthority,createWorkspacePathPolicy} from '../secu
 import {consumeResumeAuthorization} from './resume-authorization.mjs';
 export const toolSchemas=WORKFLOW_TOOL_SCHEMAS;
 const sha=x=>createHash('sha256').update(x).digest('hex');
+function readonlyDiagnostic(text){
+ if(typeof text!=='string')return false;
+ // Quoted/attributed wording is data, never the external user's directive.
+ const intent=text.replace(/“[^”]*”|‘[^’]*’|"[^"\n]*"|'[^'\n]*'|`[^`]*`/gu,' ');
+ if(!/^\s*(?:只读(?:检查|核对|验收|测试|诊断)|这是[^。！？\n]{0,100}只读(?:验收|检查|测试)|read[- ]only\b|only\s+read\b)/i.test(intent)||!/(?:不得修改|不要修改|不修改|no writes|do not (?:write|modify|edit)|without (?:writing|editing))/i.test(intent))return false;
+ // Stay conservative on mixed scopes: a negative clause cannot consume a
+ // following contrast/mutation directive and turn it into readonly authority.
+ const remaining=intent.replace(/(?:不得|不要|禁止|不准|无需|不)(?:再)?(?:修改|写入|编辑|制作|生成|保存|创建)(?:(?!(?:但|不过|然而|然后|同时|并且|接着))[^，,。；;！？!?\n])*/gu,' ').replace(/(?:do not|don't|no|without)\s+(?:writ(?:e|es|ing)|edit(?:s|ing)?|modify(?:ing)?|creat(?:e|ing)|sav(?:e|ing)|generat(?:e|ing))(?:(?!\b(?:but|then|however|instead)\b)[^,.;!?\n])*/giu,' ').replace(/制作(?:流程|任务|阶段)/gu,'');
+ return !/(?:修改|改写|写入|编辑|制作|生成|保存|创建|实现|替换)|\b(?:write|modify|edit|create|save|generate)\b/iu.test(remaining);
+}
 const inside=(root,p)=>{const r=relative(root,p);return r===''||(!r.startsWith('..')&&!isAbsolute(r));};
 function privateDirectory(path){mkdirSync(path,{recursive:true});if(lstatSync(path).isSymbolicLink())throw Error('Private controller directory must not be redirected');return realpathSync.native(path);}
 
@@ -64,8 +74,8 @@ export function createConversationFactory(options={}){
   const io=input.nativeExecutor?createNativeWorkspaceIO({workspace,privateRoots,hardPrivateRoots,worktreeLease,nativeExecutor:input.nativeExecutor}):options.workspaceIOFactory?.({...input,worktreeLease});
   const sandbox=typeof io?.invoke==='function'?createSandboxProvider({stateRoot:join(root,'sandbox'),privateRoots,hardPrivateRoots,worktreeLease,invoke:io.invoke,readInput:({path})=>io.read(path)}):undefined;
   const sources=createSourceProvider({cacheRoot:acquisition,installedRoots:[...options.installedRoots,managed],external:options.external!==false,...(options.sourceProviderOptions??{})});
-  let host,activeMessage=message;
-  const persist=()=>store(envelopePath,{version:1,sessionId,workspace,taskId,userMessage:activeMessage,stage:host?.stage??'discovery',complete:host?.complete??false,failed:host?.exportAudit().failed??null,updatedAt:new Date().toISOString()});
+  let host,activeMessage=message,readonlyReply=resumed?old?.readonlyReplyIntent===true:readonlyDiagnostic(message),readonlyBoundary=0;
+  const persist=()=>store(envelopePath,{version:1,sessionId,workspace,taskId,userMessage:activeMessage,readonlyReplyIntent:readonlyReply,stage:host?.stage??'discovery',complete:host?.complete??false,failed:host?.exportAudit().failed??null,updatedAt:new Date().toISOString()});
   host=await createWorkflowHost({workspace,stateRoot:taskRoot,taskId,userMessage:message,sourceProvider:sources,workspaceIO:io,sandboxProvider:sandbox,
    protectedPrivateSubroots:true,privateRoots,hardPrivateRoots,worktreeLease,installedRoot:managed,
    contract:{requirements:['artifact-readable','original-user-task'],constraints:['Preserve actual external scope; never certify original task semantics with a structural check.'],stopAfter:'learning',protectedInputs:[],writeAllowlist:[],selection:{mode:'pending'},feedback:{mode:'required'},learning:{required:false},conversationMode:true,
@@ -74,10 +84,12 @@ export function createConversationFactory(options={}){
   });
   const controller={
    get toolSchemas(){return toolSchemas;},get stage(){return host.stage;},get complete(){return host.complete;},get ready(){return host.ready;},
+   get blockedReason(){return host.exportAudit().failed;},
+   get readOnlyReplyAllowed(){const audit=host.exportAudit(),events=audit.events.slice(readonlyBoundary);return readonlyReply&&host.ready&&host.stage==='discovery'&&!audit.failed&&events.some(e=>e.event==='observed'&&e.kind==='skill_search')&&events.some(e=>e.event==='workspace_input_delivered')&&!events.some(e=>e.event==='observed'&&e.kind==='application');},
    get instructions(){return host.instructions+'\nConversation entry: original human scope is frozen above. Present 3–5 supported options with explicit artifacts arrays listing exact edit/output paths, then wait for actual /workflow choose <id>. Only selected paths may be written. Structural validation never verifies the original task. Present the current draft and wait for actual /workflow accept. Ordinary chat may be answered, but an unfinished production task remains pending. Corrections reopen scope and invalidate earlier proofs.'+(restoration?'\nRestored session: redo discovery and verification; prior read confirmations have been invalidated.':'');},
    assertReady:()=>host.assertReady(),
    async dispatch(name,args,metadata){try{return await host.dispatch(name,args,metadata);}finally{persist();}},
-   async acceptUserMessage(text){try{const before=host.exportAudit().revision,value=await host.acceptUserMessage(text);if(host.exportAudit().revision>before&&!host.exportAudit().failed)activeMessage+='\n\nActual external user correction/addition:\n'+text;return value;}finally{persist();}},
+   async acceptUserMessage(text){try{if(!isWorkflowProgressQuery(text)){readonlyReply=readonlyDiagnostic(text);readonlyBoundary=host.exportAudit().events.length;}const before=host.exportAudit().revision,value=await host.acceptUserMessage(text);if(host.exportAudit().revision>before&&!host.exportAudit().failed)activeMessage+='\n\nActual external user correction/addition:\n'+text;return value;}finally{persist();}},
    abort(reason){host.abort(reason);persist();},exportAudit:()=>({...host.exportAudit(),sessionId,restoration})
   };
   owned.add(controller);origins.set(controller,{workspace,sessionId,pathPolicy});persist();

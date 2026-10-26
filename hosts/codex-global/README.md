@@ -53,3 +53,11 @@ The suite covers policy stripping, unknown-tool fail-close, multiple clients/wor
 Private `.evidence/gateway-native-r10-final` proves actual installed native deterministic-provider dispatch with three clients/workspaces, selected legacy resume and preserved original history. `.evidence/native-restart-r02` proves actual native process restart of the same thread. `.evidence/conversation-native-r02-final` connects the production conversation factory and all 15 tools: real scope captured, early write rejected, six raw tools unsupported, host scope card, final incomplete discovery reported blocked. These use a local deterministic provider with no credentials or paid model. They do not prove desktop UI acceptance or a completed ordinary task. Raw requests/RPCs, failures and before/after source hashes are retained privately, excluded by `.gitignore`.
 
 See COMPATIBILITY.md and entry-research.md for route and entry constraints. The parent owns private ASAR/PE installation and final desktop acceptance.
+
+### 当前项目发现与技能检索
+
+受控对话会收到实际绑定的项目目录。既有 `workflow_read_workspace` 用 `path: "."` 枚举根目录，普通目录路径枚举下一层；目录的 `offset`/`length` 是条目分页，文件仍按原来的字节范围读取。返回 `next_offset` 时继续翻页。没有增加或修改 15 个外部工具 schema，因此既有受控历史不需要迁移工具声明。根目录对象变更或重定向会关闭该任务，不会自动把权限移交到新目标。
+
+生产对话在读取普通项目文件前，必须先真实搜索当前任务的技能；目录元数据可用于前期判断。已安装技能只是检索起点：本地缺少合适方法时，继续公开目录/GitHub 的外部检索，核读完整正文、引用资源和许可证，审查适配后引入并读回。仅有搜索结果不满足发现阶段，也不能授权写项目。暂停、选择、反馈及验证门禁继续有效。
+
+明确要求只读且禁止修改的诊断，在本轮真实检索技能并实际读取当前项目文件后，允许本轮答复正常结束；制作工作流仍为 `discovery / complete=false`。这不签发阶段通过或写入权限。未读到文件、只是引用只读措辞、任务转为修改、实际失败或处于制作阶段时，不适用这条答复状态规则。真实进度查询保留原只读范围，不能借状态问句改变任务。

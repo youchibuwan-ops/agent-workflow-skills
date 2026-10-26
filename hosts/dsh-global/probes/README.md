@@ -69,8 +69,9 @@ Source hashes before/after must match. There is no automatic
 retry after a failed run. A no_increment learning decision is explicitly not an
 automatically modified runtime Skill.
 
-The 100000 cap is the user's explicit per-response limit, not an aggregate
-task-token budget. The [official Chat Completions contract](https://api-docs.deepseek.com/api/create-chat-completion/)
+The 100000 cap is the user's explicit per-response limit for these tests only,
+not an aggregate test-token budget or a daily-conversation policy. The normal
+workflow broker preserves original model/user settings. The [official Chat Completions contract](https://api-docs.deepseek.com/api/create-chat-completion/)
 permits 1–393216 max_tokens and documents a 64K thinking default; the sealed
 SDK's maxTokens schema has a positive-integer minimum and no 8K maximum. The
 probe uses the user's 100000 value and binds the actual first free request,

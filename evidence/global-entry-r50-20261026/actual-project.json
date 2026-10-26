@@ -1,0 +1,37 @@
+{
+  "status": "pass",
+  "sourceManifestSha256": "b67b98caee9e50970c798ad68c9dc43c6c8ae36da083f845c3b8b8a4406f4af4",
+  "scope": "Existing R39 controlled chat, actual installed production gateway/native runtime and real Downloads game; model turn sent by technical RPC driver, with real GUI navigation separately observed. Not an assertion that UI input serialization was used or every app control was retested.",
+  "nativeTurnStatus": "completed",
+  "model": "gpt-6.1-sol",
+  "existingR39HistoryResumed": true,
+  "boundRootDiscovered": true,
+  "automaticSkillSearch": true,
+  "currentCompleteReads": [
+    {
+      "role": "project-instructions",
+      "bytes": 16682,
+      "sha256": "dcb0771ac0ef336edb9f4caff5f058e1e2b74a7cca91541f99b18adb2bb76ea5",
+      "currentCompleteRead": true
+    },
+    {
+      "role": "engine-config",
+      "bytes": 584,
+      "sha256": "1580ecfb9b14b6c19c3052905aa9d7d92f4df40ecba33d2d2625e508081fbd69",
+      "currentCompleteRead": true
+    },
+    {
+      "role": "main-scene",
+      "bytes": 173,
+      "sha256": "09b005ad5b85116e7e5bbcd72d3a5829918b6159cd40dbfba8fa1d5e252f4b1c",
+      "currentCompleteRead": true
+    }
+  ],
+  "originalGameUnchanged": true,
+  "toolCalls": 10,
+  "pending": {
+    "stage": "discovery",
+    "complete": false,
+    "failed": null
+  }
+}

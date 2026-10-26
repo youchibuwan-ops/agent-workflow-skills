@@ -31,6 +31,12 @@ not an actor-selectable network function.
 
 `search` returns `candidates`, `diagnostics`, `externalAttempted`, and `externalUsed`.
 Candidate IDs must come from this process's actual search before acquisition.
+If the catalog request fails, search falls back to GitHub's repository search,
+then checks up to three actual current repository trees for matching regular
+`SKILL.md` entries. Truncated trees, unsafe repository names and linked entries
+cannot supply candidates. The original catalog diagnostic is retained. A
+candidate still needs the usual current commit, blob, complete-resource and
+license verification; fallback search does not mark source inspection complete.
 Names are `nameHint` values; `metadataStatus: not-parsed` explicitly avoids claiming
 that directory names or a handwritten YAML approximation are formal metadata.
 `version` is unresolved until acquisition. Search text is only a search input,

@@ -2,10 +2,18 @@
 
 ## Unreleased
 
+### Selected-project discovery and test-only budgets — 2026-10-26 (R50)
+
+- Discover selected project directories through the existing reader schema; retain native DSH permissions, Unicode names, bounded pages and root identity checks.
+- Require actual current Skill search before ordinary project file reads; fall back from a failed public catalog to bounded current GitHub tree discovery without bypassing source, license or installation verification.
+- Complete evidenced read-only native replies while business stages remain pending and writes stay locked; persist signed current intent across cold restoration and reject quoted or conflicting mutation intent.
+- Remove the earlier daily DSH output cap. The explicitly authorized 100000-token ceiling belongs only to each test response; preserve native daily defaults and caller settings.
+- Verify 544 author checks without skips, current-source real Codex fresh/cold and official-provider DSH model tasks, and actual installed access to the existing game project. Update and read back both installed Skill references.
+
 ### Guarded daily entries and actual desktop/Web verification — 2026-10-26
 
 - Add the pinned native Codex launcher and shortcut metadata, early private-app bootstrap, fixed owner activation and current-schema history recovery.
-- Enforce the DSH 100,000-token per-reply ceiling at the provider boundary; keep lower caller limits and reject unsupported routes.
+- Initially enforced a daily DSH 100,000-token per-reply ceiling; R50 removes that policy after clarification that the ceiling is test-only.
 - Separate recoverable actor mistakes from integrity/executor failures, preserve the original fatal cause, and make declared LF/CRLF materialization independently verifiable.
 - Restore original native read observations across DSH Web Agents before existing-file writes without refreshing away the earlier byte/identity baseline or bypassing native CAS and permissions.
 - Verify actual Codex GUI and default-entry DSH Web selection, feedback, exact edits, acceptance and learning; retain earlier failures and editorial/unsupported-capability limits.

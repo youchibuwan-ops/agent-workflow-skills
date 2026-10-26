@@ -343,7 +343,7 @@ test('missing and nonregular actor read arguments are refused before actual nati
  let io,nativeCalls=0;const f=await setup(t,{protectedInputs:[]},{workspaceIO:{read:path=>io.read(path),write:(path,b)=>io.write(path,b)}});mkdirSync(join(f.workspace,'directory'));
  io=createNativeWorkspaceIO({workspace:f.workspace,nativeExecutor:{catalog:[{name:'pwsh'},{name:'write'}],execute:async()=>{nativeCalls++;return{isError:false,value:{kind:'foreground',exitCode:1}};}}});
  const instructions=f.host.instructions,before=(await f.call('workflow_status')).state;
- for(const path of ['web-notice.md','directory','directory/absent.txt']){const r=await f.call('workflow_read_workspace',{path});assert.equal(r.fatal,undefined,JSON.stringify(r));assert.equal(r.ok,false);assert.match(r.error,/regular file|exist/);assert.equal(nativeCalls,0);assert.equal(f.host.ready,true);assert.equal(f.host.stage,'discovery');assert.equal(f.host.instructions,instructions);assert.deepEqual(r.state.evidence,before.evidence);assert.equal(f.host.exportAudit().failed,null);}
+ for(const path of ['web-notice.md','directory','directory/absent.txt']){const r=await f.call('workflow_read_workspace',{path});assert.equal(r.fatal,undefined,JSON.stringify(r));assert.equal(r.ok,false);assert.match(r.error,path==='directory'?/enumeration.*unavailable.*no filesystem fallback/:/regular file|exist/);assert.equal(nativeCalls,0);assert.equal(f.host.ready,true);assert.equal(f.host.stage,'discovery');assert.equal(f.host.instructions,instructions);assert.deepEqual(r.state.evidence,before.evidence);assert.equal(f.host.exportAudit().failed,null);}
  assert(!f.host.exportAudit().events.some(e=>e.event==='workspace_input_delivered'));
 });
 
