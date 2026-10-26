@@ -106,7 +106,16 @@ jobs:
       - run: npm run test:host-native
       - name: Windows full global host tests, including actual scripted DSH profiles
         if: runner.os == 'Windows'
-        run: npm run test:global
+        # Real sandbox/PS5 cold starts must not contend with dozens of other
+        # file-level native fixtures on the shared runner. Keep every glob.
+        run: >-
+          node --input-type=module -e "import {readFileSync} from 'node:fs';
+          import {spawnSync} from 'node:child_process';
+          const words=JSON.parse(readFileSync('package.json')).scripts['test:global'].split(/\s+/);
+          if(words.shift()!=='node'||words.shift()!=='--test') throw Error('Unexpected global test entry');
+          const result=spawnSync(process.execPath,['--test','--test-concurrency=1',...words],{stdio:'inherit',windowsHide:true});
+          if(result.error) throw result.error;
+          process.exitCode=result.status??1;"
       - name: Windows companion missing-capability refusal checks
         if: runner.os == 'Windows'
         run: node --test evals/global-entry/*.test.mjs

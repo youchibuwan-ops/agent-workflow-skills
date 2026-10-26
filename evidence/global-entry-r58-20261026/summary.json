@@ -68,5 +68,13 @@
     "version": "R57",
     "restartedForTestOnlyChange": false
   },
-  "scope": "Complete current author checks; CI and public-download verification recorded separately at release time"
+  "scope": "Complete current author checks; CI and public-download verification recorded separately at release time",
+  "retainedR58InitialCi": {
+    "run": 40355166121,
+    "passJobs": 8,
+    "failedJobs": [
+      "global-hosts (windows-latest)"
+    ],
+    "observed": "PS5 workspace-write native foreground failure after 23.9s; read-only passed. Original process output not retained by the collector, so exact exit-versus-deadline cause remains unproved."
+  }
 }

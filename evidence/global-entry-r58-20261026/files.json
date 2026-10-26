@@ -2,8 +2,8 @@
   "files": [
     {
       "path": "README.md",
-      "bytes": 1977,
-      "sha256": "0b9385c2344028a9d012dcbade9c389a431588770c91542c04622d72b0bb409b"
+      "bytes": 2376,
+      "sha256": "a43c70532bea73a0785c88c0ddbcaff060a58abf5018fcfdb369e2ff7f9752e6"
     },
     {
       "path": "release.json",
@@ -22,8 +22,8 @@
     },
     {
       "path": "summary.json",
-      "bytes": 2066,
-      "sha256": "618f6e9449bc0475c2c57e4f4cc41582bacd995fe50d383fe885d4d12fd23b4f"
+      "bytes": 2411,
+      "sha256": "92be842351d25e2db8331ff3d1f847dceda54f235a24cde8f077ac225c01d56e"
     },
     {
       "path": "verify-evidence.mjs",
